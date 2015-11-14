@@ -58,7 +58,7 @@ android {
 
 #### Step 4: create a java class that is using JNI
 
-![](/imgs/20151114_01 "build JniUtil.java here")
+![](/imgs/20151114_01.png "build JniUtil.java here")
 
 
 {% highlight java %}
