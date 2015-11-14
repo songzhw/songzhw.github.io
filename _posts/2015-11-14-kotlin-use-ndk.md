@@ -9,18 +9,9 @@ tags : [kotlin]
 
 First of all, I have to mention the version of Kotlin, NDK, AndoridStudio.  Because it seems not as same as the old versions.
 
-<table class="table table-bordered table-striped table-condensed">
-    <tr>
-        <td> NDK </td>
-        <td> Kotlin </td>
-        <td> Android Studio </td>
-    </tr>
-    <tr>
-        <td> android-ndk-r10e </td>
-        <td> 1.0.0-beta-1103 </td>
-        <td> 14.1 </td>
-    </tr>
-</table>
+- NDK : android-ndk-r10e
+- Kotlin : 1.0.0-beta-1103
+- Android Studio : 1.4.1
 
 #### Step 1: modify [local.properties] in the project root directory
 
