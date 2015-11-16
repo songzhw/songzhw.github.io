@@ -182,6 +182,10 @@ Okay, Now everything is Okay. Please run the project, and you will get your requ
  
 
 
+###  Why I use Java class as a JNI interface?
+Because Kotlin does not support static memeber and function. And kotlin's support is not stable: first native, now external. 
+
+So I still choose java to as a jni interface, Kotlin can just call the java jni interface to get value.
 
 
 ### Source of this sample
