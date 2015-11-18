@@ -98,3 +98,6 @@ How about if we want to hide all the function?<p>
 
 ## Reference
 http://www.cnblogs.com/ijiami/p/3407989.html
+
+## Another similar blog
+http://www.willhackforsushi.com/?p=562
