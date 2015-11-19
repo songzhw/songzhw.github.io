@@ -6,7 +6,7 @@ How can we stop these? Oh, this is a really big question. Today, we focus on the
 
 ## Thought
 We found the jd-gui has a problem of decompiling some function.<br/>
-![](/imgs/20151118_01.jpg)
+![](/imgs/20151118_01.jpg)<br/>
 So Why not extract these codes and add them to our app, then the jd-gui will have problems to decompile the project.
 
 ## Steps
