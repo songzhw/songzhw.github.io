@@ -30,7 +30,7 @@ android.useDeprecatedNdk=true
 
 add the ndk config in the android.defaultConfig path.
 
-```java
+```groovy
 android {
     defaultConfig {
         // ....

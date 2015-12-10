@@ -46,6 +46,7 @@ When I type only one character, soon the app crashes! The error message is
 ![](/imgs/20151210_01.jpg)
 
 Crash reason:
+
 1. Type one character, app will map the OnTextChangeEvent to string, then EditText.setText()
 2. Since EditText calls setText(), so the map() funciton is called again, which means EditText.setText() will be called again
 3. .... (endless loop)
@@ -114,6 +115,7 @@ In the previous final version, I reuse the map logic, and only call subscribe() 
 Because of the filter condition, the etInputLimit.setText(ret) will not trigger subscriber() again. So the previous endless loop is avoid. 
 
 For example, we type 0.864, and the steps are :
+
 1. input 0 : map() --> filter() returns false;
 2. input . : map() --> filter() returns false;
 3. input 8 : map() --> filter() returns false;
