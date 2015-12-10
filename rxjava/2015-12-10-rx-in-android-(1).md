@@ -20,7 +20,7 @@ So I have map(), filter() in my mind.
 
 The subsequent code is my first version, which unfortunately is a awful code that will lead a ```StackOverflowError```
 
-```kotlin
+```java
         WidgetObservable.text(etInputLimit)
             .map { input : OnTextChangeEvent ->
                 // CharSequence -> String
