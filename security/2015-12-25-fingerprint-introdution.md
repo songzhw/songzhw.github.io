@@ -12,6 +12,7 @@ step 2 : Android6.0 asked you to set pin code / lock pattern firstly.<br/>
 
 setp 3 : Before letting you set the fingerprint, Android specially tell you "Fingerprint is not as secure as pin code or lock pattern".<br/>
 ![](/imgs/20151225_01.jpg)
+
 (translation of the text coverd by the red frame: "Fingerprint is not as secure as locak pattern or pin code.")
 
 
@@ -75,6 +76,7 @@ You only have to call "fingerMgr.authenticate(..., callback, ...)", and the call
 
 ## 3. More complicated example
 In the real world, you have to make sure
+
 (1). this phone has the fingerprint function
 ```java
 	boolean = fingerPrintMgr.isHardwareDetected();
@@ -111,7 +113,7 @@ In the real world, you have to make sure
 ```
 
 <p>
-To see the source this example, please see @mariotaku's repo:
+To see the source of this example, please see @mariotaku's repo:
 
 https://github.com/mariotaku/FingerprintSample/blob/master/src/main/java/org/mariotaku/fingprint/sample/MainActivity.java
 
