@@ -386,3 +386,14 @@ And since we can transfer function, the readability of our code is better.
 A modern programming language with lambda, first-class citizen function, monkey patch will make our project structure better. This kotlin code is an example. Actually, a rough example.
 
 I have not deal with the Android belows API Level 23, or the error handling in thie post. And I will continue to make it better later.
+
+
+**2015.12.29** 
+I already add the API Level solution and the error handling codes in https://github.com/songzhw/CleanBeta-Kotlin/tree/master/app/src/main/kotlin/cn/six/payx
+
+The codes includes :
+  *  BalanceActivity
+  *  IBalancePresenter
+  *  BalanceLPresenter
+  *  BalanceMPresenter
+
