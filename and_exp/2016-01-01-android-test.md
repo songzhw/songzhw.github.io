@@ -6,6 +6,17 @@ I was told that iOS has a good test framework. It is like a camera. You can reco
 
 Unfortunately, Android has no such thing. However, we can still do something about it. 
 
+## JUnit
+JUnit is also appliable for the Android project. It's can test the logic code, like database or something. It may not so useful for the UI test, and Internet has plenty of blogs about how to use JUnit. I want to focus on the UI test in this post, so I am not gonna talk about JUnit too much. 
+
+p.s : When you create a new project, Android Studio already help you to create the test directory for you. 
+
+![](/imgs/20160101_01.jpg)
+
+* **test** directory : you can place your JUnit test codes here
+* **androidTest** directory : you can place your Espresso test codes here
+
+
 ## Monkey
 
 What is Moneky? Why is its name a animal?
@@ -29,6 +40,8 @@ monkey -p cn.song.test --ignore-crashes 10000 > /mnt/sdcard/monkeyResult.txt
 ## Espresso
 
 
+p.s : The preceding introduction is all about the Espresso-Core libray. For furture conditions, you can use Espresso-Intent library, or use Espresso-WebView library to test the Html UI and so on. 
+
 ## UiAutomator
 Unlike Espresso, UiAutomator was design to test multiple apps, rather than one app. 
 
@@ -37,6 +50,7 @@ By now, Espresso is enough for my test requirement, so I am not familiar with Ui
 
 ## Conclusion
 1. Monkey
+
 Monkey sometimes will crash in a weired way. 
 For example. A single thread situation :
 
@@ -54,3 +68,17 @@ So Monkey may have some good points, but I am not a fan of Monkey test. And read
 
 
 2. Espresso
+
+Espresso is a great tool for testing UI. I have use it into my project. I have to say Espresso sometimes will have weird bugs, like I call "``` perform(clicks())``` " , but the button is not clicked ; or Espresso will fail in one cellphone, but it will be okay in another cellphone.
+
+In spite of these bugs, Espresso is actually a good UI test framework for most conditions. I recommend you to try it. 
+
+
+3. test on NDK
+with a single configuration in build.gradle, you can debug NDK codes
+
+```groovy
+
+```
+
+But I don't have a efficient way to test NDK automatically. If I do, I will expand this post about it.
