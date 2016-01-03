@@ -39,8 +39,86 @@ monkey -p cn.song.test --ignore-crashes 10000 > /mnt/sdcard/monkeyResult.txt
 
 ## Espresso
 
+Espresso is a testing framework which is good at testing user interactions.
+
+### Espresso 01 : Simple Example
+A typical Espresso code is like this
+
+```java
+
+        onView(withId(R.id.btn_jumpform_jump))
+                .perform(click())
+                .check(matches(isDisplayed()));
+
+```
+
+* onView() is to find the view, it is like "findViewById".
+* perfomr() is to take actions, like click, type text or something.
+* check() is to verify the UI result is our expected result or not.
+
+### Espresso 02 : Activity Jumping
+If we are testing two Activity, Espresso is also help us test the UI easily.  For example, I have Activity A  and Activity B. 　I click the button in A, and jump to B with the text that is inputed in A.  After we call ``` (btn).perfom(click())```, should we wait the Activity B to start up? The answer is no. 
+
+```java
+    @Test
+    public void szwJump_twoActv() {
+        onView(withId(R.id.et_jumpfrom))
+                .perform(typeText("hello"), closeSoftKeyboard());
+        onView(withId(R.id.btn_jumpform_jump))
+                .perform(click());
+
+        // Clicking launches a new activity that shows the text entered above. You don't need to do
+        // anything special to handle the activity transitions. Espresso takes care of waiting for the
+        // new activity to be resumed and its view hierarchy to be laid out.
+        onView(withId(R.id.tv_jumpto_display))
+                .check(matches(withText("hello")));
+
+        // going back to the previous activity
+        pressBack();
+        onView(withId(R.id.et_jumpfrom))
+                .check(matches(withText( containsString("Espresso") )));
+    }
+```
+
+Isn't it handy?
+
+### Espresso 03 : ListView
+
+```java
+
+    @Test
+    public void firstItemDisplay(){
+        onView( withText("item: 0"))
+                .check( matches(isDisplayed()));
+    }
+
+    @Test
+    public void lastItemNotDisplay(){
+        onView(withText("item: 99"))
+                .check(doesNotExist());
+    }
+
+
+    // Espresso.onData(matcher) : Creates an DataInteraction for a data object displayed by the application.
+    // DataInteraction : An interface to interact with data displayed in AdapterViews.
+    // Matchers : http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matchers.html
+    private DataInteraction onRow(String str) {
+        DataInteraction dataInteraction = onData(
+                allOf(
+                        instanceOf(ItemData.class),
+                        MyAdapterMatcher.withName(str)
+                )
+        );
+
+        return dataInteraction;
+    }
+```
+
+onData() is like onView(). It's only used in AdapterView to find the items in AdapterView.
 
 p.s : The preceding introduction is all about the Espresso-Core libray. For furture conditions, you can use Espresso-Intent library, or use Espresso-WebView library to test the Html UI and so on. 
+
+
 
 ## UiAutomator
 Unlike Espresso, UiAutomator was design to test multiple apps, rather than one app. 
