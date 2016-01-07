@@ -21,3 +21,7 @@ If some part of topic are only involve one or two person, please talk to them. A
 
 ## 3. "5-minute dispute" principle
 If you all cannot settle a dispute in 5 minutes, then you also are not likey to settle it in 30 minutes. So you should call off this topic and move on.  The arguing people can discuss it further after the meeting. 
+
+## 4. Say no to some unnecessary meeting
+Uncle Bob told us that programmer should be able to say "No" when the time is appropriate. So if you already know one meeting is none of your business, just say, "I am busy right now. Can I join you later?", or "Thi is mostly about back-end, and I am a mobile developer. You two can settle it without me, right?"
+
