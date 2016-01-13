@@ -41,3 +41,30 @@ p.s. : Certificate has many format.
 ## Https
 Finally, we now reach the "https" part. Https uses the above "cipher" and "certificate" part, that's why I talked them before.
 
+Https(Http over SSL) is designed for secure communication over Internet. 
+
+### 1. How to communicate safely?
+First thing comes to my head is cipher. I encrypt my data, and pass the data and the key to the server. Then the server can use this key I passed to him to decrypte the encrypted messages.
+![](/imgs/20160113_01.jpg)
+
+But if some bad guys intercept this communication, then they can decrypt the message too. This is a problem?
+
+### 2. How about Asymmetric Cryptography?
+This is a great idea. The sever gives you its public key. You use the public Key to encrypt the messages.  Since the server is the only one who has the private key, which means only this server can decrypt your encrypted messages. Even if the hackers intercept the communication, hackers can do nothing because they have the corresponding private key.
+
+But, asymmetric cryptography is a little longer than symmetric cryptography. For the user experience's sake, can we improve it based on this?
+
+### 3. the final scheme
+![](/imgs/20160113_02.jpg)
+The picture above has clearly shown the process of HTTPS.
+1. [Server] generate the key pair, with a public key and a private key. Let's call them as "KeyPub", "KeyPri". 
+2. [Server] server pass the "KeyPub" to the client
+3. [Client] generate a symmetric key (Let's call it "key2"), and encrypt the messages with "key2"
+4. [Client] encrypt the "key2" with "KeyPub". So our "key2" is safe, since only the server has the "keyPri".
+5. [Client] pass the encrypted data and encrypted key to the server
+6. [Server] Decrypt the key with "KeyPri", and get the "key2"
+7. [Server] Decrypt the data with "key2". Now the data arrieve in Server safely.
+
+
+Since the symmetric cryptography is faster than asymmetric cryptography, https decides to use symmetric cryptography to encrypt the data, and use asymmetric cryptography to encrypt the symmetric key.  In this way, the encryption is fast and secure. 
+
