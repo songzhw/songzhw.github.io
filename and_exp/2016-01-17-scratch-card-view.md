@@ -1,6 +1,7 @@
 # Scratch Card View
 
 The view is like this : 
+
 ![](/imgs/Scratch001.jpg)
 ![](/imgs/Scratch002.jpg)
 ![](/imgs/Scratch003.jpg)
