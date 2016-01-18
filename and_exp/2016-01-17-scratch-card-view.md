@@ -43,7 +43,7 @@ So, we can only see the picture A.
 
 2. A draws a circle with a paint whose mode is PorterDuff.Mode.CLEAR.
 Then it's like I use an eraser to erase a circle area. 
-So what we see is a picture of A , and a circle part of B.
+So what we see is a picture of A , and a circle part of B.<br/>
 (songzhw: Yes, this is how you draw a circle portrait.)
 
 With this PorterDuff.Mode.CLEAR, we now can draw a ScratchCard View. 
@@ -102,6 +102,70 @@ Then we draw the previous gray bitmap on top of the original picture. So we only
     }
 ```
 
+## 3.Touch Event
+onTouchEvent() is in charge of the touch event. I may introduce the whole touch event transfer process later. But here, you only have to know that you can deal with the touch event (touchDown, touchMove, touchUp) in this method. 
+
+We draw a path and call ```invalidate()``` when we move our finger. When we move up our finger, the path is finished. Since we use ```mBitmapCanvas.drawPath( mPath, mPaint) ``` in onDraw(), the view will have a erasing UI when we move our finger.
+
+```java
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        float x = event.getX();
+        float y = event.getY();
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                touch_start(x, y);
+                invalidate();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                touch_move(x, y);
+                invalidate();
+                break;
+            case MotionEvent.ACTION_UP:
+                touch_up();
+                invalidate();
+                break;
+        }
+        return true;
+    }
+
+
+
+    private void touch_start(float x, float y) {
+        mPath.reset();
+        mPath.moveTo(x, y);
+        mX = x;
+        mY = y;
+    }
+
+    private void touch_move(float x, float y) {
+        float dx = Math.abs(x - mX);
+        float dy = Math.abs(y - mY);
+        if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+            mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);//二次方曲线
+            mX = x;
+            mY = y;
+        }
+    }
+
+    private void touch_up() {
+        mPath.lineTo(mX, mY);//when omit this line, this will still work!
+        // kill this so we don't double draw
+        mPath.reset();
+    }
+
+```
+
+
+
+## 4. the whole codes
+The whole codes is here : 
+https://github.com/songzhw/SixUiViews
+
+
+
+## reference 
+http://ssp.impulsetrain.com/porterduff.html
 
 
 
