@@ -3,7 +3,8 @@
 
 ## A custom view
 
-3dTagCloudAndroid View is a View which implements a 3D Ball in Android. This view is great.
+3dTagCloudAndroid View is a View which implements a 3D Ball in Android. This view is great.<br/>
+(3dTagCloudAndroid  https://github.com/misakuo/3dTagCloudAndroid )
 
 The system works like this:
 * onMeasure() : calculate the children's width and height
@@ -36,19 +37,24 @@ By the way, it's onLayout() code is this:
 ```java
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        // relayout the child
         for (int i = 0; i < getChildCount(); i++) {
+
             View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
-                Tag tag = mTagCloud.get(i);
-                tagsAdapter.onThemeColorChanged(child,tag.getColor());
+                Tag tag = mTagCloud.get(i);  // tag saved some information that our child view needs
+                tagsAdapter.onThemeColorChanged(child,tag.getColor()); 
+
                 child.setScaleX(tag.getScale());
                 child.setScaleY(tag.getScale());
+
                 int left, top;
                 left = (int) (centerX + tag.getLoc2DX()) - child.getMeasuredWidth() / 2;
                 top = (int) (centerY + tag.getLoc2DY()) - child.getMeasuredHeight() / 2;
 
-                child.layout(left, top, left + child.getMeasuredWidth(), top + child.getMeasuredHeight());
+                child.layout(left, top, left + child.getMeasuredWidth(), top + child.getMeasuredHeight()); 
             }
+            
         }
     }
 ```
