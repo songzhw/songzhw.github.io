@@ -80,12 +80,13 @@ Oh, something is not right. ```requestLayout()```?
 When one view's ```requestLayout()``` is called, this view will tell its parent view to re-measure and re-layout itself.  Yes, this is why the onMeasure() is called all the time.
 
 View's lifecycle is like this:
+
 ![](/imgs/3D_Ball_requestLayout.jpg)
 
 So now we know how to fix it.
 
 
-Reference : 
+**Reference** : <br/>
 https://plus.google.com/+ArpitMathur/posts/cT1EuBbxEgN
 Arpit mathur's google+
 
