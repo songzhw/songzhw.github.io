@@ -95,6 +95,12 @@ Arpit mathur's google+
 
 ## Improvement
 
+We now know the ```requestLayout()``` causes the lag phase, we can remove it, and just call onLayout() to re-layout all the children view in the Runnable.run()
+> 3dTagCloudView
+>> Runnable. run()
+>>> updateChild()
+>>>> **this.onLayout()**
+
 
 
 ## Result
