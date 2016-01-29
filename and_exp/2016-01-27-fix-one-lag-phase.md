@@ -19,6 +19,8 @@ and found out it was actually a little heavy for the phone. Some frames were cle
 
 
 ## Analyzation
+
+### Locating the problem
 I decide to trace the execution of this View. Later, according to the log in the console, I found out that the onMeasure(), onLayout() are called every dozens of millisecond.
 
 ```
@@ -54,13 +56,39 @@ By the way, it's onLayout() code is this:
 
                 child.layout(left, top, left + child.getMeasuredWidth(), top + child.getMeasuredHeight()); 
             }
-            
+
         }
     }
 ```
 
 However, why the onMeasure() function is called all the time? We actually do not need re-measure 3dView's width and height.
 One measure process is enough. So, I can figure it out why the onMeasure() is called all the time and fix it.
+
+
+### why the problem happens
+
+Because the onMeasure() is called every dozens of milliseconds, so the onMeasure() must be called directly or indirectly by the Runnable.
+
+And it is. The calling hirarchy is like this:
+> 3dTagCloudView
+>> Runnable. run()
+>>> updateChild()
+>>>> this.requestLayout()
+
+Oh, something is not right. ```requestLayout()```?
+
+When one view's ```requestLayout()``` is called, this view will tell its parent view to re-measure and re-layout itself.  Yes, this is why the onMeasure() is called all the time.
+
+View's lifecycle is like this:
+![](/imgs/3D_Ball_requestLayout.jpg)
+
+So now we know how to fix it.
+
+
+Reference : 
+https://plus.google.com/+ArpitMathur/posts/cT1EuBbxEgN
+Arpit mathur's google+
+
 
 
 
