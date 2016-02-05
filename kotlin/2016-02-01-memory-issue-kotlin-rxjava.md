@@ -7,13 +7,67 @@ However, I find out there are some memory issue about this project. Here is an e
 ![](/imgs/20160202_01.jpg)
 
 
-I think Kotlin and RxJava are both have some responsibility.
+Here is the code of SplashActivity
+```kotlin
+
+public class SplashActivity : BaseActivity() {
+    val jumpObservable : BehaviorSubject<Void> = BehaviorSubject.create()
+
+    var sub1 : Subscription? = null
+    var sub2 : Subscription? = null
+
+    var isFinishedSplash = false
+
+    val hello : String by lazy{
+        "str"
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_splash)
+
+        // get splash info from server using Retrofit
+        var netService = RetrofitSingleton.getNetService()
+        sub1 = netService.getSplashInfo_Post(req.msg,req.sign)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { resp : SplashResponse ->
+                            var imageLoader = ImageLoader.getInstance()
+                            imageLoader.displayImage(resp.splashUrl, ivSplashAd)
+                            jumpObservable.onNext(null) // go to the home page
+                         },
+                        {error ->
+                            showToast(error.getMessage().toString())
+                        })
+
+        sub2 = jumpObservable.asObservable()
+            .delay(2, TimeUnit.SECONDS)
+            .subscribe{
+                isFinishedSplash = true
+                jump(UnlockActivity::class.java)
+                this.finish()
+            }
+
+    }
+}
+
+```
+
 
 ## 1. RxJava
 
 RxJava's life cycle is longer than Activity & Fragment, which means RxJava's object still alive when Activity is finished. Then the Activity object cannot be released by GC. Boom, a memory leak happens.
 
+In the last picture, we can see, the "SplashActivity$onCreate$sub1" is not collected by GC,  
+
+
+......
+
+
+
 Here is some tips about RxJava:
+
 1. do not use 
 
 ```kotlin
@@ -30,6 +84,7 @@ Instead, use
 	// in the onDestory() or onStop()
 	subscription.unsuscribe(); // release the reference for GC
 ```
+
 
 2. If you have too many subscription, ```CompositeSubscription``` is here to rescue you. 
 
