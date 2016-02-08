@@ -65,7 +65,7 @@ In the last picture, we can see, the "SplashActivity$onCreate$sub1$2" is not col
 
 Here is some tips about RxJava:
 
-1. do not use 
+ 01 . do not use 
 
 ```kotlin
 	Observable.just(12)
@@ -83,7 +83,7 @@ Instead, use
 ```
 
 
-2. If you have too many subscription, ```CompositeSubscription``` is here to rescue you. 
+ 02 . If you have too many subscription, ```CompositeSubscription``` is here to rescue you. 
 
 ```CompositeSubscription``` is like a List<Subscriptoin>.  
 
@@ -93,7 +93,7 @@ Then you only call ``` compositeSubscription.unsubscribe() ``` in the Activity.o
 
 
 
-3. you may use RxLifeCycle to control your RxJava's life cycle.
+ 03 . you may use RxLifeCycle to control your RxJava's life cycle.
 
  RxLifeCycle is a library that helps you to handle the RxJava's life cycle to avoid the memory leak. 
 
@@ -148,11 +148,11 @@ Let's see the memory leak picture again.
 
 I have two suspetions:
 
-1. lambda
+ 01 . lambda
 
 the ```SplashActivity$onCreate$sub1$2``` is like an annoynmous netted class. And the previous reason may cause the memory leak.
 
-2. lazy member
+ 02 . lazy member
 
 the ```SplashActivity$hello$1``` and ``` SplashActivity$hello$2``` are not released neither. What's the two stuff?
 
