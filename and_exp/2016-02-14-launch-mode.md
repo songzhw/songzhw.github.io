@@ -1,5 +1,7 @@
 #Activity Launch Mode
 
+# adb shell dumpsys activity
+
 # Default
 
 
