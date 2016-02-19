@@ -23,13 +23,20 @@ With this "adb shell dumpsys activity" command, we can explor the LaunchMode eas
 
 The Default system always creates a new instance of the activity in the target task and routes the intent to it.
 
-"Default" is also the default mode when you assign no launch mode to an Activity.
+"Default" is also the default mode when you assign no launch mode to an Activity, which means if you do not assign any launch mode to a Activity, then that Activity will be the "default" launch mode.
 
 
 # SingleTop
 
+If an instance of the "SingleTop" activity already exists at the top of the target task, the system routes the intent to that instance through a call to itsonNewIntent() method, rather than creating a new instance of the activity.
+
+
+p.s. It's **NOT** clear_top !!!
 
 # SingleTask
+
+This is the most tricky one, and I have to spend much more time to explain it.
+
 
 
 # SingleInstance
