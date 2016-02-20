@@ -51,8 +51,7 @@ But actually, when we run the "adb shell dumpsys  activity", we found out that B
 
 Task 1  | Task 2
  :-------------------------:|:-------------------------:
- A <br/>
- B | 
+ A <br/> B | (null)
 
 
 # SingleInstance
