@@ -35,8 +35,22 @@ p.s. It's **NOT** clear_top !!!
 
 # SingleTask
 
-This is the most tricky one, and I have to spend much more time to explain it.
+This is the most tricky one, and I have to spend much more time to explain it. And examples are a good way to explain this complex launch mode.
 
+## 1. A(Default) -> B(singleTask)
+We have two Activity, A and B, and A is default mode, B is singleTask mode. Now A jump to B. 
+
+Android documents says, "The system(SingleTask) creates the activity at the root of a new task and routes the intent to it".  So it must be like this, right?
+Task 1  | Task 2
+ :-------------------------:|:-------------------------:
+ A  | B
+
+
+But actually, when we run the "adb shell dumpsys  activity", we found out that B is strangely in the same task with A.
+Task 1  | Task 2
+ :-------------------------:|:-------------------------:
+ A <br/>
+ B | 
 
 
 # SingleInstance
