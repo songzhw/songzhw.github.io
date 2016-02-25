@@ -40,6 +40,17 @@ This is the most tricky one, and I have to spend much more time to explain it. A
 ## 1. A(Default) -> B(singleTask)
 We have two Activity, A and B, and A is default mode, B is singleTask mode. Now A jump to B. 
 
+The manifest is like this:
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.six.adv" >
+	<Activity android:name=".A"/>
+	<Activity android:name=".B" android:launchMode="singleTask"/>
+</manifest>
+```
+
+
 Android documents says, "The system(SingleTask) creates the activity at the root of a new task and routes the intent to it".  So it must be like this, right?
 
 Task 1  | Task 2
@@ -52,6 +63,52 @@ But actually, when we run the "adb shell dumpsys  activity", we found out that B
 Task 1  | Task 2
  :-------------------------:|:-------------------------:
  A <br/> B | (null)
+
+This is a little complex to explain, because it involves the ```android:taskAffinity``` attribute. I will explain this attribute later.
+
+
+## 2. A(Default) -> B(singleTask) : B has a taskAffinity attribute
+The manifest is like this:
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.six.adv" >
+	<activity android:name=".A"/>
+	<activity android:name=".B" android:launchMode="singleTask" android:taskAffinity="task2"/>
+</manifest>
+```
+I have to tell you, the result of A starting B is different. The tasks are like this:
+
+Task 1  | Task 2
+ :-------------------------:|:-------------------------:
+ A  | B
+
+The only difference between this and the previous example is the "android:taskAffinity". When you announced no affinity, then activity has a default affinity value : their package name. In this case, the default affinity value is "cn.six.adv". 
+
+When A starts B, and B's launch mode is singleTask. So B **intents to** to create a new task. But it will create a new task as long as B's taskAffinity is different from A's taskAffinity. 
+
+So this explains the previous examle: why A and B are in the same task. Because their have a same taskAffinity.
+
+The logic is like this:
+
+```
+A --> B
+
+  if(taskAffinity is the same) { 
+  	A and B are in the same Task
+  }
+  else { 
+  	B is in other new task, whose affinity is B's affinity
+  }
+
+```
+And Coming to this example, A starts B, and B's launchMode is "singleTask", and B's taskAffinity is not "cn.six.adv". So B will really create a new task, and B is in this new task. 
+
+Task 1 (affinity="cn.six.adv") | Task 2 (affinity="task2")
+ :-------------------------:|:-------------------------:
+ A  | B
+
+## 3. A(default) -> B(singleTask) -> C(singleTask)
 
 
 # SingleInstance
