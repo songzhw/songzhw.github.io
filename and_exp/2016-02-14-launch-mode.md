@@ -17,7 +17,7 @@ Task #103 : affinity = "cn.six.task2", size = 3 (it has three activities in it)<
 Task #102 : affinity = "cn.six.adv", size = 1<br/>
 	-- Activity One<br/>
 	
-With this "adb shell dumpsys activity" command, we can explor the LaunchMode easier.	s
+With this "adb shell dumpsys activity" command, we can explor the LaunchMode easier....
 
 # Default
 
@@ -108,8 +108,60 @@ Task 1 (affinity="cn.six.adv") | Task 2 (affinity="task2")
  :-------------------------:|:-------------------------:
  A  | B
 
-## 3. A(default) -> B(singleTask) -> C(singleTask)
+## 3. A(default) -> B(singleTask) -> C(singleTask) -> B(singleTask)
 
+The manifest is like this:
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.six.adv" >
+	<activity android:name=".A"/>
+	<activity android:name=".B" android:launchMode="singleTask" android:taskAffinity="task2"/>
+	<activity android:name=".C" android:launchMode="singleTask" android:taskAffinity="task2"/>
+</manifest>
+```
+
+(1). A -> B
+
+Task 1 (affinity="cn.six.adv") | Task 2 (affinity="task2")
+ :-------------------------:|:-------------------------:
+ A  | B
+
+(2) A -> B -> C
+
+Since C's affinity is "task2", which is already the affinity of one task, so C will be put in the Task 2.
+
+Task 1 (affinity="cn.six.adv") | Task 2 (affinity="task2")
+ :-------------------------:|:-------------------------:
+ A  | C <br/> B
+
+(3) A -> B -> C -> B
+
+Firstly, I want to show you the result
+
+Task 1 (affinity="cn.six.adv") | Task 2 (affinity="task2")
+ :-------------------------:|:-------------------------:
+ A  | B
+
+Weird, right? Where is C?
+
+Let me explain it. C->B.  B is singleTask and its affinity is "task2", then the system find a task whose affinity is task2 and will put B in this Task 2. However, an instance of B is already existing in the Task 2. So the system will invoke the existing instance of B by give it a flag **CLEAR_TOP**. This is why C is not existing anymore. 
+
+## 4. Conclusion of SingleTask
+
+```java
+	if( found a task whose affinity == Activity's affinity){
+		if(an instance of this Activity already exists in this task){
+			start this activity with a CLEAR_TOP flag
+		} else {
+			create a new instance of this activity in this task
+		}
+	} else { // do not find a proper task
+		create a new task, whose affinity is this activity's affinity
+		create a new instance of this activity in this new task
+	}
+
+```
 
 # SingleInstance
 
