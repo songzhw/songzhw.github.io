@@ -165,9 +165,39 @@ Let me explain it. C->B.  B is singleTask and its affinity is "task2", then the 
 
 # SingleInstance
 
+SingleInstance is much easier than SingleTask.
 
-# Conclusion
+Once one Activity is SingleInstance, this Activity will definitly in one new task, and this task can only hold this one Activity and no other Activities any more.
 
-Default  |   SingleTop |  SingleTask                  |  SingleInstance 
-:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-__  |  __  |  __  |  __
+Let me show some examples.
+
+### 1. A(default) --> B(singleInstance) --> C(default)
+
+(1). A -> B
+
+Task 1  | Task 2
+ :-------------------------:|:-------------------------:
+ A  | B
+
+ (2). A -> B -> C
+
+ A "singleInstance" activity permits no other activities to be part of its task. It's the only activity in the task. If it starts another activity, that activity is assigned to a different task — as if **FLAG_ACTIVITY_NEW_TASK** was in the intent.
+
+Since B requires a quiet task which can only take him, so C will be added a FLAG_ACTIVITY_NEW_TASK flag. So C(default) becomes C(singleTask).
+
+So the result is like this:
+
+Task 1  | Task 2
+ :-------------------------:|:-------------------------:
+ C <br/> A  | B
+
+
+
+p.s, if the process is "A(default) --> B(singleTask) --> C(default)", then the result is like this.
+
+Task 1  | Task 2
+ :-------------------------:|:-------------------------:
+ A  | C <br/> B
+
+
+
