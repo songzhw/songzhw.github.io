@@ -30,5 +30,26 @@ If you are an QA who tests Android apps/SDKs, you can use **UI Automator** to he
 
 QA gives us some smoking tests, which covers the most importants issues about our new version. Developers **must** pass them all, then they are allowed to submit their product to the QA.
 
+4. Pass all the tests before release
+
+When the developers submitted products to the QA, and QA is testing, our developers are available to write all the Espreeso codes about the new features. 
+
+Before the release of the product, developers should pass all the tests, old and new ones.
+
+5. Jacoo
+
+Jacoo is a good tool to help you figure out how many line of codes are covered by test cases. I ask my colleagues to cover 70% lines of the product code. 
+
+Believe me, the "waste of time" is really worthy. It will help you to refactor, or to do some new requirements in the future. 
+
+
+So, the process is easy:
+1. developer write code
+2. QA gives developers the smoking test cases
+3. when developers complete their codes, they should pass all the smoking test cases.
+4. Once passing all the smoking test cases, developer now can submit the product to QA
+5. QA start testing. In the meantime, developers start to write Espresso tests.
+6. Developers should pass all the Espresso tests before release.
+7. Developers should make sure the coverage of test codes are above 70%.
 
 
