@@ -12,13 +12,13 @@ So, I want to talk about the quatity of our codes. The html codes is like our An
 
 No. Here is some tips.
 
-1. Test before submit
+**1. Test before submit**
 
 Only sumbit a little function every time. 
 
 Test it (through auto test or your finger press) before you submit it to SVN/Git.
 
-2. Write automatical test codes
+**2. Write automatical test codes**
 
 If you are an Android developer, you can use **Espresso** to test your codes. Our project is using it, and the result is great. We have few bugs. 
 
@@ -26,17 +26,17 @@ Furthermore, we do not worried about the quatity of our codes when we do some re
 
 If you are an QA who tests Android apps/SDKs, you can use **UI Automator** to help you. UI Automator is a black box-style test framework. And the **UI Automator Viewer** is a good tool to help you.
 
-3. Pass all the smoking tests
+**3. Pass all the smoking tests**
 
 QA gives us some smoking tests, which covers the most importants issues about our new version. Developers **must** pass them all, then they are allowed to submit their product to the QA.
 
-4. Pass all the tests before release
+**4. Pass all the tests before release**
 
 When the developers submitted products to the QA, and QA is testing, our developers are available to write all the Espreeso codes about the new features. 
 
 Before the release of the product, developers should pass all the tests, old and new ones.
 
-5. Jacoo
+**5. Jacoo**
 
 Jacoo is a good tool to help you figure out how many line of codes are covered by test cases. I ask my colleagues to cover 70% lines of the product code. 
 
@@ -44,12 +44,17 @@ Believe me, the "waste of time" is really worthy. It will help you to refactor, 
 
 
 So, the process is easy:
-1. developer write code
-2. QA gives developers the smoking test cases
-3. when developers complete their codes, they should pass all the smoking test cases.
-4. Once passing all the smoking test cases, developer now can submit the product to QA
-5. QA start testing. In the meantime, developers start to write Espresso tests.
-6. Developers should pass all the Espresso tests before release.
-7. Developers should make sure the coverage of test codes are above 70%.
+
+![](/imgs/2016-03-01_01.png)
+
+1. developer write code<br/>
+2. QA gives developers the smoking test cases<br/>
+3. when developers complete their codes, they should pass all the smoking test cases.<br/>
+4. Once passing all the smoking test cases, developer now can submit the product to QA<br/>
+5. QA start testing. In the meantime, developers start to write Espresso tests.<br/>
+6. Developers should pass all the Espresso tests before release.<br/>
+7. Developers should make sure the coverage of test codes are above 70%.<br/>
+
+
 
 
