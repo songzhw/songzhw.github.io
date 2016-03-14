@@ -1,7 +1,8 @@
+Android N —> java 8 series: lambda, stream …
+
 AIDL security
 
 UI Automator
-
 
 My Kotlin MVVM Tools
 
