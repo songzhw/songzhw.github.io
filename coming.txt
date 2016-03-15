@@ -1,11 +1,13 @@
-Java 8's demo (not introduction) : lambda , stream API, ...
-
+Android N —> java 8 series: lambda, stream …
 AIDL security
 
 UI Automator
 
-Kotlin 1.0 release
-
 My Kotlin MVVM Tools
 
 Image Loader in SDK
+Androide Developer's Career
+
+DecorView
+
+Xfermode
