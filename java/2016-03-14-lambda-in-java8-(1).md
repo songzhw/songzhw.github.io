@@ -152,19 +152,8 @@ Or, closure is a block of codes that can use free variables.
 
 Java have its own closure. Yes, the nested class is a closure. But this old-style closure is not so handy. You have to definition a new Runnable object to use the run function. 
 
-So, lambda is here to rescue us. Even more, the 
+So, lambda is here to rescue us. 
 
-```java
-button.setOnClickListener( (View v) -> System.out.println(v));
-```
-
-can be shorten again:
-
-```java
-button.setOnClickListener(System.out::println);
-```
-
-"::" is an operator that represents the funcitonal interface. Sometimes, it can shorten our code just like previous codes.
 
 
 ## Reference 
