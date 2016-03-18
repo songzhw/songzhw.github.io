@@ -89,7 +89,7 @@ public class WhatsLambda {
 When we run "javap -p WhatsLambda.class" in the build directory, we can find out a another function called "lambda$main$0(String str)".
 
 
-![](/imgs/20160318_01.jpg)
+![](/imgs/20160318_01.png)
 
 In fact, you can think of lambda in the way which the previous codes actually equals this:
 
@@ -121,11 +121,6 @@ public class WhatsLambda {
 }
 ```
 
-
-
-```
-
-```
 
 
 ## III. Closure
