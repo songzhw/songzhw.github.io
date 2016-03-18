@@ -65,7 +65,111 @@ This will be posted in the next post. So now I will not talk too much about it.
 
 
 ## II. What is lambda?
+Lambda in Java reprensents a **functional interface**. Functional interface is an interface which has only one non-default method. 
+
+However, in fact , lambda is implemented by the anonymous nested class. 
+
+```java
+@FunctionalInterface
+interface Print<T> {
+    public void print(T x);
+}
+
+public class WhatsLambda {
+    public static void PrintString(String s, Print<String> print) {
+        print.print(s);
+    }
+    public static void main(String[] args) {
+        PrintString("test", (x) -> System.out.println(x));
+    }
+}
+
+```
+
+When we run "javap -p WhatsLambda.class" in the build directory, we can find out a another function called "lambda$main$0(String str)".
+
+
+![](/imgs/20160318_01.jpg)
+
+In fact, you can think of lambda in the way which the previous codes actually equals this:
+
+```java
+@FunctionalInterface
+interface Print<T> {
+    public void print(T x);
+}
+
+public class WhatsLambda {
+    public static void PrintString(String s, Print<String> print) {
+        print.print(s);
+    }
+
+    final class $WhatsLambda$1 implements Print{
+    	@Override
+    	public void print(Object x){
+    		lambda$main$0(x);
+    	}
+    }
+
+    private static void lambda$main$0(String str){
+    	System.out.println(str);
+    }
+
+    public static void main(String[] args) {
+        PrintString("test", new $WhatsLambda$1().print("test"));
+    }
+}
+```
 
 
 
-## III. 
+```
+
+```
+
+
+## III. Closure
+
+```java
+    public void foo(int count){
+        Runnable r = () -> {
+            System.out.println("count = "+count);
+        };
+    }
+
+```
+In the previous codes, we find out that the lambda use the count variable. However the count variable is not defined in the lambda? Is this okay?
+
+Yes, lambda is like a nested class, which can use member variables of a class or a final local variables. The count variable is local variable, which can be accessed by the lambda.
+
+Since the count variable is out of the definition of the lambda, so we call the lambda is a **Closure**.  
+
+So, the count variable can be called **Free Variables**.
+
+Closure is a block of codes that can use the variables out of its own definition block.
+
+Or, closure is a block of codes that can use free variables.
+
+Java have its own closure. Yes, the nested class is a closure. But this old-style closure is not so handy. You have to definition a new Runnable object to use the run function. 
+
+So, lambda is here to rescue us. Even more, the 
+
+```java
+button.setOnClickListener( (View v) -> System.out.println(v));
+```
+
+can be shorten again:
+
+```java
+button.setOnClickListener(System.out::println);
+```
+
+"::" is an operator that represents the funcitonal interface. Sometimes, it can shorten our code just like previous codes.
+
+
+## Reference 
+
+http://www.cnblogs.com/WJ5888/p/4667086.html 
+
+
+

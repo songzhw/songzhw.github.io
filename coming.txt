@@ -1,3 +1,5 @@
+﻿no kotlin, with Android N?
+
 Android N —> java 8 series: lambda, stream …
 AIDL security
 
