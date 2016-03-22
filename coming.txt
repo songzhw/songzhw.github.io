@@ -1,4 +1,6 @@
-﻿no kotlin, with Android N?
+dagger2 to help you improve your project's clarity
+
+no kotlin, with Android N?
 
 Android N —> java 8 series: lambda, stream …
 AIDL security
