@@ -1,4 +1,10 @@
-﻿make your own ButterKnife
+﻿Android Test with mock data : old way and new way(dagger)
+
+https sample
+
+webview security
+
+make your own ButterKnife
 
 Enum --> @IntDef 
 
