@@ -1,4 +1,6 @@
-﻿Android Test with mock data : old way and new way(dagger)
+﻿draw 武田家家纹
+
+Android Test with mock data : old way and new way(dagger)
 
 https sample
 
