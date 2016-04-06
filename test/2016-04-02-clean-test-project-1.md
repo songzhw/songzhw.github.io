@@ -143,7 +143,7 @@ Secondly, I add the debug branch to the Activity.
 ```java
 [Activity]
     private void startRequest() {
-    	if(isDebugForTest){
+    	if(Config.isDebugForTest){
     		onResponsed(MockApiRepo.API_USER);
     	} else{
 	    	BaseRequest req = new BaseRequest();
@@ -163,12 +163,20 @@ Finally, I refactor the test:
 
 ```java
 //app/src/androidTest/.../UserTest.java
+@Test
+public void testFackData(){
+    Config.isDebugForTest = true;
 
+    onView(withId(R.id.fab))
+                .perform(click());
+
+    onView(withId(R.id.tv_main))
+            .check(matches(withText("songzhw")));
+        
+}
 
 ```
 
-## 2. Start to build a cleaner test project
 
-```java
-
-```
+## 2. Conclusion (1)
+This is our first post about building a clean test project. We maily aim to the AsyncTask's mock data, and test it in Espresso. I will introduce another typical http occasion(Retrofit + OkHttp) with clean Espresso Test. 
