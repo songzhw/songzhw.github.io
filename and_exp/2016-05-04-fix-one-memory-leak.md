@@ -14,6 +14,24 @@ Then I looked at the reference tree, and found out ```SecurityHelper``` holded t
 
 ## Singleton causes memory leak?
 
+```java
+private static SecurityHelper instance = null;
+
+public static SecurityHelper getInstance(Context ctx){
+	if(instance == null) {
+		instance = new SecurityHelper(ctx);
+	}
+	return instance;
+}
+```
+
+This is a typical Singleton.  However, if you do not pay extra attention, you may leak memory here. 
+
+For example, if you use ``` SecurityHelper.getInstance(thisActivity); ``` , then your Activity reference will be holded by this static object ```instance```. 
+
+Static objects have very long life cycle, which means any referenced holded by them will not get released. 
+
+In this case, a better way should be ``` SecurityHelper.getInstance(thisActivity.getApplicationContext()); ```.  Since the Application reference is already existing all the time, there is no leak with it. In this way, the last Activity, and all the reference that that Activity holds, can be freed!
 
 
 **Conclusion**: The Singleton itself will not cause memory leak. But it may with your careless use Context.  Remeber, to avoid memory leak, it should be careful when handling the static object. 
