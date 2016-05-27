@@ -35,7 +35,7 @@ Runtime annotation can be read by java Reflection in the run time. In this way, 
 ## 2. write the code
 
 #### 2-1. Annotation
-Firstly, I create a annotation:
+Firstly, I create an annotation:
 ```java
 @Retention(RetentionPolicy.RUNTIME) 
 @Target(ElementType.FIELD )
@@ -46,7 +46,7 @@ public @interface InjectView {
 
 Note that I used the `RetentionPolicy.RUNTIME` to declare that this @InjectView annotation is a runtime annotation.  
 
-And it is used to declare the filed (`@Target(ElementType.FILED)`)
+And this @InjectView annotation is used to declare the filed (`@Target(ElementType.FILED)`).
 
 the `value()` method is our container for the extra information. In this case, it is the id of some specific view. 
 
@@ -97,9 +97,6 @@ What the Views class does is iterating all the fields of our Activity, then find
 
 
 ## 3. disadvantage of runtime annotations
-Now I use the runtime annotation to make a our own ButterKnife.  
+Now, our version 0.1 is done. However, is is good enough? I'm afraid not.
 
-
-
-
-And we all know, reflection in Android is a little expensive. 
+We all know that reflection is a little expensive in Android. If we can remove the reflection, aka, remove the runtime annotation, the performance will be better. And that is what we will talk about in my next post.
