@@ -165,8 +165,78 @@ public class BindProcessor extends AbstractProcessor {
 }
 ```
 
-Quite a long list, right? Don't worry, I will introduce the important detail later.
+Quite a long code, right? Don't worry, I will introduce the important detail later.
+
+(1). `roundEnv.getElementsAnnotatedWith(Bind.class)` will list all the Element which has the `Bind` annotation.
+
+By "Element", I mean class, filed, method.  Now we only use "Bind" annotation to declare the view field. So I need to make sure about it again in the code: `if (element instanceof VariableElement)`
+
+(2). Later since I get the view field declared by the 'Bind' annotaion, now I can get the annotation value, the field name, the field type.
+```java
+                VariableElement vari = (VariableElement) element;
+                idRes = vari.getAnnotation(Bind.class).value();
+                fieldName = vari.getSimpleName().toString();
+                fieldType = vari.asType().toString();
+```
 
 
+(3). Now I get all the information I need, now I will generate a class like this:
+```java
+public class MainActivity$$Binds{
+    public static void inject(Activity activity){
+        activity.tv = (TextView)activity.findView(R.id.tv_main);
+    }
+}
+```
 
-## Step 4. 
+So I use the JavaPoet library to generate method, class, and the final files for me. 
+
+
+## Step 4. use the "annotation" in the "app" module
+#### Step 4-1. {project}/app/build.gradle
+```groovy
+... ...
+apply plugin: 'com.neenbedankt.android-apt'
+
+dependencies {
+    ... ...
+    compile project(':api')
+    apt project(':compiler')
+}
+```
+
+#### Step 4-2. use the annotation in the Activity
+```java
+public class MainActivity extends AppCompatActivity {
+    @Bind(R.id.tv_main)
+    public TextView tv;
+
+    @Bind(R.id.fab_main)
+    public FloatingActionButton fab;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        BindInjector.inject(this);
+        tv.setText("Practise ButterKnife 2.0");
+    }
+}
+```
+
+And what is the "BindInjector" class. This is actually a  helper class that help you connected the Activity to the  previous generated "***Activity$$Binds" class.
+```java
+public class BindInjector {
+    public static void inject(Activity actv){
+        try {
+            Class clz = Class.forName(actv.getClass().getCanonicalName()+"$$Binds");
+            Method inject = clz.getMethod("inject", actv.getClass());
+            inject.invoke(null, actv);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+
