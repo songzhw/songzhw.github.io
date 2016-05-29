@@ -20,7 +20,7 @@ The Key can be generated in Java with *KeyGenerator* or *KeyPairGenerator*. The 
 
 ## Certificate
 
-In a real world, if you want to buy a diamond and enter a diamond shop, how do you to tell whether the diamond is genuine. As a normal person, you may not understand the diamond knowledge. But if the diamond has a licence that is issued by the US government, you may trust this shop.
+In real life, if you want to buy a diamond and enter a diamond shop, how do you to tell whether the diamond is genuine. As a normal person, you may not have the diamond knowledge. But if the diamond has a licence that is issued by the US government, you may trust this shop.
 
 Certificate is the same. Certificate in the computer world, it may have some keys, another certificate (let's call it "B") . The key is what I need, and "B" is an license to prove this certificate is trustable. 
 
@@ -39,32 +39,46 @@ p.s. : Certificate has many format.
 
 
 ## Https
-Finally, we now reach the "https" part. Https uses the above "cipher" and "certificate" part, that's why I talked them before.
+Finally, we reach the "https" part. Https contains the above "cipher" and "certificate" part, that's why I talked them before.
 
 Https(Http over SSL) is designed for secure communication over Internet. 
 
 ### 1. How to communicate safely?
-First thing comes to my head is cipher. I encrypt my data, and pass the data and the key to the server. Then the server can use this key I passed to him to decrypte the encrypted messages.
+How do I communitcate safely? Cipher is my first answer. I encrypt my data, and pass the data and **the key** to the server. Then the server can use this key I passed to decrypte the encrypted messages.
 ![](/imgs/20160113_01.jpg)
 
-But if some bad guys intercept this communication, then they can decrypt the message too. This is a problem?
+Now let's look at a possible scenarios: hackers intercept this communication, which means they have the key and the encryped data.  If hackers have the key, then it is not difficult to decrypt the data. Now your data leaks!
+
 
 ### 2. How about Asymmetric Cryptography?
-This is a great idea. The sever gives you its public key. You use the public Key to encrypt the messages.  Since the server is the only one who has the private key, which means only this server can decrypt your encrypted messages. Even if the hackers intercept the communication, hackers can do nothing because they have the corresponding private key.
+The last solution is not secure at all. So we move on. How about asymmetric cryptography?  
 
-But, asymmetric cryptography is a little longer than symmetric cryptography. For the user experience's sake, can we improve it based on this?
+This is a great idea. The sever gives you its public key. You use the public Key to encrypt the messages.  Since the server is the only one who has the private key, which means only this server can decrypt your encrypted messages. Even if hackers intercept the communication, hackers can do nothing because they have the corresponding private key.
+
+But, asymmetric cryptography takes much longer time to do its job than symmetric cryptography. For the user experience's sake, it is not a good idea to use asynmmetric cryptography to encrypt/decrypt the whole long content.
 
 ### 3. the final scheme
+The previous two solution both failed. How about I combine them all? Yes, this is the final answer. 
+**HTTPS** :
 ![](/imgs/20160113_02.jpg)
 The picture above has clearly shown the process of HTTPS.
+
 1. [Server] generate the key pair, with a public key and a private key. Let's call them as "KeyPub", "KeyPri". 
+
 2. [Server] server pass the "KeyPub" to the client
+
 3. [Client] generate a symmetric key (Let's call it "key2"), and encrypt the messages with "key2"
+
 4. [Client] encrypt the "key2" with "KeyPub". So our "key2" is safe, since only the server has the "keyPri".
+
 5. [Client] pass the encrypted data and encrypted key to the server
+
 6. [Server] Decrypt the key with "KeyPri", and get the "key2"
+
 7. [Server] Decrypt the data with "key2". Now the data arrieve in Server safely.
 
 
-Since the symmetric cryptography is faster than asymmetric cryptography, https decides to use symmetric cryptography to encrypt the data, and use asymmetric cryptography to encrypt the symmetric key.  In this way, the encryption is fast and secure. 
+# Conclusion
+Since the symmetric cryptography is faster than asymmetric cryptography, https decides to use symmetric cryptography to encrypt the data, and use asymmetric cryptography to encrypt the symmetric key to make sure the secruity.  In this way, the encryption is fast and secure. 
 
+btw. Understanding how HTTPS works is important, because you may use this thoughts in your real life work to keep your data secure. 
