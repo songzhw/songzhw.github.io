@@ -1,5 +1,5 @@
 # Make your own ButtferKnife
-ButterKnife is a famous library developed by Jake Wharton. This is a sharp knife that can help you reduce a lot of boilerplate. 
+ButterKnife is a famous library developed by [Jake Wharton](https://github.com/JakeWharton). Jake Wharton wrote many famous android libraries, like [ActionBarSherlock](https://github.com/JakeWharton/ActionBarSherlock), [DiskLruCache](https://github.com/JakeWharton/DiskLruCache), [ViewPagerIndicator](https://github.com/JakeWharton/ViewPagerIndicator), [Hugo](https://github.com/JakeWharton/hugo)...  And [ButterKnife](https://github.com/JakeWharton/butterknife) is a sharp knife that can help you reduce a lot of boilerplate. 
 
 Here is how to use it:
 
