@@ -16,10 +16,10 @@ However, if you add a ```<intent-filter>``` to your Activity/Service/Broadcast, 
 ### 2.1 JS Bridge
 WebView has many problem, especially the low version one. In the android that is lower than 4.2, ```webview.adJavascriptInterface(javaObject)``` is a well-known security hole. 
 
-When you add this ```javaObject``` to the webview,  the webview is actually get the  ```javaObject.getClass()``` , therefore it can get Linux permission to do something bad, like to show the whole content of the SD card. 
+When you add this `javaObject` to the webview,  the webview can get the   `javaObject.getClass()` later . Therefore it can get Linux permission to do nearly everything, like showing the whole content of the SD card. In that way, your personal privacy leaks. 
 
-[Solution]
-1. For the Android which is >= 4.2, you can use the ```@javascriptInterface``` annotation to make sure this function can be accessed by Java. Like this
+**Solution**
+1.For the Android whose version >= 4.2, you can use the `@javascriptInterface` annotation to make sure this function can be accessed by Javascript, like this : 
 
 ```java
 class JsBridge{
@@ -30,13 +30,13 @@ class JsBridge{
 }
 ```
 
-2. For the Android which is < 4.2
+2.For the Android whose version is < 4.2
 WebChromeClient has three functions :
   * onJsPromot()
   * onJsAlert()
   * onJsConfirm()
 
-You can use one of them to comunicate JavaScript from Java. Like this:
+You can use one of them to comunicate JavaScript from Java, like this:
 
 ```java
 public boolean onJsAlert(WebView webview, String url, String message, String defaultValue, JsAlertResult result) {
@@ -48,26 +48,28 @@ public boolean onJsAlert(WebView webview, String url, String message, String def
 }
 ```
 
-More details : http://blog.csdn.net/leehong2005/article/details/11808557
+Reference : [WebView's JavaScript Injection](http://blog.csdn.net/leehong2005/article/details/11808557)
 
 ### 2.2 WebView's cache
+When you fill the form (like the login form) and choose to save the data, the form data is actually saved in the `data/data/<app package>/databases/webview.db`。 
 
-When you fill the form (like the login form) and choose to save the data, the form data is actually saved in the data/data/<app package>/databases/webview.db。 
+If your phone is not a rooted phone, that's okay。 But if your phone is rooted, then hackers may have the chance to hack you.
 
-If your phone is not a root phone, that's okay。 But if your phone is rooted, then other app may have the chance to hack you.
-
-So if you want to fix this, you can do this.
+So if you want to fix this, use this notation: 
 
 ```java
 webview.getSettings().setPassword(false);
 ```
 
-More details : http://www.wooyun.org/bugs/wooyun-2013-020246
+More details : [WebView's cache leaks](http://www.wooyun.org/bugs/wooyun-2013-020246)
 
-## 3. Https
+## 3. Storage
+SD card is a public place that everyone can place their data here, and everyone can access all the data in the SD card too. Sounds dangerous, right?
+So if you want to save some private information in the SD card, please not. If you insist, please encrypt the information first. 
 
+p.s.  Andorid N seems import an system that can limit one app to visit only one directory, rather than the whole SD card. Even more, user must agree the permission to access one directory first, then you are allowed to access the very directory. This is a great news for Android security. 
 
-## 4. Storage
+## 4. Https
 
 
 ## 5. AIDL
