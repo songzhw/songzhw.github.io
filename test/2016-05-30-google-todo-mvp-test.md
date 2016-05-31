@@ -39,9 +39,11 @@ In the mock/java/com.example.android.architecture.blueprints.todoapp, I use *Inj
 ![](./_image/2016-05-31 01-11-49.jpg)
 
 And in the prod/java/com.example.android.architecture.blueprints.todoapp, I use *Injection* to give out the readl data from network or local database, that is needed in the release vesrion. 
+
 ![](./_image/2016-05-31 01-13-16.jpg)
 
 4.When I want to switch the implementation of the *Injection* class, I can simple switch the build variants:
+
 ![](./_image/2016-05-31 01-14-42.jpg)
 
 When you run the tests, the Gradle will only compile the Injection class which is in the mock directory. And when you want to distribute a release APK, the Gradle will make sure the Injection class in the prod directory will be compiled by javac. 
