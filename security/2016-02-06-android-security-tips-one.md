@@ -69,10 +69,3 @@ So if you want to save some private information in the SD card, please not. If y
 
 p.s.  Andorid N seems import an system that can limit one app to visit only one directory, rather than the whole SD card. Even more, user must agree the permission to access one directory first, then you are allowed to access the very directory. This is a great news for Android security. 
 
-## 4. Https
-
-
-## 5. AIDL
-
-
-## 
