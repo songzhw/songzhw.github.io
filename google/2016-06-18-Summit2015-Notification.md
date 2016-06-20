@@ -3,10 +3,15 @@
 Content
 > Notification Best Practices
 >> Don't annoy the user
+
 >> Respect the user
+
 >> Empower them
+
 >> Delight them
+
 >> Connect them to the people they care about
+
 
 
 ## Don't annoy the user
@@ -117,7 +122,9 @@ new NotificationCompat.Builder(this)
 ```
 ### 3. giving the imformation the user need
 (1). Big Picture
+
 ![](./_image/2016-06-18 19-45-42.jpg)
+
 (The image will be *CenterCrop*, and <= 450dp wide. )
 
 This is great for showcasing visual content. However, remember that large bitmap waste RAM. 
