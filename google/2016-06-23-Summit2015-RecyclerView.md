@@ -8,6 +8,7 @@
 1.3 Accessibility : LayoutManager provide basic accessibility, information to cycle through. Like One row of one column:
 
 ![](./_image/2016-06-23 10-52-29.jpg)
+
 But if you have more information about those views, like the section one cannot be accessible to focus, you then have access to delegate to RecyclerView to add this additional information:
 
 ![](./_image/2016-06-23 10-53-59.jpg)
