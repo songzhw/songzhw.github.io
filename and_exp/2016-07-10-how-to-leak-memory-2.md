@@ -11,7 +11,7 @@ A typical Singleton code is as followed:
 public class Singleton{
     private static Singleton instance;
     private Singleton(){}
-    public Singleton getInstance(){
+    public static Singleton getInstance(){
         if(instance == null){
             instance = new Singleton();
         }
@@ -30,7 +30,7 @@ public class Singleton2{
     private Singleton2(Context ctx){
         // ... do somehting, hold the ctx object
     }
-    public Singleton2 getInstance(Context ctx){
+    public static Singleton2 getInstance(Context ctx){
         if(instance == null){
             instance = new Singleton2(ctx);
         }
