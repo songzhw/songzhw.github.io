@@ -62,7 +62,7 @@ But actually, when we run the "adb shell dumpsys  activity", we found out that B
 
 Task 1  | Task 2
  :-------------------------:|:-------------------------:
- A <br/> B | (null)
+ B <br/> A | (null)
 
 This is a little complex to explain, because it involves the ```android:taskAffinity``` attribute. I will explain this attribute later.
 
