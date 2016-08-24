@@ -43,12 +43,12 @@ This is not difficult too. You only have to declare a `TranslateAnimation` and a
 This is a little difficult. You are like an surgeon having a anatomy. Actually, the ActionSheet has two parts. One is the the FrameLayout which matches the whole screen, and one is the buttons.
 
 The structure of ActionSheet is :
->ActionSheet 
->> FrameLayout (background is #8000)
->> LinearLayout (vertical)
->>> Button Delete
->>> Button Save
->>> Button Cancel
+FrameLayout `(background is #8000)`<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;LinearLayout `(vertical, at the bottom)`<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Button Delete<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Button Save<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Button Cancel<br/>
+
 
 
 ![](./_image/2016-08-23 23-11-08.jpg)
@@ -72,10 +72,10 @@ For more information about DecorView, please see [here](http://blog.csdn.net/u01
 Sometimes you get the requirement that pops up image, rather than buttons from the button. What should you do?
 
 Yes, just remake the structure.
->ActionSheet 
->> FrameLayout (background is #8000)
->> LinearLayout (vertical)
->>> ImageView
+FrameLayout `(background is #8000)`<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;LinearLayout `(vertical, at the bottom)`<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ImageView<br/>
+
 
 
 
