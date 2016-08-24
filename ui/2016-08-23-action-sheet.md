@@ -66,11 +66,25 @@ You can simply see DecorView as your phone screen. When it add one View, the Vie
 ```
 This code will make sure our ActionSheet is on top of every other layer.
 
+For more information about DecorView, please see [here](http://blog.csdn.net/u012422440/article/details/51173387) (an Chinese blog).
 
 ### B2. Customize Our Action Sheet
+Sometimes you get the requirement that pops up image, rather than buttons from the button. What should you do?
+
+Yes, just remake the structure.
+>ActionSheet 
+>> FrameLayout (background is #8000)
+>> LinearLayout (vertical)
+>>> ImageView
 
 
-## C. Easter Egg
+
+## C. Conclusion
+The implementation of the ActionSheet is not difficult. But you can learn something about DecorView, Animation, and customing a View. You definitely should try it yourself.
+
+p.s. Android support Libray 23.2 actually publish a class called [android.support.design.widget.BottomSheetBehavior](https://developer.android.com/reference/android/support/design/widget/BottomSheetBehavior.html?utm_campaign=android_launch_supportlibrary23.2_022216&utm_source=anddev&utm_medium=blog) that can also implement such a feature. But there are a little difference between these two classes in UI. 
 
 
-## D. Code
+At last, [Here is the code.](https://github.com/songzhw/SixUiViews/tree/master/app/src/main/java/cn/six/open/view/customactionsheet)
+
+
