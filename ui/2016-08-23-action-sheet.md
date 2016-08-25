@@ -45,11 +45,11 @@ This is a little difficult. You are like an surgeon having a anatomy. Actually, 
 
 The structure of ActionSheet is :<br/>
 ```
-FrameLayout (background is #8000)<br/>
-	-> LinearLayout (vertical, at the bottom)<br/>
-		-> Button Delete<br/>
-		-> Button Save<br/>
-		-> Button Cancel<br/>
+FrameLayout (background is #8000)
+	-> LinearLayout (vertical, at the bottom)
+		-> Button Delete
+		-> Button Save
+		-> Button Cancel
 ```
 
 
@@ -76,9 +76,9 @@ Sometimes you get the requirement that pops up image, rather than buttons from t
 
 Yes, just remake the structure.<br/>
 ```
-FrameLayout (background is #8000)<br/>
-	-> LinearLayout (vertical, at the bottom)<br/>
-		-> ImageView<br/>
+FrameLayout (background is #8000)
+	-> LinearLayout (vertical, at the bottom)
+		-> ImageView
 ```
 
 
