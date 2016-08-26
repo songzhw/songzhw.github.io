@@ -18,7 +18,9 @@ We actually can take advantage of it to make our own Activity template for us, a
 
 Here is some developer's output:
 
-[](https://i1.kknews.cc/large/a9f00054c5ed33d480d)
+![](https://i1.kknews.cc/large/a9f00054c5ed33d480d)
 
 (the picture is from: [Hongyang's blog](http://blog.csdn.net/lmj623565791/article/details/51592043) )
+
 Pretty awesome, right?  
+
