@@ -74,3 +74,66 @@ A steamlined code of template.xml is like this:
 </template>
 
 ```
+
+#### 2.1.1 parameter
+It is easy to find out that every `<parameter>` element is one input UI View in the previous picture. 
+
+Take an examploe of the first `<parameter>`,  ActivityName, the code is like below:
+
+```java
+    <parameter
+        id="activityClass"
+        name="Activity Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        suggest="${layoutToActivity(layoutName)}"
+        default="MainActivity"
+        help="The name of the activity class to create" />
+```
+
+And the UI is like this:
+
+![](./_image/2016-08-26 09-23-08.jpg)
+
+* Thd `id` attribute : It's like `android:id="@+id/etActivityName"`. You can use the "id" to get this UI View's text.
+* The `name` attribute is the text in the left, "Activity Name:"
+* The `type` attribute: String or boolean. If the value is String, then it will show as a EditText. If the value is boolean, then it will show as a CheckBox. (just like `<parameter id="isLauncher">`)
+* The `constraints` attribute: "class|unique|nonempty" value is not hard to understand.
+
+#### 2.1.2  thumb
+```xml
+    <thumbs>
+        <thumb>template_blank_activity.png</thumb>
+    </thumbs>
+```
+
+"template_blank_activity.png" is in the root directory of "EmptyActivity" directory. 
+
+![](./_image/2016-08-26 09-40-54.jpg)
+
+It looks like this:
+
+![](./_image/2016-08-26 09-41-34.jpg)
+
+Yes, this is the picture in the left of the UI.
+
+#### 2.1.3 globals and execute  
+```xml
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+```
+Template refers "globals" and "execute". I will talk about them later. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
