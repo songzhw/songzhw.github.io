@@ -24,3 +24,53 @@ Here is some developer's output:
 
 Pretty awesome, right?  
 
+## 2. Learning from existing template
+
+Before we make our own template, we should get know how to make a template. And the best way to do that is to learn from the existing template, especially the easiest one. 
+
+In all the templates that already exist in the plugin directory, `EmptyActivity` is the simplest example. Let us have a loot at it.
+
+Open the "EmptyActivity" directory, we found the structure of this directory is this:
+
+![](./_image/2016-08-25 20-34-23.jpg)
+
+### 2.1. template.xml
+template.xml is like the layout xml in our Android project. It tells Android Studio how to draw a UI. 
+
+For example, Empty Activity Template looks like this:
+
+![](./_image/2016-08-25 21-20-16.jpg)
+You have three EditText for you to input the name, and two CheckBox to select.  And the template will have these five element to draw them. 
+
+A steamlined code of template.xml is like this:
+```xml
+<?xml version="1.0"?>
+<template description="Creates a new empty activity">
+
+    <parameter id="activityClass" name="Activity Name"
+        type="string" default="MainActivity" />
+
+    <parameter id="generateLayout" name="Generate Layout File"
+        type="boolean" default="true" />
+
+    <parameter id="layoutName" name="Layout Name"
+        type="string" constraints="layout|unique|nonempty"
+        visibility="generateLayout"/>
+
+    <parameter id="isLauncher" name="Launcher Activity"
+        type="boolean" default="false" />
+    
+    <parameter id="packageName" name="Package name"
+        type="string" constraints="package"
+        />
+
+    <thumbs>
+        <thumb>template_blank_activity.png</thumb>
+    </thumbs>
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+
+</template>
+
+```
