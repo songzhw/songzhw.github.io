@@ -40,6 +40,7 @@ template.xml is like the layout xml in our Android project. It tells Android Stu
 For example, Empty Activity Template looks like this:
 
 ![](./_image/2016-08-25 21-20-16.jpg)
+
 You have three EditText for you to input the name, and two CheckBox to select.  And the template will have these five element to draw them. 
 
 A steamlined code of template.xml is like this:
@@ -124,7 +125,8 @@ Yes, this is the picture in the left of the UI.
 ```
 Template refers "globals" and "execute". I will talk about them later. 
 
-
+"global.xml.ftl" : It's like a global configuration file
+"recipte.xml.ftl": It's like the main function in Java. It help transfer the "template.xml" to our plugin.
 
 
 
