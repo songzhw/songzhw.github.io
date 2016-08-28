@@ -123,15 +123,78 @@ Yes, this is the picture in the left of the UI.
     <globals file="globals.xml.ftl" />
     <execute file="recipe.xml.ftl" />
 ```
-Template refers "globals" and "execute". I will talk about them later. 
+Template refers "globals" and "execute". What are those two files?
 
-"global.xml.ftl" : It's like a global configuration file
-"recipte.xml.ftl": It's like the main function in Java. It help transfer the "template.xml" to our plugin.
+Let me tell the conclusion first. 
+* "global.xml.ftl" : It's like a global configuration file
+* "recipte.xml.ftl": It's like the main function in Java. It help transfer the "template.xml" to our plugin.
 
+[global.xml.ftl] 
 
+```xml
+<?xml version="1.0"?>
+<globals>
+    <global id="hasNoActionBar" type="boolean" value="false" />
+    <global id="parentActivityClass" value="" />
+    <global id="simpleLayoutName" value="${layoutName}" />
+    <global id="excludeMenu" type="boolean" value="true" />
+    <global id="generateActivityTitle" type="boolean" value="false" />
+    <#include "../common/common_globals.xml.ftl" />
+</globals>
+```
 
+global.xml.ftl is like a class that holds all the global values. 
 
+Note that the global.xml.ftl also includes the common globals files, which is a common file that all the templates can use.
 
+[recipt.xml.ftl]
+
+```xml
+<?xml version="1.0"?>
+<recipe>
+    ... ... 
+    <instantiate from="root/src/app_package/SimpleActivity.java.ftl"
+                 to="${escapeXmlAttribute(srcOut)}/${activityClass}.java" />
+
+    <open file="${escapeXmlAttribute(srcOut)}/${activityClass}.java" />
+</recipe>
+```
+
+![](./_image/2016-08-27 23-55-15.jpg)
+
+* "instantiate" element is used to make the template file(aka. src/app_package/SimpleActvity.java.ftl) to become our target file (in this case, ${activityClass}.java)
+And ${activityClass} is one of the parameters in the "template.xml". Remeber?
+
+```xml
+    <parameter id="activityClass" name="Activity Name"
+        type="string" default="MainActivity" />
+```
+As we said before, we can use the "id" attribute to get the activity name.
+
+And the content of template file is:
+
+```java
+// [SimpleActivity.java.ftl]
+package ${packageName};
+
+import ${superClassFqcn};
+import android.os.Bundle;
+
+public class ${activityClass} extends ${superClass} {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+<#if generateLayout>
+        setContentView(R.layout.${layoutName});
+</#if>
+    }
+}
+```
+    * {packageName}, {superClassFqcn}, {superClass} : They are all from "../common/common_globals.xml.ftl"
+    * {activityName}, {generateLayout}, {layoutName} : These are all from "template.xml"
+
+* "open" element will open the target file in the Android Studio after generating the target file. 
 
 
 
