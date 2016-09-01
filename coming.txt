@@ -1,4 +1,9 @@
-﻿
+﻿which Image Loader library?
+
+How EventBus works?
+
+How EventBus 3.0 has a better effience?
+
 build code review server
 
 NFC
@@ -6,8 +11,6 @@ NFC
 google mvp -- test
 
 Android Test with mock data : old way and new way(dagger)
-
-webview security
 
 Enum --> @IntDef 
 
