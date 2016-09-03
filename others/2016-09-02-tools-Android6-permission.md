@@ -6,6 +6,60 @@ Before I introduce the `Permission6` to you, I have to say there are many librar
 
 However we ususaly have our own base Activity as a parent for all our own Activity, and Java only allows sinlge inheritance, so these libraries I mentioned before can't meet our requirement. 
 
+That's why Permission6 is different. Permission6 library uses the  `Favor composition over inheritance` principle. You don't have to declair your Activity as an extension of some specific Activity!
+
+#### import Permission6
+
+```groovy
+  dependencies {
+    compile 'ca.six.util:Permisssion6:1.0.1'
+  }
+```
+
+#### How to use Permission6
+If you want to apply the "WRITE_EXTERNAL_STORAGE" permissin, you can use `Permission6.executeWithPermission()` to request the permission, and use `IAfterDo` interface to deal with the result.
+
+Here is the code:
+
+```java
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, IAfterDo {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        findViewById(R.id.btn_main).setOnClickListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Permission6.destory();
+    }
+
+    // ========== request the permission ========== 
+    @Override
+    public void onClick(View view) {
+        Permission6.executeWithPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, this);
+    }
+
+    // ==========  deal with the result  ========== 
+    @Override
+    public void doAfterPermission() {
+        Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void userDenyPermission() {
+        Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+        // normally, a dialog is better for user experience
+        Permission6.startAppSettings(this, "ca.six.util.demo");
+    }
+}
+```
+#### Conclusion
+Permission6 will make your request of permission very easy. In the meanwhile, you don't have to write too much boilerplate, and you don't declair your activity as an extension of some other specific Activity.
 
 
 
