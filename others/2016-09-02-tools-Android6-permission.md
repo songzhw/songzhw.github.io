@@ -58,6 +58,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 }
 ```
+
+#### How it work?
+Actually, the `Permission6` is a Activity.
+
+When you call `Permission.executeWithPermission()`, you are actually jump to the Permission6 class, and the Permission6 Activity will do the request task for you. 
+
+When Permission6 gets the result, it will tell you throught the `IAfterDo` interface. 
+
+The source is very short. You can see [the source here](https://github.com/songzhw/android-utils/tree/master/Permission6). 
+
+
 #### Conclusion
 Permission6 will make your request of permission very easy. In the meanwhile, you don't have to write too much boilerplate, and you don't declair your activity as an extension of some other specific Activity.
 
