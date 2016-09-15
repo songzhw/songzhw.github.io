@@ -1,4 +1,6 @@
-﻿which Image Loader library?
+﻿Android7 : Split Screen, Java8
+
+which Image Loader library?
 
 How EventBus works?
 
