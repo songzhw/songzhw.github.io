@@ -1,4 +1,4 @@
-﻿Android7 : Split Screen, Java8
+﻿Android7 : Split Screen, Java8 (espresso + split screen)
 
 which Image Loader library?
 
