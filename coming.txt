@@ -1,4 +1,6 @@
-﻿Android7 : Split Screen, Java8 (espresso + split screen)
+Android7 : Split Screen, Java8 (espresso + split screen)
+
+install usb drivers in Windows
 
 which Image Loader library?
 
