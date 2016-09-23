@@ -14,7 +14,24 @@ You can use `Activity.isInMultiWindowMode()` to confirm Activity is in multi-win
 
 And you can use `onMultiWindowModeChanged(boolean isInMultiWindowMode)` to know the timing when the activity changes from fullscreen mode to multi-window mode and visa-versa.
 
+### 5. What should we do to support Split Screen?
+sw320dp
 
+### 4. Life Cycler
+
+
+### 5. Minefield
+#### 5.1 <layout>'s minimalWidth
+
+#### 5.2 orientation
+
+
+### 6. Drag & Drop
+
+
+
+
+### 7. Split Screen & Espresso
 
 
 
