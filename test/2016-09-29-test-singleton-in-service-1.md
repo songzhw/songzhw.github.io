@@ -133,7 +133,32 @@ Is there a solution that can involve Android environment and also run on the com
 
 
 ### Step 04 : Robolectric
+Like I said, running tests on Android emulator or device is slow. Building, deploying and launch the app often takes a minute or more. There's no way to do TDD. 
 
+[Robolectric](http://robolectric.org/) is a framework that helps you to run you Android tests directly from inside you IDE. 
+
+What does [Robolectric](http://robolectric.org/)  do? It's complex, but you can simply think that Robolectric encapsulate a Android.jar inside it. So you now have the android environment, therefore you can test Android code in your computer. 
+
+Here is an example of Robolectric:
+
+```java
+@RunWith(RobolectricTestRunner.class)
+public class MyActivityTest {
+
+  @Test
+  public void clickingButton_shouldChangeResultsViewText() throws Exception {
+    MyActivity activity = Robolectric.setupActivity(MyActivity.class);
+
+    Button button = (Button) activity.findViewById(R.id.button);
+    TextView results = (TextView) activity.findViewById(R.id.results);
+
+    button.performClick();
+    assertThat(results.getText().toString()).isEqualTo("Robolectric Rocks!");
+  }
+}
+```
+
+Back to our topic, with the help of Robolectric, we can test our Service in our computer, which is faster.
 
 
 ### Conclusion 01
