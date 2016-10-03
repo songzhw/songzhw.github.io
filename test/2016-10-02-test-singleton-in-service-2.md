@@ -109,7 +109,7 @@ public class PushServiceTest {
 }
 ```
 
-Problem solved. So we decouple the initialization of an object from the Service. We did give the test case an access to mock a instance of Singleton class. This is very important, [**To write testable code, we must separate object creation from the business logic. **](http://codeahoy.com/2016/05/27/avoid-singletons-to-write-testable-code/)  
+Problem solved. So we decouple the initialization of an object from the Service. We did give the test case an access to mock a instance of Singleton class. This is very important, [To write testable code, we must separate object creation from the business logic.](http://codeahoy.com/2016/05/27/avoid-singletons-to-write-testable-code/)  
 
 ## Conclusion 02
 Singleton, by their nature, prevent decoupling by providing a global and a static way of creating and obtaining an instance of their classes. The solution to test a singleton is to separate the initialization from the business logic, like we did above.
