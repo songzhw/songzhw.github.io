@@ -70,5 +70,49 @@ Now I understand there is no such solution for using PowerMock and Robolectric a
 
 ### try 03: decouple Singleton
 
+Now we know the PowerMock + Robolectgric solution is a dead-end. So can we test the singleton in Service or not?
+
+The asnwer is yes. Just like we said before, "singletons are considered bad because they make unit testing and debugging difficult. It tightly couple you to the exact type of the singleton object". So we want to create an opportunity for us to inject the dependency, rather than tightly coupled initialization with the singleton instance.
+
+Back to our example, if we use singleton, the code would look like:
+```java
+// [PushService.java]
+public class PushService extends Service {
+    public void onMessageReceived(String id, Bundle data){
+        FooManager.getInstance().receivedMsg(data);
+    }
+}
+```
+To use dependency injection, we can rewirte the code like this:
+```java
+// [PushService.java]
+public class PushService extends Service {
+    public FooManager fooManager;    
+    
+    public void onMessageReceived(String id, Bundle data){
+        fooManager.receivedMsg(data);
+    }
+}
+```
+In this example, FooManager is created outside of the service, which gives you an opportunity to inject/mock your own instance. So our test code would look like this:
+```java
+@RunWith(RobolectricTestRunner.class)  // Use Robolectric to test Service with JUnit
+@Config(constants = BuildConfig.class, sdk = 21) 
+public class PushServiceTest {
+    @Test
+    public void testReceivedMessage_Singleton(){
+        FooManager mgr = mock(FooManager.class);
+        service.fooManager = mgr;
+        service.onMessageReceived("23", data);
+        verify(service.fooManager).receivedMsg(data);
+    }
+}
+```
+
+Problem solved. So we decouple the initialization of an object from the Service. We did give the test case an access to mock a instance of Singleton class. This is very important, [**To write testable code, we must separate object creation from the business logic. **](http://codeahoy.com/2016/05/27/avoid-singletons-to-write-testable-code/)  
+
+## Conclusion 02
+Singleton, by their nature, prevent decoupling by providing a global and a static way of creating and obtaining an instance of their classes. The solution to test a singleton is to separate the initialization from the business logic, like we did above.
+
 
 
