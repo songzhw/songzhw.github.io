@@ -1,4 +1,4 @@
-﻿Unit Test vs. Singleton
+﻿java unit test Kotin
 
 Android7 : Split Screen, Java8 (espresso + split screen)
 
