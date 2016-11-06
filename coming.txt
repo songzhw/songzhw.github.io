@@ -1,4 +1,8 @@
-﻿modularity
+﻿how to make a MVP template
+
+MVP in ca01
+
+modularity
 
 unit tests in Android
 
