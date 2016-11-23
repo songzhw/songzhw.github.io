@@ -1,4 +1,6 @@
-I've got a bug about the Activity stack recently, and I fixed it using the knowledge of launch mode and Intent's flag. This post will introduce how I locate the reason, and how I fixed it. 
+I've got a bug about the Activity stack recently, and I fixed it using the knowledge of launch mode and Intent's flag. This post will introduce how I locate the reason, and how I fixed it.  
+
+Before reading this post, please make sure you already know something about launch mode. If not, please read this post [Explain Activity Launch Mode with Examples](http://www.songzhw.com/2016/08/09/explain-activity-launch-mode-with-examples/), which will help you understand how different launch mode work.
 
 ## 1. What's the problem I got?
 We have an Activity (let's call it A) which could contains multip Fragment. When you click the button on Fragment (let's call it B), what it does is jump to A, so A could launch another Fragment, "C" it is.  Oh, forget to mention, this "jump" action actually has an "Clear_top" flag in its Intent. 
@@ -153,7 +155,7 @@ The requirement need the "activity.isEnable" is still "true" if you already have
 
 So I should find a other way to start the PaymentActivity which will not create another instance of PaymentActivity if we already have one at the top of the Activity stack. 
 
-Yes, the answer is "Intent.FLAG_ACTIVITY_SINGLE_TOP". Here is its definition:
+The answer is "**Intent.FLAG_ACTIVITY_SINGLE_TOP**". Rememeber the post [Explain Activity Launch Mode with Examples](http://www.songzhw.com/2016/08/09/explain-activity-launch-mode-with-examples/) I released before, we talked about what is "single_top" launch mode. And when you add "FLAG_ACTIVITY_SINGLE_TOP" to your intent, actually you are using the "single_top" launch mode to launch the target activity. Here is the definition of this flag:
 
 ```
 [FLAG_ACTIVITY_SINGLE_TOP]
