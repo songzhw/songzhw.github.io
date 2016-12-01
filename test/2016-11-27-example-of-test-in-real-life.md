@@ -8,9 +8,10 @@ class PaymentFragment extends BasePaymentFragment {
     public void onCreate(Bundle b){
         super.onCreate(b);
         ...
-       httpRequest.sendRequst(id);
+       httpRequest.sendRequst(id, callback);
     }
     
+    // callback's method
     public void onHttpResponseSuccessful() {
         refreshView();
     }
@@ -47,13 +48,71 @@ This is the obstacle I have met. Since I cannot mock a PaymentFragment, so I can
 
 ### 2. Design better : time to use MVP
 
-MVP is not always the best option, sometimes MVVM may be a better option for you. I will not explain that too much (maybe I will write a post about MVVM and how to use it later).  Anyway, writting tests makes you refactor your code and build your project with a better architecture. 
+To test the business logic, I import MVP. The basic difference between MVP and MVC is that the Presenter in MVP does not contain the view logic, and View does not know the existance of Model. And here is [an example of MVP](https://github.com/Macarse/50AH-code/tree/master/hack020)
 
-This is obvious a example, now your view logic and business logic is separated. Why is it good? 
+In one work, MVP helps you separate view logic and business logic.  (songzhw : MVP is not always the best option in some occasion, instead MVVM may be a better option then. I will not explain that too much. Maybe I will write a post about MVVM and how to use it later).  Anyway, writting tests makes you refactor your code and build your project with a better architecture. 
+
+Here is how we refactor the original code. 
+
+**Step 1 : create interface for View**
+
+```java
+public interface IPaymentView {
+    void refreshPayView(PayResponse resp);
+}
+```
+**Step 2: refactor our fragment**
+
+```java
+// PaymentFragment (as a View)
+class PaymentFragment extends BasePaymentFragment implements IPaymentView {
+    
+    // ▼        
+    private PaymentPresent presenter;
+    
+    public void onCreate(Bundle b){
+        super.onCreate(b);
+        ...
+        // ▼
+       presenter = new PaymentPresent(this);
+       presenter.getPaymentInfo();
+    }
+    
+    // ▼ called by presenter
+    public void refreshPayView(PayResponse resp) {
+        boolean isSucc = resp.isSucc();
+        if(isSucc) {
+            // show UI for successful situation
+        }
+    }
+}
+```
+
+**step 3: create Presenter**
+In the same time, we extract the business logic to Present class. So our view is only in charge of showing, refreshing UI views. 
+
+```java
+// ▼ move business logic here
+public class PaymentPresent {
+    public PaymentPresent(IPaymentView view) {...}
+    
+    public void getPaymentInfo(){
+        httpRequest.sendRequst(id, callback);        
+    }
+
+    // callback's method
+    public void onHttpResponseSuccessful(PayResponse resp) {
+        view.refreshPayView(resp);
+    }    
+    
+}
+```
+
+This is a simple but clear example, now your view logic and business logic is separated. Why is it good? 
 
 (1). Code is separated and decoupled. Now you can change presenter and do not affect the View. Or you can change the static ScrollView to a RecyclerView, but you do not need to change the Presenter. That is saying, modifing your code is much easier and less risky now!
 
-(2). reuse.
+(2). reuse. This is a situation you
 
 
 ### 3. Test your view
