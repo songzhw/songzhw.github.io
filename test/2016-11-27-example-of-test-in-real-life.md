@@ -100,7 +100,7 @@ public class PaymentPresent {
         httpRequest.sendRequst(id, callback);        
     }
 
-    // callback's method
+    // ▼ callback's method
     public void onHttpResponseSuccessful(PayResponse resp) {
         view.refreshPayView(resp);
     }    
@@ -112,14 +112,11 @@ This is a simple but clear example, now your view logic and business logic is se
 
 (1). Code is separated and decoupled. Now you can change presenter and do not affect the View. Or you can change the static ScrollView to a RecyclerView, but you do not need to change the Presenter. That is saying, modifing your code is much easier and less risky now!
 
-(2). reuse. This is a situation you
+(2). reuse. Let's say, you have to deposite money from the bank, the UI is same UI as the payment. You also have to input the password and show your account info. This time, you can reuse the View, just create a new Presenter(DepositePresenter).
 
 
-### 3. Test your view
+### 3. Test your presenter
 
 
-### 4. Test your presenter
-
-
-### 5. Conclusion
+### 4. Conclusion
 
