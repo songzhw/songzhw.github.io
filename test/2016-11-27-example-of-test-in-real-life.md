@@ -110,13 +110,43 @@ public class PaymentPresent {
 
 This is a simple but clear example, now your view logic and business logic is separated. Why is it good? 
 
-(1). Code is separated and decoupled. Now you can change presenter and do not affect the View. Or you can change the static ScrollView to a RecyclerView, but you do not need to change the Presenter. That is saying, modifing your code is much easier and less risky now!
+(1). Code is separated and decoupled, hence you can easily expand or modify one part. For exampl now you can change presenter and do not affect the View. Or you can change the static ScrollView to a RecyclerView, but you do not need to change the Presenter. That is saying, modifing your code is much easier and less risky now!
 
 (2). reuse. Let's say, you have to deposite money from the bank, the UI is same UI as the payment. You also have to input the password and show your account info. This time, you can reuse the View, just create a new Presenter(DepositePresenter).
 
+(3). More testable. Since our logic is extracted from the View, now we can test logic or test view easily. Later, I will show how to unit test Presenter.
 
 ### 3. Test your presenter
+Http request is obvious an asynchronous call. To test this asynchronous process, we have to import Mockito's `ArgumentCaptor` to help us achieve that.
 
+Here is the code to test Presenter: 
+
+```java
+public class PaymentPresenterTest { 
+    private PaymentPresenter presenter;
+    private IPaymentView view;
+    ...
+
+    @Before
+    public void setUp(){
+        view = mock(IPaymentView.class); 
+        presenter = new PaymentPresenter(view); 
+        ...
+    }
+
+    @Test
+    public void getPaymentInfo(){
+        presenter.getPaymentInfo(); 
+        verify(httpRequest).sendRequst(anyString(), arugmentCaptor.capture());
+        argumentCaptor.getValue().onHttpResponseSuccessful(mockResp);
+     	verify(view).refreshPayView(resp);
+    }
+}
+```
+
+By the way, View can be unit tested, too. But you have to use Robolectric to do that. 
 
 ### 4. Conclusion
+This example is telling us the architecture is not there for you at once. It evloves too. In this example, our Fragment is too huge originally, but after our seperate M,V,P three parts, now the code is much better to read, expand, test and reuse. 
 
+In conclusion, as your code expand, you need to refactor you code, import better architecture, and make sure you write unit tests about the code. And you will find out you have to use better architecture if you want to write unit test code. Tests make your code even better!
