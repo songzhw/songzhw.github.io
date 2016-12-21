@@ -26,6 +26,11 @@ We already introduce how to test the Presenter before. Now the only question is 
 
 The answer is yes. Yes, you can have java classes access kotlin classes. 
 
+First, we create a test class, and also a java class, for the HomePresenter. And the result is `HomePresenterTest` :
+
+![](./_image/2016-12-19 23-19-03.jpg)
+
+
 ##### 2.1 setup()
 
 ```java
@@ -75,9 +80,19 @@ That's why we should use "data.getItems()" in the test class, which is written b
 
 You may wonder, how should I know what kind of result will a field, or a method, or a class in kotlin become eventually? Don't worry, the IDE(Android Studio) will give you a hand.  
 
+![](./_image/2016-12-19 23-19-55.jpg)
 
-Just like this, you see
+Just like this, you see, when you type "presenter.g", the IDE will give you a hint. So don't worry.
 
 ### 3. another solution
 Of course, you can test the kotlin project with Kotlin. All you have to do is just add the kotlin dependency to "test" build variant.
+
+Although I didn't try this way. But I think the solution below will work. Apparently you've already add `compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"` to the build.gradle. Now what you have to do is simple, just add this line:
+
+```java
+testCompile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+```
+
+### 4. Conclusion
+Just remember to test your project. Your project is written by kotlin is no longer an excuse for you. Have fun coding and testing!
 
