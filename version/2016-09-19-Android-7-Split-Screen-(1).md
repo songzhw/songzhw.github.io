@@ -17,6 +17,10 @@ And you can use `onMultiWindowModeChanged(boolean isInMultiWindowMode)` to know 
 ### 5. What should we do to support Split Screen?
 There is a trick: You only have to support sw320dp, so you can expand your app to Split Screen. 
 
+So here is a strategy you can follow
+1 - create res/values, which saves the resource values for sw320dp and split screens
+2 - create res/values-sw360dp, which saves the resouce values for sw360dp
+
 ### 4. Life Cycler
 
 
