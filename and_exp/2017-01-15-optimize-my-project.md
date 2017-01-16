@@ -1,6 +1,6 @@
 In the last four months, I did some optimization to our company's project.
 
-####. Method Count
+### Method Count
 Some code are written like this:
 
 ```java
@@ -31,7 +31,10 @@ public void onCreate(Bundle b) {
 }
 ```
 
-####. Enum
+p.s. This is just an example. You may remember that unnecessary methods should not be created. 
+
+
+### Enum
 Google suggested develop to avoid using Enum.  Here is [what it said](https://developer.android.com/topic/performance/memory.html ) :
 
 ```
@@ -56,6 +59,26 @@ Here is an example about how to use `@IntDef` to replace Enum:
 
 Since the annotation is `SOURCE` level, so you don't have to worry about it affecting your compile-time/runtime performance.
 
+### Serializable
+Our project has hundreds of model class that implements Serializable. Of course, they are designed this way so they can be passed between Activities. But this is also a performance hole.
+
+Yes, I agree that Serializable is much easier to write. You just need to add two words `implements Serializable`. But Parceable is much faster. By "much faster", I am talking 3x, even 10x, faster. 
+
+According to [this experiment](http://greenrobot.me/devpost/android-parcelable-serializable), you will notice that difference very easily.
+
+![](./_image/2017-01-16 17-47-26.jpg)
+
+
+So you should consider to stop using Serializable, and try Parceable. 
+
+I know Parceable is not that easy to write. But don't worry, there are many tools or Android Studio Plugin to help you write Parceable classes. So "it's hard to code" is not an excuse to reject Parceable.
+
+p.s. Actually, you have other options, for example, using FlatBuffer instead of JSON to do the serialization job. But this will bring much changes to your project, so I am not gonna mention the details here.
+
+p.s. By the way, I strongly recommend you to watch this video, [Android Performance](https://www.youtube.com/watch?v=IwxIIUypnTE) by Google. 
+
+### Reference
+[http://greenrobot.me/devpost/android-parcelable-serializable](http://greenrobot.me/devpost/android-parcelable-serializable)
 
 
 
@@ -68,4 +91,6 @@ Since the annotation is `SOURCE` level, so you don't have to worry about it affe
 4. add unit test
 
 5. open-close principle
+
+
 
