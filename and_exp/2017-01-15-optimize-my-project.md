@@ -77,14 +77,35 @@ p.s. Actually, you have other options, for example, using FlatBuffer instead of 
 
 p.s. By the way, I strongly recommend you to watch this video, [Android Performance](https://www.youtube.com/watch?v=IwxIIUypnTE) by Google. 
 
+### inheritance hell
+Our project are literally in inheritance hell. Just like the post I wrote before, [How writting test cases makes your achritecture better?](http://www.songzhw.com/2016/12/03/how-writing-test-makes-your-architecture-better/), we have a lot, literally a lot, inheritance.  Take a simple Fragment for example, the inheritance tree is :  `BaseFragment -> BaseNetworkFragment -> BaseRefreshFragment -> BaseMoneyFragment -> BasePaymentFragment -> BasePaymentFragment`
+
+This is not all. There are many such abused inheritance in our project code. I will introduce an example of writting a payment screen.
+
+Our payment could be cash, credit card, debit card. So we have three Presenter:
+** CashPresenter
+** CreditCardPresenter
+** DebitCardPresenter
+
+And these three presenter has something in common, so we also have a `BassePayOrderPrsenter` to deal with the common code. That's easy to understand. But the code in our project seems a little odd.
+
+![](./_image/2017-01-17 17-25-37.jpg)
+
+Our DebitCardPresenter is a child class of CreditCardPresenter?! Normally, cash, credit card, and debit card should be in the same level, why the code is not?
+
+Yes, normally, it is. But apparently, pay with credit card and with debit card has a lot in common. That's why our original developer did such thing.
+
+This is reasonable, but it is wrong. 
+
+
+
+
 ### Reference
 [http://greenrobot.me/devpost/android-parcelable-serializable](http://greenrobot.me/devpost/android-parcelable-serializable)
 
 
 
-1. emnu
 
-2. method count
 
 3. separate logic from UI
 
