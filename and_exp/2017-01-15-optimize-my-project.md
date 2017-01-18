@@ -95,7 +95,29 @@ Our DebitCardPresenter is a child class of CreditCardPresenter?! Normally, cash,
 
 Yes, normally, it is. But apparently, pay with credit card and with debit card has a lot in common. That's why our original developer did such thing.
 
-This is reasonable, but it is wrong. 
+This is reasonable, but it is wrong.  Think it this way, one day, you have to change a little logic in CreditCardPresenter, you have to worry about "oh, is this change gonna affect DebitCardPresenter too". You have to be very careful. And if it is, you have to write such code:
+
+```java
+if (mode == CreditCard) {
+    // do something for CreditCard
+} else if (mode == DebitCard) {
+    // do something for DebitCard
+} 
+```
+
+Now you have unnecessary if/else in the CreditCardPresenter. More important, this violate the "single responsibility" principle, which will make the code less robust.
+
+Now we know why the inheritance hell is bad. Then what can we do to avoid it?
+The answer is "composition over inheritance". You should 
+ 01 - make three presenter be the same inheritance level. All their parent are BasePayOrderPresenter.
+![](./_image/2017-01-17 18-22-05.jpg)
+ 02 - To avoid duplicate code, which is also bad, we create a new class named "PayHelper". We extract all the common code into this PayHelper class. 
+And CreditCardPresenter and DebitCardPresenter both has a member `private PayHelper helper`. the `helper` member will do all the common code job.
+
+### Import MVP
+MVP is a good architecture to separate logic and UI. There are many posts about MVP on Internet. Even google has tried to use it in its sample. So I am not talk about the details here. But you should try MVP.
+
+By the way, if you have not seen google's architecture sample, I strongly recommend you to read it. [Here is the link](https://github.com/googlesamples/android-architecture). 
 
 
 
