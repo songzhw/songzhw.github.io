@@ -119,6 +119,8 @@ MVP is a good architecture to separate logic and UI. There are many posts about 
 
 By the way, if you have not seen google's architecture sample, I strongly recommend you to read it. [Here is the link](https://github.com/googlesamples/android-architecture). 
 
+### Import unit tests
+Since we separate the logic and UI, now writting unit tests becomes very easy.  Ideally, Presenter is just a pure java class which contains no Android code. This way, we can finally unit test all the logic, because we just need to unit test Presenter. Please note that what I am talking aobut is unit test, not the integration test. Unit test is quicker and independent from devices.  This part is also a huge part, and I may talk about it later.
 
 
 
