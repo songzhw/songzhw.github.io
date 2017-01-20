@@ -131,11 +131,3 @@ Since we separate the logic and UI, now writting unit tests becomes very easy.  
 
 
 
-3. separate logic from UI
-
-4. add unit test
-
-5. open-close principle
-
-
-
