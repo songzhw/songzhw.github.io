@@ -24,3 +24,51 @@ The conclusion is :
 
 ### Challenge 02 : Current Activity
 
+#### Plan A : `List<RunningTaskInfo>`
+The first method I thought of is the `RunningTaskInfo` list. Just like this:
+
+```java
+public static boolean isAppOnForeground(Context context) {
+    try {
+        int maxRunning = 100;
+        ActivityManager am = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> taskList = am.getRunningTasks(maxRunning);
+        if (taskList == null || taskList.isEmpty()) {
+            return false;
+        }
+        ActivityManager.RunningTaskInfo info = taskList.get(0);
+        String name = info.topActivity.getPackageName();
+        if (context.getPackageName().equals(name)) {
+            return true;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        return true;
+    }
+    return false;
+}
+```
+
+However, what we need is apparently the reference of the top Activity. So the previous code does not work because it only get the Activity name, not the reference.
+
+#### Plan B : Ordered Broadcast
+
+
+#### Plan C : ActivityLifeCycleCallbacks 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
