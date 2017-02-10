@@ -61,7 +61,7 @@ A good plan. But it is a little complexer than I thought. I have to register and
 #### Plan C : ActivityLifeCycleCallbacks 
 Plan B just said, we can use ActivityLifeCycleCallback to know if your Activity is showing foreground. 
 
-##### C-01 : Introduction of ActivityLifeCycleCallbacks
+##### [C-01] : Introduction of ActivityLifeCycleCallbacks
 Here is how it did that:
 
 ```java
@@ -92,7 +92,7 @@ public class AndApp extends Application {
 
 Note that the ActivityifecycleCallbacks will take affect in every Activity in your app. Yes, even those activities that are in the 3rd party library. 
 
-##### C-02 : Record the Foreground Activity
+##### [C-02] : Record the Foreground Activity
 What we need is just a field, a static or a singleton will be both okay for us, to record the foreground Activity. 
 
 So I created a helper class to do it:
@@ -157,7 +157,7 @@ Here is our real code of ActivityLifecycleCallbacks:
 
 Easy, right? But when we really do it, we got a bug. 
 
-##### C-03 : A bug: Why? How to fix it? 
+##### [C-03] : A bug: Why? How to fix it? 
 When you open one Activity from another Activity , and then you get a GCM push. Our expectation is showing a in-app notification. After all, our activity is still foreground. But no, your app show a system notification instead. Why?
 
 Put some logs in your app, then we find out why. Here is the log, when we open a DemoActivity from HomeActivity:
@@ -200,15 +200,16 @@ public class AndApp extends Application {
     private ActivityLifecycleCallbacks callbacks = new ActivityLifecycleCallbacks() {
         @Override
         public void onActivityStarted(Activity activity) {
-            activityRefCount++;
-            ForegroundActivityHelper.getInstance().setCurrentActivity(activity);
+            activityRefCount++; // ▼ add the count every time we start an activity
+            ForegroundActivityHelper.getInstance().setForegroundActivity(activity);
         }
 
         @Override
         public void onActivityStopped(Activity activity) {
-            activityRefCount--;
-            if(activityRefCount == 0) {
-                ForegroundActivityHelper.getInstance().setCurrentActivity(null);
+            activityRefCount--; 
+            // ▼ only remove the reference when your app is in the background
+            if(activityRefCount == 0) { 
+                ForegroundActivityHelper.getInstance().setForegroundActivity(null);
             }
         }
     };
