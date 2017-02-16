@@ -31,3 +31,40 @@ public void loadImage(Context ctx, String url, ImageView iv) {
             .into(iv);
 }
 ```
+
+And if another client is still using UniversalImageLoader, that's okay. He should define the image loader this way:
+
+```java
+@Override
+public void loadImage(Context ctx, String url, ImageView iv) {
+    imageLoader.displayImage(url, iv);
+}
+```
+
+When clients want to start our SDK to pay, he need to change a little bit
+The old way is : `PaySDK.startPay(arg1, arg2);`
+Now the new way is : 
+```java
+PaySDK.imageLoader = new PicassoImageLoader();
+PaySDK.startPay(arg1, arg2);
+```
+
+
+#### step3. use the image loader in my SDK
+when my SDK want to loader a picture, e.g a logo of one bank, all I have to do is just this:
+
+```java
+public IImageLoader imageLoader;
+
+public void showImage(Context ctx, String url, ImageView iv){
+    if(imageLoader != null){
+        imageLoader.loadImage(ctx, url, iv);
+    } else {
+        // display the default image (placeHolder)
+    }
+}
+
+```
+
+
+The solution is very lightweight, and yet successful. And it avoid to import duplicated image loader library. 
