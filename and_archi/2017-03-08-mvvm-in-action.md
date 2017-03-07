@@ -1,0 +1,4 @@
+Android data-binding framework has been invented more than one year, now I think it's time to research it and apply it to real project. So I will talk about the MVVM in this post. 
+
+### RoboBinding
+Before I talk about the Android data-binding framework, I want to talk about another data-binding library [RoboBinding](https://github.com/RoboBinding/RoboBinding). This library is created way before Android data-binding framework. I got to know this library two years ago, and found it very easy to use. This library uses the compile-time annotation to generate source code of data-binding for you. I have to say, this library is better than today(201703)'s Android data-binding library. Its two-way binding, AdapterView binding is even more easier than Android data-binding library. If you are interested, you can read the source code, and I hope you will enjoy the code.
