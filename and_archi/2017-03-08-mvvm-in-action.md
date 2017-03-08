@@ -42,7 +42,7 @@ protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     ActivityBindingDemoSimpleBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_binding_demo_simple);
 
-    User user = new User("name2", "desp2", true);
+    User user = new User("jack", "a nice man", true);
     binding.setUser(user);
 }
 ```
@@ -56,6 +56,15 @@ Data-binding is not just that. There are more feature you need to learn:
 But this post is about the architecture, is about MVVM, so I will not talk too much about data-binding. I may create a new post about data-binding later.
 
 ### MVVM
+For those person who know MVVM is always with data-binding, I have to say, MVVM is not necessarily using data-binding.
+
+In the MVP pattern, our Presenter must know the existance of View, so when you get the data from Model, you can call, like `view.refresh(data);`. But in MVVM, our middle-layer, ViewModel (not Presenter anymore),  does not need know the existance of View, or it does not care about the View. Anyone could be the View, what I(ViewModel) should do is just send the UI logic out, any view can hold it and deal with it. 
+
+To fulfill such an architecture, you have at least two ways:
+* Data-Binding : What you should do is just changing the model/data, the data-binding framework will be in charge of deliver this change event to the view.
+* RxJava : This solution is like Observable pattern. The ViewModel just send the change event, and his subscriber will get notified. By the way, ViewModel does not know, and does not need to know which class is the receiver.
+
+### MVVM with data-binding
 
 
 ### OneBindingAdapter
