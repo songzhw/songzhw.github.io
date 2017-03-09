@@ -54,3 +54,11 @@ If we cancel the timer in onStop(), and the user press home button, then the tim
 
 
 #### 2.4 solution 03
+Finally, I now get to understand why the original author of this class wanted to make it Singleton. 
+--> If you jump from A screen to B screen, the singleton will make sure the `context` member would be a new activity and the timer will be reset
+
+--> If you press home button, the singleton will make sure the timer is still ticking.
+
+Singleton is good for our requirement, but is bad for our memory. Now I start to think since the singleton is inevitable, maybe we can stop singleton to hold our context.
+
+The only reason why the ClientSession class need the context is when the timer is finished, we need the context to start the LogoutActivity.
