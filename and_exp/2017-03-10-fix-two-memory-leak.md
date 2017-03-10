@@ -118,5 +118,17 @@ Why does this fix works and does not break our ClientSession functionality?
 
 
 #### 2.5  important thing to mention
-The leak is fixed, however I still have one thing need to mention. That is the `context.startActivity(context, WarningActivity.class);3`. 
+The leak is fixed, however I still have one thing need to mention. 
+Normally, if the context is the application context, rather than an activity context, then  `context.startActivity(context, WarningActivity.class);` will actually cause a crash. The error message would be :
 
+``` java
+android.util.AndroidRuntimeException: 
+        Calling startActivity() from outside of an Activity  context requires the FLAG_ACTIVITY_NEW_TASK flag.
+        Is this really what you want?
+   at android.content.ContextWrapper.startActivity(ContextWrapper.java:331)
+
+```
+
+So now you should understand why our solution is so tricky. It's not just replace "context" with "application context", it's not that easy. We tried many solution, try to fix the leak and also try to keep the client seesion functionality.  Even that, without the `clear_task | new_task` flag, our solution will still fail.  In conlusion, with the help of LeakCanary, it might be easy to spot a memory leak, but how to fix it might be more complicated. 
+
+Okay, this is the two leaks I fixed days ago. I will continue to bring more examples of how to fix memory leak in the future.
