@@ -56,11 +56,24 @@ public class ClientSession extends CountDownTimer {
         super(TIME, 1000);
         this.ctx = ctx;
     }
+    @Override
+    public void onTick(long millisUntilFinished) { }
 
+    @Override
+    public void onFinish() { 
+        Intent it = new Intent(ctx, WarningActivity.class);
+        it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        ctx.startActivity(it);
+    }
+
+    public void reset(){
+        cancel();
+        start();
+    }
 ```
 
 
-Just like the first leak, we know the reason is the Singleton, aka, static field, holds the reference of our Activity and never release it. So a leak happens. 
+Just like the first leak, we know the reason is the Singleton, AKA, static field, holds the reference of our Activity and never release it. So a leak happens. 
 
 But how do we fix that? It's kind of tricky. 
 
@@ -77,7 +90,7 @@ Then I moved the cancelling action to onStop(), instead of onDestory(). But I fo
 If we cancel the timer in onStop(), and the user press home button, then the timer stopped, which is not correct.
 
 
-#### 2.4 solution 03
+#### 2.4 solution 03 -- (successful!)
 Finally, I now get to understand why the original author of this class wanted to make it Singleton. 
 --> If you jump from A screen to B screen, the singleton will make sure the `context` member would be a new activity and the timer will be reset
 
@@ -85,4 +98,25 @@ Finally, I now get to understand why the original author of this class wanted to
 
 Singleton is good for our requirement, but is bad for our memory. Now I start to think since the singleton is inevitable, maybe we can stop singleton to hold our context.
 
-The only reason why the ClientSession class need the context is when the timer is finished, we need the context to start the LogoutActivity.
+The only reason why the ClientSession class need the context is when the timer is finished, we need the context to start the WarningActivity. And to finish all the activities before, we add new_task|clear_task flag.
+
+This two flag actually saved us. Here is how we fix the leak : `replace the context with the application.context`
+
+```java
+   public static ClientSession getInstance() { // ▼ removed "Context context"
+        if (clientSession == null) {
+            clientSession = new ClientSession(AndApp.context); // ▼ replace the context
+        }
+        return clientSession;
+    }
+```
+
+Why does this fix works and does not break our ClientSession functionality?
+1. Replacing the context with applicationContext will make sure our Activity is not holded by a static field. As for the application context, it's application and will last in the whole application's lifecycle, so it's okay to let a static filed hold the reference of an application context
+
+2. As for the functionality, we still keep the singleton, which will still have a correct timer. It's just our singleton does not hold an activity context anymore.
+
+
+#### 2.5  important thing to mention
+The leak is fixed, however I still have one thing need to mention. That is the `context.startActivity(context, WarningActivity.class);3`. 
+
