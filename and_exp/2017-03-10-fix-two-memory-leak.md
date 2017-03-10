@@ -8,7 +8,7 @@ Thanks to [Square company](https://github.com/square), we now have a memory leak
 Our code has a Activity, and its code is as below:
 
 ```java
-public class SomethingActivity extends Activity{
+public class FloatingDemo03 extends Activity{
     static Context self;
 
         @Override
@@ -19,7 +19,11 @@ public class SomethingActivity extends Activity{
 }
 ```
 
-This leak is very easy to spot. `self` is a static field. A static field has a long lifecycle that is as long as the whole application. So even you want to finish this SomethingActivity, Android could not GC it since this Activity object still have strong reference.
+Here is the leak report:
+![](./_image/2017-03-09-20-25-41.jpg)
+
+
+This leak is very easy to spot. `self` is a static field. A static field has a long lifecycle that is as long as the whole application. So even you want to finish this FloatingDemo03, Android could not GC it since this Activity object still have strong reference.
 
 
 ### Leak 02 : ClientSession
@@ -27,11 +31,31 @@ Our app has a strict security policy. For example, if the user does not perform 
 
 But I got a memory leak report about this class:
 
+![](./_image/2017-03-09-20-43-44.jpg)
+
+
 
 #### 2.1 why leak?
 The code of `ClientSession` is as below:
 
 ```java
+public class ClientSession extends CountDownTimer {
+    public static final int TIME = 60000;
+
+    private static ClientSession clientSession;
+    private Context ctx;
+
+    public static ClientSession getInstance(Context context) {
+        if (clientSession == null) {
+            clientSession = new ClientSession(context);
+        }
+        return clientSession;
+    }
+
+    public ClientSession(Context ctx){
+        super(TIME, 1000);
+        this.ctx = ctx;
+    }
 
 ```
 
