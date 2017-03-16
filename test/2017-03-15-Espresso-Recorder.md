@@ -30,4 +30,12 @@ And you will get a new file:
 
 This is familiar if you wrote Espresso before, right?
 
+#### Current limitations
+1. Only some of view assertions are available thourgh this recorder tool.
+2. For those synchronization scenario, Espresso Test Recorder does not support it too. Because it's a little complex for this tool. You have to use IdlingResource flag by yourself.
+
+In those scenario, you have to write your own code by hand. Hope Android Studio will make it better in the furture. 
+
+#### Reference 
+[Google's Espresso Test Recorder Video](https://www.youtube.com/watch?v=JRkDVvB106k)
 
