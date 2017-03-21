@@ -1,10 +1,9 @@
 ﻿how to make a MVP template
 
-Android7 : Split Screen, Java8 (espresso + split screen)
+UI Automator (+ Eclipse RCP)
 
 How EventBus works?
 How EventBus 3.0 has a better effience?
 
-UI Automator (+ Eclipse RCP)
 
-My Kotlin MVVM Tools
+
