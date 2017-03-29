@@ -8,4 +8,6 @@ How EventBus works?
 How EventBus 3.0 has a better effience?
 
 
+And7: Html <-> Spanned, Split Screen
+
 
