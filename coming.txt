@@ -3,7 +3,7 @@ how to make a gradle plugin for Android
 how to make a Router framework
 
 unit test
-robolectric
+robolectric (verify error)
 UI Automator (+ Eclipse RCP)
 
 How EventBus works?
