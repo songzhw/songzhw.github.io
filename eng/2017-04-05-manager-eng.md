@@ -16,8 +16,9 @@ sticky notes and markers   可粘纸， 马克笔
 3. 人事相关
 make a successful transition into a management role
 manage ~~~ team = head up ~~~ team
-report to sb.  向某人汇报 
+report to sb.  向某人汇报  (: meet one-on-one with everyone who report to you)
 mid-level manager   中级经理
+
 
 4. 承接工作相关
 perform that work, perform management jobs,
@@ -25,15 +26,36 @@ take on more work
 work is being done well and on time
 
 
-5.
+5. 角度相关
 from the perspective of : from a perspective of a talented mid-level manager.
 the practices in this blog can be adapted and applied to most situations
 
+6. 培养人
+coach people into performing management jobs
+
+
+7. 团队士气
+depress morale  (moral是"道德的", morale是"士气")
+lead people
+
+
+8. 会议
+one-on-on meeting
+meet one-on-one with everyone
+bring the meeting to a close : As he brought the meeting to a close, he asked, ...
+meet with my direct reports
+lead the conversation to + do sth. : 引导对话往...方向上走 (: A let the conversation to learn how B felt about his job)
 
 
 
 
+9. 日常项目运营
 
+
+
+
+*. 
+It's worth doing sth. : 值得做...
 
 
 
