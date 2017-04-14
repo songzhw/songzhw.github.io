@@ -12,6 +12,7 @@ Five managers **report to you**   有5位经理向你直接汇报
 2. 办公场所/器具
 flip chart
 sticky notes and markers   可粘纸， 马克笔
+jot sth. down : to write sth. quickly on a piece of paper so that you remember it.
 
 3. 人事相关
 make a successful transition into a management role
@@ -34,10 +35,10 @@ the practices in this blog can be adapted and applied to most situations
 coach people into performing management jobs
 
 
-7. 团队士气
+7. 团队/士气
 depress morale  (moral是"道德的", morale是"士气")
 lead people
-
+understaffed: does not have enought employees
 
 8. 会议
 one-on-on meeting
@@ -45,11 +46,21 @@ meet one-on-one with everyone
 bring the meeting to a close : As he brought the meeting to a close, he asked, ...
 meet with my direct reports
 lead the conversation to + do sth. : 引导对话往...方向上走 (: A let the conversation to learn how B felt about his job)
+grasp the situation
+switch to another topic
+If you think of anything else that I should know, or you have any question for me or about me, drop by
+make appointment to meet with sb.
+set up a time to meet with sb.
+schedule a two-hour meeting
+
+
+9. 成果/目标
+meet the release date: we need more people to meet the release date.
+work on together : This is an issue that we need to work on together as a management team
 
 
 
-
-9. 日常项目运营
+10. 日常项目运营
 
 
 
