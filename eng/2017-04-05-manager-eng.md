@@ -33,6 +33,12 @@ the practices in this blog can be adapted and applied to most situations
 
 6. 培养人
 coach people into performing management jobs
+coach sb to do sth : coach her to do ..
+
+build more skills
+build your technical skills
+
+take small steps at first
 
 
 7. 团队/士气
@@ -56,7 +62,10 @@ schedule a two-hour meeting
 
 9. 成果/目标
 meet the release date: we need more people to meet the release date.
+
 work on together : This is an issue that we need to work on together as a management team
+
+develop an action plan
 
 
 
