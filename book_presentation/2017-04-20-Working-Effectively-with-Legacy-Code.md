@@ -65,6 +65,55 @@ songzhw:
 ```
 
 ### 6.2 Wrap Method
+Adding behavior to existing method is quite easy, but maybe not the right thing to do. Let's see an example.
 
+Old code
+```java
+public class Employee {
+    public void pay(){
+        for(TimeCard time : timeCards){
+            .... // time.getHours() * payRates
+        }
+        payDispatcher.pay(amout);
+    }
+}
+```
+
+Let's suppose that a new requirement comes along. Every time that we pay an employee, we have to update a file with the employee's name so that that it can be sent off to some reporting software. 
+
+A good way to do that is to add a wrap method, whose name is still "pay()", but the implementation is changing. 
+```java
+public class Employee {
+    private void dispatchPay(){ //▼ name: pay() --> dispatchPay()
+        for(TimeCard time : timeCards){
+            .... // time.getHours() * payRates
+        }
+        payDispatcher.pay(amout);
+    }
+   
+    public void pay(){ //▼ a wrapper
+        logPayment();
+        dispatchPay();
+    }
+}
+```
+Clients who used to call pay() don't have to know or care about the change. They just make their call, and everything works out okay.
+
+
+Another form of *Wrap Method* is having two parallel methods. You can call pay(), and you can call payWithLog() too. It's your decision to call which method.
+```java
+public class Employee {
+    public void payWithLog(){
+        logPayment();
+        pay();
+    }
+
+    public void pay(){  ...  }
+   
+    private void logPayment() { ... }
+}
+```
 
 ### 6.3 Wrap Class
+
+
