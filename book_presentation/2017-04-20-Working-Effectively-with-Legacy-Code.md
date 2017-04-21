@@ -116,4 +116,25 @@ public class Employee {
 
 ### 6.3 Wrap Class
 
+Just like *Wrap Method*, *Wrap Class* uses wrapping to add a new behavior and to avoid affect legacy code.
+
+Let's take a look at the code from the *Employee* class again.
+```java
+public class LogginEmployee extends Employee{
+    private final Employee employee;
+
+    public LogginEmployee(Employee e){
+        this.employee = e;
+    }
+   
+    public void pay(){
+        logPayment();
+        employee.pay();
+    }
+}
+```
+Note: It seems like we can remove `extends Employee`, then why do we add it?
+: Because that's for the [Decorator Design Pattern](https://en.wikipedia.org/wiki/Decorator_pattern). This way, you can wrap one Employee, and use it just like Employee. 
+
+### 6.4 Summary
 
