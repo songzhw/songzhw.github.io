@@ -47,6 +47,7 @@ lead people
 understaffed: does not have enought employees
 
 8. 会议
+be a waste of time
 one-on-on meeting
 meet one-on-one with everyone
 bring the meeting to a close : As he brought the meeting to a close, he asked, ...
@@ -66,6 +67,13 @@ meet the release date: we need more people to meet the release date.
 work on together : This is an issue that we need to work on together as a management team
 
 develop an action plan
+develop goals for the next few months
+accomplish the team goal/individual goal
+
+keep people on one feature at a time
+
+Feature B is next in line
+
 
 
 
