@@ -136,5 +136,48 @@ public class LogginEmployee extends Employee{
 Note: It seems like we can remove `extends Employee`, then why do we add it?
 : Because that's for the [Decorator Design Pattern](https://en.wikipedia.org/wiki/Decorator_pattern). This way, you can wrap one Employee, and use it just like Employee. 
 
-### 6.4 Summary
+## Chapter 8. How Do I Add a Feature?
+When you want to add a new feature, duplication is a hazard. If we can get code under test, we are in a better position to add new features. We have a solid foundation.
+
+### 8.1 Test-Driven Devlopment (TDD)
+The most powerful feature-addition technique I know of is test-driven development(TDD). In a nutshell, it works like this: We imagine a method that will help us solve a problem, and then we write a failing test case for it. 
+
+TDD uses a little algorithm that goes like this:
+```
+1. Write a failing test case
+2. Get it to compile
+3. Make it pass
+4. Remove duplication
+```
+
+One of the most valuable things about TDD is that it lets us concentrate on one thing at a time.  We are either writing code or refactoring; we are never doing both at once.  
+
+After we have written some new code, we can refactor to remove any duplication between it and the old code. 
+
+### 8.2 Liksov Substitution Principle(LSP)
+The LSP implies that clients of a class should be able to use objects of a subclass  without having to know that they are objects of a subclass. 
+
+LSP actually is asking you that subclass can implement the abstract method, but the subclass should not override the non-abstract method. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
