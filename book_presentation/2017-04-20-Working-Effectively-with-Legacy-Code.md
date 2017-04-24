@@ -160,9 +160,16 @@ The LSP implies that clients of a class should be able to use objects of a subcl
 LSP actually is asking you that subclass can implement the abstract method, but the subclass should not override the non-abstract method. 
 
 
+## Chap 9. I Can't Get This Class into a Test Harness
+It is often hard to instantiate a class in a test harness. In this chapter, we go through a series of examples that highlight these problems in different language. 
 
+read through these examples
+apply (techniques) in particular situations
 
-
+### 9.1 The Case of the Irritating Parameter
+When I need to make a change in a legacy system, I usually start out optimistic. I try to be a realist as much as I can, but the optimism is always there.
+"This sounds like it will be easy, We just have to ..., and we'll be done."
+"Maybe it won't be too hard to construct it. We need to ... and of course, we'll need to get it in a testing harness."
 
 
 
