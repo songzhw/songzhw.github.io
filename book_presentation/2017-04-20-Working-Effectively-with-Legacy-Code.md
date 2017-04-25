@@ -171,16 +171,57 @@ When I need to make a change in a legacy system, I usually start out optimistic.
 "This sounds like it will be easy, We just have to ..., and we'll be done."
 "Maybe it won't be too hard to construct it. We need to ... and of course, we'll need to get it in a testing harness."
 
+Let's take a look at an example and see whether my optimism is appropriate or just a defense mechanism.
 
+...
+```java
+CreditValidator validator = new CreditVlidator(rghConnection, creditManager);
+```
+It turns out that establishing *RGHConnection* to the server in a test is not a good idea. It takes a long time, and the server isn't always up.  
 
+The thing that is really getting in our way when we want to create the validator is the *RGHConnection*. It is an irritating parameter. 
 
+If we can create some sort of a **fake** *RGHConnection* object and make *CreditValidator* believe that it's talking to a real one, we can avoid all sorts of connection trouble
 
+*RGHConnection* has a set of methods that deal with the mechanics of forming a connection: connect, disconnect, and retry, as well as more business-sepecific method such as RFDIReportFor and ACTIReportFor. 
+In this case, the best way to make a fake object is to use **Extract Interface** on the *RGHConnection* class. 
 
+After we do **Extract Interface**, we end up with a structure like this picture:
 
+![](./_image/2017-04-24-22-46-04.jpg)
 
+We can start to write tests by creating a little fake class. And don't worry, the fake class isn't productin code. It won't ever run in our full working application - just in the test harness.  (Test Code doesn't have to live up to the same standard as production code. )
+(songzhw: Mockito may be another way to help us.)
 
+The test works fine. 
 
+### 9.2 Hidden Dependency
 
+It's hard to test the below code
+```java
+public void foo(){
+    Connection connection = new Connection(...);
+    connection.setUp();
+    connection.talk();
+    ...
+}
+```
+
+This code allocate a new connection object using *new* in the foo() method. That is poor style, and it gets worse. This foo() method does a lot of detailed work with the connection object. 
+
+We use a connection to try to build a http connect. And it will be hard to test that functionality in an automated way unless we set up a server and connect to it repeatedly, wariting for a message to arrive. That could be great as an overall system test, but if all we want to do now is add some new tested functionality to the class, that could be overkill.  How can we create a simple object and add some new functionality?
+
+The fundamental problem here is that the dependency on connection is hidden in the foo() method. If there was some way to replay connection object with a fake, we could sense through the fake and get some feedback as we change the class.
+
+[Solution]
+**Parameterize Function**
+```java
+public void foo(Connect connect){
+    connection.setUp();
+    connection.talk();
+    ...
+}
+```
 
 
 
