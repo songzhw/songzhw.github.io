@@ -52,7 +52,10 @@ one-on-on meeting
 meet one-on-one with everyone
 bring the meeting to a close : As he brought the meeting to a close, he asked, ...
 meet with my direct reports
+
 lead the conversation to + do sth. : 引导对话往...方向上走 (: A let the conversation to learn how B felt about his job)
+lead the group in a discusson on sth.
+
 grasp the situation
 switch to another topic
 If you think of anything else that I should know, or you have any question for me or about me, drop by
@@ -60,6 +63,7 @@ make appointment to meet with sb.
 set up a time to meet with sb.
 schedule a two-hour meeting
 
+identify the biggest challenge (identify, locate)
 
 9. 成果/目标
 meet the release date: we need more people to meet the release date.

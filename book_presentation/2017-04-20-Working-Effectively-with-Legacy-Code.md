@@ -213,7 +213,7 @@ We use a connection to try to build a http connect. And it will be hard to test 
 
 The fundamental problem here is that the dependency on connection is hidden in the foo() method. If there was some way to replay connection object with a fake, we could sense through the fake and get some feedback as we change the class.
 
-[Solution]
+[Solution 01]
 **Parameterize Function**
 ```java
 public void foo(Connect connect){
@@ -223,9 +223,57 @@ public void foo(Connect connect){
 }
 ```
 
+The only difference, really, is that the connection object is created outside the foo() method and passed in. That might not seem like much of an improvement, but it does give us incredible leverage. 
 
+We can even use **Extract Interface** to make an interface for Connection class. Then we can create and pass a fake object to the foo(IConnection c) method.
 
+[Solution 02]
+***Supersede Instance Variable*
+We add a new function:
+```java
+public void setConnection(Connection c){
+    this.connection = c;
+}
+```
 
+and the foo() function becomes :
+```java
+public void foo(){
+    connection.setUp();
+    connection.talk();
+    ...
+}
+```
 
+Now we can supply a foo() method that has the original signature. 
 
+[Solution 03]
+**Extract and Override Getter**
 
+add a new function
+```java
+public Connection getConnection(){
+    return new Connection();
+}
+```
+
+And we can mock this getConnection() method easily in the test cases.
+ (songzhw: verify(obj.getConnection).thenReturn(fakeConnection) )
+
+[Solution 04]
+**Extract and Override Factory Method**
+```java
+public void foo(){
+    Connection connection = makeConnection();
+    connection.setUp();
+    connection.talk();
+    ...
+}
+
+public Connection makeConnection(){
+    return  new Connection(...)
+}
+```
+When we have that factory method, we can subclass and override it so that we can return a new fake Connection whenever we need one. 
+
+### 9.3 the Irritating Global Dependency
