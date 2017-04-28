@@ -13,6 +13,7 @@ Five managers **report to you**   有5位经理向你直接汇报
 flip chart
 sticky notes and markers   可粘纸， 马克笔
 jot sth. down : to write sth. quickly on a piece of paper so that you remember it.
+entory one's office
 
 3. 人事相关
 make a successful transition into a management role
@@ -65,7 +66,7 @@ schedule a two-hour meeting
 
 identify the biggest challenge (identify, locate)
 
-9. 成果/目标
+9. 成果/目标/进度
 meet the release date: we need more people to meet the release date.
 
 work on together : This is an issue that we need to work on together as a management team
@@ -77,6 +78,9 @@ accomplish the team goal/individual goal
 keep people on one feature at a time
 
 Feature B is next in line
+
+plan ahead
+
 
 
 
