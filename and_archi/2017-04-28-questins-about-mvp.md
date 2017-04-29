@@ -20,7 +20,7 @@ That's all because the Activity is designed not that great. Ideally, it should n
 It's like "Vim & Emacs". I really can't say which way is great:
 * Activity/Fragment is View, create a Presenter class to handle logic. 
 * Activity/Fragment is Controller, create a View class to create and to refresh view
-You can use either solution. But don't use both. Otherwise, the code of your project would be chaos.
+You can use either solution. But don't use both. Otherwise, the code of your project would be a chaos.
 
 ### Question 03: Does Fragment needs a presenter?
 That depends.
@@ -36,15 +36,76 @@ That's because we want to put the logic of one page together, that's easy for da
 
 What if our adapter has logic to deal with? Say we have such logic in adapter:
 ```java
-
+// data : List<RawItem>
+if(data.get(position).isLegal()){
+    view.setText("Legal User")
+} else {
+    view.setText("Illgal User")
+}
 ```
 
+If possible, a better code would extract the logic to Presenter, and Adapter only show the logic.
+
+```java
+1. Presenter
+NewItem newItem = new NewItem(rawItem);
+if(rawItem.isLegal()){
+    newItem.title="Legal User"
+} else {
+    newItem.title = "Ilgal user"
+}
+```
+
+```java
+2. Adapter
+// data : List<NewItem>
+view.setText(data.get(position).getTitle())
+```
+This way, you logic is in the presenter. If you want to change some logic for the new requirement, you don't have to go to find where is this logic, because I know it must in the Presenter.
+
 ### Question 05: What if my presenter need Context object?
+Normally, Presenter is a pure Java class. Only when Presenter is a pure Java class, we then can test the logic in JUnit. 
+
+p.s. Of course, you can unit test the Android code with the help of Robolectric. But if possible, Presenter should be a pure Java class. No one knows Robolectric will work fine every time. Actually, our project failed more than three month just because we used Robolectric, and Robolectric somehow failed locally and in Jenkins. We have to add "@Ignore" to all the Robolecric test cases. 
+
+Now back to our question, Presenter should be a pure Java class, but what if our Presenter need a Context object, let's say, for getting a string or a dimen value?
+
+In this case, we can just get the value in the Activity(View), and then pass it to the Presenter. 
+
+Or, our View has a method called "getString()" and Presenter call this method to get value
+```java
+pbulic interface IView{
+    ...
+    String getString(int id);
+}
+```
+Later, when you want to test Presenter, it would be easy to mock the object, since the IView in the Presenter is just an interface. 
+
+
 
 ### Question 06: How to reuse code in Presenters?
+Easy, just like the other codes, you create a class or method to hold the duplicated code, and you can call these methods or use these classes in your Presenter
+
+Here is an example. Two Presenter both requires a database utils class to deal with the database. 
+```java
+public class FilesPresenter{
+    private DatabaseHelper helper;
+}
+
+public class BooksPresenter{
+    private DatabaseHelper helper;
+}
+```
+
+
 
 ### Question 07: How MVP make your code much more testable?
+* By sepeprating the logic and view, we now can unit test the Presenter/logic. And unit test is way faster than Instrumentation Test or Espresso, and requires no devices. 
 
+* By using the interface, rather than the real reference of Activity or Fragment, it would be easy to mock the View object. Likewise, it would be easy to mock Presenter, since the Presenter reference in Activity/Fragment is just an interface.
+
+
+p.s. Some developer may say, it would be easy to new an object, why would I need to mock. That's because your objects are easy to initialized. Some class requires two or three other class to intiliaze, and some of these class are dependency on more classes or requires http/database connection. This makes it very hard to initilize such a class. The solution is **mock**. Mock can help you cut off all the dependencies, and would be easy to initilize an object. 
 
 ### A Typical Scenario
 We now have a RecyclerView to show the data from back-end. The data from back-end is like this:
