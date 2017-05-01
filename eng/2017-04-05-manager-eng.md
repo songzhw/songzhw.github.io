@@ -27,6 +27,8 @@ perform that work, perform management jobs,
 take on more work
 work is being done well and on time
 
+My group used to be Operations. When Operations became a separate group, the old director promoted Clyde from my group. 
+
 
 5. 角度相关
 from the perspective of : from a perspective of a talented mid-level manager.
@@ -82,6 +84,8 @@ Feature B is next in line
 plan ahead
 
 
+11. 承接工作
+take over training  
 
 
 
