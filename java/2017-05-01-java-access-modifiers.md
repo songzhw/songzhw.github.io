@@ -2,7 +2,7 @@
 
 Today I want to create a subclass of "AppCompatDelegateImplV14". But I found out the definition of this class is :
 ```java
-class AppCompatDelegateImplV14 extends AppCompatDelegateImplV11 { ...}
+class AppCompatDelegateImplV14 extends AppCompatDelegateImplV14 { ...}
 ```
 
 And I failed to try to do this:
