@@ -9,17 +9,31 @@ Marketing | 市场部
 take the new position of Director of Development
 Five managers **report to you**   有5位经理向你直接汇报
 
+
 2. 办公场所/器具
 flip chart
 sticky notes and markers   可粘纸， 马克笔
 jot sth. down : to write sth. quickly on a piece of paper so that you remember it.
 entory one's office
+on his way back from lunch, A ran into B.
+head for one's office
+stop by and see where I can help
 
-3. 人事相关
+
+
+
+3. 人事相关 / 同事关系
 make a successful transition into a management role
 manage ~~~ team = head up ~~~ team
 report to sb.  向某人汇报  (: meet one-on-one with everyone who report to you)
 mid-level manager   中级经理
+
+Do you think they are literally idiots?
+
+refer to colleagues in other departments as idiots,  I wouder how it affects your ability to work with them
+
+On a practical level, it's really difficult to have a strong working relationship with someone you don't respect.  And you language says you don't respect them.
+
 
 
 4. 承接工作相关
@@ -29,10 +43,21 @@ work is being done well and on time
 
 My group used to be Operations. When Operations became a separate group, the old director promoted Clyde from my group. 
 
+transition sth. back to sb. : A has to transition training back to B.
+
+take over training  
+email Sb. to ask for help. 
 
 5. 角度相关
 from the perspective of : from a perspective of a talented mid-level manager.
 the practices in this blog can be adapted and applied to most situations
+use the wrong approach
+Do you think they are literally idiots? Let me give you a little feedback right now, so you can understand what I'm seeing. 
+
+- On a practical level, it's really difficult to have a strong working relationship with someone you don't respect.  And you language says you don't respect them.
+- I never thought of it that way. 
+
+If you think of them as your colleagues, and try to imagine their point of view, you'll have a different perspective.
 
 6. 培养人
 coach people into performing management jobs
@@ -44,10 +69,13 @@ build your technical skills
 take small steps at first
 
 
+
 7. 团队/士气
 depress morale  (moral是"道德的", morale是"士气")
 lead people
 understaffed: does not have enought employees
+
+
 
 8. 会议
 be a waste of time
@@ -68,7 +96,9 @@ schedule a two-hour meeting
 
 identify the biggest challenge (identify, locate)
 
-9. 成果/目标/进度
+wrap up the meeting. ".... "   总结会议，准备结束会议了
+
+9. 成果/目标/进度/解决问题
 meet the release date: we need more people to meet the release date.
 
 work on together : This is an issue that we need to work on together as a management team
@@ -83,16 +113,23 @@ Feature B is next in line
 
 plan ahead
 
+root problem, not the symptoms
 
-11. 承接工作
-take over training  
 
+11. 沟通
+- You want to talk about your conversation with sb.?
+- It didn't go well.   He doesn't ....  Now what? Are you going to talk to his boss. 
+- Let's review what happened, and then we'll talk about next steps. 
+
+First, let's look at it from one's point of view, what does he lose by doing this?
+
+You maybe right. What do you think he'll gain? Can we make a case with sb. about what he wins and address his concerns about what he loses?
 
 
 10. 日常项目运营
 
 
-
+11. 
 
 *. 
 It's worth doing sth. : 值得做...
