@@ -1,15 +1,14 @@
-1. Organization
-English                  |  Translation
-:-------------------------:|:-------------------------:
-Operation Team  |  运维组
-Backend Group | 后台组
-Middleware Department | 中间件组
-Marketing | 市场部
+     【目录】
+2. 办公场所/器具
+3. 人事相关 / 同事关系
+4. 承接工作相关
+5. 角度相关/情绪
+6. 培养人/团队/士气
+8. 会议
+9. 成果/目标/进度/解决问题
+10. 沟通
 
-take the new position of Director of Development
-Five managers **report to you**   有5位经理向你直接汇报
-
-
+===================================================================
 2. 办公场所/器具
 flip chart
 sticky notes and markers   可粘纸， 马克笔
@@ -36,7 +35,7 @@ On a practical level, it's really difficult to have a strong working relationshi
 
 
 
-4. 承接工作相关
+4. 承接工作/需求相关
 perform that work, perform management jobs,
 take on more work
 work is being done well and on time
@@ -48,7 +47,30 @@ transition sth. back to sb. : A has to transition training back to B.
 take over training  
 email Sb. to ask for help. 
 
-5. 角度相关
+sb is pushing for this work 
+
+Marketing comes to sb. and sb. comes to me
+Marketing go to sb. (来下需求)
+
+This change is not easy or fast to make
+
+They think they are just asking for UI changes, but it turns out that the change have a ripple effect. 
+
+How can I create a plan when I don't know what's coming in the next week?
+just plan for two weeks in a time
+
+This is a problem we have to work on as a management team. It's bigger than your group or any one group. 
+
+
+
+
+
+
+
+
+
+
+5. 角度相关/情绪
 from the perspective of : from a perspective of a talented mid-level manager.
 the practices in this blog can be adapted and applied to most situations
 use the wrong approach
@@ -59,7 +81,18 @@ Do you think they are literally idiots? Let me give you a little feedback right 
 
 If you think of them as your colleagues, and try to imagine their point of view, you'll have a different perspective.
 
-6. 培养人
+6. 培养人/团队/士气
+English                  |  Translation
+:-------------------------:|:-------------------------:
+Operation Team  |  运维组
+Backend Group | 后台组
+Middleware Department | 中间件组
+Marketing | 市场部
+
+take the new position of Director of Development
+Five managers **report to you**   有5位经理向你直接汇报
+
+
 coach people into performing management jobs
 coach sb to do sth : coach her to do ..
 
@@ -70,10 +103,10 @@ take small steps at first
 
 
 
-7. 团队/士气
 depress morale  (moral是"道德的", morale是"士气")
 lead people
 understaffed: does not have enought employees
+GUI group GUI组
 
 
 
@@ -116,7 +149,7 @@ plan ahead
 root problem, not the symptoms
 
 
-11. 沟通
+10. 沟通
 - You want to talk about your conversation with sb.?
 - It didn't go well.   He doesn't ....  Now what? Are you going to talk to his boss. 
 - Let's review what happened, and then we'll talk about next steps. 
@@ -126,10 +159,6 @@ First, let's look at it from one's point of view, what does he lose by doing thi
 You maybe right. What do you think he'll gain? Can we make a case with sb. about what he wins and address his concerns about what he loses?
 
 
-10. 日常项目运营
-
-
-11. 
 
 *. 
 It's worth doing sth. : 值得做...
