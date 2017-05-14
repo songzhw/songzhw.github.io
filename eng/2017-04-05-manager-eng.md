@@ -81,6 +81,7 @@ Do you think they are literally idiots? Let me give you a little feedback right 
 
 If you think of them as your colleagues, and try to imagine their point of view, you'll have a different perspective.
 
+
 6. 培养人/团队/士气
 English                  |  Translation
 :-------------------------:|:-------------------------:
@@ -158,11 +159,25 @@ First, let's look at it from one's point of view, what does he lose by doing thi
 
 You maybe right. What do you think he'll gain? Can we make a case with sb. about what he wins and address his concerns about what he loses?
 
+11. 变化
+shorten the schedule by two months
+
+meet those expectation
+
+prioritize what we work on first
+what may fall off the plate
+
+originally estimated we need five months
+
+I can't guarantee what we'll be able to deliver
+
+It's pointless to argue with him. I need to first work with my team to see what we can deliver
 
 
 *. 
 It's worth doing sth. : 值得做...
 
+not just get the release out, have to get it out in good shape
 
 
 
