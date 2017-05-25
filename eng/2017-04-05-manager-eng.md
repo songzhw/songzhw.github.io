@@ -112,6 +112,8 @@ GUI group GUI组
 
 
 8. 会议
+I scheduled a 1/2 day in the morning to work out the details
+
 be a waste of time
 one-on-on meeting
 meet one-on-one with everyone
@@ -162,6 +164,8 @@ You maybe right. What do you think he'll gain? Can we make a case with sb. about
 11. 变化
 shorten the schedule by two months
 
+responde to this change
+... Has good reasons to make this change
 meet those expectation
 
 prioritize what we work on first
@@ -172,6 +176,24 @@ originally estimated we need five months
 I can't guarantee what we'll be able to deliver
 
 It's pointless to argue with him. I need to first work with my team to see what we can deliver
+
+work overtime
+put everyone on overtime
+burn everyone out doing sth.
+Overtime makes people tired, ..., we can't afford mistakes. So we're not going to do sth. we know will hurt us more than help us. 
+Even we work overtime, we couldn't accomplish everything.
+
+manage expectations with the customer
+
+organize the features and arrive at an achievable plan
+
+figure out how to get his much doene
+
+If you see a better way, let me know.
+
+We know what our capacity is, and we're at it.
+
+
 
 
 *. 
@@ -187,11 +209,6 @@ not just get the release out, have to get it out in good shape
 
 
 
-
-* Sam's Diary
-week 01: learning about the people by one-on-one talking
-week 02: determine the priority of all the works, get rid of questionable projects
-week 03:  determine goals for the next three months
 
 
 
