@@ -78,7 +78,24 @@ The picture above has clearly shown the process of HTTPS.
 7. [Server] Decrypt the data with "key2". Now the data arrieve in Server safely.
 
 
+
+
 # Conclusion
 Since the symmetric cryptography is faster than asymmetric cryptography, https decides to use symmetric cryptography to encrypt the data, and use asymmetric cryptography to encrypt the symmetric key to make sure the secruity.  In this way, the encryption is fast and secure. 
 
 btw. Understanding how HTTPS works is important, because you may use this thoughts in your real life work to keep your data secure. 
+
+
+
+### p.s. **RSA, public key in Java**
+public key is actually a container of two factor : N and e. 
+N is a product of two large prime numbers: N = p * q
+e is the exponentiated number.
+
+That's why the RsaPublicKeySpec class in java would have such method:
+```java
+BigInteger modules = publicKeySpec.getModulus();
+BigInteger exponents = publicKeySpec.getPublicExponent();
+```
+
+Combining the modules and exponents, we will get the public key. And by using them, the client can get the `PublicKey` object in java.
