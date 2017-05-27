@@ -45,3 +45,32 @@ If you are trying scroll to the bottom, the scrollY will get bigger and bigger. 
 
 Now we are understand why the author made such a mistake. He/She thought the code is `int offset = getMeasuredHeight() - getHeight();`. But they are not. In fact, in this case, the offset will always be 0.
 
+### MeasureSpec.UNSPECIFIED
+
+The source code of ScollView has a method called "measureChild()". In this "measureChild" method, we saw such a line:
+
+```java
+childHeightMeasureSpec = MeasureSpec.makeSafeMeasureSpec(
+        Math.max(0, MeasureSpec.getSize(parentHeightMeasureSpec) - verticalPadding),
+        MeasureSpec.UNSPECIFIED);
+```
+
+The MeasureSpec mode is UNSPECIFIED. So what is UNSPECIFIED?
+:  The parent has not imposed any constraint on the child. It can be whatever size it wants.
+
+Oh, then we can get it. That's why the LinearLayout in the above example has the 3000px height, and the scrollView only have 1136px height.  Because the LinearLayout is UNSPECIFIED, so it can be whatever it wants, that's why the height is bigger than scrollView's height.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
