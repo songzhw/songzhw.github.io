@@ -53,3 +53,33 @@ We now understand how it works. If you want to improve it, how should you do?
 
 First of all, we need to locate which part costs most time? 
 : The answer is registration.  We need to iterate the subscriber object using reflection to get all the subscriber method. This is time consuming.  Maybe we can do something about it.
+
+### Try to improve ther performance
+Since the registration is the most time-consuming thing. Can we do something about it？
+
+Oh, I have a idea. How about this? 
+I add another helper class. Every time we add a subscriber method, we register it in that helper class by ourselves. That way, EventBus does not need to scan the subscriber object anymore.
+
+Here is the code. `SubscriberInfo` is a class that contains the subscriber class and method information. 
+
+```java
+[Helper]
+public class EventBusHelper {
+    public HashMap<Event, SubscriberInfo> map;
+}
+```
+
+```java
+[Activity]
+eventBus.register(this);
+helper.map.put(Event_A, methodA);
+
+public void methodA(){
+    // do something
+}
+
+```
+
+Good, now the time is much shorter, just like EventBus3 with Index in the above graph.
+
+
