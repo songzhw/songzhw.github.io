@@ -93,9 +93,10 @@ So is there a way which is good for performance, and also good for our programme
 ### Why performance of EventBus 3 is better?
 
 Here is the documentation about the EventBus 3:
-`
+
+```
 The "subscriber index" is a new feature of EventBus 3. It is an optional optimization to speed up initial subscriber registration. The subscriber index can be created during build time using EventBus's annotation processor. While it is not required to use an index, it's recommend on Android for best performance.
-`
+```
 
 Obviously, subscriber index is our answer. But how did it work?
 : 
