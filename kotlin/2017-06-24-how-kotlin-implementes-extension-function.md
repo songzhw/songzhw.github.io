@@ -34,3 +34,32 @@ you can just enter:
 #### 3. Use javap to understand the *.class file
 `$ javap ***.class`
 Then you could see what a kotlin file looks like after being compiled.
+
+### III. An Example
+Here is one kotlin file
+```java
+fun String.first(num: Int): String {
+    return this.substring(0, num);
+}
+
+fun main(args: Array<String>) {
+    println("test".first(2))
+}
+```
+
+After using `kotlinc` and `javap`, we now can see what kotlin really has done in the background. 
+
+Source File                  |  Built File
+:-------------------------:|:-------------------------:
+![](./_image/src.png) | ![](./_image/out.png)
+
+Here is the result after `javap`
+```java
+$ javap FunctionExtensionDemoKt.class
+Compiled from "FunctionExtensionDemo.kt"
+public final class ca.six.kdemo.advanced.extension.FunctionExtensionDemoKt {
+  public static final java.lang.String first(java.lang.String, int);
+  public static final void main(java.lang.String[]);
+}
+```
+
