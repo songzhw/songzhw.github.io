@@ -63,3 +63,15 @@ public final class ca.six.kdemo.advanced.extension.FunctionExtensionDemoKt {
 }
 ```
 
+Looking at this first() method in the *.class file, we now understand the **kotlinc** actually convert `String.first(int)` to `first(String, int)`. So the method must be like this:
+
+```java
+public static final String first(String src, int index){
+    return src.subString(0, index);
+}
+```
+
+### IV. Conclusion
+Now we know how to compile a kotlin file and see the result. The extension function example is just a tip of iceberg. We could start to get our hands dirty, and find out how kotlin implements `lazy`, `lateinit`, `first-class function`, .... 
+
+
