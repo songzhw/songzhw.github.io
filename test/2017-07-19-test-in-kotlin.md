@@ -74,3 +74,10 @@ Here is what we do:
 @Config(constants = BuildConfig::class, sdk = intArrayOf(Build.VERSION_CODES.LOLLIPOP))
 class PresenterTest {
 ```
+### 5. Robolectric, again
+If you are using Android Studio 3.0, and you are using Mac, then you might get a NullPointException when you try to run Robolectric tests.
+
+Here is what you should do. Find the gradle.properties, and add 
+`android.enableAapt2=false`
+
+Then, you are good to go. 
