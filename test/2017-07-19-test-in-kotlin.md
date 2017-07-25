@@ -81,3 +81,10 @@ Here is what you should do. Find the gradle.properties, and add
 `android.enableAapt2=false`
 
 Then, you are good to go. 
+
+### 6. Test exceptions
+In Java, you may use `@Test(expected = IndexOutOfBoundsException.class)`. Now you should use 
+
+```kotlin
+@Test(expected = IndexOutOfBoundsException::class)
+```
