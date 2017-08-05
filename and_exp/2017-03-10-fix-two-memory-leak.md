@@ -20,6 +20,7 @@ public class FloatingDemo03 extends Activity{
 ```
 
 Here is the leak report:
+
 ![](./_image/2017-03-09-20-25-41.jpg)
 
 
