@@ -1,4 +1,4 @@
-##Introduction
+## Introduction
 Consider, for example, the requirement that asked you to register location SDK on activity.onResume(), and, of course, unregister it on activity.onPause(). You may just add these two register and unregister code to every Activty that need to detect the location change. But this is ugly, and there are duplicate code.
 
 Injecting the activity's lifecycle is a good solution. So you don't have to add the same logic in every activity that needs to know the change of location. 
@@ -128,7 +128,7 @@ public class LifeWatcherDemo01 extends LifecycleActivity {
 ```
 
 **Benefit** : It decoupled your logic and your activity, which is great~
-<p>
+<br/>
 **Cost** : LifecycleActivity is a subclass of FragmentActivity, which means this library does not support AppCompatActivity for now. And it is in alpha stage right now(2017.08.04), so it may not stable. If you use it, you may need to change if the library changes
 And this library does not support Fragment, neither.
 
@@ -138,8 +138,8 @@ AOP is a great tool. If you are familiar with AspectJ, you would know what I am 
 
 **Benefit** : it is very easy to write, you would love the feeling when you write AOP code. 
 And it’s also super powerful. You can support the lifecycle of Fragment, Activity, View,… and whatever you want to know. 
-<p>
-**Cost**:
+<br/>
+**Cost** :
 But AOP may be a huge step forward if your project currently does not depende on AspectJ.  
 
 ## Bonus: How to make lifecycle component library support AppCompatActivity?
