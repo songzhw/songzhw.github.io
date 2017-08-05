@@ -134,13 +134,29 @@ And this library does not support Fragment, neither.
 
 
 ## 03. AOP
-AOP is a great tool. If you are familiar with AspectJ, you would know what I am saying, and could know what to know immediately after you see the title. This is easy to implement if you know AspectJ, so I am not gonna write too much details about it.
+AOP is a great tool. If you are familiar with AspectJ, you would know what I am saying, and could know what to know immediately after you see the title. 
+
+Here is a code snippet of how to do it
+```java
+@Pointcut("execution(* android.app.Activity+.on*(..)) && this(activity) ")
+public void logForActivity(android.app.Activity activity) {
+    ...
+}
+```
 
 **Benefit** : it is very easy to write, you would love the feeling when you write AOP code. 
 And it’s also super powerful. You can support the lifecycle of Fragment, Activity, View,… and whatever you want to know. 
 <br/>
 **Cost** :
 But AOP may be a huge step forward if your project currently does not depende on AspectJ.  
+
+p.s. here is how to hijack the lifecycle of Fragments
+```java
+@Pointcut("execution(* android.support.v4.app.Fragment+.on*(..)) && this(fragment) ")
+public void logForFragment(android.support.v4.app.Fragment fragment) {
+    ...
+}
+```
 
 ## Bonus: How to make lifecycle component library support AppCompatActivity?
 Actually this is not hard to do. In opposite, it is quite easy.
