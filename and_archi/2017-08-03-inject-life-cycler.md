@@ -134,9 +134,9 @@ And this library does not support Fragment, neither.
 
 
 ## 03. AOP
-AOP is a great tool. If you are familiar with AspectJ, you would know what I am saying, and could know what to know immediately after you see the title. 
+AOP is a great approach. If you are familiar with AspectJ, you would know what I am saying, and could know what to do immediately after you see the title. 
 
-Here is a code snippet of how to do it
+If you are not, that's okay. Here is a code snippet of how to do it
 ```java
 @Pointcut("execution(* android.app.Activity+.on*(..)) && this(activity) ")
 public void hijack(Activity activity) {
