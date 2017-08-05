@@ -139,7 +139,7 @@ AOP is a great tool. If you are familiar with AspectJ, you would know what I am 
 Here is a code snippet of how to do it
 ```java
 @Pointcut("execution(* android.app.Activity+.on*(..)) && this(activity) ")
-public void logForActivity(android.app.Activity activity) {
+public void hijack(Activity activity) {
     ...
 }
 ```
@@ -153,7 +153,7 @@ But AOP may be a huge step forward if your project currently does not depende on
 p.s. here is how to hijack the lifecycle of Fragments
 ```java
 @Pointcut("execution(* android.support.v4.app.Fragment+.on*(..)) && this(fragment) ")
-public void logForFragment(android.support.v4.app.Fragment fragment) {
+public void hijack(Fragment fragment) {
     ...
 }
 ```
