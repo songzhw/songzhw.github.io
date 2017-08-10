@@ -6,7 +6,7 @@ how to make a MVP template
 how to make a gradle plugin for Android
 how to make a Router framework
 
-springAnimation
+springAnimation(getY()?, comparing to rebound, )
 
 unit test
 robolectric (verify error)
