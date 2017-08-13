@@ -86,26 +86,65 @@ public class SampleActivity extends Activity implements ISampleView {
     }
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
+In order to make it testable, we add a `setComponent(SampleComponent)` method. So you can add another Component that get a mocked object to unit test.
 
 ## 4. Approach 02: Setter Injection
+I think it's fair to say that Dagger2 is hard to learn. The learning curve is super steep. Lots of developer are not satisfied about Dagger2. Besides, the project app you are working on may not use Dagger2 dependency. It's kind of heavy to use Dagger2 just for unit test one class. 
+
+So here is another approach: Setter Injection. It's a simple but powerful solution. Here is the code:
+```java
+public class DemoActivity extends Activity {
+    private DemoPresenter presenter;
+    @Override
+    public void onCreate(Bundle b){
+        super.onCreate(b);
+        setContentView(R.layout.activity_demo);
+        
+        if (presenter == null){ // ▼
+            setPresenter(new DemoPresenter();
+        }
+        presenter.init();                
+    }
+    
+    public void setPresenter(DemoPresenter presenter){
+        this.presenter = presenter;
+    }
+}
+```
+
+In the production code, you will get a initialized DemoPresenter object.
+
+In the test code, you need to delay the execution of Activity.onCreate().
+```java
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class, sdk = 21)
+public class DemoActivityTest {
+    private LifeInjectActivity actv;
+    private ActivityController<DemoActivity> actvController;
+    @Mock private DemoPresenter presenter ;
+
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+
+        actvController = Robolectric.buildActivity(LifeInjectActivity.class);
+        actv = actvController.get(); // ▼ Do not call "create()" here. We want to delay this method.
+    }
 
 
+    @Test
+    public void testLifeInjectIsSuccessful(){
+        presenter.setView(actv);
+        actv.setPresenter(presenter);
+
+        actvController.create(); // ▼ After we got the activity object, and inject the presenter, then we call Activity.onCreate(). (aka. activityController.create())
+        assertEquals("refresh: FakeOne", actv.stage);
+    }
+}
+```
 
 ## 5. Conclusion
-
-
+Approach 02 is a simple but powerful way. It does not need Dagger2, and quite easy to write. I stronly recommend approach 02.
 
 
 
