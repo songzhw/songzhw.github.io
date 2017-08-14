@@ -142,6 +142,7 @@ public class DemoActivityTest {
     }
 }
 ```
+As the comments above point out, you should delay the execution of "activityController.create()". So that you can inject the mocked presenter first, then you can start the Activity.onCreate(). 
 
 ## 5. Conclusion
 Approach 02 is a simple but powerful way. It does not need Dagger2, and quite easy to write. I stronly recommend approach 02.
