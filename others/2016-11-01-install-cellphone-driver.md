@@ -6,7 +6,9 @@ Right click "This PC"(windows 10) or "My Computer"(Windows 7), select "propertie
 #### Step 02. 
 Select "Device Manager". Then you will see a phone with a yellow exclamatory mark in your phone. Just like this:
 
-![](./_image/2016-11-01 20-16-18.jpg)
+![](./_image/2017-08-31-20-22-57.jpg)
+
+
 
 #### Step 03.
 Make sure you already installed "Google USB Driver" in Android SDK.
