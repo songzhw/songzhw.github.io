@@ -8,55 +8,66 @@ Select "Device Manager". Then you will see a phone with a yellow exclamatory mar
 
 ![](./_image/2017-08-31-20-22-57.jpg)
 
-
-
 #### Step 03.
 Make sure you already installed "Google USB Driver" in Android SDK.
 
-![](./_image/2016-11-01 20-17-33.jpg)
-
+![](./_image/2017-08-31-20-26-42.jpg)
 
 #### Step 04. 
 Right click this phone icon. Selecte "update Driver Software ..."
 
-![](./_image/2016-11-01 20-17-10.jpg)
+![](./_image/2017-08-31-20-27-02.jpg)
+
 
 #### Step 05. 
 
-![](./_image/2016-11-01 20-19-11.jpg)
-
+![](./_image/2017-08-31-20-27-42.jpg)
 
 #### Step 06. 
 
-![](./_image/2016-11-01 20-19-16.jpg)
+![](./_image/2017-08-31-20-27-58.jpg)
 
 
 #### Step 07. 
 
-![](./_image/2016-11-01 20-19-26.jpg)
+![](./_image/2017-08-31-20-28-17.jpg)
 
 
 #### Step 08. 
 
-![](./_image/2016-11-01 20-19-37.jpg)
+![](./_image/2017-08-31-20-28-30.jpg)
 
-![](./_image/2016-11-01 20-20-36.jpg)
+
+![](./_image/2017-08-31-20-28-42.jpg)
+
 
 #### Step 09.  
 select the directory :  `{android_sdk}\extras\google\usb_driver`, and install this driver
 
-![](./_image/2016-11-01 20-21-27.jpg)
 
-![](./_image/2016-11-01 20-21-47.jpg)
+![](./_image/2017-08-31-20-28-59.jpg)
+
+
+
 
 
 #### Step 10. Success
 
-![](./_image/2016-11-01 20-21-57.jpg)
+
+![](./_image/2017-08-31-20-29-37.jpg)
+
 
 Now your Eclipse or Android Studio can recognize this phone.
 
-![](./_image/2016-11-01 20-22-28.jpg)
+Eclipse : 
+![](./_image/2017-08-31-20-29-47.jpg)
+
+Android Studio:
+
+![](./_image/2017-08-31-20-33-37.jpg)
+
+
+
 
 
   
