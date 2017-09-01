@@ -60,6 +60,7 @@ select the directory :  `{android_sdk}\extras\google\usb_driver`, and install th
 Now your Eclipse or Android Studio can recognize this phone.
 
 Eclipse : 
+
 ![](./_image/2017-08-31-20-29-47.jpg)
 
 Android Studio:
