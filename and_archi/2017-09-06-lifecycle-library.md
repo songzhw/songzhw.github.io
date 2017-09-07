@@ -50,12 +50,59 @@ Bingo! The lifecycle library.
 ### How to Use the Lifecycle Library?
 Let's see how we could improve the above example.
 
-1. add the architect component library
+**3.1 add the architect component library**
+[project/build.gradle]
+add the highlighted line
 
-2. add a observer 
+![](./_image/2017-09-06-20-02-08.jpg)
 
-3. modify the existing Activity
+[project/app/build.gradle]
+```java
+compile "android.arch.lifecycle:runtime:1.0.0-alpha9"
+compile "android.arch.lifecycle:extensions:1.0.0-alpha9"
+annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha9"
+```
 
+songzhw: you may find the version(alpha9) is out-of-date some time later, then you could [see this page to get the latest version number](https://developer.android.com/topic/libraries/architecture/adding-components.html).
+
+**3.2 add a observer **
+This class need to implement the LifecycleObserver interface. 
+To help decouple the above Activity, we need three observers to implement FeatureA, FeatureB, and FeatureC.  Now we only show you the code of FeatureC.
+```java
+public class FeatureCLifecycleObserver implements LifecyleObserver {
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    public void onResume(){
+        featureC.setContext(this);
+        featureC.refreshAd();     
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    public void onPause(){
+        featureC.setContext(null);    
+    }
+}
+```
+Quite simple and clear, right? This code only contains the lifecycle logic about the featureC, AKA, this class only does one job. Good for this class!
+
+**3.3 modify the existing Activity**
+Now your activity needs to extend [LifecycleActivity](https://developer.android.com/reference/android/arch/lifecycle/LifecycleActivity.html).
+
+```java
+public class FeatureListActivity extends Activity{
+    @Override
+    public void onCreate(Bundle b){
+        ...
+        
+        FeatureCLifecycleObserver observerC = new FeatureCLifecycleObserver();
+        
+        LifecycleRegistry registry = getLifecycle();
+        registery.addObserver(observerA);
+        registery.addObserver(observerB);
+        registery.addObserver(observerC);
+    }
+}
+```
+That's it. Now you are good to go. By separte different feature code, our Activity seems much cleaner. Okay, I have to admit, this is not enough. You may have other questions about this library. 
 
 ### Question1: How About AppCompatActivity?
 
