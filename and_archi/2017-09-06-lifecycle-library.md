@@ -11,3 +11,59 @@ Like I said , Activity has a tendency to couple logic and UI. The invention of F
 
 Of course, Fragemnt has other disadvantages. But for our architecture, Fragment can not help us improve our app. That's why I said Fragment is a failure.
 
+### The Beauty of the Lifecycle Library
+Fourtunately, Google finally realized the tendency of couple logic and UI in the Activity, and release the Architect Component library. 
+
+The Architect Component library actually is a collection of libraries: Lifecycle, Room, LiveData, and ViewModel. The lifecyle library is the brightest library in my eyes, and it exactly solve the coupling problem I just mentioned. 
+
+Let's take a old code as an example. 
+```java
+public class FeatureListActivity extends Activity{
+    @Override
+    public void onResume(){
+        // for featureA
+        gcm.register(this);
+        
+        // for featureB
+        FeatureBUtils.addObserver(this);
+        
+        // for featureC
+        featureC.setContext(this);
+        featureC.refreshAd();        
+    }
+    
+    @Override
+    public void onPause(){
+        gcm.unregister(this);
+        FeatureBUtils.removeObserver(this);
+        featureC.setContext(null);
+    }
+}
+```
+
+Oh, this FeatureListActivity may contains a couple of new features, but the above code is quie ugly and coupling. Let's say now you want to modify some behavior in Feature C, now you need to find out all the code that related to Feature C in the Activity, and modify one or two of them very carefully.  
+
+This is not good for the code, for the future. But how could we improve this?
+Bingo! The lifecycle library. 
+
+
+### How to Use the Lifecycle Library?
+Let's see how we could improve the above example.
+
+1. add the architect component library
+
+2. add a observer 
+
+3. modify the existing Activity
+
+
+### Question1: How About AppCompatActivity?
+
+
+### Question2: How to deal with onRequestPermissionResult()?
+
+
+### Question3: How is it compatible with MVP?
+
+
+
