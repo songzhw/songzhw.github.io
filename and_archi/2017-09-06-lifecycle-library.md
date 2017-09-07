@@ -105,6 +105,50 @@ public class FeatureListActivity extends Activity{
 That's it. Now you are good to go. By separte different feature code, our Activity seems much cleaner. Okay, I have to admit, this is not enough. You may have other questions about this library. 
 
 ### Question1: How About AppCompatActivity?
+Google has announced, I quote, "Note: Since the Architecture Components are in alpha stage, Fragment and AppCompatActivity classes cannot implement it (because we cannot add a dependency from a stable component to an unstable API). Until Lifecycle is stable, LifecycleActivity and LifecycleFragment classes are provided for convenience. After the Lifecycles project is released, support library fragments and activities will implement the LifecycleOwner interface; LifecycleActivity and LifecycleFragment will be deprecated at that time. Also, see Implementing LifecycleOwner in custom activities and fragments."
+
+That being said, Lifecycle only support FragmentActivity, but if you want to add the lifecycle library to an AppCompatActivity, there is no such an API to help you.
+
+However, considering how LifecycleActivity does, we can create our own `LifecycleAppCompatActivity` by ourselves.
+
+Here is the code of  [LifecycleActivity](https://developer.android.com/reference/android/arch/lifecycle/LifecycleActivity.html).:
+``` java
+import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.LifecycleRegistryOwner;
+
+public class LifecycleActivity extends FragmentActivity implements LifecycleRegistryOwner {
+    private final LifecycleRegistry mRegistry = new LifecycleRegistry(this);
+
+    @Override
+    public LifecycleRegistry getLifecycle() {
+        return mRegistry;
+    }
+}
+```
+
+</p>
+Oh, the LifecycleRegistry is an exposed API, I think we can take advantage of it. Now we could write own LifecycleAppCompatActivity :
+```java
+import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.LifecycleRegistryOwner;
+import android.support.v7.app.AppCompatActivity;
+
+public class LifecycleAppCompatActivity extends AppCompatActivity implements LifecycleRegistryOwner {
+    private final LifecycleRegistry mRegistry = new LifecycleRegistry(this);
+
+    @Override
+    public LifecycleRegistry getLifecycle() {
+        return mRegistry;
+    }
+}
+```
+
+Then, if you want to use Lifecycle library, you could make your AppCompatActivity extends LifecycleAppCompatActivity
+```java
+public class FeatureListActivity extends LifecycleAppCompatActivity {
+    ...
+}
+```
 
 
 ### Question2: How to deal with onRequestPermissionResult()?
