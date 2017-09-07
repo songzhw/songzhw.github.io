@@ -1,6 +1,6 @@
 Google has released the Architecture Component library since Google I/O 2017. Now it's nearly half year since then. I think it's time to talk about it right now. Today I will focus on the lifecycle library.
 
-### Why I Think Fragment Is a Failure
+### 1. Why I Think Fragment Is a Failure
 Getting back to Year 2011, Google released its Android 3.0. The biggest change of Android 3.0 is that it supports tablet. The second biggest change of it is the Fragment.
 
 The official concept of Fragment is "A fragment represents a behavior or a portion of user interface in an Activity." And this also points out what is bad about Fragment. It could a behavior, or it could be a part of UI. 
@@ -11,7 +11,7 @@ Like I said , Activity has a tendency to couple logic and UI. The invention of F
 
 Of course, Fragemnt has other disadvantages. But for our architecture, Fragment can not help us improve our app. That's why I said Fragment is a failure.
 
-### The Beauty of the Lifecycle Library
+### 2. The Beauty of the Lifecycle Library
 Fourtunately, Google finally realized the tendency of couple logic and UI in the Activity, and release the Architect Component library. 
 
 The Architect Component library actually is a collection of libraries: Lifecycle, Room, LiveData, and ViewModel. The lifecyle library is the brightest library in my eyes, and it exactly solve the coupling problem I just mentioned. 
@@ -47,7 +47,7 @@ This is not good for the code, for the future. But how could we improve this?
 Bingo! The lifecycle library. 
 
 
-### How to Use the Lifecycle Library?
+### 3. How to Use the Lifecycle Library?
 Let's see how we could improve the above example.
 
 **3.1 add the architect component library**
@@ -95,7 +95,7 @@ public class FeatureListActivity extends Activity{
         
         FeatureCLifecycleObserver observerC = new FeatureCLifecycleObserver();
         
-        LifecycleRegistry registry = getLifecycle();
+        LifecycleRegistry registry = this.getLifecycle();// this method is coming from LifecycleActivity
         registery.addObserver(observerA);
         registery.addObserver(observerB);
         registery.addObserver(observerC);
