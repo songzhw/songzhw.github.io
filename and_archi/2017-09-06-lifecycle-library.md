@@ -151,10 +151,46 @@ public class FeatureListActivity extends LifecycleAppCompatActivity {
 ```
 
 
-### Question2: How to deal with onRequestPermissionResult()?
+### Question2: How to deal with onRequestPermissionResult()
+You may need deal with permission request in your LifecycleObserver. Location-related feature is an example. You need to register/unregister googleApiClient, and also you need to request the FINE_LOCATION permission. 
+
+If this is the case, then I suggest we could delegate this permission to the obervers.
+Here is the code.
+```java
+[Activity]
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        lifecycleObserver.onRequestPermissionResult();
+    }
+```
+
+```java
+[LifecycleObserver]
+public void onRequestPermissionResult(){
+    // TODO compare the requestCode and resultCode, do your jobs here
+}
+```
+The reason why lifecycle logic and permission code are coupled together is, take location request as an example, your Activity actually don't care these details. And request the FINE_LOCATION permission is actually a part of location logic. So they should be put together. 
 
 
 ### Question3: How is it compatible with MVP?
+Great question!
 
+Lifecycle library is great. It helps us decoupled different logic. But you still should not put UI and logic code to the lifecycleObserver. If you did this, then your lifecycleObserver is just another coupled God Class.
+
+What you should to do is that you put the logic code to the presenter, and refresh UI in Activity. That being said, you may need have a lifecycleObserver that takes Activity and Presenter as its fields. Just like this:
+```java
+public class MyFeatureCLifecycleObsever implements LifecycleObserver {
+    private MyActivity view;
+    private MyPresenter presenter;
+    
+    public MyFeatureCLifecycleObsever(MyActivity view, MyPresenter presenter){
+        this.view = view;
+        this.presenter = presenter;        
+    }
+}
+```
+
+Be careful, and don't make your lifecycleObserver class another God Class!
 
 
