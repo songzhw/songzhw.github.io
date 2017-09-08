@@ -188,8 +188,16 @@ public class MyFeatureCLifecycleObsever implements LifecycleObserver {
         this.view = view;
         this.presenter = presenter;        
     }
+    
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    public void onResume(){
+        presenter.reloadAbc();
+        view.refreshAbc(); 
+    }    
 }
 ```
+
+
 
 Be careful, and don't make your lifecycleObserver class another God Class!
 
