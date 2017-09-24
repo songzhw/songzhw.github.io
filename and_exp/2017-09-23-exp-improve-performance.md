@@ -1,0 +1,1 @@
+Here are some experience of me trying to improve the performance of apps recently. Hope it will help you when you try to do such optimization too. 
