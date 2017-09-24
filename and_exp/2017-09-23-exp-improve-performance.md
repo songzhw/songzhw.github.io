@@ -47,3 +47,24 @@ public Observer someFeatureObserver = new Observer(){
 ```
 This works just like what our business man wants. But is this code perfect, or good for performance? I have to say no. 
 
+The previous code works only because you call "refresh" every time you call "onResume()"!  Yes, you removed the observer way too early, so when the user turn on/off this feature in the setting page, the HomeActivity page will never get notified.  The way my app did works just because it called refresh() in the onResume() method, which means you will still call refresh() method even the user does not turn/off the setting of that feature. These calls is unnecessary and make the HomeActivity takes more time to be brought to the front of our user.
+
+The correct way to register an observer is like this:
+```java
+public void onCreate(){
+    SomeFeatureSettings.addObserver(someFeatureObserver);
+}
+
+public void onDestory(){
+    SomeFeautreSettings.removeObserver(someFeatureObserver);
+}
+
+public Observer someFeatureObserver = new Observer(){
+    public void update(Observable obj, Object arg){
+        refresh();
+    }
+};
+```
+
+
+
