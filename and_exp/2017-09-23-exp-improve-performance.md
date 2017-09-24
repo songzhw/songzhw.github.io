@@ -1,6 +1,6 @@
 Here are some experience of me trying to improve the performance of apps recently. Hope it will help you when you try to do such optimization too. 
 
-## 1. Layout Performance
+### 1. Layout Performance
 Last month, I got a bug to fix. After understand how the existing code works, I fixed it quickly. But when I was trying to figure out the old code, I found out something else that was troubling me. 
 
 The image below is the thing that really made me uncomfortable. Really, this layout needs so many layout to wrap the real content?
@@ -20,8 +20,30 @@ This article even gives you a specific example
 If you are using the RelativeLayout class, you may be able to achieve the same effect, at lower cost, by using nested, unweighted LinearLayout views instead. 
 ```
 
-All this layout wants to do is just to draw a simple layout. So I refactor it, I just used one RelativeLayout which contains multiple views, and fulfill the same UI. But my layout hierarchy is two levels, rather tahn the eight levels in the previous images. Of course, the performance get improved. 
+All this layout wants to do is just to draw a simple layout. So I refactor it, I just used one RelativeLayout which contains multiple views, and fulfill the same UI. But my layout hierarchy is two levels, rather tahn the eight levels in the previous images. Therefore, the performance gets improved. 
 
+### 2. Unreasonable Registration
+Like most of aps, the app I am working on has a settings page. The first page of our app is the HomeActivity. We have a requirement that if the user turn on or turn off one setting, our HomeActivity should get notified, and updated the UI.
 
+This is not hard, am I right? You could have a listener, or an observer (that depends on which you prefer to call it). When the setting is turn on/off, a singleton class notified all the observers and ask them to notify themselves. 
 
+This is how our app implements this requirements.
+```java
+[HomeActivity.java]
+public void onResume(){
+    SomeFeatureSettings.addObserver(someFeatureObserver);
+    refresh();
+}
+
+public void onPause(){
+    SomeFeautreSettings.removeObserver(someFeatureObserver);
+}
+
+public Observer someFeatureObserver = new Observer(){
+    public void update(Observable obj, Object arg){
+        refresh();
+    }
+};
+```
+This works just like what our business man wants. But is this code perfect, or good for performance? I have to say no. 
 
