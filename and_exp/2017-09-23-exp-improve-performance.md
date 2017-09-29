@@ -7,6 +7,7 @@ The image below is the thing that really made me uncomfortable. Really, this lay
 
 ![](./_image/2017-09-23-20-24-01.jpg)
 
+
 As we can see, it has seven layout at the bottom. The last six layout seems has nothing to do but wrap another layout. That said, the last six layout seems like unnecessary. 
 
 Android has a article about [perfermance and view hierarchies](https://developer.android.com/topic/performance/rendering/optimizing-view-hierarchies.html) that you should read. Here is what it said.
@@ -67,5 +68,18 @@ public Observer someFeatureObserver = new Observer(){
 };
 ```
 
+### 3. Speed up the build
+
+In the daily development, the build will take me around 1 minute, and more if I turn off the instant run. This is unacceptable. So I was trying to optimize this. 
+
+The first step is taking a look at the long long *build.gradle* file. Our build.gradle has a lot of logic there. 
+
+By the way, *build.gradle* is more and more like the old Activity. Poeple like to put every logic in the build.gradle.  Worst of it, if you have a project and a couple of libraries, there will be a lot of duplicated build code in these repo. Each repo needs to do static check, and push the artifact to the server. So every build.gradle contains the same checkstyle/publish/.. code. This is a problem that grows every day. 
+
+Back to our problem, after looking through the build.gradle, I now am pretty sure that checkstyle/findbugs and publish task is not needed during the daily developement. 
+
+Then I build multiple times, and find out the most time-consuming task is a third-party plugin. Let’s call it AB. AB is a plugin to be available in the release version. When we are develop, we actually do not need it. So AB is out. 
+
+After I did the two refactor, my build time now is almost 30 seconds. 
 
 
