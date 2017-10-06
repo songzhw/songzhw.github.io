@@ -25,3 +25,4 @@ If you all cannot settle a dispute in 5 minutes, then you also are not likey to 
 ## 4. Say no to some unnecessary meeting
 Uncle Bob told us that programmer should be able to say "No" when the time is appropriate. So if you already know one meeting is none of your business, just say, "I am busy right now. Can I join you later?", or "Thi is mostly about back-end, and I am a mobile developer. You two can settle it without me, right?"
 
+Here is [a great post about why programmers dislike meetings](http://www.paulgraham.com/makersschedule.html), you should read it.
