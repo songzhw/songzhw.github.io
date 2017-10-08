@@ -1,6 +1,5 @@
 ﻿Hugo如何制作出来的（有以此为基础的库）；
 仿制rxbinding; 
-Kotlin写测试代码， 好多坑
 
 how to make a MVP template
 how to make a gradle plugin for Android
@@ -11,9 +10,6 @@ springAnimation(getY()?, comparing to rebound, )
 unit test
 robolectric (verify error)
 UI Automator (+ Eclipse RCP)
-
-How EventBus works?
-How EventBus 3.0 has a better effience?
 
 
 And7: Html <-> Spanned, Split Screen
