@@ -13,3 +13,11 @@ This will automatically be used when you use EditText in your layouts and the to
 You should only need to manually use this class when writing custom views.
 ```
 
+The second line actually are suggesting you to use AppCompatEditText, not EditText, as a parent of custom view. If you insist to use EidtText, you will get a Lint warning.
+
+![](./_image/2017-10-09-19-10-43.jpg)
+
+The first line is the essential of this post. "This will automatically be used when you use EditText in your layout". What? How? How do you achieve this? 
+
+This means even you write <EditText> in the layout xml files, and you will get a <AppCompatEditText> eventually. This is what we want to do too, replacing views globally.
+
