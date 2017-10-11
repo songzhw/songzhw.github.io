@@ -5,7 +5,8 @@ Before diving into the ocean of details, I want to talk about one relevant View:
 
 AppCompat***View is designed for the UI on the older versions of the platform. Then your Android 4.2 may have the Lollipop UI.  The picture below can explain this to you.
 
-![Difference between EditTet and AppCompatEditText](http://upload-images.jianshu.io/upload_images/2833342-3e0976fadc11aef7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](./_image/2017-10-10-20-13-58.jpg)
+
 
 [The document of AppCompatEditText](https://developer.android.com/reference/android/support/v7/widget/AppCompatEditText.html) already tell us :
 ```
@@ -20,4 +21,10 @@ The second line actually are suggesting you to use AppCompatEditText, not EditTe
 The first line is the essential of this post. "This will automatically be used when you use EditText in your layout". What? How? How do you achieve this? 
 
 This means even you write <EditText> in the layout xml files, and you will get a <AppCompatEditText> eventually. This is what we want to do too, replacing views globally.
+
+
+
+
+p.s. Some pictures are from :
+[http://www.jianshu.com/p/4c2d90d850df](http://www.jianshu.com/p/4c2d90d850df)
 
