@@ -22,6 +22,13 @@ The first line is the essential of this post. "This will automatically be used w
 
 This means even you write <EditText> in the layout xml files, and you will get a <AppCompatEditText> eventually. This is what we want to do too, replacing views globally.
 
+### Replacing views globally
+
+### Conclusion
+That's actually how AppCompatActivity replace your EditText with AppComatEditText. This technique could be used in many scenarioes.
+* 自动埋点
+
+* 全局替换字体
 
 
 
