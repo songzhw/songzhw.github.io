@@ -2,7 +2,7 @@ Agile needs communication. That’s true. But sometimes this could be an excuse 
 
 Today I want to talk about the stand-up meeting. Stand-up meeting is common to every people. But many stand-up meetings are just a procedure people have to have every sinlge day. The stand-up meeting is losing its meaning in some teams. 
 
-### Stand-Up Swamp
+## Stand-Up Swamp
 Stand-up meeting is supposed to help you understand what's going on in this team, and help manager to get the blocker as soon as possible. Stand-up meeting should be short and precise. 
 
 Yet, here are some scenarioes you might have every day
@@ -37,3 +37,17 @@ You only need to talk about "what you did yesterday", "what you will do today" a
 
 If you have a block that you need to discuss with other people, you can park it, put it on the white board. After this stand-up meeting, you then can discuss it. 
 
+## Split Your Meetings
+One of my previous company has a large group of Android dev team. And this Android dev team is split into many small project team, like ProjectA, ProjectB, ...
+To help dev leader and other dev to understand what's going on in this app, every week we need a meeting. In this meeting each team needs to say what did my team did this day. And at last, dev leader annouced something or ask if anybody have an issue or a suggestion to bring up.
+
+I understand this intention is good, but this weekly meeting always performs poorly. Normally if you are doing ProjectA, and ProjectB may affect you, so you  will focus on the update of ProjectB and ProjectA. This is okay. But before you hear that, you may need to take 30 minutes to hear the updates of ProjectC, ProjectD, .... 
+
+That's what I keep saying. You may need just 5 minutes to get what you need, but you have to waste 45 mintues to get what you need. That means the meeing is not always good for most of the team member. 
+
+Then if you are the leader of this big dev team, what should you do?
+The answer is split it.
+(1). First, the update of each team need to be removed from the meeting. Instead, every team send a email to every dev. So you can get what you want, and skip what you don't want.
+(2). The suggestion and announcement is much more important, and every dev should attend. If you have any good idea, or have some paint points, or have some block, you really should bring it up. Maybe this will help the whole team, or someone can help you with your issue.
+
+By doing these, the one-hour meeting now can be shortened to just 20 minutes, and everyone may get some knowldege from it.
