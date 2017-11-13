@@ -21,3 +21,52 @@ implementation 'com.android.support:appcompat-v7:26.1.0'
 
 
 
+### 4. Demo
+Here is the demo I made. I've used the `lifecycle:1.0.0` library in this demo.
+
+[build.gradle]
+```groovy
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    
+    implementation "android.arch.lifecycle:runtime:1.0.3" 
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0" 
+
+```
+
+[Activity]
+```java
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Watcher03 watcher = new Watcher03();
+        getLifecycle().addObserver(watcher);
+    }
+
+}
+```
+
+[Observer]
+```java
+public class Watcher03 implements LifecycleObserver {
+    @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
+    public void onAny(LifecycleOwner owner, Lifecycle.Event event) {
+        System.out.println("szw watcher03 : onAny(" + event.name() + ")");
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    public void connectListener() {
+        System.out.println("szw watcher03 : onResume()");
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    public void disconnectListener() {
+        System.out.println("szw watcher03 : onPause()");
+    }
+}
+```
+
+
