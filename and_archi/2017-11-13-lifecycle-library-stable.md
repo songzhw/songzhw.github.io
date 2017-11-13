@@ -19,10 +19,20 @@ So here is the conclusion. Not any AppCompatActivity has the functionality of li
 implementation 'com.android.support:appcompat-v7:26.1.0'
 ```
 
+### 3. No More LifeRegistryOwner
+I made a LifecycleAppCompatActivity in September to help me to support lifecycle library in the AppCompatActivity, just like the following code. 
+
+```java
+public class LifecycleAppCompatActivity extends AppCompatActivity implements LifecycleRegistryOwner { .. }
+```
+
+But now the `LifecycleRegistryOwner` is alose deprecated. If you want to custom your own lifecycle owner, you should `implements LifecycleOwner`, rather than the `LifecycleRegistryOwner`.
 
 
 ### 4. Demo
-Here is the demo I made. I've used the `lifecycle:1.0.0` library in this demo.
+So my previous LifecycleAppCompatActiivty is not useful anymore. You should use AppCompatActivity instead. 
+
+Here is the complete demo I made. I've used the `lifecycle:1.0.0` library in this demo.
 
 [build.gradle]
 ```groovy
