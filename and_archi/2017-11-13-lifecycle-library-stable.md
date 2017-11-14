@@ -9,6 +9,7 @@ But LifecycleActivity is deprecated in the stable 1.0.0 version.  Now you should
 I did what the google suggests, and replace the LifecycleActivity with AppCompatActivity. But the getLifecycle() method does not exist:
 
 ![](./_image/2017-11-13-18-49-45.jpg)
+
 You see, the `getLifecycle()` turns to red, which means Android Studio spot a compile error. 
 
 Then I realized there must be the version issue. The AppCompatActivity I used before is from version 25.3.1.  So I tried to update the version from 25.3.1 to 25.4.0, 26.0.0, 26.0.1, 26.0.2, but the getLifecycle() method is still missing in the AppCompatActivity. After I bumped the version number to 26.1.0, the AppCompatActivity finally has the getLifecycle() method. What a relief!
