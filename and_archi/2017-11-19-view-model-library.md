@@ -185,48 +185,24 @@ You now can see that static value and ViewModel seems no different. They can bot
 But they do have some difference
 1. [Design] ViewModel is designed as a decouple part. Just like the Preseneter in the MVP, ViewModel is the VM in the MVVM pattern.  So you can do asyncronous operations in the ViewModel to fetch data, you can change the data and let the View know the change (you may need the [LiveData](https://developer.android.com/topic/libraries/architecture/livedata.html) to do that.)
 2. [Saving Value] The static value can be modified by every class. But the value in the ViewModel is activity-local variable, which is like [ThreadLocal](https://docs.oracle.com/javase/7/docs/api/java/lang/ThreadLocal.html) class.
+3. ViewModel can tell whether the destroy of one Activity is a normal finish or a configuration change. If this is a normal finish, ViewModel would erase the value that binds to this activity. And static value can not do that.
+
+## 5. Caution
+(1). A ViewModel must never reference a view, Lifecycle, or any class that may hold a reference to the activity context.
+Just like what I said before, ViewModel is somehow like static value. If you hold an Activity context there, you will get a memory leak.
+
+(2). If you do need a Context object to try to get the dimens, strings, or some kind of Manager (i.e. LocationManager, SensorManager, ...), you should use [AndroidViewModel](https://developer.android.com/reference/android/arch/lifecycle/AndroidViewModel.html). Then you can get an application object in the AndroidViewModel. 
+
+Here is an example of how to use AndroidViewModel.
+```java
+public class SensorViewModel extends AndroidViewModel {
+    private SensorManager sensorManager;
+
+    public SensorViewModel(@NonNull Application application) {
+        super(application);
+        sensorManager = (SensorManager) application.getSystemService(Context.SENSOR_SERVICE);
+    }
+}
+```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-= = = = = = = = = = = = = = = = = = = = = = = = = = = = 
-
-Caution
-    *no context
-    *need context, then use AndroidViewModel
