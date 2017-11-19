@@ -40,6 +40,7 @@ public class ZeroDemo extends AppCompatActivity {
         System.out.println("szw vm.user = " + vm.user);
     }
     
+    // android:onClick="onClickSimpleButton"
     public void onClickSimpleButton(View v) {
         vm.user = new User(23, "jorden");
     }
@@ -72,6 +73,7 @@ public class SameClass01 extends AppCompatActivity {
 
     }
     // launch the second instance
+    // android:onClick="onClickSimpleButton"
     public void onClickSimpleButton(View v) {
         vm.user = new User(100, "SuperMario");
         startActivity(new Intent(this, SameClass01.class));
@@ -101,12 +103,12 @@ public class SameClass02 extends AppCompatActivity {
         vm = ViewModelProviders.of(this).get(ZeroViewModel.class);
         System.out.println("szw SameClass02 onCreate() : " + vm.user);
     }
-
+    // android:onClick="onClickSimpleButton"
     public void onClickSimpleButton(View v) {
         vm.user = new User(22, "test");
     }
 
-
+    // android:onClick="onClickSimpleButton2"
     public void onClickSimpleButton2(View v) {
         System.out.println("szw SameClass02 : saved = "+vm.user);
     }
@@ -116,7 +118,95 @@ public class SameClass02 extends AppCompatActivity {
 
 From the log, `System.out: szw SameClass02 onCreate() : null`, we are glad to see the ViewModel is not messed.
 
-## 4. 
+## 4. Static, An Alternative?
+
+### 4.1 Experiment 01 : Rotate Screen
+I was told ViewModel can survive through configuration change. And the previous code shows if your activity exit, the data on ViewModel would be erased.  So I was wondering, this seems a job of static value. 
+
+Let's write some code to verify that. 
+
+```java
+public class SameVm {
+    public static User user;
+}
+```
+
+And then save the value in the Activity. 
+
+```java
+public class ZeroDemo extends AppCompatActivity {
+    private TextView tv;
+    private ZeroViewModel vm;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tv_btn);
+        tv = findViewById(R.id.tv_simple);
+
+        String value = savedInstanceState == null ? "emptyBundle" : savedInstanceState.getString("key");
+        System.out.println("szw onCreate() " + value);
+
+        vm = ViewModelProviders.of(this).get(ZeroViewModel.class);
+        System.out.println("szw vm.user = " + vm.user);
+
+        System.out.println("szw static = "+SameVm.user);
+    }
+
+    // android:onClick="onClickSimpleButton"
+    public void onClickSimpleButton(View v) {
+        vm.user = new User(23, "jorden");
+        SameVm.user = new User(21, "king");
+    }
+}
+
+```
+
+After rotating the screen,  we save the value:
+```
+szw vm.user = User{id=23, name='jorden'}
+szw static = User{id=21, name='king’}
+```
+
+So we still have the same user after we rotating the screen when we are storing the user object as a static value. 
+
+### 4.2 Experiment 02 : Terminate Application
+Same code, but this time we do something different. After executing onClickSimpleButton(), we put the app to the background. Then terminate the application. And then bring the app again.
+
+Here is what happened. The log showed the ViewModel and static value can not both survive the application termination.
+```java
+szw vm.user = null
+szw static = null
+```
+
+### 4.3 Then What's the Difference?
+You now can see that static value and ViewModel seems no different. They can both survive the configuration change, and they neither can survive the application termination. 
+
+But they do have some difference
+1. [Design] ViewModel is designed as a decouple part. Just like the Preseneter in the MVP, ViewModel is the VM in the MVVM pattern.  So you can do asyncronous operations in the ViewModel to fetch data, you can change the data and let the View know the change (you may need the [LiveData](https://developer.android.com/topic/libraries/architecture/livedata.html) to do that.)
+2. [Saving Value] The static value can be modified by every class. But the value in the ViewModel is activity-local variable, which is like [ThreadLocal](https://docs.oracle.com/javase/7/docs/api/java/lang/ThreadLocal.html) class.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -136,10 +226,7 @@ From the log, `System.out: szw SameClass02 onCreate() : null`, we are glad to se
 
 
 = = = = = = = = = = = = = = = = = = = = = = = = = = = = 
-ViewModel vs. Static
-    *sample code - config change
-    *sample code - applicaion is terminated
-    *difference
+
 Caution
     *no context
     *need context, then use AndroidViewModel
