@@ -205,4 +205,131 @@ public class SensorViewModel extends AndroidViewModel {
 }
 ```
 
+## 6. Trap
+According to [this post](https://medium.com/google-developers/viewmodels-and-livedata-patterns-antipatterns-21efaef74a54), ViewModel does not fit perfectly with event. 
+
+Consider a ViewModel with a MutableLiveData<String> field:
+
+```java
+public class DupliViewModel extends ViewModel {
+    private MutableLiveData<String> message = new MutableLiveData<>();
+
+    public void fetchMessage(){
+        message.setValue("A New Value");
+    }
+
+    public LiveData<String> getMessage() {
+        return message;
+    }
+}
+
+```
+And here is our Activity:
+
+```java
+
+public class DupliObserverDemo extends AppCompatActivity {
+    private TextView tv;
+    private DupliObserverDemo self;
+    private DupliViewModel vm;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tv_btn);
+        self = this;
+        tv = findViewById(R.id.tv_simple);
+
+        vm = ViewModelProviders.of(this).get(DupliViewModel.class);
+        vm.getMessage().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                System.out.println("szw updated ~");
+                Toast.makeText(self, "updated "+s, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    
+    // android:onClick="onClickSimpleButton"
+    public void onClickSimpleButton(View v) {
+        vm.fetchMessage();
+    }
+
+}
+```
+
+
+If the user rotate the screen, the new activity will register a observer again. When the LiveData observation starts, the activity will immediately receives the old value, which cause the toast to show again!
+
+If you want to avoid this, you should use [SingleLiveEvent](https://github.com/googlesamples/android-architecture/blob/dev-todo-mvvm-live/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/SingleLiveEvent.java). Here is the source of SingleLiveEvent.
+
+```java
+/*
+ *  Copyright 2017 Google Inc.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+/**
+ * A lifecycle-aware observable that sends only new updates after subscription, used for events like
+ * navigation and Snackbar messages.
+ * <p>
+ * This avoids a common problem with events: on configuration change (like rotation) an update
+ * can be emitted if the observer is active. This LiveData only calls the observable if there's an
+ * explicit call to setValue() or call().
+ * <p>
+ * Note that only one observer is going to be notified of changes.
+ */
+public class SingleLiveEvent<T> extends MutableLiveData<T> {
+
+    private static final String TAG = "SingleLiveEvent";
+
+    private final AtomicBoolean mPending = new AtomicBoolean(false);
+
+    @MainThread
+    public void observe(LifecycleOwner owner, final Observer<T> observer) {
+
+        if (hasActiveObservers()) {
+            Log.w(TAG, "Multiple observers registered but only one will be notified of changes.");
+        }
+
+        // Observe the internal MutableLiveData
+        super.observe(owner, new Observer<T>() {
+            @Override
+            public void onChanged(@Nullable T t) {
+                if (mPending.compareAndSet(true, false)) {
+                    observer.onChanged(t);
+                }
+            }
+        });
+    }
+
+    @MainThread
+    public void setValue(@Nullable T t) {
+        mPending.set(true);
+        super.setValue(t);
+    }
+
+    /**
+     * Used for cases where T is Void, to make calls cleaner.
+     */
+    @MainThread
+    public void call() {
+        setValue(null);
+    }
+}
+```
+
+
+
 
