@@ -6,16 +6,12 @@ destory due to configuration change. . And LiveData could have a observer? Hello
 
 But when I dug a little deeper, I found out a couple of issues that makes me uncomfortable.
 
-## 2. ViewModel: Couldn't save data when necessary
-The reason of using ViewModel is that it can save and restore data in a configuration change (i.e. screen rotation, system language change). I am not satisfied with that. So I was wondering, could the data in a ViewModel class survive the kill of one app?
+## 2. ViewModel: One thing you may need to pay attention
+The reason of using ViewModel is that it can save and restore data through configuration change (i.e. screen rotation, system language change). I am not satisfied with that. So I was wondering, could the data in a ViewModel class survive the kill of one app?
 
 Let's get our hands dirty and code a bit. The following code save a custom class(`User`) in the static and also in a ViewModel.
 
 ```java
-public class SameVm {
-    public static User user;
-}
-
 public class ZeroViewModel extends ViewModel {
     public User user;
 }
@@ -28,24 +24,18 @@ And the Activity.onCreate() is trying to get the data
    System.out.println("szw vm.user = " + vm.user);
 ```
 
-Then I rotated the screen, the data in `SameVm` and `ZeroViewModel` are as same as the original one.
+Then I rotated the screen, the data`ZeroViewModel` are as same as the original one.
 Finally, I pressed home to bring the app to the stack, then terminated the app through Android Studio, then brought the app back. What happened?
-The user in `SameVm` and `ZeroVm` are both `null` !!!
+The user in the `ZeroVm` is `null` !!!
 
-So now you should understand my point. I expected the data in a ViewModel could survive configuration change and app termination. But it does not.  It only survive the configuration change. 
+So now you should understand my point. Data in the ViewModel could survive the configuration change. But you still have to override onSaveInstanceState() to save data in case the app is killed when it is in the background.
 
 This pictures shows how to ternimate an app in Android Studio. (First select the process, then click the "terminate application" button.)
 
 ![](./_image/2017-11-30-20-38-08.jpg)
 
-
-For that, I really don't understand. It's the same data, which is in the ViewModel class. If you can save and restore it in a configuration change, why can't you just do the same thing to the app terminatation.
-age you need to claim like more than twenty observer to update the UI when the data is changed. It’s kind of annoy and there are too many boilerplate. 
-
- 
-By the way, this is how you cannot replace onSaveInstanceState() with ViewModel. So for you, you still need to persist your data in the onSaveInstanceState() and restore it in the onCreate(). 
- 
-And by comparing the ViewModel and static class, I found out the difference between saving a data in a ViewModel and saving it as a static value is quite small. Of course, you can say, static value could be modified by many classes, and one ViewModel can be modified by its corresponding Activity. I agree that, but we can make a rule to say we have different static data class for different value to survive the configuration change.
+  
+So if you are trying ViewModel, jsut remember that you can not rely on ViewModel to save the data for you when the memory is low.
  
 ## 3. LiveData: too weak to use?
  
