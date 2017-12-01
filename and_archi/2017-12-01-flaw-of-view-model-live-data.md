@@ -61,5 +61,16 @@ This is the issue of LiveData. It cannot work well with Event. If you want to se
 ### 3.3 you should use EventBus
 SingleLiveEvent has its own limit. It can only have one observer, which may be against your requirement. Instead, I think we should not use SingleLiveEvent at all. When we need to send a event, the good solution for us should be [EventBus]( https://github.com/greenrobot/EventBus).   I know some people are not happy with the lose coupling in the project that used EventBus. But I prefer EventBus over the SingleLiveEvent in this scenario.
  
+### 3.4 another strike
+ 
+[todo-app]( https://github.com/googlesamples/android-architecture) is a sample app that created by Google. Google shows many clean and elegant architecture in this repo.   And [todo-mvvm-live]( https://github.com/googlesamples/android-architecture/tree/todo-mvvm-live) is a branch of this repo.  it uses some Architecture Components like ViewModel, LiveData, and other lifecycle-aware classes.  Ironically, even in Google’s own project, they are not using LiveData to store the data.  For the boilerplate issue, Google was using [data-binding]( https://developer.android.com/topic/libraries/data-binding/index.html#data_objects) to update the UI automatically once the data is changed. So you don’t have to write so many observers to update UI.
+ 
+And for the event, this todo-mvvm-live project is using the SingleLiveEvent I’ve mentioned, which is not a good idea in my opinion. Now the code is quite weird, and you can only have one observer for each SingleLiveEvent. Instead, you should use EventBus to send and receive events.
+ 
+## 4. Conclusion
+I like the idea of architecture component library. It helps us decouple the fat Activity class, especially the lifecycle library.
+But ViewModel are not that good as I thought it would be. And LiveData will result a bunch of boilerplate and even bugs. I am not a fan of ViewModel and LiveData.
+However, the ViewModel and LiveData is only in their 1.0.0 version (today is Nov 30, 2017). Who knows what they will grow into? So let’s keep eyes on them and maybe they will surprise use in the future.
+
  
 
