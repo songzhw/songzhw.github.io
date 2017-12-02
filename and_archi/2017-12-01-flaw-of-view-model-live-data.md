@@ -59,8 +59,13 @@ And for the event, this todo-mvvm-live project is using the SingleLiveEvent I’
  
 ## 4. Conclusion
 I like the idea of architecture component library. It helps us decouple the fat Activity class, especially the lifecycle library.
-But ViewModel are not that good as I thought it would be. And LiveData will result a bunch of boilerplate and even bugs. I am not a fan of ViewModel and LiveData.
-However, the ViewModel and LiveData is only in their 1.0.0 version (today is Nov 30, 2017). Who knows what they will grow into? So let’s keep eyes on them and maybe they will surprise use in the future.
 
- 
+But ViewModel are not that good as I thought it would be. If your app doesnot support screen rotation(e.g. you already have android:screenOrientation="portrait” and andorid:configChanges in every Activity), and has handled the configuration change globally, then I don’t think you need the ViewModel. In that case, MVP is good enough for you. A presenter is a replace for ViewModel, which can fetch data from server and do some data logic. If you insist to use MVVP, you could achieve this by using RxJava or Data-Binding. 
 
+Also, LiveData will result a bunch of observer boilerplate and even bugs.  So I have to say I am not a fan of ViewModel and LiveData right now.
+
+However, the ViewModel and LiveData is only in their 1.0.0 version. Who knows what they will grow into? So let’s keep eyes on them and maybe they will surprise use in the future.
+
+<p>
+Dec 1st, 2017
+songzhw
