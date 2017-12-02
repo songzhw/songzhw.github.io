@@ -48,7 +48,7 @@ Even worse was the insufficient functionality of LiveData. LiveData may support 
 This is the issue of LiveData. It cannot work well with Event. If you want to send a Event, you could use the [SingleLiveEvent]( https://github.com/googlesamples/android-architecture/blob/dev-todo-mvvm-live/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/SingleLiveEvent.java).
  
  
-### 3.3 you should use EventBus
+### 3.3 you should use EventBus for Events
 SingleLiveEvent has its own limit. It can only have one observer, which may be against your requirement. Instead, I think we should not use SingleLiveEvent at all. When we need to send a event, the good solution for us should be [EventBus]( https://github.com/greenrobot/EventBus).   I know some people are not happy with the lose coupling in the project that used EventBus. But I prefer EventBus over the SingleLiveEvent in this scenario.
  
 ### 3.4 another strike
