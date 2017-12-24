@@ -110,3 +110,37 @@ We just treat the title of each group as a item too. That's the secret of why we
 
 But after you run the code, you could find out that the title also is draggable, which is not what we want. We want the title to be fixed. 
 
+## 3. Make fixed items
+Since there are items that are fixed, we then need to flag these itesm as no draggable.
+
+The good place to put this logic is the `getMovementFlags()` method of `ItemTouchHelper.Callback()`. Now we just make dragFalg of some particular items as INVALID(aka. 0)
+
+```java
+[ItemTouchHelper.Callback]
+    @Override
+    public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+        System.out.println("szw getMovementFlags("+viewHolder.getAdapterPosition()+")");
+        int noSwipeFlags = 0;
+        int dragFlags;
+        if(listener.isDraggable(viewHolder.getAdapterPosition())) {
+            dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+        } else {
+            dragFlags = 0;
+        }
+        return makeMovementFlags(dragFlags, noSwipeFlags);
+    }
+    
+```
+
+The activity which implements the listener itnerface could tell the Callback which item is draggable and which item is not.
+```java
+    @Override
+    public boolean isDraggable(int position) {
+        return  data.get(position).type == TYPE_TITLE;
+    }
+```
+
+## 4. Change UI after move
+That means after the move, we need to change the data for that particular item, and also tell the adapter to refresh that item. 
+
+
