@@ -134,6 +134,7 @@ The good place to put this logic is the `getMovementFlags()` method of `ItemTouc
 
 The activity which implements the listener itnerface could tell the Callback which item is draggable and which item is not.
 ```java
+[Activity]
     @Override
     public boolean isDraggable(int position) {
         return  data.get(position).type == TYPE_TITLE;
@@ -141,6 +142,34 @@ The activity which implements the listener itnerface could tell the Callback whi
 ```
 
 ## 4. Change UI after move
-That means after the move, we need to change the data for that particular item, and also tell the adapter to refresh that item. 
+After the change above, now we cannot drag title. Still, you drag Apple to china group, the text on Apple items is still "Apple, US", which is odd. Apple now belong to the China group, the text on it should be "Apple, China". This means we need to do something else to the data and UI. 
+
+```java
+[Activity]
+    @Override
+    public void onMove(int fromPosition, int toPosition) {
+        ... // swap two items
+
+        int secondTitleIndex = secondTitleIndex();
+        if (toPosition < secondTitleIndex) {
+            data.get(toPosition).country = Country_CHINA;
+        } else {
+            data.get(toPosition).country = Country_US;
+        }
+
+        adapter.notifyItemMoved(fromPosition, toPosition);
+        adapter.notifyItemChanged(toPosition);
+    }
+
+    private int secondTitleIndex() {
+        for (int i = 0; i < data.size(); i++) {
+            Company company = data.get(i);
+            if (company.type == TYPE_TITLE && company.name.contains("US")) {
+                return i;
+            }
+        }
+        return -1;
+    }
+```
 
 
