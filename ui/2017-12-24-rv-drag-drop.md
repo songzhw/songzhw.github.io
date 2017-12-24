@@ -2,6 +2,9 @@ Drag & Drop featrue is since API 11. And for RecyclerView, we have ItemTouchHelp
 
 But today what I want to post is the drag & drop between different groups. 
 
+![](./_image/dragdrop2.gif)
+
+
 ## 1. A simple example of Drag & Drop of RecyclerView
 We use ItemTouchHelper.Callback to tell the Activity now one item has move from where to where. 
 
@@ -81,6 +84,7 @@ public class RvItemDragSwipeCallback extends ItemTouchHelper.Callback {
 }
 ```
 With the code above, we now get a simple drag & drop.
+
 ![](./_image/dragdrop1.gif)
 
 ## 2. Now focus on two groups of items
