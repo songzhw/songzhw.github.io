@@ -50,3 +50,15 @@ Arguments are even harder **from a testing point of view**. Imagine the difficul
 
 Flag argument are ugly. It loudly proclaims that this function does more than one thing.
 
+reduce the number of arguments
+
+(讲一个原因). By that reasoning, + 句子
+
+Function should either do something or answer thing.
+
+
+[Comment]
+comment out : v.
+ --> commented-out code
+
+ Nothing can be quite so damaging as an old comment. 
