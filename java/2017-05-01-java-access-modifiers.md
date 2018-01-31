@@ -15,6 +15,7 @@ The `AppCompatDelegateImpl` class is in the "android.support.v7.app" package, an
 
 ## Java Access Modifier
 There is a famous table about the java access modifiers:
+
 ![](./_image/2017-04-30-22-45-37.jpg)
 
 But I have to say, this table is not completed. The biggest question about this table is what is "accessible".  
