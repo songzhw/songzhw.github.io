@@ -15,24 +15,24 @@ The `AppCompatDelegateImpl` class is in the "android.support.v7.app" package, an
 
 ## Java Access Modifier
 There is a famous table about the java access modifiers:
+
 ![](./_image/2017-04-30-22-45-37.jpg)
 
 But I have to say, this table is not completed. The biggest question about this table is what is "accessible".  
 
-Since public and private is easy to understand, so I will talk more about the protected and default modifiers. Here is the completed version.
+### 1. For Class 
+The access modifier can only be public or default.
+---->> For the class with default access modifier, you can not extend it outside its package.
 
+### 2. For Method Invoke
+Protected == Default : you can invoke the protected/default method only if you are in the same pakcage as the method you wanted to invoke. 
 
-Protected                  |  Default
-:-------------------------:|:-------------------------:
-Subclass </br>(Sampe Package)  |    ▼ </br> ✿
-Not Subclass</br>(Same Package) |   ▼
-Subclass </br>(Different Package) | ✿
-Not Subclass</br>(Different Package) |  
+### 3. For Method Override
+For the subclass in different package with the parent class, subclass can overide the protected methods, but not the default methods.
 
-▼  can call the filed/method
-✿  can override the field/method from parent class
-
-
+### 4. For Field
+In the same package: you can use the projected/default field.
+In different packages: Subclass can only use protected field by "this.field". Subclass can not access the default field.
 
 
 
