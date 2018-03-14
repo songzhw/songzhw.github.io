@@ -64,3 +64,11 @@ After all these thing above, you now can lead him to a private meeting room, and
 * What should he/she do in the next months?
 * What is good in the team/company? (pay raise, promotion, nice people, good gym, good food, ...) -- Just tell him/her what's good here, and try to make him/her feel happy to stay in this team.
 * Ask him/her if he/she has any questions?
+
+## 4. Mentor
+If you are really busy to show a new hire around, then you could introcue a "Mentor" policy. You assign a mentor for each new hire. Once the new hire has any questions, he/she can ask his/her mentor, so the rest developer could focus on their work, and there are someone to answer the new hire's question. Win-win.
+
+## 5. Conclusion
+If you think this is too much for a team leader, then I sincerely ask you to think it again. Like I said, recuiting people and managing the development is the most two important things in a development team. In essential, managing development process is also about motivate people to output some thing on time. So **PEOPLE** is the most important thing you should pay attention to.
+
+You should make your staff happy, make them think they can grow in your organization, and have a nice work experience here. Then you can keep your best man in your team.
