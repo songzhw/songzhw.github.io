@@ -45,3 +45,22 @@ Take the mobile development team for an example, you should contain at least the
     * If the new hire has some personal issues, and wants to take a day off, how should he/she inform you?
     * When is stand-up meeting every day?
     * How long is one sprint? How many sprints do we need to release a new version?
+
+
+## 3. What you need to do else?
+Before a new hire started his/her first day, you need to confirm with the HR to see if his/her email, account, computer is already ready.
+
+On the new hire's first day, you will often be asked to pick him up. Please be on time. Being on time means you respect them and would love to work with him. I know exact such an opposite example. My friend was supposed to be picked up by his boss at 9:00 a.m on his first day. But his boss did not show up until 11:00 a.m. This is rude, and it finally turns out this company is disordered, and my friend eventually left the company after one month.
+
+Lead the new hire to get his/her new computer, and give him/her the account id and the original password. Then show him/her the onboarding guide document above.
+
+Show him/her around. Where is the cafeteria; where is the meeting room; where is the wash room. If you company has some special features, you can highlight them, such as nap room, gym, room with fireplace, room with great view. In short, you try to impress the new hire and make sure he/she like this new place. This is a new place, a new job, it's natural that the new hire may feel anxious, so do you bet to make him/her feel comfortable.
+
+Introduce the team member.
+
+After all these thing above, you now can lead him to a private meeting room, and have a conversation with him. In this conversation, you could contain these topics
+* The direction of this team. What are your team making right now? And what's the direction in the long term?
+* What could he/she do in the next few days?
+* What should he/she do in the next months?
+* What is good in the team/company? (pay raise, promotion, nice people, good gym, good food, ...) -- Just tell him/her what's good here, and try to make him/her feel happy to stay in this team.
+* Ask him/her if he/she has any questions?
