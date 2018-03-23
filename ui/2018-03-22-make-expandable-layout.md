@@ -64,5 +64,55 @@ When we reach here, we already know the content view, and its height. Now we nee
 Toggling is not hard. It's all about an animator of height change, and its reversed animation.
 
 ```java
+    public void toggle(){
+        if(isExpanded){
+            collapse();
+        } else {
+            expand();
+        }
+        isExpanded = !isExpanded;
+    }
 
+    public void collapse(){
+
+    }
+
+    public void expand(){
+
+    }
+```
+
+To make the animatin we need, we need to change the content view's height. So we need to change its LayoutManager.height. 
+
+```java
+    public void toggle(){
+        if(isExpanded){
+            collapse();
+        } else {
+            expand();
+        }
+        isExpanded = !isExpanded;
+    }
+
+    public void collapse(){
+        ViewGroup.LayoutParams lp = contentView.getLayoutParams();
+        ValueAnimator animator = ObjectAnimator.ofInt(contentHeight, 0);
+        animator.addUpdateListener( anim -> {
+            lp.height = (int) anim.getAnimatedValue();
+            contentView.setLayoutParams(lp);
+        });
+        animator.start();
+    }
+
+    public void expand(){
+        contentView.setVisibility(View.VISIBLE);
+
+        ViewGroup.LayoutParams lp = contentView.getLayoutParams();
+        ValueAnimator animator = ObjectAnimator.ofInt(0, contentHeight);
+        animator.addUpdateListener( anim -> {
+            lp.height = (int) anim.getAnimatedValue();
+            contentView.setLayoutParams(lp);
+        });
+        animator.start();
+    }
 ```
