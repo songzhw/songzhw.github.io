@@ -3,14 +3,15 @@ Last time when I went to an interview, I was asked to make a expandlable view, j
 ## 1. What it looks like?
 
 ![](./_image/expandable_layout.gif)
-Every time you click the title, the layout will toggle to show or hide the content view. 
+
+Every time you click the title, the layout will toggle to show or hide the content view
 
 At our first glance, what might be the difficulties we have?
 * How much height does the content view has?
 * How to hide the content view at first, and then get its real height? 
 * How to do the Animation?
 
-## 2. Version 0.1 : static layout
+## 2. get children view
 It would be a good idea to just draw the static layout first when you try to draw a view and its animation. This way you break down the big issue into small issues.
 
 Based on the layout of the title view and the content view, we obviously think that the layout could be a vertical LinearLayout. 
@@ -28,8 +29,40 @@ Apparently every pages using ExpandableLayout may have different title view and 
 Hence, we require two, and only two, children views within this ExpandableLayout. Here is the code to get the children view. 
 
 ```java
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        if (getChildCount() != 2) {
+            throw new RuntimeException("ExpandableLayout could only have two children: header and content!");
+        }        
+        headerView = getChildAt(0);
+        contentView = getChildAt(1);
 
+        headerView.setOnClickListener(v -> {
+            toggle();
+        });
+
+    }
+```
+
+## 3. get child height
+We know that `onSizeChange()` occurs after `onMeasure()`, so we could get the children size in `onSizeChanged`. Here is what I did.
+
+```java
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        contentHeight = contentView.getMeasuredHeight(); 
+        contentView.setVisibility(View.GONE); // to make the content view disappear when we first launch this page
+    }
 ```
 
 
+## 4. toggle the layout
+When we reach here, we already know the content view, and its height. Now we need to make it toggle when we click the header view. 
 
+Toggling is not hard. It's all about an animator of height change, and its reversed animation.
+
+```java
+
+```
