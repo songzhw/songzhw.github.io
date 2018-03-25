@@ -26,7 +26,7 @@ public class ExpandableLayout extends LinearLayout {
 
 Apparently every pages using ExpandableLayout may have different title view and content view. So the two children views should be customizable. Here, we leave it to the user. Users can add the children views they want in their layout xmls.
 
-Hence, we require two, and only two, children views within this ExpandableLayout. Here is the code to get the children view. 
+Hence, we require two, and only two, children views within this ExpandableLayout. Because `onFinishInflater()` will get called after this View has been inflated to the screen, here is the code to get the children view. 
 
 ```java
     @Override
@@ -46,7 +46,7 @@ Hence, we require two, and only two, children views within this ExpandableLayout
 ```
 
 ## 3. get child height
-We know that `onSizeChange()` occurs after `onMeasure()`, so we could get the children size in `onSizeChanged`. Here is what I did.
+We know that `onSizeChange()` occurs after `onMeasure()`, so we could get the children size in `onSizeChanged()`. Here is what I did.
 
 ```java
     @Override
@@ -74,26 +74,17 @@ Toggling is not hard. It's all about an animator of height change, and its rever
     }
 
     public void collapse(){
-
+    	// TODO 
     }
 
     public void expand(){
-
+    	// TODO
     }
 ```
 
 To make the animatin we need, we need to change the content view's height. So we need to change its LayoutManager.height. 
 
 ```java
-    public void toggle(){
-        if(isExpanded){
-            collapse();
-        } else {
-            expand();
-        }
-        isExpanded = !isExpanded;
-    }
-
     public void collapse(){
         ViewGroup.LayoutParams lp = contentView.getLayoutParams();
         ValueAnimator animator = ObjectAnimator.ofInt(contentHeight, 0);
@@ -116,3 +107,62 @@ To make the animatin we need, we need to change the content view's height. So we
         animator.start();
     }
 ```
+
+## 5. No animation? 
+Clicking the title, we see no animation. Odd. Let's find out the root cause. I placed some log in the code, and find out the contentHeight is 0 again.
+
+Oh, now I get it. We've set the visibility to GONE, so the `onSizeChanged()` get called again,  therefore the content view's height is 0 again.
+
+So I manage to make sure that the getting child height logic is called only once again when its initial state is collapsed.
+
+```java
+[existing code]
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        contentHeight = contentView.getMeasuredHeight(); 
+        contentView.setVisibility(View.GONE); // to make the content view disappear when we first launch this page
+    }
+```
+
+Here we deleted the `contentView.setVisibility(View.GONE);`, and replace it with the change of LayoutParams.
+
+```java
+[new code]
+private int contentHeight = -1;
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        if (contentHeight == -1) {
+            contentHeight = contentView.getMeasuredHeight();
+        }
+        contentView.setVisibility(View.GONE); 
+    }
+```
+
+## 6. Collapse it 
+Now the clicking event works fine. You can expand or collapse the content when you click the title. But the code above make the initial state of our ExpandableLayout to be expanded. This obviously means the `contentView.setVisibility(View.GONE); ` in the `onSizeChanged()` does not work. I need to fix that too.
+
+Then I may have another solution. `onSizeChanged()` is not the only place we could get the view height. In fact, `onMeasure()` is also qualified for this job. I was thinking using `onMeasured()` to initialize the collapsed state.
+
+Here is the change I made. 
+```java
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        if (contentHeight == -1) {
+            contentHeight = contentView.getMeasuredHeight(); //此时contentView.getHeight()仍是0
+        }
+
+        lp = contentView.getLayoutParams();
+        lp.height = 0;
+        contentView.setLayoutParams(lp);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
+```
+
