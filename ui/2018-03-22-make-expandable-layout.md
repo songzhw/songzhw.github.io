@@ -1,4 +1,4 @@
-Last time when I went to an interview, I was asked to make a expandlable view, just like the ExpandableListView. I wrote down what I thought in the white board, which turns out true. But I am still interested in making a real one. So here it it.
+Last time when I went to an interview, I was asked to make a expandlable view, just like the ExpandableListView. I wrote down what I thought in the white board, which turns out true. But I am still interested in making a real one. So here I am to guide you to make one step by step. 
 
 ## 1. What it looks like?
 
@@ -165,4 +165,9 @@ Here is the change I made.
         super.onSizeChanged(w, h, oldw, oldh);
     }
 ```
+## 7. Conclusion
+Now the ExpandableLayout is completed. By making this custom view, we learned about the measure of view, the animation, and also the timing to set the initial state. 
 
+### Code
+The following link is the completed code. 
+[Expandablelayout from songzhw](https://github.com/songzhw/SixUiViews/blob/378b56113bb2f11c3003d4822b91797156ed6486/app/src/main/java/cn/six/open/view/expandable/ExpandableLayout.java)
