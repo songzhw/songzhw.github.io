@@ -69,6 +69,32 @@ public class UniqueStack<E> {
 ```
 
 
+## Solution 02:
+When I start to take a look at the source code of `java.util.Stack`, I, by surprise, found out a method called `public int search(object)`. I didn't konw there is such a method in the `Stack` class, and was also curious that how the Stack implement the `search(object)` method since it has no `get(index)` method.
+
+So I digged a little deeper. And I found out the Stack is using the Vector's functionality to implement this method, and Stack is actually the child of Vector! 
+
+This means We could take advantage of `Vector` to remove duplications when we push one item. 
+
+Thus, I had a second solution in mind. The following code is the implementation.
+
+```java
+public class UniqueStack2<E> extends Stack<E>{
+
+    @Override
+    public E push(E item) {
+        boolean isContaining = this.contains(item);
+        if (isContaining) {
+            this.remove(item);
+        }
+        return super.push(item);
+    }
+
+}
+```
+Easy, right? It's just remove duplication when you push some new items. The exising peep(), pop() and isEmpty() methods could still be using super.peep(), super.pop() ..
+
+
 
 
 
