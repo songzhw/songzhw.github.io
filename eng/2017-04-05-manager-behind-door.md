@@ -187,11 +187,17 @@ manage expectations with the customer
 
 organize the features and arrive at an achievable plan
 
-figure out how to get his much doene
+figure out how to get this much done
 
 If you see a better way, let me know.
 
 We know what our capacity is, and we're at it.
+
+- What if you put everyone on overtime? Or hire more people?
+- The learning curve is too steep. 
+New hires won't be up to speed before the release date. And extended overtime(过长的加班) would guarateen the developers make too many mistakes and the testers will be tired to find them.
+
+We did it. Didn't complete everything Jim wanted, but we did enough to make customer be happy. And we didn't burn anyone out doing it.
 
 
 
