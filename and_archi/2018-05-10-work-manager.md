@@ -31,3 +31,40 @@ Back to 2012, I was doing an e-commerce project in China. We don't have a push s
 
 We need to do two things: One, do the pulling; Two, execute this task, or enqueue this task.
 
+#### i. Worker
+We extend `Worker` class and override the `doWork()` method. In this class we did what we need to do.
+
+```kotlin
+class PullWorker : Worker() {
+    override fun doWork(): WorkerResult {
+        // if the user accept "allowing pushing" in the preference page
+        val isOkay = this.inputData.getBoolean("key_accept_bg_work", false)
+        if(isOkay) {
+            Thread.sleep(5000) // Mock the time consuming task
+
+            val pulledResult = startPull()
+            val output = Data.Builder().putString("key_pulled_result", pulledResult).build()
+            outputData = output
+            return WorkerResult.SUCCESS
+        } else {
+            return WorkerResult.FAILURE
+        }
+    }
+
+    fun startPull() : String{
+        return "szw [worker] pull messages from backend"
+    }
+}
+```
+
+#### ii. Wrap the Worker, and put it in a queue
+We use `WorkRequest` to wrap the real worker, and then put it in the queue.
+
+* `WorkRequest`: this is the real task in the queue. It has some extra attributes. 
+    * ID (This ID is an UUID, to make sure the ID is unique)
+    * When to execute this task
+    * Constraints (like execute this task only when device is charing and online)
+    * Execution chain. (WorkB can be executed only after the finish of WorkA)
+
+* `WorkManager`: put the task(aka. `WorkReqeust`) into the queue.
+
