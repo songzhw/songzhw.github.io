@@ -68,3 +68,98 @@ We use `WorkRequest` to wrap the real worker, and then put it in the queue.
 
 * `WorkManager`: put the task(aka. `WorkReqeust`) into the queue.
 
+```kotlin
+class PullEngine {
+    fun schedulePull(){
+        //You could use "PeriodicWorkRequest.Builder" in Java
+        val pullRequest = PeriodicWorkRequestBuilder<PullWorker>(24, TimeUnit.HOURS)
+                .setInputData(
+                    Data.Builder()
+                        .putBoolean("key_accept_bg_work", true)
+                        .build()
+                )
+                .build()
+        
+        WorkManager.getInstance().enqueue(pullRequest)
+    }
+}
+
+```
+### 3. explanation
+
+1. `Worker` is the class that does the real job. But we noticed that doWork() does not parameters to get the input value, and it return `void`, which means it does not return a value. What if the task need some parameter to run, and also need to pass out some result?
+
+Then it's time for our `Worker.getInputData()`, and `Woker.setOutputData()` methods.
+
+2. The data we are talkinb about is the `Data` object, which could be created by `Data.Builder` class. Just like this:
+
+```kotlin
+val output = Data.Builder().putInt(key, 23).build()
+```
+
+3. We don't use `WorkRequest` class directly. Normally we would use its subclass: `OneTimeWorkRequest` or `PeriodicWorkRequest`.
+Since the pulling job is a repeating job, so we used the `PeriodicWorkRequest` class to do that in our last code snippet.
+
+
+## More features
+
+### Deal with the result of your task
+`WorkManager` provides a LiveData<WorkStatus> to tell you what happend. The `WorkStatus` object would tell you if the task if finished or not, and also you can get the output data from it, just using `WorkStatus.getOutputData()`.
+
+By the way, since this is a `LiveData`, so you need a `LifecycleOwner` to observe this `LiveData`. Typically it would be the `AppcompatActivity`.
+
+Now, still the pull example, we could print a log after we get the result from backend.
+
+```kotlin
+[PullEngine.kt]
+class PullEngine {
+    fun schedulePull(){
+        val pullRequest = PeriodicWorkRequestBuilder<PullWorker>(24, TimeUnit.HOURS).build()
+        WorkManager.getInstance().enqueue(pullRequest)
+
+        // Add these two lines
+        val pullRequestID = pullRequest.id
+        MockedSp.pullId = pullRequestID.toString() // save the UUID
+    }
+}
+```
+
+```kotlin
+class PullActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // UUID is an implemented class of Serializable interface. And also could be converted to String, back and forth.
+        val uuid = UUID.fromString(MockedSp.pullId)
+        WorkManager.getInstance().getStatusById(uuid)
+                .observe(this, Observer<WorkStatus> { status ->
+                    if (status != null){
+                        val pulledResult = status.outputData.getString("key_pulled_result", "")
+                        println("szw Activity getResultFromBackend : $pulledResult")
+                    }
+                })
+    }
+}
+
+```
+
+One more thing to say, the observe() method is actullay `observe(LifecycleOwner, Observer<WorkStatus>)`
+
+
+### 2. Input, Output
+
+WorRequest: setInputData(Data)
+
+Work: getInputData(), setOutputData(Data)
+
+WorkStatus: getOutputData()
+
+
+### 3. If the task finished, and your app is not started. What would happen?
+This is a good question. The quick question is "nothing happens", especially your app will not be started by force.
+
+```kotlin
+
+```
+
