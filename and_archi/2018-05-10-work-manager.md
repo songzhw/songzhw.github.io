@@ -159,7 +159,37 @@ WorkStatus: getOutputData()
 ### 3. If the task finished, and your app is not started. What would happen?
 This is a good question. The quick question is "nothing happens", especially your app will not be started by force.
 
-```kotlin
+That's because you have a LiveData to get the notification. And LiveData will always unregister after the Activity is invisible. So you will not the work finished notification after your app is killed.
 
+
+### 4. Task Chain
+
+```kotlin
+WorkManager.getInstance()
+    .beginWith(workA)
+    .then(workB)
+    .then(workC)
+    .enqueue()
 ```
+
+So you will execute workA, workB, workC sequently. 
+
+
+### 5. Added a same task?
+If you are using `WorkManager.beginUniqueWork()`, and may have added one same work into the queue when the queue already has a existing same work. What would happen then?
+
+This depends on what you do you need. You can use `ExisintWorkPolicy` to help you do that. Here is the option you could choose.
+
+* REPLACE: replace the existing task with the new task
+* KEEP: keep the existing task, ignore the new task
+* APPEND: keep both tasks
+
+
+
+## Conclusion
+WorkManager is not a replacement with RxJava/AsyncTask. It is used for those task that need to be done even if your app is killed. 
+
+WorkManager framework actually did a good job to decouple the Worker and the Task(aka. WorkRequest), which make it easy to extend. You can customize your own WorkRequest if you like.
+
+And the task chain, unique work queue may also help you if you have such requirements.
 
