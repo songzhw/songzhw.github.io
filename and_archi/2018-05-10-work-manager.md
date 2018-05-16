@@ -174,6 +174,14 @@ WorkManager.getInstance()
 
 So you will execute workA, workB, workC sequently. 
 
+You may even make WorkManger do work flow like this:
+
+```
+A --> B
+        --> E
+C --> D
+```
+
 
 ### 5. Added a same task?
 If you are using `WorkManager.beginUniqueWork()`, and may have added one same work into the queue when the queue already has a existing same work. What would happen then?
