@@ -192,7 +192,8 @@ This depends on what you do you need. You can use `ExisintWorkPolicy` to help yo
 * KEEP: keep the existing task, ignore the new task
 * APPEND: keep both tasks
 
-
+### 6. Caution
+PeriodicWorkRequest could do the periodic work, but the least interval is 15 minutes (900s). So if your requirement is doing sth every 10 minutes, maybe PeriodWorkRequest is not good for you. 
 
 ## Conclusion
 WorkManager is not a replacement with RxJava/AsyncTask. It is used for those task that need to be done even if your app is killed. 
