@@ -14,19 +14,22 @@
                   body{
                         margin-left: 5%;
                         text-align: justify;
+                        background-color:lightgray;
+                  }                
+                  div.card {
+                        border-radius: 8px;
+                        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.19);
+                        padding: 20px;   
+                        margin-left: 20px;
+                        margin-right:20px;            
                   }
-                  /* a:link {
-                        text-decoration:none;
-                        color:black
+                  div.header {
+                        font-size: 18px;
+                        font-weight: bold;
                   }
-                  a:visited {
-                        color:rgba(141, 4, 141, 0.493)
-                  }
-                  a:hover {
-                        background-color:rgb(180, 180,180);
+                  /* div.desp {
+
                   } */
-                  
-                  
             </style>
       </head>
 
@@ -35,6 +38,10 @@
 
 
 <h2>Android</h2>
+<div class="card" onclick="location.href='https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-01-20-fix-one-ANR.md'">
+      <div class="header"> 2016.01.20 Fixing An ANR</div>
+      Drawing something in one custom view, and found there are 68 thousand "Point" objects in the memory after a while, and got an ANR for that. How to troubleshoot and fix it?
+</div>
 2016.01.20 <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-01-20-fix-one-ANR.md">An example of fixing an ANR</a> <p/>
 2016.01.27  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-01-27-fix-one-lag-phase.md">An example of fixing a lag phase</a> <br/>
 2016.02.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2016-02-01-memory-issue-kotlin-rxjava.md">Memory Leak in the Kotlin and RxJava project</a> <br/>
