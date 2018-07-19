@@ -18,7 +18,7 @@
                   body{
                         margin-left: 5%;
                         text-align: justify;
-                        background-color:lightgray;
+                        background-color: #f5f5f5;
                         font-family: Menlo, Monaco, 'source code pro','lucida console', consolas, 'Courier New', Courier, monospace;
                         font-size: 18px;
                   }                
@@ -34,9 +34,11 @@
                         font-size: 18px;
                         margin-bottom: 10px;
                   }
-                  /* div.desp {
-
-                  } */
+                  div.bottom {
+                        text-align: right;
+                        margin-top: 60px;
+                        margin-bottom: 40px;
+                  }
             </style>
       </head>
 
@@ -94,12 +96,6 @@
       This series lists all the possible way to leak memory, which you should avoid to do in your project. This post is about anything that last longer than your activity, like static variable.
 </div> 
 
-<!-- 
-<div class="card">
-      <div class="header"> 
-      </div>
-</div> 
--->
 <div class="card">
       <div class="header"> 
             2016.11.22  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-11-22-launch-mode-example-two.md">Another example : fix a bug using Activity's launch mode</a> 
@@ -107,11 +103,42 @@
       Using launch mode without cautiousness result in bugs. I had such one in my project. It's an Activity with multiple Fragment, and it use CLEAR_TOP improperly.
 </div> 
 
-2017.01.15  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-01-15-optimize-my-project.md">Optimize my project</a> <br/>
-2017.02.10  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-02-10-create-floating-notification.md">How to create a floating window when your app is in the foreground?</a> <br/>
-2017.03.10  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-03-10-fix-two-memory-leak.md">Fix two memory leaks</a> <br/>
-2017.09.23  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-09-23-exp-improve-performance.md">Some Examples of Improving Performances</a> <br/>
-2018.03.31  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2018-03-31-unique-item-stack.md">A scenario about one special request queue</a> <br/>
+<div class="card">
+      <div class="header"> 
+            2017.01.15  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-01-15-optimize-my-project.md">Optimize my project</a> 
+      </div>
+      I've tried serveral approaches to optimize the code: Method count, Enum, Serializable, Inheritance Hell, MVP, Test
+</div> 
+
+<div class="card">
+      <div class="header"> 
+            2017.02.10  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-02-10-create-floating-notification.md">How to create a floating window when your app is in the foreground?</a> 
+      </div>
+      This functionality includes two issues:<br> (1). create a floating window which is backward compatible;<br> (2). how to get to know if my app is displaying at a time?
+</div> 
+
+<!-- 
+<div class="card">
+      <div class="header"> 
+      </div>
+</div> 
+-->
+<div class="card">
+            <div class="header"> 
+2017.03.10  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-03-10-fix-two-memory-leak.md">Fix two memory leaks</a> 
+</div>
+</div> 
+<div class="card">
+            <div class="header"> 
+2017.09.23  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-09-23-exp-improve-performance.md">Some Examples of Improving Performances</a> 
+</div>
+</div> 
+
+<div class="card">
+            <div class="header"> 
+2018.03.31  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2018-03-31-unique-item-stack.md">A scenario about one special request queue</a> 
+</div>
+</div> 
 
 
 
@@ -213,12 +240,10 @@
 2018.04.23  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2018-04-23-make-fake-server-using-node-js.md">Using Node.js to deploy a fake server to speed up your development</a> <br/>
 
 
-<p>          </p>
-<p>   __________       </p>
-<p>   by songzhw       </p>
-&emsp;(songzhw2012@gmail.com)       <br/>
-&emsp;(https://github.com/songzhw)       <br/>
-<p>
-<p>
-      </body>
-            </html>
+<div class="bottom">
+      Me: Songzhw, Toronto, Canada <br>
+      My Email: <a href="mailto:songzhw2012@gmail.com">songzhw2012@gmail.com</a>
+</div>
+
+</body>
+</html>
