@@ -184,3 +184,9 @@ Back to our memory leak, we noticed our ```hello``` member have two leaks. In my
 ## 3. Conclusion
 Right now, I do have no solution about Kotlin and RxJava. Maybe RxLifeCycle is a helper, but kotlin is a two-blade dagger, which is really useful and also may be harmful too. If I have soultion later, I will post it again.
 
+
+p.s.  2016 - Later I understood why I had a memory leak. It's not about Kotlin. It's about the RxJava. Whenever you have a Subscription, you need to use "subscription.unsubscribe();" in the onStop() or onDestory().
+By the way, if you have a lot of subscription in one Activity, you can use `CompositeSubscription` to manage all these subscriptions.
+
+p.s. 2017 - RxJava2 is nowing using `Disposable` to replace Subscription. And also you can use `CompositeDisposable` to replace CompositeSubscription class.
+

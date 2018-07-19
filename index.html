@@ -21,7 +21,8 @@
                         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.19);
                         padding: 20px;   
                         margin-left: 20px;
-                        margin-right:20px;            
+                        margin-right:20px;    
+                        margin-bottom: 20px;        
                   }
                   div.header {
                         font-size: 18px;
@@ -40,32 +41,61 @@
 <h2>Android</h2>
 <div class="card">
       <div class="header"> 2016.01.20 
-            <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-01-20-fix-one-ANR.md"><b>Fixing An ANR</b></a>
+            <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-01-20-fix-one-ANR.md">Fixing An ANR</a>
       </div>
       Drew shapes in one custom view, and found there are 68 thousand "Point" objects in the memory after a while, and got an ANR for that. How to troubleshoot and fix it?
 </div>
 
 <div class="card">
       <div class="header"> 
-            2016.01.27  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-01-27-fix-one-lag-phase.md">Animation: Over 16ms Per Frame?</a> <br/>
+            2016.01.27  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-01-27-fix-one-lag-phase.md">Animation: Over 16ms Per Frame?</a> 
       </div>
       3D ball is a custom view which rotate and show tags in 3-dimensions. However, most frames are over 16ms, which is bad for performance. How to fix it?
 </div>
 
 <div class="card">
       <div class="header"> 
-            2016.02.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2016-02-01-memory-issue-kotlin-rxjava.md">Memory Leak in the RxJava project</a> <br/>
+            2016.02.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2016-02-01-memory-issue-kotlin-rxjava.md">Memory Leak in the RxJava project</a>
       </div>
       RxJava and Kotlin are new technic in 2015 - 2016. And I found out a memory leak when I tried to use them. 
 </div>
 
+<!-- 
+<div class="card">
+      <div class="header"> 
+      </div>
+</div> 
+-->
 
-2016.02.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2016-02-01-memory-issue-kotlin-rxjava.md">Memory Leak in the Kotlin and RxJava project</a> <br/>
-2016.02.14  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-02-14-launch-mode.md">Explain Activity Launch Mode With Examples</a> <br/>
-2016.05.14  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-05-04-fix-one-memory-leak.md">Fix a memory leak</a> <br/>
-2016.07.09  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-07-09-how-to-leak-memory-1.md">How to Leak Memory on Android (1)</a> <br/>
-2016.07.10  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-07-10-how-to-leak-memory-2.md">How to Leak Memory on Android (2)</a> <br/>
-2016.09.22  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2016-09-02-tools-Android6-permission.md">Request the permission in Android6.0 easily </a> <br/>
+<div class="card">
+      <div class="header"> 
+            2016.02.14  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-02-14-launch-mode.md"> Activity Launch Mode With Examples</a> 
+      </div>
+      Activity Launch Mode can be confusing. It is pretty hard to understand if you don't know how to apply them to the real-life project. This post shows the examples and help you understand the four launch modes.
+</div>
+
+
+<div class="card">
+      <div class="header"> 
+            2016.05.14  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-05-04-fix-one-memory-leak.md">Fix a memory leak</a> 
+      </div>
+      One of the third-party library which reference one Activity caused a memory leak in my project. How to fix it?
+</div> 
+
+<div class="card">
+      <div class="header"> 
+            2016.07.09  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-07-09-how-to-leak-memory-1.md">How to Leak Memory on Android (1)</a>
+      </div>
+      This series lists all the possible way to leak memory, which you should avoid to do in your project. This post is about registing an resource.
+</div> 
+<div class="card">
+      <div class="header"> 
+            2016.07.10  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-07-10-how-to-leak-memory-2.md">How to Leak Memory on Android (2)</a> 
+      </div>
+      This series lists all the possible way to leak memory, which you should avoid to do in your project. This post is about anything that last longer than your activity, like static variable.
+</div> 
+
+
 2016.11.22  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-11-22-launch-mode-example-two.md">Another example : fix a bug using Activity's launch mode</a> <br/>
 2016.11.22  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-01-15-optimize-my-project.md">Optimize my project</a> <br/>
 2017.02.10  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-02-10-create-floating-notification.md">How to create a floating window when your app is in the foreground?</a> <br/>
@@ -92,6 +122,7 @@
 2015.11.21  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2015-11-21-clean-app-(4).md">Clean App (4) : Apply MVP to Android</a> <br/>
 2015.11.25  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2015-11-25-clean-app-(5).md">Clean App (5) : A reusable situation in MVP</a> <br/>
 2015.12.28  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2015-12-28-kotlin-make-fingerprint-better.md">How kotlin make your architecture better in a fingerprint sample?</a> <br/>
+2016.09.22  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2016-09-02-tools-Android6-permission.md">Request the permission in Android6.0 easily </a> <br/>
 2016.12.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-11-27-example-of-test-in-real-life.md">How writting test makes your architecture better?</a> <br/>
 2017.02.15  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-02-15-sdk-image-loader.md">How to load image in a SDK project?</a> <br/>
 2017.03.08  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-03-08-mvvm-in-action.md">Apply MVVM to your project</a> <br/>
