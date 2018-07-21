@@ -19,13 +19,18 @@ V/Example: ⇢ getName(first="Jake", last="Wharton")
 V/Example: ⇠ getName [16ms] = "Jake Wharton"
 ```
 
-
-
-
-
 ### 2. How
 How does Hugo implement this functionality? 
 
+### 2-1). Outline
+Base what we saw before, Hugo uses an annotation, so Hugo must use APT(Annotation-Processing Tool) to know which method is needed to track.
+
+Also, this log sort of thing seamlessly record a log, which seems like a AOP(Aspect-Orientated Programming). 
+
+### 2-2). Annotation Processing
+
+
+### 2-3). AspectJ
 
 
 ## II. Gradle Plugin
