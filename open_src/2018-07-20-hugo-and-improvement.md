@@ -28,7 +28,15 @@ Base what we saw before, Hugo uses an annotation, so Hugo must use APT(Annotatio
 Also, this log sort of thing seamlessly record a log, which seems like a AOP(Aspect-Orientated Programming). 
 
 ### 2-2). Annotation Processing
+We normally use APT to generate a file to help us do something. Butterknife is a project that use APT to generate a file to findViewById and to register onClickListener. 
 
+If you are not familiar with APT, I wrote three posts to introduce how to implement your own Butterknife. 
+[Make Your ButterKnife 1/3](https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-05-26-make-your-own-butterknife-1.md)
+[Make Your ButterKnife 2/3](https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-05-27-make-your-own-butterknife-2.md)
+[Make Your ButterKnife 3/3](https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-05-29-make-your-own-butterknife-3.md)
+Throught these posts, you would get to understand how the APT works
+
+However, I guess it wrong. Hugo is not using the APT to get the annotation information. Instead, Hugo is using **Gradle Plugin** to get a chance to inject the AspectJ code.
 
 ### 2-3). AspectJ
 
