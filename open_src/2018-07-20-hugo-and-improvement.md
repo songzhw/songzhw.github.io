@@ -175,7 +175,27 @@ project.dependencies {
 ```
 
 ## III. Improvement
+Hugo is a great library for our developer. However, as I noticed, Hugo add the AspectJ to the runtime. This means your APK file contains code of AspectJ. AspectJ is a super powerful library, but also a heavy library. If you care about 65K issue, or you extremely care about runtime performance, you may not happy about AspectJ in the runtime. 
 
+So what should we do to improve it? 
+
+### 1. Gradle Transform API
+I want the AOP work in our code, but not in the runtime. So I will use Gradle Transform API to generate the injector code. 
+
+Gradle Transfomr API is a new feature in Gradle 1.5. The goal of this API is to simplify injecting custom class manipulations without having to deal with tasks, and to offer more flexibility on what is manipulated. 
+
+To make it easy to understand, let's say the goal of Gradle Transform API is to inject code when you build your project. You may consider the Gradle Transform API as a AOP framework which only works in the Gradle platform.
+
+### 2. modify classes
+Gradle Transform API gives you an opportunity to change the code. But you also need some libraries to help you modify the actual *.class file. 
+
+Javassist, ASM are such two libraries. You can use them to modify the *.class file. The difference of these two library is Javasssit is easy to understand, and ASM is a little more powerful. 
+
+### 3. Conclusion
+You can use Javassist to modify *.class file, to add the execution time log to your methods.
+And then you could add this modification code to the Gradle Transform API, which means after the build, you can modify the original method. 
+
+By doing all these two steps, you now have no runtime issue. Although you have a little more time to build your project, but you now have a better customer experience. Your customers will experience a fast app.
 
 
 
