@@ -81,6 +81,8 @@ Now you must have known the solution of Hugo. It is just doing the same. It inse
 
 
 ## II. Gradle Plugin
+We solved how to record time for every annotated method, but I also said that integrating AspectJ is quite complex for any project. So to help you make it easy, Hugo wrote a gradle plugin to integrate AspectJ for you. Then all you have to do is just to add `apply plugin: 'hugo'`, nothing more. You don't need to add a couple of dependencies, and not need to  configure lots of options.
+
 
 
 
