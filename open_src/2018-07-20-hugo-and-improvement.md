@@ -39,8 +39,49 @@ Throught these posts, you would get to understand how the APT works
 However, I guess it wrong. Hugo is not using the APT to get the annotation information. Instead, Hugo is using **Gradle Plugin** to get a chance to inject the AspectJ code.
 
 ### 2-3). AspectJ
+What Hugo does is writing a Gradle Plugin, in which it inject the AspectJ code to every annotated method. So we need to tell a little more about AspectJ. 
+
+First of all, let's clarify some concepts
+* **AOP** : Aspect-Oriented Programming.   You can simply think of AOP as a chance to inject some code to your code. You can do it before a method, after a method, or around a method. The typical usage is adding log before one method.
+* **AspectJ** : It's a framework of AOP. Although it is somehow hard to be intergrated to Android projects.
+
+Let's see an example, and you will get to know AOP.
+
+```java
+// You have a couple of Activity classes
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}
+
+
+// And then you define a AOP class to inject something
+@Aspect
+public class AspectTest {
+    private static final String TAG = "szw";
+    @Before("execution(* android.app.Activity.on**(..))")
+    public void onActivityMethodBefore(JoinPoint joinPoint) throws Throwable {
+        String key = joinPoint.getSignature().toString();  // the method name
+        Log.d(TAG, "onActivityMethodBefore: " + key);
+    }
+}
+
+```
+
+The code before does the injector job. 
+1. @Before: means this onActivityBefore() method will get called when the condition is meet
+2. "andorid.app.Activity.on**(..) : means every Activity's lifecycle method is the condition that trigger this onActivityBefore() method.
+3. What we did above is to add a log to every activity lifecycle method.
+
+Now you must have known the solution of Hugo. It is just doing the same. It insert a log to record the start time before one method, and also insert a log to record the end time after that method, so it would know the execution time of that method.  
 
 
 ## II. Gradle Plugin
+
+
 
 ## III. Improvement
