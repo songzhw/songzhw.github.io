@@ -83,7 +83,103 @@ Now you must have known the solution of Hugo. It is just doing the same. It inse
 ## II. Gradle Plugin
 We solved how to record time for every annotated method, but I also said that integrating AspectJ is quite complex for any project. So to help you make it easy, Hugo wrote a gradle plugin to integrate AspectJ for you. Then all you have to do is just to add `apply plugin: 'hugo'`, nothing more. You don't need to add a couple of dependencies, and not need to  configure lots of options.
 
+This is the structure of gradle plugin module. And I will tell you how to create such a module.
 
+![](./_image/2018-07-24-10-22-38.jpg)
 
+### step 1. create a java module 
+First of all, create a java module. And then you will get a build.gradle generated. This build.gradle is not good enough for us, we need to add something more.
+
+Gradle is writen by Groovy. And Groovy is such a powerful language that also makes our life easier, so we need to import groovy in this module.
+`apply plugin: "groovy"`
+
+Since this is a gradle project, we need to add gradle api here. Otherwise, javac doesn't know what a `Plugin` class is.
+
+```groovy
+dependencies {
+  compile gradleApi()
+  compile localGroovy()
+}
+```
+
+To write some AOP code, we need to import AspectJ too. So we add more dependencies.
+
+```groovy
+dependencies {
+  compile gradleApi()
+  compile localGroovy()
+  compile 'com.android.tools.build:gradle:1.3.1'
+  compile 'org.aspectj:aspectjtools:1.8.6'
+  compile 'org.aspectj:aspectjrt:1.8.6'
+}
+```
+### step 2. create a plugin
+Gradle plugin is kind of like a combination of dependencies + extension + task. What you need Gradle to do is writen in one plugin.
+
+So we need to create a class called `HugoPlugin.groovy`. Here is something you need to pay attention. We need to add the configuration to tell gradle which plugin we are using as well. This could be done by add a *.properties file to `resources/META-INF/gradle-plugins` folder .
+
+![](./_image/2018-07-24-10-30-41.jpg)
+
+You just need to list all the plugins in the properties file. Take hugo.properties for example, its content is :
+
+```properties
+implementation-class=hugo.weaving.plugin.HugoPlugin
+```
+
+Also, the name of this properties file (here is "hugo") is meaningful too. If your properties file is "a.properties", then you could use `apply plugin: "a"` in your app module. 
+
+### step3. complete the plugin     
+Every gradle plugin needs to implement one method. 
+
+```groovy
+class HugoPlugin implements Plugin<Project> {
+    @Override void apply(Project project) {
+            ... ...
+    }
+}
+```
+
+What hugo did is add the dependencies of AspectJ, and bind this AOP behavior to the javac.
+
+1). add AspectJ
+
+```groovy
+  project.dependencies {
+      debugCompile 'com.jakewharton.hugo:hugo-runtime:1.2.2-SNAPSHOT'
+      debugCompile 'org.aspectj:aspectjrt:1.8.6'
+      compile 'com.jakewharton.hugo:hugo-annotations:1.2.2-SNAPSHOT'
+    }
+```
+
+2). bind it to javac
+```groovy
+      JavaCompile javaCompile = variant.javaCompile
+      javaCompile.doLast {
+        String[] args = [
+            "-showWeaveInfo",
+            "-1.5",
+            "-inpath", javaCompile.destinationDir.toString(),
+            "-aspectpath", javaCompile.classpath.asPath,
+            "-d", javaCompile.destinationDir.toString(),
+            "-classpath", javaCompile.classpath.asPath,
+            "-bootclasspath", project.android.bootClasspath.join(File.pathSeparator)
+        ]
+```
+
+3). You may have the question, that where is the AOP code?
+Good question. That's because all the AOP code are inside the hugo-runtime library. Once you add the hugo-runtime library, then AOP code is already in your code. So no worries.
+
+```groovy
+project.dependencies {
+      debugCompile 'com.jakewharton.hugo:hugo-runtime:1.2.2-SNAPSHOT'  //===> This is the AOP code
+```
 
 ## III. Improvement
+
+
+
+
+
+
+
+
