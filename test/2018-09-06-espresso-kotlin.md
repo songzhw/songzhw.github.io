@@ -44,7 +44,6 @@ class ChangeTextBehaviorTest {
 
     @Rule
     var mActivityRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
-
 ```
 
 you probably will get an error:
@@ -120,3 +119,34 @@ Just turns three animation off:
 
 ![](./_image/2018-09-05-23-21-49.jpg)
 
+## VI. @BeforeClass
+You should make @BeforeClass mehtod static in Java. The problem is Kotlin does not have a static type. So if you need a mehtod annotated by @BeforeClass, you should make it one method in a companion object. 
+
+The following code shows you how to do it.
+
+```kotlin
+@RunWith(AndroidJUnit4::class)
+@LargeTest
+class HomeTest {}
+    companion object {
+        @BeforeClass
+        @JvmStatic
+        fun initEnv(){ ... }
+    }
+
+    @Test
+    fun testA(){...}
+}
+```
+
+
+## VII. Mockito.when()
+Yes, `when` in Kotin is keyword, and that's why you can not use this method in kotlin file.
+
+The following code shows a correct way to do it.
+
+```kotlin
+import org.mockito.Mockito.`when`
+..
+`when`(activity.name).thenReturn("home")
+```
