@@ -275,16 +275,36 @@
       Lifecycle library is a good library. However, I get to know some tricky issues about it, and here I want to share them.
 </div> 
 
-<!-- 
+
+
 <div class="card">
       <div class="header"> 
+            2017.11.13  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-11-13-lifecycle-library-stable.md">Something you need to know about the stable lifecycle library</a>
       </div>
+      If you were using the alpha or beta version of Lifecycle library, you definitely need to see this post when you switch to the stable version.
 </div> 
--->
-2017.11.13  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-11-13-lifecycle-library-stable.md">Something you need to know about the stable lifecycle library</a> <br/>
-2017.11.19  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-11-19-view-model-library.md">More than the introduction of the ViewModel library</a> <br/>
-2017.12.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-12-01-flaw-of-view-model-live-data.md">Why do I disappoint at the ViewModel and LiveData frameworks?</a> <br/>
-2018.05.12  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2018-05-10-work-manager.md">Introduction to WorkManager</a> <br/>
+ 
+<div class="card">
+      <div class="header"> 
+            2017.11.19  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-11-19-view-model-library.md">More than the introduction of the ViewModel library</a> 
+      </div>
+      ViewModel is a new library for Andorid dev which helps your class survive configuration change. And also it is a good option if you are using MVVM pattern.
+</div> 
+
+<div class="card">
+      <div class="header"> 
+            2017.12.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-12-01-flaw-of-view-model-live-data.md">Why do I disappoint at the ViewModel and LiveData frameworks?</a> <br/>
+      </div>
+      After using LiveData and ViewModel for more than three months, I am not totally satisfied with these two libraries. I think there are some disadvantage that worth discussing in this post.
+</div> 
+
+<div class="card">
+      <div class="header"> 
+                  2018.05.12  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2018-05-10-work-manager.md">Introduction to WorkManager</a> <br/>
+      </div>
+      Android just released one new Library : WorkManager in this year's Google I/O. Let's have a look.
+</div> 
+
 
 <!-- 
 <div class="card">
@@ -295,11 +315,26 @@
 
 
 <h2>Open Source Library</h2>
-2016.05.26  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-05-26-make-your-own-butterknife-1.md">Make Our Own ButterKnife (1)</a> <br/>
-2016.05.27  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-05-27-make-your-own-butterknife-2.md">Make Our Own ButterKnife (2)</a> <br/>
-2016.05.29  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-05-29-make-your-own-butterknife-3.md">Make Our Own ButterKnife (3)</a> <br/>
-2016.08.11  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-08-11-make-an-AutoGo.md">How to make your own AutoGo?</a> <br/>
-2016.10.13  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-10-13-how-eventbus3-becomes-more-efficient.md">How EventBus3 becomes more efficient?</a> 
+<div class="card">
+      <b>All three posts below are to teach you how you make your own ButterKnife, which also teaches you how to use annotation in your own project</b> <p></p>
+      2016.05.26  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-05-26-make-your-own-butterknife-1.md">Make Our Own ButterKnife (1)</a> <br/>
+      2016.05.27  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-05-27-make-your-own-butterknife-2.md">Make Our Own ButterKnife (2)</a> <br/>
+      2016.05.29  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-05-29-make-your-own-butterknife-3.md">Make Our Own ButterKnife (3)</a> <br/>
+</div>
+<div class="card">
+      <div class="header"> 
+            2016.08.11  <a          href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-08-11-make-an-AutoGo.md">How to make your own AutoGo?</a> <br/>
+      </div>
+      AutoGo is a libray to help you navigate to another Activity elegantly. This is another lecture about making an annotation library.
+</div>
+
+<div class="card">
+      <div class="header"> 
+            2016.10.13  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-10-13-how-eventbus3-becomes-more-efficient.md">How EventBus3 becomes more efficient?</a> 
+      </div>
+      Comparing to EventBus2, EventBus3 is using rutnime annotation, which definitely slows down the speed. How come EventBus has a better performance than EventBus2? 
+</div> 
+
 
 <div class="card">
       <div class="header"> 
@@ -307,18 +342,55 @@
       </div>
       Hugo is a good library to help us debug. Digging into this library and we would learn a lot. However, we can still improve it by using Gradle's Transform API.
 </div> 
-<!--
-2017.07.25  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2017-07-25-build-our-own-RxBinding.md">Make Our Own RxBinding</a> <br/>
+
+
+
+<!-- 
+<div class="card">
+      <div class="header"> 
+      </div>
+</div> 
 -->
 
 <h2>Android Security</h2>
-2015.11.18  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2015-11-18-anti-jd-gui.md">How to fail jd-gui?</a> <br/>
-2015.12.25  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2015-12-25-fingerprint-introdution.md">Android's fingureprint</a> <br/>
-2016.01.12  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2016-01-12-https-in-android.md">How does Https work?</a> <br/>
-2016.02.06  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2016-02-06-android-security-tips-one.md">Secruity Tips in Andorid (1)</a> <br/>
-2016.09.13  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2016-09-13-mitm.md">Man in the middle attack</a> <br/>
+<div class="card">
+      <div class="header">
+            2015.11.18  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2015-11-18-anti-jd-gui.md">How to fail jd-gui?</a>  
+      </div>
+      This is a slight improvement if you don't want people to see the source code of your project. Of course, you still need proguard.
+</div> 
+<div class="card">
+      <div class="header"> 
+            2015.12.25  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2015-12-25-fingerprint-introdution.md">Android's fingureprint</a>
+      </div>
+      Android 6.0 has a new API about fingerprint. If you want to save something that can be accessed by your fingerprint, you may need the FingerPrint API and also the KeyStore API. This post just shows you how to do that.
+</div> 
+<div class="card">
+      <div class="header"> 
+            2016.01.12  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2016-01-12-https-in-android.md">How does Https work?</a>
+      </div>
+      This is a post about how Https works. It's totally theoretical, but it shows you in a picture that you would understand it very quickly.
+</div> 
+<div class="card">
+      <div class="header"> 
+            2016.02.06  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2016-02-06-android-security-tips-one.md">Secruity Tips in Andorid (1)</a>
+      </div>
+      Some tips about Android Security
+</div> 
+<div class="card">
+      <div class="header"> 
+            2016.09.13  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2016-09-13-mitm.md">Man in the middle attack</a>
+      </div>
+      I just talked about Https in the last post. Here is one attack on Https you may encouter in your development.
+</div> 
 
 
+<!-- 
+<div class="card">
+      <div class="header"> 
+      </div>
+</div> 
+-->
 <h2>Android Test</h2>
 2016.01.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-01-01-android-test.md">How to test an Android project?</a> <br/>
 2016.04.02  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-04-02-clean-test-project-1.md">How to build a clean test project (1)?</a> <br/>
@@ -333,11 +405,21 @@
 2018.04.12  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2018-04-11-test-room.md">How to unit test ROOM?</a> <br/>
 2018.09.05  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2018-09-06-espresso-kotlin.md">Espresso: familar tool, new journey</a> <br/>
 
-
+<!-- 
+<div class="card">
+      <div class="header"> 
+      </div>
+</div> 
+-->
 <h2>Java</h2>
 2016.03.18  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/java/2016-03-14-lambda-in-java8-(1).md">Java8 Lambda</a> <br/>
 2016.05.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/java/2017-05-01-java-access-modifiers.md">A Problem about Java Access Modifier</a> <br/>
-
+<!-- 
+<div class="card">
+      <div class="header"> 
+      </div>
+</div> 
+-->
 <h2>Kotlin</h2>
 2015.11.28  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2015-11-28-introduction-kotlin.md">Welcome to the Kotlin world</a> <br/>
 2015.12.20  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2015-12-20-kotin-in-android.md">A simple sample of Kotlin in Android</a> <br/>
@@ -349,13 +431,23 @@
 
 
 <p>
-
+<!-- 
+<div class="card">
+      <div class="header"> 
+      </div>
+</div> 
+-->
 <h2>RxJava & RxJava In Android</h2>
 2015.12.10  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/rxjava/2015-12-10-rx-in-android-(1).md">Limit to EditText's input (RxJava)</a> <br/>
 2015.12.13  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/rxjava/2015-12-13-rx-in-android-(2).md"> throttleFirst() vs. debounce() ;  combineLatest() vs. zip()</a> <br/>
 2016.01.13  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/rxjava/2016-01-13-rx-binding.md"> RxBinding Samples </a> <br/>
 
-
+<!-- 
+<div class="card">
+      <div class="header"> 
+      </div>
+</div> 
+-->
 <h2>Agile Developement</h2>
 2016.01.08  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/project/2016-01-08-endless-meetings.md">How to have a healthy, meaningful meeting? </a> <br/>
 2016.03.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/project/2016-03-01-test-or-not.md">Do we need to test our Android codes?</a> <br/>
@@ -364,7 +456,12 @@
 2018.03.14  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/project/2018-03-13-onboarding-guide.md">Making a good onboarding guide</a> <br/>
 
 
-
+<!-- 
+<div class="card">
+      <div class="header"> 
+      </div>
+</div> 
+-->
 <h2>Tools</h2>
 2015.12.12  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2015-12-12-json-to-java.md">[Tool] Translate json to java POJO classes</a> <br/>
 2015.12.14  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2015-12-14-auto-find-view-by-id.md">[Tool] Generate Activity class from layout xml file automatically</a> <br/>
