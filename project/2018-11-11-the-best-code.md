@@ -93,9 +93,19 @@ internal operator fun LifecycleDisposers.Store.get(lifecycle: Lifecycle): Lifecy
 ```
 
 
-### 2.3
+### 2.3 Retro
+Okay, although you don't know the whole code in the disposable library, you must have a feeling what the code looks like.
 
-### 2.
+Yes, I have the same feeling: it's a great library, but it's really pretty hard to read it through.
+
+The most two primary challenges for those who want to read the code are: 
+1). It uses a lot of extension, a lot of which are from a huge chain of extensions. The previous code actually comes from multiple files, which makes the read more difficult.
+2). It override some operator. Since the IDE does not "go to declare", it would hard for people to trace some issue, read the code and find the correct code.
+
+
+
+### 2.4 Conclusion for this library
+
 
 
 
