@@ -51,6 +51,7 @@ The key code is the `disposeBy(onStop)` method. We have two questions: 1). how t
 
 #### 2.2.1 Getting lost
 Now let's take a look at the code:
+
 ```kotlin
 // so the onStop is the extension property of LifecycleOwner 
 // Our AppcompatActivity is  a child of LifecycleOwner
@@ -123,13 +124,35 @@ The reasons why I am so disappointed are as follows:
 Buth the above argument is not about this post. This post I want to make a point about how to make a great code. Now since Fragment has obviously duplicated the same job of Activity (they both has lifecycle, could refresh UI and business logic), the code is not elegant anymore. Let's say you have an Activity contains one Fragment. You need to find out which one single view belong to, Activity or Fragment? Same logic apply to the logic code. So the readablity is now uncertain. Some code could be in the Fragment, or Activity. You may need to jump from these two files back and froth to get to understand a single work flow.
 
 ### 3.2 Dagger
-Dagger is another library that makes me excited at first, and then hurt me deeply later. 
+Dagger is another library that makes me excited at first, and then hurt me deeply later. The reason why I added Dagger is I want to decouple the initilization and usage of one class. I hope I would benefit from this separation and could be more eeasily inject one mocked class for test. 
+
+However, after I spent nearly one week to truly get to understand Dagger, I was really disappointed.
+
+First, it has too many APIs. You thought @Inject, @Module, @Component is the all. You are clearly wrong. There's a ton of new things you need to pick up: @Scope, @Binds, @BindsInstance, @Named, @IntoSet, @IntoMap, @Subcomponent, @Compenent.Builder, component dependencies, .... This is completely not friendly to the new comers. Yes, you may argue that more difficulty may means more powerful. True, however, no in Dagger's case.
+
+Second, Dagger is not powerful. Dagger is just a tool to inject dependencies. However, I can do the same trick just using constructor injection or setter injection most of cases. And the latter is much more elegant and easy to read. 
+Also, the @singleton in Dagger is actually not a real Singleton, which has to attach the Application. This is another example why I am so disappointed at Dagger.
+
+Third, most important, it's not good for the test. I still have to find a way to override the `DaggerSomeComponent.create().inject(this)` and to inject my mocked object. Dagger does not make it easier.
+
+Fourth, it's hard to debug. When you have some issue with Daager, it's quite hard to find out what exactly went wrong when you only have such simple error message: "expected one element but was ':work'".
+
+
+Fifth, yes, readability. Dagger truly split the code around all over you code. You want to initialize or get something, okay, you need to find it in the Component, then the Module or Component.Builder or multibinds, then you may need to find it in the Application's component or module or it's Component.Builder.... 
 
 
 
+## 4. Conclusion
+The code which is easy to read is straightforward. You may use MVP to navigate among View, Presenter, Model, but it's easy to know business code always locates in Presenter, UI code always locats in View. 
 
-### 3.2 Dagger
+The three examples I listed in the above just express this principle:
+1). Disposal: overrided the operator, created a lot, a lot of extension
+2). Fragment: you don't know one UI code should locate in Activty or Fragment
+3). Dagger: you will just lost in the ocean of Dagger immediately. Too many complext concept, too much things you need to know before you start up.
 
+Testable code menas you made a good, clean architecture.
+Feeling good to read your code means it's easy to understand, extend and maintain. 
+So try to write some code that is easy to follow. 
 
 
 
