@@ -102,9 +102,33 @@ The most two primary challenges for those who want to read the code are:
 1). It uses a lot of extension, a lot of which are from a huge chain of extensions. The previous code actually comes from multiple files, which makes the read more difficult.
 2). It override some operator. Since the IDE does not "go to declare", it would hard for people to trace some issue, read the code and find the correct code.
 
+In short, this library is brillian. However, its own source code is a disaster to look at, in my opinion.
+
+## 3. More examples
+Disposable library is not the only one that has the awful code to read. I could list a lot in this post. Here, I just take the take two examples: Fragment and Dagger.
+
+I know this is extremly controversial. However, I want to write my thought down to discuss with my readers. If you have different opinion, you can email me: <songzhw2012@gmail.com>
+
+### 3.1 Fragment
+Fragment was invented since Android 3.0 in 2011. It's been almost 8 years since then. I was happy to see it at first, I thought this could make our Views as a part of big screen. This way, we could reuse these specific parts. Also, it's good to see Fragment can make our layout be easy to extend between Phone and Tablet.
+
+A few years later. My disappointmet at Fragment are growing. At last, I don't want use it in most case. (DialogFragment may be the exception.)
+
+The reasons why I am so disappointed are as follows:
+1). Fragment does not save the Activity to be a God Class. Lots of dev still write business code and ui code in the same Fragment class. 
+2). View could be reuseable. Why bother to use Fragment in many cases?
+3). Fragment still has some feature that I'm not confortable with, such as the "famous" error - "can not perform this action after onsaveinstancestate".
+4). I am a guy who like to make tools to make our dev life easier. In the past time, I only need to make some global tools just for Activity. Now I had to do the same trick to Fragments. Normally it's not that easy. To be honest, even Google has faced the same issue. The prematural lifecycle library in Architecture Compnent libraries can only suppport Activity first. Like half year later, Google then had finally succeed to support Fragment. This is what I mean. Activity + Fragment just doubled your work if you are making some great tools for global features.
+
+Buth the above argument is not about this post. This post I want to make a point about how to make a great code. Now since Fragment has obviously duplicated the same job of Activity (they both has lifecycle, could refresh UI and business logic), the code is not elegant anymore. Let's say you have an Activity contains one Fragment. You need to find out which one single view belong to, Activity or Fragment? Same logic apply to the logic code. So the readablity is now uncertain. Some code could be in the Fragment, or Activity. You may need to jump from these two files back and froth to get to understand a single work flow.
+
+### 3.2 Dagger
+Dagger is another library that makes me excited at first, and then hurt me deeply later. 
 
 
-### 2.4 Conclusion for this library
+
+
+### 3.2 Dagger
 
 
 
