@@ -24,9 +24,30 @@ After this, I will write a report to my boss and HR. I will list the conclusion 
 ## FAQs
 
 ### 1. how do you tell if the candidate has potential
+"Potential" is a word we are using frequently in the process of itnerview. However, I have to say, having a strong background does not means a great candidate. I've seen many such people failed the interview. Someone are graduated from one of the greatest university, and someone are who had worked on some great Internet company for several years. 
 
+So the "potential" concept in my mind is not about your university or previous company. If you have been in this development industry for 3 years, and after the interview, I find out you have understand some things that is hardly within most of 3-year dev's mind, and you are happy to learn by yourself. I would say you are have potential. The more you know, the more potential you have. 
+
+This principle do help me find many brilliant and potential developers. And the best part of it is you can apply it to anyone. Let's take an example of Android development, if you are just gradutated, and you know the details of MVP or other stuff and have some nice open source project, I would think you do have potential. But if you have worked as a Android developer for more than 5 years, and still don't know how to test your code, and also don't know a thing about Kotlin, I may question your experience. 
+
+The thing I am mostly concerned is, if you don't learn enough things in 5 years of dev career, that's means you don't have the passion to learn things, or you still don't have a clue about this business. Then it's hard for me to expect you to learn more in my company, and output more in your position. 
+
+Of course these two or three questions are purely examples.  Normally I will ask a lot of questions, to make sure I got your technical level in a big picture.  And this requires the manager to have quite a lot of technical background, and then understand which level this candidate is in. 
 
 ### 2. brilliant people, or people have such background?
+Here is a scenario you may face many times in your manager career. Your team has a Android dev position open, however, you got two candidates that seems good for this position. 
+
+Adam is just switching to be an Android dev for 1 years, after his 3 yearas as iOS developer. Adam is quite a brilliant people on iOS field. He open-sourced some great frameworks in GitHub, and he understood how a mobile dev team runs well. 
+
+Bob is a Android dev with 4 year experience. He understood more Android dev knowledge than Adam, and faced more difficulty than Adam. However, after taking with Bob, you find out he lacks some key points as a Android dev, such as testing, how to make code elegant and expandable, why AsyncTask is bad for our code. 
+
+So here is the question: Which one do you pick if they are identical in other filed except technique?
+
+The answer may vary. But mine is quite simple: Adam.
+This is not what I think. It is also I did. For this choice, I did recruite a brilliant people for our team. 
+
+The reason of picking Adam is that I will choose someone have more potential. If you worked very well in other field, I expect you will do it in this new field. If you are bad at your work, or not that good at your work, then I can question you in the future. I may think you may not have enough passion for technique.
+
 
 
 ### 3. What if you can not recruit one perfect person?
