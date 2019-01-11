@@ -1,5 +1,5 @@
 
-# How to recruit better?
+# How to recruit the right person?
 
 This post is most coming from what I did and felt in the past several years. I've interviewed with more than two hundred people in the last 4 years, and built a mobile team (Android + iOS) from scratch to a team of more than 20 person. I naturally have some thought about how to recruit right people, and here I want to share it, discuss it with you.
 
@@ -52,7 +52,7 @@ The reason of picking Adam is that I will choose someone have more potential. If
 
 
 ### 3. What if you can not recruit one perfect person?
-You have time to recruit people, you have budget to  offer to a briliant people, ... that's good, but it's not the situation you will have all the time. Sometimes, you don't have enough budget, or your new project have to be start in 1 month, and all the people you've interviewed are not that satisfied as you expected. What could you do?
+You have time to recruit people, you have budget to  offer to a brilliant people, ... that's good, but it's not the situation you will have all the time. Sometimes, you don't have enough budget, or your new project have to be start in 1 month, and all the people you've interviewed are not that satisfied as you expected. What could you do?
 
 #### 3.1 You have a hard deadline 
 Let's say, you have an order to recruit 3 dev for a new project. Time is precious and short, you have make your choice. Sometimes you can't take enough time to get a perfect candidate, you have to pick one candidate that's is okay (not good enough though).  This kind of decision is the ones you have to make, so don't feel upset about yourself.
@@ -60,7 +60,7 @@ Let's say, you have an order to recruit 3 dev for a new project. Time is preciou
 Just remember to mentor this new hire in the future, and also guide him in his technical career. You, as a tech manager, have responsibility to help your report grow and become better.
 
 
-#### 3.2 You don't have enought budget
+#### 3.2 You don't have enough budget
 Let's still use the previous example. Let's say we have 400K budget for 3 dev. If that's the case, then I recommend you to at least hire one hight-level dev,  and two other intermediate dev. We could allow the senior dev to have 200K, and two other intermediate dev to have 100K each. 
 
 My idea here is to make your team have different level. So you have tech leader to navigate the whole team, and also have solid dev to handle technical details.
@@ -68,9 +68,9 @@ My idea here is to make your team have different level. So you have tech leader 
 ### 4. What if you have a couple of "okay" candidate, but that are all you have?
 Yes, this is a question you may face sometime. You have 3 candidate and a hard deadline, but none of them are not even close to your acceptable level. What now?
 
-You have to understand that recruition is always hard. In China, the best time to recruit people is February. To be precise, before and after the Spring Festival. In Canada, it's January and February. After all, you want to get the bonus, then head to your next stop. So trying to hire a good dev in other months could be tough. There is just not so much candidate in the market.
+You have to understand that recruit is always hard. In China, the best time to recruit people is February. To be precise, before and after the Spring Festival. In Canada, it's January and February. After all, you want to get the bonus, then head to your next stop. So trying to hire a good dev in other months could be tough. There is just not so much candidate in the market.
 
-When you have such a situation, try to list the qualification you valued in the white board, to to see which candidate have the most check under each qualification. Just like this one: 
+When you have such a situation, try to list the qualification you valued in the white board, to see which candidate have the most check under each qualification. Just like this one: 
 
 |       | kotlin | Optimization | Architecture | Test |Communication|
 |-------|--------|--------------|--------------|------|-------------|
@@ -78,7 +78,7 @@ When you have such a situation, try to list the qualification you valued in the 
 | Bob   | 7      | 1            | 4            | 2    | 4           |
 | Celin | 2      | 4            | 4            | 3    | 5           |
 
-We have 1-10 point in every filed we value. The fileds are close related to your codebase and project. Let's say if you are using Daager2 in your codebase, and you don't want waste any time to let the new hire to learn Dagger2, you would prefer someone that knows some knowledge of Dagger2. Then the Dagger2 should be appear in the previous table.
+We have 1-10 point in every filed we value. The fields are close related to your codebase and project. Let's say if you are using Daager2 in your codebase, and you don't want waste any time to let the new hire to learn Dagger2, you would prefer someone that knows some knowledge of Dagger2. Then the Dagger2 should be appear in the previous table.
 
 To sum up, my advice is to list a table and make this making-decision process more like a data game.
 
@@ -97,5 +97,24 @@ Also, I want to mention one more thing. After you meet your candidate face-to-fa
 
 
 ## IV. Things I don't do in interview
-* difficult algorithm questions
-* too much behaviour questions
+
+### 4.1 I don't ask too difficult algorithm questions
+I know this is controversial. A lot of company, even some huge Internet company like to ask candidates some difficult algorithm questions. 
+
+However, I am a leader of mobile team. The most dev I need to recruit is Android dev, iOS dev, or React Native dev. Most of their work don't have too much to do with difficult algorithm. I prefer to ask some questions more practical. Like "What kind of algorithm have you used in your dev before?", "[xxxx] algorithm is often used to [zzzz], could you tell me more about it/ could you tell me how to improve it?"
+
+
+### 4.2 too much behaviour questions
+As a mobile team leader, my questions mostly covers the technical staff. I would take 1 to 1.5 hour to understand your technical background in every different filed (java, android, UI issues, architecture, test, security, optimization, new stuff(like Kotlin, RxJava, ..), open source, efficiency, ... ). But I don't ask too much behaviour questions. That's the job of HR or our CTO. They may don't have enough mobile dev background, so they would like to ask some behaviour questions to understand the candidate better. 
+
+
+## V. Conclusion
+I always to recruit the best people in the market, not the people that is more fit in this position. Because I believe brilliant people would be shine even in a new position. 
+
+To help me to get the best person, I have to be good at technique. This will allow me to ask questions that is good enough, or deep enough to understand which level this candidate is.
+
+Also I have to respect candidates. We are trying to choose one best out of them, and they are also choose one best company out of the companies he ever had interviewed with.
+
+Hope you and your team will find more right person for your team in this new year. Happy New Year.
+
+
