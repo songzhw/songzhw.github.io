@@ -1,0 +1,47 @@
+{
+    "": [
+        "coming.txt", 
+        "and_archi", 
+        "and_exp", 
+        "imgs", 
+        "java", 
+        "kotlin", 
+        "open_src", 
+        "others", 
+        "project", 
+        "rxjava", 
+        "security", 
+        "test", 
+        "ui"
+    ], 
+    "__positions": {
+        "and_exp": 3, 
+        "imgs": 4, 
+        "java": 5, 
+        "kotlin": 6, 
+        "coming.txt": 1, 
+        "project": 9, 
+        "test": 12, 
+        "ui": 13, 
+        "others": 8, 
+        "rxjava": 10, 
+        "and_archi": 2, 
+        "open_src": 7, 
+        "security": 11
+    }, 
+    "__raw_positions": {
+        "project": 9, 
+        "java": 5, 
+        "kotlin": 6, 
+        "coming.txt": 1, 
+        "and_exp": 3, 
+        "rxjava": 10, 
+        "test": 12, 
+        "ui": 13, 
+        "others": 8, 
+        "imgs": 4, 
+        "and_archi": 2, 
+        "open_src": 7, 
+        "security": 11
+    }
+}
