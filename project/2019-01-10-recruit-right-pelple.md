@@ -4,22 +4,22 @@
 This post is most coming from what I did and felt in the past several years. I've interviewed with more than two hundred people in the last 4 years, and built a mobile team (Android + iOS) from scratch to a team of more than 20 person. I naturally have some thought about how to recruit right people, and here I want to share it, discuss it with you.
 
 ## I. Normal Process
-I personally think that the three essential task for a team manager are : 
+I personally think that three essential tasks for a team manager are : 
 * recruit right people
 * manage people (team, supervisor)
 * manage project
  
-And all of these stem from the "recruiting right people". So you may think of it as the most important thing you need to handle carefully. 
+You have to have people to manage and to work on your project, which makes the first task, “recruit right people”, most important. As a result, we need to make sure we could recruit right people.
 
-Our HR normally will screen some person for me, so what I got is some resume that are supposed to be valuable.  (And I've heard some complaint that HR may skip some valuable candidate, but I trust my HR team, and I think they know what they are doing. So I am happy with this process)
+Our HR normally screen some people for me, so what I get is some resume that are supposed to be valuable. (And I’ve heard some complaints from other managers that HR may skip some valuable candidates. If that’s the case, you should talk to your HR to express your clear requirement of candidates. )
 
-Then I will call the candidate by myself. I will ask him mostly about his background. What did you do? Which technology are you using? I will ask some technical question too, to make sure if this candidate is capable of doing our work.
+Then I call those candidates, and ask them mostly about their backgrounds. What do they do? Which technologies do they use? I ask some technical questions, too, just to make sure if those candidates are capable of doing our work.
 
-Sometimes, I will ask one of my senior dev to do that, and I was sitting beside him. He will ask question, and I will take some notes. After the interview, I will ask his opinion about this candidate, and why is the candidate good or bad, and also tell him what did he right, and what did him wrong as an interviewer in this process. The reason I delegate this job is I want to help senior dev to find out what a manager's job is like, and if he is interested in such management work. Some dev are happy to take such job, some dev don't like it and just want to finish the feature they got. I respect their choice. However I do find out some senior dev who want to become a manager in the future are quite pleased with this option. They felt their opinions are respected, and also were happy to have a chance to something else rather than coding.
+Sometimes, I ask one of our senior developers to do that, and I am sitting beside him. He is in charge of asking questions, and I take notes. After the interview, I ask him his opinions about the candidate, and why is the candidate good or bad, and also tell him what he does right, and what he does wrong as an interviewer in this process. The reason I delegate this job is that I want to help senior developers to find out what a manager’s job looks like, and if he is interested in such management work. Some developers are happy to take such jobs, some developers don’t like it and just want to finish the feature they get. I respect their choices. However, I do find out some senior developers who want to become a manager in the future are quite pleased with this option. They feel their opinions are respected, and also are happy to have a chance to be responsible of something else rather than coding.
 
-If the candidate passed the phone screen, we will invite him to our company, and I will spend 40-90 min to talk to him. The length of the time depends on how good is this candidate. If he is really good, then I will ask many technical questions in different aspect, to see how good is him and what's his strength and what's is his weakness.
+If candidates pass the phone screen, we will invite them to our company, and I will spend 40–90 mins to talk to each candidate. The length of the time depends on how good this candidate is. If he is really good, then I will ask many technical questions in different aspects, to see how good is him and what’re his strengths and what’re his weaknesses.
 
-After this, I will write a report to my boss and HR. I will list the conclusion (conclusion first. I know my boss are really busy) and the details if anyone is interested(what is this candidate good at, and what quality he lacks for this job). The detail I listed can also help us sometimes. I do have one time, failed one candidate in one time. But we were opening a new project later,  and were short of people. So I opened my email, and dig it. Finally I could find the best one from a lot of candidates which we are not hired before, thanks to the detailed interview report. 
+After this, I will write a report to my boss and HR. I will list the conclusion (conclusion first. I know my bosses are really busy) and details if anyone is interested(such as, what this candidate is good at, and what quality he lacks for this job). The details I list can also help us sometimes. I did have one time, failed one candidate in one time. But we reopened a new project later, and were short of people. So I opened my email, and dug it. Finally I could find the best one from a lot of candidates which we put in the waiting list. Thanks to the detailed interview report.
 
 ## II. FAQs
 
