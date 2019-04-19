@@ -1,494 +1,1055 @@
 <!DOCTYPE html>
 <html>
-      <head>
-            <meta charset="utf-8">
-            <title>Songzhw's Blog</title>
-            <style>
-                  h1 {
-                        color:darkgreen;
-                        text-align: center;
-                        font-family: monospace;
-                        font-size: 40px;
-                  }
-                  h2 {
-                        color:seagreen;
-                        font-family: 'Courier New', Courier, monospace;
-                        font-size: 28px;
-                  }
-                  body{
-                        margin-left: 5%;
-                        text-align: justify;
-                        background-color: #f5f5f5;
-                        font-family: Menlo, Monaco, 'source code pro','lucida console', consolas, 'Courier New', Courier, monospace;
-                        font-size: 18px;
-                  }                
-                  div.card {
-                        border-radius: 8px;
-                        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.19);
-                        padding: 20px;   
-                        margin-left: 20px;
-                        margin-right:20px;    
-                        margin-bottom: 20px;   
-                        font-size: 16px;     
-                  }
-                  div.header {
-                        font-size: 18px;
-                        margin-bottom: 10px;
-                        color: #0d47a1;
-                        font-size: 20px;
-                        margin-bottom: 15px;
+  <head>
+    <meta charset="utf-8" />
+    <title>Songzhw's Blog</title>
+    <style>
+      h1 {
+        color: darkgreen;
+        text-align: center;
+        font-family: monospace;
+        font-size: 40px;
+      }
+      h2 {
+        color: seagreen;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 28px;
+      }
+      body {
+        margin-left: 5%;
+        text-align: justify;
+        background-color: #f5f5f5;
+        font-family: Menlo, Monaco, "source code pro", "lucida console",
+          consolas, "Courier New", Courier, monospace;
+        font-size: 18px;
+      }
+      div.card {
+        border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+          0 6px 10px 0 rgba(0, 0, 0, 0.19);
+        padding: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        font-size: 16px;
+      }
+      div.header {
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: #0d47a1;
+        font-size: 20px;
+        margin-bottom: 15px;
+      }
+      div.bottom {
+        text-align: right;
+        margin-top: 60px;
+        margin-bottom: 40px;
+      }
+    </style>
+  </head>
 
-                  }
-                  div.bottom {
-                        text-align: right;
-                        margin-top: 60px;
-                        margin-bottom: 40px;
-                  }
-            </style>
-      </head>
+  <body>
+    <h1>Song's blog</h1>
 
-<body>
-<h1>Song's blog</h1>
-
-
-<h2>Android</h2>
-<div class="card">
-      <div class="header"> 2016.01.20 
-            <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-01-20-fix-one-ANR.md">Fixing An ANR</a>
+    <h2>Android</h2>
+    <div class="card">
+      <div class="header">
+        2016.01.20
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-01-20-fix-one-ANR.md"
+          >Fixing An ANR</a
+        >
       </div>
-      Drew shapes in one custom view, and found there are 68 thousand "Point" objects in the memory after a while, and got an ANR for that. How to troubleshoot and fix it?
-</div>
+      Drew shapes in one custom view, and found there are 68 thousand "Point"
+      objects in the memory after a while, and got an ANR for that. How to
+      troubleshoot and fix it?
+    </div>
 
-<div class="card">
-      <div class="header"> 
-            2016.01.27  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-01-27-fix-one-lag-phase.md">Animation: Over 16ms Per Frame?</a> 
+    <div class="card">
+      <div class="header">
+        2016.01.27
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-01-27-fix-one-lag-phase.md"
+          >Animation: Over 16ms Per Frame?</a
+        >
       </div>
-      3D ball is a custom view which rotate and show tags in 3-dimensions. However, most frames are over 16ms, which is bad for performance. How to fix it?
-</div>
+      3D ball is a custom view which rotate and show tags in 3-dimensions.
+      However, most frames are over 16ms, which is bad for performance. How to
+      fix it?
+    </div>
 
-<div class="card">
-      <div class="header"> 
-            2016.02.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2016-02-01-memory-issue-kotlin-rxjava.md">Memory Leak in the RxJava project</a>
+    <div class="card">
+      <div class="header">
+        2016.02.01
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2016-02-01-memory-issue-kotlin-rxjava.md"
+          >Memory Leak in the RxJava project</a
+        >
       </div>
-      RxJava and Kotlin are new technic in 2015 - 2016. And I found out a memory leak when I tried to use them. 
-</div>
+      RxJava and Kotlin are new technic in 2015 - 2016. And I found out a memory
+      leak when I tried to use them.
+    </div>
 
-<div class="card">
-      <div class="header"> 
-            2016.02.14  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-02-14-launch-mode.md"> Activity Launch Mode With Examples</a> 
+    <div class="card">
+      <div class="header">
+        2016.02.14
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-02-14-launch-mode.md"
+        >
+          Activity Launch Mode With Examples</a
+        >
       </div>
-      Activity Launch Mode can be confusing. It is pretty hard to understand if you don't know how to apply them to the real-life project. This post shows the examples and help you understand the four launch modes.
-</div>
+      Activity Launch Mode can be confusing. It is pretty hard to understand if
+      you don't know how to apply them to the real-life project. This post shows
+      the examples and help you understand the four launch modes.
+    </div>
 
+    <div class="card">
+      <div class="header">
+        2016.05.14
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-05-04-fix-one-memory-leak.md"
+          >Fix a memory leak</a
+        >
+      </div>
+      One of the third-party library which reference one Activity caused a
+      memory leak in my project. How to fix it?
+    </div>
 
-<div class="card">
-      <div class="header"> 
-            2016.05.14  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-05-04-fix-one-memory-leak.md">Fix a memory leak</a> 
+    <div class="card">
+      <div class="header">
+        2016.07.09
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-07-09-how-to-leak-memory-1.md"
+          >How to Leak Memory on Android (1)</a
+        >
       </div>
-      One of the third-party library which reference one Activity caused a memory leak in my project. How to fix it?
-</div> 
+      This series lists all the possible way to leak memory, which you should
+      avoid to do in your project. This post is about registering a resource.
+    </div>
+    <div class="card">
+      <div class="header">
+        2016.07.10
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-07-10-how-to-leak-memory-2.md"
+          >How to Leak Memory on Android (2)</a
+        >
+      </div>
+      This series lists all the possible way to leak memory, which you should
+      avoid to do in your project. This post is about anything that last longer
+      than your activity, like static variable.
+    </div>
 
-<div class="card">
-      <div class="header"> 
-            2016.07.09  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-07-09-how-to-leak-memory-1.md">How to Leak Memory on Android (1)</a>
+    <div class="card">
+      <div class="header">
+        2016.11.22
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-11-22-launch-mode-example-two.md"
+          >Another example : fix a bug using Activity's launch mode</a
+        >
       </div>
-      This series lists all the possible way to leak memory, which you should avoid to do in your project. This post is about registering a resource.
-</div> 
-<div class="card">
-      <div class="header"> 
-            2016.07.10  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-07-10-how-to-leak-memory-2.md">How to Leak Memory on Android (2)</a> 
-      </div>
-      This series lists all the possible way to leak memory, which you should avoid to do in your project. This post is about anything that last longer than your activity, like static variable.
-</div> 
+      Using launch mode without cautiousness result in bugs. I had such one in
+      my project. It's an Activity with multiple Fragment, and it use CLEAR_TOP
+      improperly.
+    </div>
 
-<div class="card">
-      <div class="header"> 
-            2016.11.22  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2016-11-22-launch-mode-example-two.md">Another example : fix a bug using Activity's launch mode</a> 
+    <div class="card">
+      <div class="header">
+        2017.01.15
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-01-15-optimize-my-project.md"
+          >Optimize my project</a
+        >
       </div>
-      Using launch mode without cautiousness result in bugs. I had such one in my project. It's an Activity with multiple Fragment, and it use CLEAR_TOP improperly.
-</div> 
+      I've tried several approaches to optimize the code: Method count, Enum,
+      Serializable, Inheritance Hell, MVP, Test
+    </div>
 
-<div class="card">
-      <div class="header"> 
-            2017.01.15  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-01-15-optimize-my-project.md">Optimize my project</a> 
+    <div class="card">
+      <div class="header">
+        2017.02.10
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-02-10-create-floating-notification.md"
+          >How to create a floating window when your app is in the
+          foreground?</a
+        >
       </div>
-      I've tried several approaches to optimize the code: Method count, Enum, Serializable, Inheritance Hell, MVP, Test
-</div> 
+      This functionality includes two issues:<br />
+      (1). create a floating window which is backward compatible;<br />
+      (2). how to get to know if my app is displaying at a time?
+    </div>
 
-<div class="card">
-      <div class="header"> 
-            2017.02.10  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-02-10-create-floating-notification.md">How to create a floating window when your app is in the foreground?</a> 
+    <div class="card">
+      <div class="header">
+        2017.03.10
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-03-10-fix-two-memory-leak.md"
+          >Fix two memory leaks</a
+        >
       </div>
-      This functionality includes two issues:<br> (1). create a floating window which is backward compatible;<br> (2). how to get to know if my app is displaying at a time?
-</div> 
+      1). static reference to a Context <br />
+      2). Client session out
+    </div>
 
-<div class="card">
-      <div class="header"> 
-            2017.03.10  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-03-10-fix-two-memory-leak.md">Fix two memory leaks</a> 
+    <div class="card">
+      <div class="header">
+        2017.09.23
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-09-23-exp-improve-performance.md"
+          >Some Examples of Improving Performances</a
+        >
       </div>
-      1). static reference to a Context <br/>
-      2). Client session out 
-</div> 
-
-<div class="card">
-      <div class="header"> 
-            2017.09.23  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2017-09-23-exp-improve-performance.md">Some Examples of Improving Performances</a> 
-      </div>
-      1). UI rendering <br/>
-      2). Abuse of onResume <br/>
+      1). UI rendering <br />
+      2). Abuse of onResume <br />
       3). Speed up the build
-</div> 
+    </div>
 
-<div class="card">
-      <div class="header"> 
-            2018.03.31  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2018-03-31-unique-item-stack.md">A scenario about one special request queue</a> 
-      </div>
-      A typical scenario when using HTTP request queue. How to handle the important, latest or canceled request?
-</div> 
-
-
-<h2>Android UI</h2>
-<div class="card">
-      <div class="header"> 
-            2016.01.17  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2016-01-17-scratch-card-view.md">How to draw a ScratchCard view?</a> 
-      </div>
-      I have been made a scratch card in app in 2014. It worked mostly okay. But I still have one issue. Two years later, 2016, I finally fixed this bug. This blog will show you how to draw different layer in a view, and the clear effect in the canvas.
-</div> 
-
-<div class="card">
-      <div class="header"> 
-            2016.07.10  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2016-04-05-draw-wu-tian.md">How to draw Takenaka's flag?</a> 
-      </div>
-      This is the part two of canvas introduction. Canvas API on Android is a helpful tool in some specific occasions.
-</div> 
-
-<div class="card">
-      <div class="header"> 
-            2016.08.23  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2016-08-23-action-sheet.md">How to make an action sheet for Android?</a> 
-      </div>
-      ActionSheet on iOS is used to display a set of menus from the bottom. It's like Android's dialog, just from the bottom. 
-</div>
-
-<div class="card">
-      <div class="header"> 
-            2017.04.10  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2017-04-10-measuredHeight-height.md">getMeasuredHeight() vs getHeight()</a> 
-      </div>
-      These two methods are confusing concepts for lots of new developers. Hope this post will help you.
-</div> 
-
-<div class="card">
-      <div class="header"> 
-            2017.08.15  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2017-08-15-touch-event-in-one-picture.md">Touch event process in one picture!</a>
-      </div>
-      Touch Event system is complex and confusing, but it is also extremely important to draw any View with gestures. Xiaolin, a colleague of mine, summary all different occasion in one single picture. With this picture, it should be easy to find out what you need.
-</div> 
-
-<div class="card">
-      <div class="header"> 
-            2017.12.24  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2017-12-24-rv-drag-drop.md">Drag & Drop among groups</a>
-      </div>
-      Drag and Drop in one View could be done by 1). Drag&Drop API on Android; 2). ViewDragHelper. But if you want to achieve drag&drop across two different group/list, it would be hard to do since we don't have such API.
-</div> 
- 
-<div class="card">
-      <div class="header"> 
-            2018.03.25  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2018-03-22-make-expandable-layout.md">Making an expandable layout</a>
-      </div>
-      This actually is a problem that I was asked when I was interviewed by one Company. I answer it quite correctly. After I came back, I wrote some code to implement it.
-</div> 
-
-<div class="card">
-      <div class="header"> 
-            2018.08.29  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2018-08-29-epoxy-101.md">Epoxy 101</a>
-      </div>
-      Epoxy is a library about RecyclerView. However, its original sample is quite hard to grasp. Here I want to make this integration to Epoxy be easier for you.
-</div> 
- 
-
-<!-- 
-<div class="card">
-      <div class="header"> 
-      </div>
-</div> 
--->
-
-<h2>Android Architecture</h2>
-<div class="card">
-      <b>All five posts are Lunch & Learn I held in 2015, trying to overcome some architecture issues I had before</b> <p></p>
-      2015.11.16  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2015-11-16-clean-app-(1).md">Clean App (1) : MVC or not?</a> <br/>
-      2015.11.17  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2015-11-17-clean-app-(2).md">Clean App (2) : Boilerplate in Android</a> <br/>
-      2015.11.19  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2015-11-19-clean-app-(3).md">Clean App (3) : A Good Sample of MVC in Other UI framework(Griffon)</a> <br/>
-      2015.11.21  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2015-11-21-clean-app-(4).md">Clean App (4) : Apply MVP to Android</a> <br/>
-      2015.11.25  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2015-11-25-clean-app-(5).md">Clean App (5) : A reusable situation in MVP</a> <br/>
-</div>
-
-<div class="card">
-      <div class="header"> 
-            2015.12.28  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2015-12-28-kotlin-make-fingerprint-better.md">How kotlin make your architecture better in a fingerprint sample?</a> 
-      </div>
-      Use fingerprint in Java would not be an easy job. A lot of callbacks, different code in different palces(, like startActivityForResult() and onActivityResult()). However, Kotlin can be a saviour. 
-</div> 
-<div class="card">
+    <div class="card">
       <div class="header">
-            2016.09.22  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2016-09-02-tools-Android6-permission.md">Request the permission in Android6.0 easily </a>
+        2018.03.31
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2018-03-31-unique-item-stack.md"
+          >A scenario about one special request queue</a
+        >
       </div>
-      Just like fingerprint API, requesting permission dynamically on Android could be hard to write and read. I saw a couple of libraries try to solve this by using inheritance. However, I solve this problem by using composition. 
-</div> 
-<div class="card">
-      <div class="header"> 
-            2016.12.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-11-27-example-of-test-in-real-life.md">How writting test makes your architecture better?</a>
-      </div>
-      Quite a lot of developer complaint about writing test. It's slow and seemingly useless. However, test could find the bug for you, especially after your refactor. Test could also make your architecture better. 
-</div> 
+      A typical scenario when using HTTP request queue. How to handle the
+      important, latest or canceled request?
+    </div>
 
-<div class="card">
-      <div class="header"> 
-            2017.02.15  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-02-15-sdk-image-loader.md">How to load image in a SDK project?</a>
-      </div>
-      I've made a SDK which needs to load imagers from server. However the client of our SDK may have different ImageLoader library, such as UIL, Picasso, Glide or Fresco. How could we add an image loader library without adding more burdern to our client. 
-</div> 
-<div class="card">
-      <div class="header"> 
-                  2017.03.08  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-03-08-mvvm-in-action.md">Apply MVVM to your project</a> 
-      </div>
-      MVVM is another pattern which is good for test and separation. Normally you could use RxJava, or data-binding to implement a MVVM pattern. 
-</div>   
-
-<div class="card">
-      <div class="header"> 
-            2017.04.28  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-04-28-questins-about-mvp.md">Typical questions about MVP pattern</a> 
-      </div>
-      MVP is a good pattern to help you design better. However, there are still some questions about MVP, especialy for the junior developers.
-</div> 
-
-<div class="card">
-      <div class="header"> 
-            2017.08.04  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-08-03-inject-life-cycler.md">How to hijack the lifecycle of Activity?</a>
-      </div>
-      When you need to design a global lifecycle system, you may need to hijack the lifecycle of Activity.  Here I offer three approach to achieve this. 
-</div> 
-
-<div class="card">
-      <div class="header"> 
-            2017.09.06  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-09-06-lifecycle-library-alpha.md">More than an introduction to the lifecycle library</a> 
-      </div>
-      Lifecycle library is a good library. However, I get to know some tricky issues about it, and here I want to share them.
-</div> 
-
-
-
-<div class="card">
-      <div class="header"> 
-            2017.11.13  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-11-13-lifecycle-library-stable.md">Something you need to know about the stable lifecycle library</a>
-      </div>
-      If you were using the alpha or beta version of Lifecycle library, you definitely need to see this post when you switch to the stable version.
-</div> 
- 
-<div class="card">
-      <div class="header"> 
-            2017.11.19  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-11-19-view-model-library.md">More than the introduction of the ViewModel library</a> 
-      </div>
-      ViewModel is a new library for Android dev which helps your class survive configuration change. And also it is a good option if you are using MVVM pattern.
-</div> 
-
-<div class="card">
-      <div class="header"> 
-            2017.12.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-12-01-flaw-of-view-model-live-data.md">Why do I disappoint at the ViewModel and LiveData frameworks?</a> <br/>
-      </div>
-      After using LiveData and ViewModel for more than three months, I am not totally satisfied with these two libraries. I think there are some disadvantage that worth discussing in this post.
-</div> 
-
-<div class="card">
-      <div class="header"> 
-                  2018.05.12  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2018-05-10-work-manager.md">Introduction to WorkManager</a> <br/>
-      </div>
-      Android just released one new Library : WorkManager in this year's Google I/O. Let's have a look.
-</div> 
-<div class="card">
-      <div class="header"> 
-            2018.11.11 <a href="https://github.com/songzhw/songzhw.github.io/blob/master/project/2018-11-11-the-best-code.md">What is the best code? This post is about my experience and my thoughts. Welcome to discuss with me. </a> <br/>
-      </div>
-</div> 
-
-<!-- 
-<div class="card">
-      <div class="header"> 
-      </div>
-</div> 
--->
-
-
-<h2>Open Source Library</h2>
-<div class="card">
-      <b>All three posts below are to teach you how you make your own ButterKnife, which also teaches you how to use annotation in your own project</b> <p></p>
-      2016.05.26  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-05-26-make-your-own-butterknife-1.md">Make Our Own ButterKnife (1)</a> <br/>
-      2016.05.27  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-05-27-make-your-own-butterknife-2.md">Make Our Own ButterKnife (2)</a> <br/>
-      2016.05.29  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-05-29-make-your-own-butterknife-3.md">Make Our Own ButterKnife (3)</a> <br/>
-</div>
-<div class="card">
-      <div class="header"> 
-            2016.08.11  <a          href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-08-11-make-an-AutoGo.md">How to make your own AutoGo?</a> <br/>
-      </div>
-      AutoGo is a libray to help you navigate to another Activity elegantly. This is another lecture about making an annotation library.
-</div>
-
-<div class="card">
-      <div class="header"> 
-            2016.10.13  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-10-13-how-eventbus3-becomes-more-efficient.md">How EventBus3 becomes more efficient?</a> 
-      </div>
-      Comparing to EventBus2, EventBus3 is using runtime annotation, which definitely slows down the speed. How come EventBus has a better performance than EventBus2? 
-</div> 
-
-
-<div class="card">
-      <div class="header"> 
-            2018.07.20 <a href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2018-07-20-hugo-and-improvement.md">How Hugo works, and how to improve it?</a>
-      </div>
-      Hugo is a good library to help us debug. Digging into this library and we would learn a lot. However, we can still improve it by using Gradle's Transform API.
-</div> 
-
-
-
-<!-- 
-<div class="card">
-      <div class="header"> 
-      </div>
-</div> 
--->
-
-<h2>Android Security</h2>
-<div class="card">
+    <h2>Android UI</h2>
+    <div class="card">
       <div class="header">
-            2015.11.18  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2015-11-18-anti-jd-gui.md">How to fail jd-gui?</a>  
+        2016.01.17
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2016-01-17-scratch-card-view.md"
+          >How to draw a ScratchCard view?</a
+        >
       </div>
-      This is a slight improvement if you don't want people to see the source code of your project. Of course, you still need proguard.
-</div> 
+      I have been made a scratch card in app in 2014. It worked mostly okay. But
+      I still have one issue. Two years later, 2016, I finally fixed this bug.
+      This blog will show you how to draw different layer in a view, and the
+      clear effect in the canvas.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2016.07.10
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2016-04-05-draw-wu-tian.md"
+          >How to draw Takenaka's flag?</a
+        >
+      </div>
+      This is the part two of canvas introduction. Canvas API on Android is a
+      helpful tool in some specific occasions.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2016.08.23
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2016-08-23-action-sheet.md"
+          >How to make an action sheet for Android?</a
+        >
+      </div>
+      ActionSheet on iOS is used to display a set of menus from the bottom. It's
+      like Android's dialog, just from the bottom.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2017.04.10
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2017-04-10-measuredHeight-height.md"
+          >getMeasuredHeight() vs getHeight()</a
+        >
+      </div>
+      These two methods are confusing concepts for lots of new developers. Hope
+      this post will help you.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2017.08.15
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2017-08-15-touch-event-in-one-picture.md"
+          >Touch event process in one picture!</a
+        >
+      </div>
+      Touch Event system is complex and confusing, but it is also extremely
+      important to draw any View with gestures. Xiaolin, a colleague of mine,
+      summary all different occasion in one single picture. With this picture,
+      it should be easy to find out what you need.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2017.12.24
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2017-12-24-rv-drag-drop.md"
+          >Drag & Drop among groups</a
+        >
+      </div>
+      Drag and Drop in one View could be done by 1). Drag&Drop API on Android;
+      2). ViewDragHelper. But if you want to achieve drag&drop across two
+      different group/list, it would be hard to do since we don't have such API.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2018.03.25
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2018-03-22-make-expandable-layout.md"
+          >Making an expandable layout</a
+        >
+      </div>
+      This actually is a problem that I was asked when I was interviewed by one
+      Company. I answer it quite correctly. After I came back, I wrote some code
+      to implement it.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2018.08.29
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/ui/2018-08-29-epoxy-101.md"
+          >Epoxy 101</a
+        >
+      </div>
+      Epoxy is a library about RecyclerView. However, its original sample is
+      quite hard to grasp. Here I want to make this integration to Epoxy be
+      easier for you.
+    </div>
+
+    <!-- 
 <div class="card">
       <div class="header"> 
-            2015.12.25  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2015-12-25-fingerprint-introdution.md">Android's fingerprint</a>
       </div>
-      Android 6.0 has a new API about fingerprint. If you want to save something that can be accessed by your fingerprint, you may need the FingerPrint API and also the KeyStore API. This post just shows you how to do that.
 </div> 
+-->
+
+    <h2>Android Architecture</h2>
+    <div class="card">
+      <b
+        >All five posts are Lunch & Learn I held in 2015, trying to overcome
+        some architecture issues I had before</b
+      >
+      <p></p>
+      2015.11.16
+      <a
+        href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2015-11-16-clean-app-(1).md"
+        >Clean App (1) : MVC or not?</a
+      >
+      <br />
+      2015.11.17
+      <a
+        href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2015-11-17-clean-app-(2).md"
+        >Clean App (2) : Boilerplate in Android</a
+      >
+      <br />
+      2015.11.19
+      <a
+        href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2015-11-19-clean-app-(3).md"
+        >Clean App (3) : A Good Sample of MVC in Other UI framework(Griffon)</a
+      >
+      <br />
+      2015.11.21
+      <a
+        href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2015-11-21-clean-app-(4).md"
+        >Clean App (4) : Apply MVP to Android</a
+      >
+      <br />
+      2015.11.25
+      <a
+        href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2015-11-25-clean-app-(5).md"
+        >Clean App (5) : A reusable situation in MVP</a
+      >
+      <br />
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2015.12.28
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2015-12-28-kotlin-make-fingerprint-better.md"
+          >How kotlin make your architecture better in a fingerprint sample?</a
+        >
+      </div>
+      Use fingerprint in Java would not be an easy job. A lot of callbacks,
+      different code in different palces(, like startActivityForResult() and
+      onActivityResult()). However, Kotlin can be a saviour.
+    </div>
+    <div class="card">
+      <div class="header">
+        2016.09.22
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2016-09-02-tools-Android6-permission.md"
+          >Request the permission in Android6.0 easily
+        </a>
+      </div>
+      Just like fingerprint API, requesting permission dynamically on Android
+      could be hard to write and read. I saw a couple of libraries try to solve
+      this by using inheritance. However, I solve this problem by using
+      composition.
+    </div>
+    <div class="card">
+      <div class="header">
+        2016.12.01
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-11-27-example-of-test-in-real-life.md"
+          >How writting test makes your architecture better?</a
+        >
+      </div>
+      Quite a lot of developer complaint about writing test. It's slow and
+      seemingly useless. However, test could find the bug for you, especially
+      after your refactor. Test could also make your architecture better.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2017.02.15
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-02-15-sdk-image-loader.md"
+          >How to load image in a SDK project?</a
+        >
+      </div>
+      I've made a SDK which needs to load imagers from server. However the
+      client of our SDK may have different ImageLoader library, such as UIL,
+      Picasso, Glide or Fresco. How could we add an image loader library without
+      adding more burdern to our client.
+    </div>
+    <div class="card">
+      <div class="header">
+        2017.03.08
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-03-08-mvvm-in-action.md"
+          >Apply MVVM to your project</a
+        >
+      </div>
+      MVVM is another pattern which is good for test and separation. Normally
+      you could use RxJava, or data-binding to implement a MVVM pattern.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2017.04.28
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-04-28-questins-about-mvp.md"
+          >Typical questions about MVP pattern</a
+        >
+      </div>
+      MVP is a good pattern to help you design better. However, there are still
+      some questions about MVP, especialy for the junior developers.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2017.08.04
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-08-03-inject-life-cycler.md"
+          >How to hijack the lifecycle of Activity?</a
+        >
+      </div>
+      When you need to design a global lifecycle system, you may need to hijack
+      the lifecycle of Activity. Here I offer three approach to achieve this.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2017.09.06
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-09-06-lifecycle-library-alpha.md"
+          >More than an introduction to the lifecycle library</a
+        >
+      </div>
+      Lifecycle library is a good library. However, I get to know some tricky
+      issues about it, and here I want to share them.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2017.11.13
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-11-13-lifecycle-library-stable.md"
+          >Something you need to know about the stable lifecycle library</a
+        >
+      </div>
+      If you were using the alpha or beta version of Lifecycle library, you
+      definitely need to see this post when you switch to the stable version.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2017.11.19
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-11-19-view-model-library.md"
+          >More than the introduction of the ViewModel library</a
+        >
+      </div>
+      ViewModel is a new library for Android dev which helps your class survive
+      configuration change. And also it is a good option if you are using MVVM
+      pattern.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2017.12.01
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2017-12-01-flaw-of-view-model-live-data.md"
+          >Why do I disappoint at the ViewModel and LiveData frameworks?</a
+        >
+        <br />
+      </div>
+      After using LiveData and ViewModel for more than three months, I am not
+      totally satisfied with these two libraries. I think there are some
+      disadvantage that worth discussing in this post.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2018.05.12
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/and_archi/2018-05-10-work-manager.md"
+          >Introduction to WorkManager</a
+        >
+        <br />
+      </div>
+      Android just released one new Library : WorkManager in this year's Google
+      I/O. Let's have a look.
+    </div>
+    <div class="card">
+      <div class="header">
+        2018.11.11
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/project/2018-11-11-the-best-code.md"
+          >What is the best code? This post is about my experience and my
+          thoughts. Welcome to discuss with me.
+        </a>
+        <br />
+      </div>
+    </div>
+
+    <!-- 
 <div class="card">
       <div class="header"> 
-            2016.01.12  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2016-01-12-https-in-android.md">How does Https work?</a>
       </div>
-      This is a post about how Https works. It's totally theoretical, but it shows you in a picture that you would understand it very quickly.
 </div> 
+-->
+
+    <h2>Open Source Library</h2>
+    <div class="card">
+      <b
+        >All three posts below are to teach you how you make your own
+        ButterKnife, which also teaches you how to use annotation in your own
+        project</b
+      >
+      <p></p>
+      2016.05.26
+      <a
+        href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-05-26-make-your-own-butterknife-1.md"
+        >Make Our Own ButterKnife (1)</a
+      >
+      <br />
+      2016.05.27
+      <a
+        href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-05-27-make-your-own-butterknife-2.md"
+        >Make Our Own ButterKnife (2)</a
+      >
+      <br />
+      2016.05.29
+      <a
+        href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-05-29-make-your-own-butterknife-3.md"
+        >Make Our Own ButterKnife (3)</a
+      >
+      <br />
+    </div>
+    <div class="card">
+      <div class="header">
+        2016.08.11
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-08-11-make-an-AutoGo.md"
+          >How to make your own AutoGo?</a
+        >
+        <br />
+      </div>
+      AutoGo is a libray to help you navigate to another Activity elegantly.
+      This is another lecture about making an annotation library.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2016.10.13
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2016-10-13-how-eventbus3-becomes-more-efficient.md"
+          >How EventBus3 becomes more efficient?</a
+        >
+      </div>
+      Comparing to EventBus2, EventBus3 is using runtime annotation, which
+      definitely slows down the speed. How come EventBus has a better
+      performance than EventBus2?
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2018.07.20
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/open_src/2018-07-20-hugo-and-improvement.md"
+          >How Hugo works, and how to improve it?</a
+        >
+      </div>
+      Hugo is a good library to help us debug. Digging into this library and we
+      would learn a lot. However, we can still improve it by using Gradle's
+      Transform API.
+    </div>
+
+    <!-- 
 <div class="card">
       <div class="header"> 
-            2016.02.06  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2016-02-06-android-security-tips-one.md">Security Tips in Android (1)</a>
+      </div>
+</div> 
+-->
+
+    <h2>Android Security</h2>
+    <div class="card">
+      <div class="header">
+        2015.11.18
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2015-11-18-anti-jd-gui.md"
+          >How to fail jd-gui?</a
+        >
+      </div>
+      This is a slight improvement if you don't want people to see the source
+      code of your project. Of course, you still need proguard.
+    </div>
+    <div class="card">
+      <div class="header">
+        2015.12.25
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2015-12-25-fingerprint-introdution.md"
+          >Android's fingerprint</a
+        >
+      </div>
+      Android 6.0 has a new API about fingerprint. If you want to save something
+      that can be accessed by your fingerprint, you may need the FingerPrint API
+      and also the KeyStore API. This post just shows you how to do that.
+    </div>
+    <div class="card">
+      <div class="header">
+        2016.01.12
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2016-01-12-https-in-android.md"
+          >How does Https work?</a
+        >
+      </div>
+      This is a post about how Https works. It's totally theoretical, but it
+      shows you in a picture that you would understand it very quickly.
+    </div>
+    <div class="card">
+      <div class="header">
+        2016.02.06
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2016-02-06-android-security-tips-one.md"
+          >Security Tips in Android (1)</a
+        >
       </div>
       Some tips about Android Security
-</div> 
-<div class="card">
-      <div class="header"> 
-            2016.09.13  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2016-09-13-mitm.md">Man in the middle attack</a>
+    </div>
+    <div class="card">
+      <div class="header">
+        2016.09.13
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/security/2016-09-13-mitm.md"
+          >Man in the middle attack</a
+        >
       </div>
-      I just talked about Https in the last post. Here is one attack on Https you may encounter in your development.
-</div> 
+      I just talked about Https in the last post. Here is one attack on Https
+      you may encounter in your development.
+    </div>
 
-
-<!-- 
+    <!-- 
 <div class="card">
-      <div class="header"> 
-      </div>
+  <div class="header"> 
+    01
+  </div>
+  02
 </div> 
 -->
-<h2>Android Test</h2>
-2016.01.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-01-01-android-test.md">How to test an Android project?</a> <br/>
-2016.04.02  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-04-02-clean-test-project-1.md">How to build a clean test project (1)?</a> <br/>
-2016.04.12  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-04-12-clean-test-project-2.md">How to build a clean test project (2)?</a> <br/>
-2016.05.30  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-05-30-google-todo-mvp-test.md">How the Google MVP project tests?</a> <br/>
-2016.09.29  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-09-29-test-singleton-in-service-1.md">How to test a singleton in an Android Service? (1/2)</a> <br/>
-2016.10.03  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-10-02-test-singleton-in-service-2.md">How to test a singleton in an Android Service? (2/2)</a> <br/>
-2016.12.20  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-12-20-test-kotlin-project.md">How to test a kotlin project in Java? </a> <br/>
-2017.03.15  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2017-03-15-Espresso-Recorder.md">Espresso Test Recorder</a> <br/>
-2017.07.19  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2017-07-19-test-in-kotlin.md">Write Test in Kotlin</a> <br/>
-2017.08.12  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2017-08-12-how-to-inject-presenter-to-activity.md">How to inject Presenter to your Activity?</a> <br/>
-2018.04.12  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2018-04-11-test-room.md">How to unit test ROOM?</a> <br/>
-2018.09.05  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2018-09-06-espresso-kotlin.md">Espresso: familiar tool, new journey</a> <br/>
-
-<!-- 
-<div class="card">
-      <div class="header"> 
+    <h2>Android Test</h2>
+    <div class="card">
+      <div class="header">
+        2016.01.01
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-01-01-android-test.md"
+          >How to test an Android project?</a
+        >
       </div>
+      Android project is hard to test. But it is not an excuse not to test it.
+      Let's explore the test world for Android.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2016.04.02
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-04-02-clean-test-project-1.md"
+          >How to build a clean test project (1)?</a
+        >
+      </div>
+      A clean code base must to be a project that is friendly to test. Let's see
+      how to build a clean project friendly to test.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2016.04.12
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-04-12-clean-test-project-2.md"
+          >How to build a clean test project (2)?</a
+        >
+      </div>
+      serious 2/2
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2016.05.30
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-05-30-google-todo-mvp-test.md"
+          >How the Google MVP project tests?</a
+        >
+      </div>
+      Google has a TODO-MVP sample project, which is good presentation of how to
+      architectu better. This article tries to analyze how it test its code.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2016.09.29
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-09-29-test-singleton-in-service-1.md"
+          >How to test a singleton in an Android Service? (1/2)</a
+        >
+      </div>
+      Test sometimes is hard. Test a Singleton is especially hard. How do we
+      conquer it?
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2016.10.03
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-10-02-test-singleton-in-service-2.md"
+          >How to test a singleton in an Android Service? (2/2)</a
+        >
+      </div>
+      series 2/2
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2016.12.20
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2016-12-20-test-kotlin-project.md"
+          >How to test a kotlin project in Java?
+        </a>
+      </div>
+      We actually could test Kotlin project in Java. This is merely the
+      conversion between Kotlin and Java.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2017.03.15
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2017-03-15-Espresso-Recorder.md"
+          >Espresso Test Recorder</a
+        >
+      </div>
+      Introduction to another expresso tool: Espresso Test Recorder. It's still
+      in its beta. But you could take a look. It helps you do your tests
+      automatically.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2017.07.19
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2017-07-19-test-in-kotlin.md"
+          >Write Test in Kotlin</a
+        >
+      </div>
+      Of course, we can write Kotlin code to test your code. Yes, JUnit is still
+      working. So don't worry about it.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2017.08.12
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2017-08-12-how-to-inject-presenter-to-activity.md"
+          >How to inject Presenter to your Activity?</a
+        >
+      </div>
+      If you want to unit test your Activity, one huge challenge you may have is
+      how to inject your mocked Presenter object in your test cases. The
+      difficulty is the Presenter instance is initialized in the
+      Activity#onCreate(), and it's hard to inject your mocked instance.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2018.04.12
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2018-04-11-test-room.md"
+          >How to unit test ROOM?</a
+        >
+      </div>
+      ROOM is another Android Architecture Component library. And you should
+      write unit test to make sure the database manipulation is workign as you
+      expect.
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2018.09.05
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/test/2018-09-06-espresso-kotlin.md"
+          >Espresso: familiar tool, new journey</a
+        >
+      </div>
+      Espresso is great for your intergration test. But there are some pitfalls
+      you may get as well. This article tries to help you to avoid these
+      pitfalls.
+    </div>
+
+    <!-- 
+<div class="card">
+  <div class="header"> 
+    01
+  </div>
+  02
 </div> 
 -->
 
-<h2>Java</h2>
-2016.03.18  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/java/2016-03-14-lambda-in-java8-(1).md">Java8 Lambda</a> <br/>
-2016.05.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/java/2017-05-01-java-access-modifiers.md">A Problem about Java Access Modifier</a> <br/>
-<!-- 
-<div class="card">
-      <div class="header"> 
+    <h2>Java</h2>
+    <div class="card">
+      <div class="header">
+        2016.03.18
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/java/2016-03-14-lambda-in-java8-(1).md"
+          >Java8 Lambda</a
+        >
       </div>
+      What is lambda? And what is the implementation of lambda in the level of
+      byte code?
+    </div>
+
+    <div class="card">
+      <div class="header">
+        2016.05.01
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/java/2017-05-01-java-access-modifiers.md"
+          >A Problem about Java Access Modifier</a
+        >
+      </div>
+      Java Access Modifier seems easy and basic, but sometimes you may get
+      confused. Here is an example of how I work around it to make my dev life
+      better.
+    </div>
+
+    <!-- 
+<div class="card">
+  <div class="header"> 
+    01
+  </div>
+  02
 </div> 
 -->
-<h2>Kotlin</h2>
-2015.11.28  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2015-11-28-introduction-kotlin.md">Welcome to the Kotlin world</a> <br/>
-2015.12.20  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2015-12-20-kotin-in-android.md">A simple sample of Kotlin in Android</a> <br/>
-2015.12.23   <a href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2015-12-23-kotlin-syntax-sugar-(1).md">Sweet Kotlin : Syntax Sugar (1)</a> <br/>
-2015.12.24   <a href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2015-12-24-kotlin-use-ndk.md">How kotlin use NDK</a> <br/>
-2015.11.17   <a href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2011-11-17-App-proguard-sample.md">A sample of proguard (Gson, Retrofit, Kotlin)</a> <br/>
-2017.06.24   <a href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2017-06-24-how-kotlin-implementes-extension-function.md">How Kotlin Implements Extension Functions? </a> <br/>
-2018.08.12   <a href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2018-08-12-kotlin-tricks-1808.md">Kotlin Tips Series 01 </a> <br/>
+    <h2>Kotlin</h2>
+    2015.11.28
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2015-11-28-introduction-kotlin.md"
+      >Welcome to the Kotlin world</a
+    >
+    <br />
+    2015.12.20
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2015-12-20-kotin-in-android.md"
+      >A simple sample of Kotlin in Android</a
+    >
+    <br />
+    2015.12.23
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2015-12-23-kotlin-syntax-sugar-(1).md"
+      >Sweet Kotlin : Syntax Sugar (1)</a
+    >
+    <br />
+    2015.12.24
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2015-12-24-kotlin-use-ndk.md"
+      >How kotlin use NDK</a
+    >
+    <br />
+    2015.11.17
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/and_exp/2011-11-17-App-proguard-sample.md"
+      >A sample of proguard (Gson, Retrofit, Kotlin)</a
+    >
+    <br />
+    2017.06.24
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2017-06-24-how-kotlin-implementes-extension-function.md"
+      >How Kotlin Implements Extension Functions?
+    </a>
+    <br />
+    2018.08.12
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/kotlin/2018-08-12-kotlin-tricks-1808.md"
+      >Kotlin Tips Series 01
+    </a>
+    <br />
 
-
-<p>
-<!-- 
+    <p>
+      <!-- 
 <div class="card">
-      <div class="header"> 
-      </div>
+  <div class="header"> 
+    01
+  </div>
+  02
 </div> 
 -->
-<h2>RxJava & RxJava In Android</h2>
-2015.12.10  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/rxjava/2015-12-10-rx-in-android-(1).md">Limit to EditText's input (RxJava)</a> <br/>
-2015.12.13  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/rxjava/2015-12-13-rx-in-android-(2).md"> throttleFirst() vs. debounce() ;  combineLatest() vs. zip()</a> <br/>
-2016.01.13  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/rxjava/2016-01-13-rx-binding.md"> RxBinding Samples </a> <br/>
+    </p>
 
-<h2> React Native </h2>
-<div class="card">
-      <div class="header"> 
-            2019.01.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/react/2019-01-15-react-native-101.md">How to Become a React Native Developer in 2018</a>
-      </div>
-      This post is mostly from my own experience, and is good for anyone who want to learn React Native, especially for the native mobile developers. Hope this post can help you get into the world of React Native smoother.
-</div> 
+    <h2>RxJava & RxJava In Android</h2>
+    2015.12.10
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/rxjava/2015-12-10-rx-in-android-(1).md"
+      >Limit to EditText's input (RxJava)</a
+    >
+    <br />
+    2015.12.13
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/rxjava/2015-12-13-rx-in-android-(2).md"
+    >
+      throttleFirst() vs. debounce() ; combineLatest() vs. zip()</a
+    >
+    <br />
+    2016.01.13
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/rxjava/2016-01-13-rx-binding.md"
+    >
+      RxBinding Samples
+    </a>
+    <br />
 
-<!-- 
-<div class="card">
-      <div class="header"> 
+    <h2>React Native</h2>
+    <div class="card">
+      <div class="header">
+        2019.01.01
+        <a
+          href="https://github.com/songzhw/songzhw.github.io/blob/master/react/2019-01-15-react-native-101.md"
+          >How to Become a React Native Developer in 2018</a
+        >
       </div>
+      This post is mostly from my own experience, and is good for anyone who
+      want to learn React Native, especially for the native mobile developers.
+      Hope this post can help you get into the world of React Native smoother.
+    </div>
+
+    <!-- 
+<div class="card">
+  <div class="header"> 
+    01
+  </div>
+  02
 </div> 
 -->
-<h2>Agile Development</h2>
-2016.01.08  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/project/2016-01-08-endless-meetings.md">How to have a healthy, meaningful meeting? </a> <br/>
-2016.03.01  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/project/2016-03-01-test-or-not.md">Do we need to test our Android codes?</a> <br/>
-2016.07.23  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2016-07-23-recommend-books.md">Recommend some books about developers</a> <br/>
-2017.09.14  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/project/2017-09-14-agile-and-meetings.md">How to have an efficient stand-up meeting?</a> <br/>
-2018.03.14  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/project/2018-03-13-onboarding-guide.md">Making a good on-boarding guide</a> <br/>
-2019.01.10  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/project/2019-01-10-recruit-right-pelple.md">How to recruit the right people?</a> <br/>
+    <h2>Agile Development</h2>
+    2016.01.08
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/project/2016-01-08-endless-meetings.md"
+      >How to have a healthy, meaningful meeting?
+    </a>
+    <br />
+    2016.03.01
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/project/2016-03-01-test-or-not.md"
+      >Do we need to test our Android codes?</a
+    >
+    <br />
+    2016.07.23
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2016-07-23-recommend-books.md"
+      >Recommend some books about developers</a
+    >
+    <br />
+    2017.09.14
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/project/2017-09-14-agile-and-meetings.md"
+      >How to have an efficient stand-up meeting?</a
+    >
+    <br />
+    2018.03.14
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/project/2018-03-13-onboarding-guide.md"
+      >Making a good on-boarding guide</a
+    >
+    <br />
+    2019.01.10
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/project/2019-01-10-recruit-right-pelple.md"
+      >How to recruit the right people?</a
+    >
+    <br />
 
-
-<!-- 
+    <!-- 
 <div class="card">
-      <div class="header"> 
-      </div>
+  <div class="header"> 
+    01
+  </div>
+  02
 </div> 
 -->
-<h2>Tools</h2>
-2015.12.12  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2015-12-12-json-to-java.md">[Tool] Translate json to java POJO classes</a> <br/>
-2015.12.14  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2015-12-14-auto-find-view-by-id.md">[Tool] Generate Activity class from layout xml file automatically</a> <br/>
-2016.01.23  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2016-01-23-tools-groovy-get-english-script.md">Writing a tool to get english script </a> <br/>
-2016.08.28  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2016-08-25-Android-Studio-Activity-Template.md">[Tool] Introduction to The Activity Template in Android Studio </a> <br/>
-2016.10.13  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2016-11-01-install-cellphone-driver.md">Android Studio does not recognize my cellphone?</a> <br/>
-2018.04.23  <a href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2018-04-23-make-fake-server-using-node-js.md">Using Node.js to deploy a fake server to speed up your development</a> <br/>
+    <h2>Tools</h2>
+    2015.12.12
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2015-12-12-json-to-java.md"
+      >[Tool] Translate json to java POJO classes</a
+    >
+    <br />
+    2015.12.14
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2015-12-14-auto-find-view-by-id.md"
+      >[Tool] Generate Activity class from layout xml file automatically</a
+    >
+    <br />
+    2016.01.23
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2016-01-23-tools-groovy-get-english-script.md"
+      >Writing a tool to get english script
+    </a>
+    <br />
+    2016.08.28
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2016-08-25-Android-Studio-Activity-Template.md"
+      >[Tool] Introduction to The Activity Template in Android Studio
+    </a>
+    <br />
+    2016.10.13
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2016-11-01-install-cellphone-driver.md"
+      >Android Studio does not recognize my cellphone?</a
+    >
+    <br />
+    2018.04.23
+    <a
+      href="https://github.com/songzhw/songzhw.github.io/blob/master/others/2018-04-23-make-fake-server-using-node-js.md"
+      >Using Node.js to deploy a fake server to speed up your development</a
+    >
+    <br />
 
-
-<div class="bottom">
-      Me: Songzhw, Toronto, Canada <br>
+    <div class="bottom">
+      Me: Songzhw, Toronto, Canada <br />
       My Email: <a href="mailto:songzhw2012@gmail.com">songzhw2012@gmail.com</a>
-</div>
-
-</body>
+    </div>
+  </body>
 </html>
