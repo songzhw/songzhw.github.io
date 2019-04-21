@@ -136,7 +136,7 @@ By inspired by the idea of generics, I wrote down the second version. This time,
 
 The intention is clear. I want to create a intersectio type: `P & IProps`. So I would have InComponent's props and also the IProps.
 
-But the TypeScript compiler brutally crashed my idea: "I don't konw what <P> is!"
+But the TypeScript compiler brutally crashed my idea: "I don't konw what `<P>` is!"
 
 Yes, this is another pitfall you may have: `Generics in *.tsx files is not the same way it is supposed to be in *.ts files.`
 
@@ -160,9 +160,9 @@ const withLoading : React.FC = <P extends object>(InComponent: React.FC<P>) => {
 ```
 
 
-## III. render props
+## III. props.children
 
-
+`props.children` is a 
 
 ```typescript
 
