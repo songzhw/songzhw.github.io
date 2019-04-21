@@ -160,10 +160,54 @@ const withLoading : React.FC = <P extends object>(InComponent: React.FC<P>) => {
 ```
 
 
-## III. props.children
+## III. render props
+When we are using render props, we may have an issue about `props.children`.
 
-`props.children` is a 
+`props.children` is a hidden props. It can refer to the children of this component. If you are using a class component, then it is `this.props.children`; If you are using a function component, then it should be `props.children`.
+
+
+When I first wrote a component with render props, I do got a problem about the `props.childre`. The following snippet is the code that have a compilation error.
 
 ```typescript
+interface IProps {
+  id: number
+}
 
+export const ReviewSection = (props: IProps) => {
+  return (
+    <div>
+      {porps.children}   {/* ERROR !!!*/}
+    </div>
+  )
+}
 ```
+
+The root cause is simple. The IProps does not have a `children` field, which makes the `{props.children}` invalid.
+
+You may ask me, but `props.childre` is a hidden props. How do I make it right to ask TypeScript compiler to accept a `children` props, and also make the `<ReviewSection>` not be a `<ReviewSection childre={...}>`
+
+Fortunately for us, TypeScript already noticed this and have a solutio for us: we just need to add a `children` property to the `IProps` interface. That's all.
+
+```typescript
+interface IProps {
+  id: number;
+  children: JSX.Element;  // HERE IS THE CHANGE !!!
+}
+
+export const ReviewSection = (props: IProps) => {
+  return (
+    <div>
+      {porps.children}   {/* ERROR !!!*/}
+    </div>
+  )
+}
+```
+
+Then we could use the `ReviewSection` just the way we use it in Javascript: 
+
+```javascript
+<ReviewSection id={20}>
+  <span> review 1 </span>
+</ReviewSection>
+```
+
