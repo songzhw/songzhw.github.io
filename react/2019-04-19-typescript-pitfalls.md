@@ -1,8 +1,8 @@
 
 # Pitfalls of TypeScrit you may get in React project
-For those who are familiar with modern language, JavaScript is a language that may let you feel familiar, but also would be the one to slap you right on your face somewhere. The lack of types, of course, would be a downside of JavaScript. That is also why TypeScript can rescue you.
+For those who are familiar with modern language, JavaScript is a language that may let you feel familiar, but also would be the one to slap you right on your face somewhere. Javascript has many issues that may confuse you, like no class, no multi-thread. And the lack of types, of course, would be another downside of JavaScript. That is also why TypeScript can rescue you. As the name indicateds, TyepScript will import types to the JavaScript world.
 
-However, TypeScript is not a silver bullet. Importing TypeScript would make sure your code is more readable, but also may have more issues you don't have in JavaScript. This post is trying to help you know some pitfalls in TypeScript, in order to make your TypeScript journey more comfortable.
+However, TypeScript is not a silver bullet. Importing TypeScript would obviously make sure your code is more readable, but also may have more issues you don't have in JavaScript. This post is trying to help you know some pitfalls in TypeScript, in order to make your TypeScript journey more comfortable.
 
 ## I. Define props
 
@@ -74,9 +74,10 @@ Now, let's take a close look at this preceding code.
 
 
 ### 2.1 withLoading() - javascript version
-HoC is a great way to reuse logic, aka, reduce boilerplate code. Take the loading for example, if some component is loading, then we show a progress bar; if not, then we just show the component directly.
+HoC is a great way to reuse logic and to reduce boilerplate code. Take the loading HoC for example, if some component is loading, we would like to show a progress bar; if not, then we just show the component directly.
 
 ```javascript
+// [javascript]
 const withLoading = (InComponent) => {
   const loading = <div> loading... </div>
     
@@ -91,6 +92,7 @@ const withLoading = (InComponent) => {
 When it comes to TypeScript, we need to clarify the types: the types of props, the types of parameter of this HoC, and the type of the returned value of HoC. It seems easy. So I roll up my sleeves and write down the code:
 
 ```typescript
+// [typescript]
 interface IProps {
   isLoading: boolean;
 }
@@ -105,20 +107,24 @@ const withLoading : React.FC = (InComponent: React.FC) => {
 
 ```
 
-1). The first error is the type of `InComponent`. It shouldn't be restricted on a function component, it could also be a calss Component, 
-So the more rightful answer should be `InComponent: React.ComponentType`.  
-This React.ComponentType is a combination of React.FC and React class component. Here is the definition of it: 
+1). The first error is the type of `InComponent`. It shouldn't be restricted to a function component, because it could also be a calss Component, 
+So the accurater answer would be `InComponent: React.ComponentType`.  
 
-`type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;`
+This `React.ComponentType` is a combination of `React.FC` and React class component. Here is the definition of it: 
 
-2). InComponent normally would have its own props. And this props may be different if you pass another different component in to our `withLoading` HoC. That is said, the props of InComponent is not certain for now, it varies, which seems like a perfect scenario for generics. 
+``` typescript
+type ComponentType<P = {}> = ComponentClass<P> | FunctionComponent<P>;
+```
 
+2). InComponent normally would have its own props. And this props does not have an exact type since it differs when you pass in a different `InComponent` to our `withLoading` HoC function. That is said, the props of InComponent is not certain for now, it varies, which seems like a perfect scenario for generics. 
+
+3). Note: HoC, by its name, seems like a component. But it is not, it actually a function. 
 
 ### 2.3 labmda definition in TypeScript
-I have to mention the lambda definition before we go on. If you want to write a lambda, then here is an example
-
+I have to mention the lambda definition before we go on. If you want to write a lambda, then here is an example:
 
 ```typescript
+// [typescript]
 const get = <T>(url: string): Promise<T> => {
   return fetch(url)
     .then(resp => resp.json());
@@ -138,7 +144,7 @@ The intention is clear. I want to create a intersectio type: `P & IProps`. So I 
 
 But the TypeScript compiler brutally crashed my idea: "I don't konw what `<P>` is!"
 
-Yes, this is another pitfall you may have: `Generics in *.tsx files is not the same way it is supposed to be in *.ts files.`
+Yes, this is another pitfall you may have: **`Generics in *.tsx files is not the same way it is supposed to be in *.ts files.`**
 
 
 TypeScrpt also use angle brackets for generics, combining it with JSX's syntax would introduce certain parsing difficulties. That is said, if you write down `<P>`, TS compiler thought this `<P>` is a JSX element. You have to make TS compiler believe this `<P>` is just a generics, not a JSX element.
@@ -146,6 +152,7 @@ TypeScrpt also use angle brackets for generics, combining it with JSX's syntax w
 The solution is to use `<P extends object>` instead of `<P>`. So the right code should be :
 
 ```typescript
+// [typescript]
 interface IProps {
   isLoading: boolean;
 }
@@ -169,6 +176,7 @@ When we are using render props, we may have an issue about `props.children`.
 When I first wrote a component with render props, I do got a problem about the `props.childre`. The following snippet is the code that have a compilation error.
 
 ```typescript
+// [typescript]
 interface IProps {
   id: number
 }
@@ -189,6 +197,7 @@ You may ask me, but `props.childre` is a hidden props. How do I make it right to
 Fortunately for us, TypeScript already noticed this and have a solutio for us: we just need to add a `children` property to the `IProps` interface. That's all.
 
 ```typescript
+// [typescript]
 interface IProps {
   id: number;
   children: JSX.Element;  // HERE IS THE CHANGE !!!
