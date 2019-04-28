@@ -48,14 +48,34 @@ Being a pure function makes sure the function is easy to use, test, and find bug
 In short, we would like to move this async process code out, to make our reducer a pure fucntion.
  
 ### 1.3 issue 3: could not find `dispatch` 
+`dispatch` is actually a method of `Store`. This means reducers can not just use `dispatch` like that.
 
+There are one work around though. In your action, you put the dispatch in, as follows:
 
+```javascript
+// [screen]
+this.props.dispatch( {
+  type: "..", 
+  payload: {}, 
+  dispatch: this.props.dispatch}
+)
 
+// reducer
+export const productsReducer: Reducer= (state = initState, action) => {
+  if(action.type === "REQUEST_USER") {
+    const response = fetch(action.url);  // leave it here, we know it's a issue
+    action.dispatch({type: "RESPONSE_USER", payload: response}); // now we use `action.dispatch` instead
+  }
+}
 
+```
 
+But this is not a good way, it makes our actions more complex. We woule prefer our action is just a normal plain object.
 
 
 ## 2. 
+
+
 
 
 ## 3. how to dispatch in a reducer?
