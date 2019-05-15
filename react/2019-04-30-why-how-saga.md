@@ -96,12 +96,18 @@ if(action.type === "ADD") {
 }
 ```
 
+p.s. `import { bindActionCreators } from 'redux';` the bindActionCreators method can combine action and dispatch together too, and it is from redux library.
 
-## 3. 
+### 2.2 create one middleware
+Redux middlewares are able to send differnt actions. So we could create a middleware to handle all this dispatching logic. 
 
 
 
-## 4. how to test such a reducer?
+## 3. how to test such a reducer?
+
+When it comes 
+
+
 
 
 # II. Saga coming to rescue
