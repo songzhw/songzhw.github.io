@@ -73,12 +73,31 @@ export const productsReducer: Reducer= (state = initState, action) => {
 But this is not a good way, it makes our actions more complex. We woule prefer our action is just a normal plain object.
 
 
-## 2. 
+## 2. how to dispatch in a reducer?
+Reducer is not a part of store, so it does not have a dispatch method, as we talk about before. But we could work around it. And the approaches are not only one. 
+
+### 2.1 pass in the dispatch to the action
+What we got from reducer parameters is `(state, action)`. What if pass `dispatch` to the reducer through the `action`?
+
+```javascript
+[screen]
+const newAction = {
+  type: "ADD",
+  payload: {
+  	dispatch: this.props.dispatch.
+  	...
+  }
+}
+
+[reducer]
+if(action.type === "ADD") {
+  const {dispatch} = action.payload;
+  dispatch(action2);
+}
+```
 
 
-
-
-## 3. how to dispatch in a reducer?
+## 3. 
 
 
 
