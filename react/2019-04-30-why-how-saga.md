@@ -105,7 +105,13 @@ Redux middlewares are able to send differnt actions. So we could create a middle
 
 ## 3. how to test such a reducer?
 
-When it comes 
+When it comes to the test, one principle standard is "the only reason the unit test fails should be your test failed your expectation". That means, if your unit tests fails because of outside reasons (like the network connection is failed to set up), then your unit test is not a good unit test. 
+
+This standard actually instruct us to mock the http connnection, to mock database connection, to mock some outside dependencies. 
+
+But the previous async reducer actually makes the test hard. Because when the async reducer's tests fail, we don't know it is the source code is not working as we expected, or it is just the back-end fails to response us. 
+
+In conclusion, if we want to unit test reducers, we need to extract the async code out of reducer. 
 
 
 
@@ -117,6 +123,8 @@ When it comes
 # III. how to test Saga
 
 
+### how to test async saga code?
+As we mentioned before, we want to test the async code. Meanwhile, async code is fragile to the unit test, as it might fail just because of some outside reason. 
 
 # IV. how saga handle async code? 
 
