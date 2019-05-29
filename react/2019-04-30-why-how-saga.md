@@ -117,7 +117,19 @@ In conclusion, if we want to unit test reducers, we need to extract the async co
 
 
 # II. Saga coming to rescue
+We've mentioned some disadvantage of "async reducer":
+* it is not a pure function
+* it is hard to test
+* it has to wait time-consuming function to finish, then can start to work.
 
+Saga actually fixes all these issues. 
+* saga is not a reducer, it does has to be a pure function
+* although saga has async code, saga is super easy to test
+* since saga functions are generators, so we could *pause* the function if we don't call `generator.next()`.
+
+## 1. A Simple Sample of Saga
+
+## 2. 
 
 
 # III. how to test Saga
