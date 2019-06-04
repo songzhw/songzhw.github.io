@@ -129,7 +129,36 @@ Saga actually fixes all these issues.
 
 ## 1. A Simple Sample of Saga
 
-## 2. 
+```javascript
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import Api from '...'
+
+function* fetchUser(action) {
+   try {
+      const user = yield call(Api.fetchUser, action.payload.userId);
+      yield put({type: "USER_FETCH_SUCCEEDED", user: user});
+   } catch (e) {
+      yield put({type: "USER_FETCH_FAILED", message: e.message});
+   }
+}
+
+
+function* mySaga() {
+  yield takeEvery("USER_FETCH_REQUESTED", fetchUser);
+}
+
+export default mySaga;
+```
+
+This is an easiest example for saga. We call the Api.fetchUser() method, and dispatch a new action with response to Redux. And this example could be an excellent example for us to understand why Saga is better for async code.
+
+## 2. Explanation
+
+I. There are no rule that requires Saga as a pure function. But saga function must be an generator. 
+p.s. Why generator? Because it can be paused when we are doing some time-consuming work. After we get the response, then we can call `generator.next(response)`, and the generator would resume as we want.
+
+II. Why saga, an async function, is easy to test?
+
 
 
 # III. how to test Saga
