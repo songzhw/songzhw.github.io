@@ -185,7 +185,16 @@ Anyway, we still have plan B: use generator to test saga. So Saga really is frie
 
 # IV. how saga handle async code? 
 
+The previous sections are talking about why saga is so good: easy to extend, easy to test, and meant for the async code. But why Saga is so good for what it's doing and how Saga handles all thes async/wait code?
 
+This is an interesting topic and deserves at least quick a series of posts. But I still want to help you go through the saga, in deep. 
+
+## 4.1 how saga detect action dispatch?
+We all know, saga could know some specific action has been dispatched just now, but how did Saga do it?
+
+The dev who is familiar with redux must know: "Oh, listen to the action dispatch -- that's what middleware is doing!" Yes, Saga actually is using a redux middleware to detech and , also, change the dispatched action. That's why we could use `put` effect to send out another action. It's no big deal, we just use `next(newAction)` in the middleware. Plain and simple.
+
+## 4.2 
 
 
 ```javascript
