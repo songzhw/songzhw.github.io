@@ -167,6 +167,22 @@ II. Why saga, an async function, is easy to test?
 ### how to test async saga code?
 As we mentioned before, we want to test the async code. Meanwhile, async code is fragile to the unit test, as it might fail just because of some outside reason. 
 
+Now instead of testing the `Api.fetchUser` is working, we now just need to make sure the Api.testUser is called with the argument `userID`. Based on this assumption, Saga made an effect called `call` to help us test the async code.
+
+For the code `const user = yield call(Api.fetchUser, action.paload.userId)`, all we need to test, is just the expected result is like this:
+
+```javascript
+const result = sagaGenerator.next().value;
+expect(result).toEquals(call(Api.fetchUsers, userId))
+```
+
+### how to test saga code?
+Since the saga is just a generator, so we can test it using generator syntax. We could take advantage of `generate.next().value` and `generator.next(mockedValue)` to help us test saga code.
+
+Of course, there are some other saga test library out there, such as [redux-saga-test-plan](https://github.com/jfairbank/redux-saga-test-plan). These kinds of library will make our unit test for saga even easier. -- but sometimes they will have some odd errors that you don't know how to fix.
+
+Anyway, we still have plan B: use generator to test saga. So Saga really is friendly to unit test, and we appriciate it.
+
 # IV. how saga handle async code? 
 
 
