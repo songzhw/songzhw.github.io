@@ -1,7 +1,4 @@
-// saga(适用人群, reducer处理异步, redux改, saga出场, 主要聊思路(方便测试与异步), 以及测试)
-
 # I. how Redux handles async event?
-
 
 ## 1. one async scenario
 
@@ -189,14 +186,30 @@ The previous sections are talking about why saga is so good: easy to extend, eas
 
 This is an interesting topic and deserves at least quick a series of posts. But I still want to help you go through the saga, in deep. 
 
-## 4.1 how saga detect action dispatch?
+## 1. how saga detect action dispatch?
 We all know, saga could know some specific action has been dispatched just now, but how did Saga do it?
 
 The dev who is familiar with redux must know: "Oh, listen to the action dispatch -- that's what middleware is doing!" Yes, Saga actually is using a redux middleware to detech and , also, change the dispatched action. That's why we could use `put` effect to send out another action. It's no big deal, we just use `next(newAction)` in the middleware. Plain and simple.
 
-## 4.2 
+## 2. `call` effect
+a `call(Api.fetchUser, userId)` is just doing the `Api.fetchUser.call(null, userId)` under the hood.
+
+## 3. `takeEvery` effect
+From [the official documentation](https://redux-saga.js.org/docs/api/), we know the `takeEvery` is actually using low-level saga effects, as follows:
 
 
 ```javascript
-
+const takeEvery = (patternOrChannel, saga, ...args) => fork(function*() {
+  while (true) {
+    const action = yield take(patternOrChannel)
+    yield fork(saga, ...args.concat(action))
+  }
+})
 ```
+
+
+But we do wonder, would this `while(true)` block the JavaScript event loop, since JavaScript only have one thread?
+
+Good question. That means you are really thinking. And the answer is no, this `while(true)` do not block the event loop, in fact. 
+
+You have to know that, this code is in the generator (please see the `fork( function*(){..})`), which means you can control the steps. If you don't call `generator.next()`, the `while(true)` loop actually does not go on. In this case, we know `while(true)` loop will not block the JavaScript event loop.
