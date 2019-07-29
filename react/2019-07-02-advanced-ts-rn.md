@@ -44,6 +44,33 @@ const SomeScreen = (props: IProps) => {
 
 Of course, if you have multiple state to change, you may want to use `useReducer`. And to define the type you receive, you may want to add a little more detail, like `useReducer<MyReducer>`
 
+
+### 3. flexible children view
+Here is a scenario. Your children view are flexible; it is generated from some data. Then your children's type could be `JSX.Element`
+
+```TypeScript
+  render() {
+    const children : JSX.Element[] = this.props.data.map((item, index) => {
+      return <Image source={{ uri: item.url }} style={styles.item} key={`item${index}`}/>;
+    });
+
+    return (
+      <View style={[this.props.style, styles.container]}>
+        {children}
+      </View>
+    );
+  }
+```
+
+p.s. This kind of flexible children view would be nice to have a key. Otherwise you may got a yellow warning.
+
+  
+### 4. ref  
+
+
+
+
+
 ## II. React-Navigation
 As we know , we need to use `props.navigation.navigate(...)`, so how is this react-navigation compatible with TypeScript? I list a few items that you may come accross in your development.
 
@@ -52,7 +79,7 @@ We use `this.props.navigation.navigate("DetailScreen")` to navigate from one scr
 
 ![](images/2019-07-28 at 22.04.59.png)
 
-So the approach to fix it is add a `` type: 
+So the approach to fix it is add a `NavigationScreenProps ` type: 
 
 ```TypeScript
 type IProps = NavigationScreenProps
