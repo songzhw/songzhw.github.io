@@ -64,3 +64,30 @@ export class SplashScreen extends Component<IProps> {
 }
 
 ```
+
+### 2. Override shared navigationOptions
+In your app, you probably would like to have a common Header (or Toolbar, ActionBar, as the Android developer calls it). However, you might want to have  the flexibility to change some info, let's say, like title. After all, each screen has different title. So what should we do to override some Header details across screens. 
+
+Just like the component Props, it varies from class components to function components.
+
+#### 1). Class Component
+
+```TypeScript
+
+```
+
+#### 2). Function Component
+
+
+```TypeScript
+
+```
+
+
+
+
+
+
+```TypeScript
+
+```
