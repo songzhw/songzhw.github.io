@@ -54,3 +54,16 @@ As we know , we need to use `props.navigation.navigate(...)`, so how is this rea
 We use `this.props.navigation.navigate("DetailScreen")` to navigate from one screen to another screen. But here is the problem : TypeScript does not know where this `props.navigation` comes form. You will get an error like the picture below:
 
 ![](images/2019-07-28 at 22.04.59.png)
+
+So the approach to fix it is add a `` type: 
+
+```TypeScript
+type IProps = NavigationScreenProps
+
+export class SplashScreen extends Component<IProps> {
+  componentDidMount() {
+    setTimeout(() => this.props.navigation.navigate("app"), 10);
+  }
+}
+
+```
