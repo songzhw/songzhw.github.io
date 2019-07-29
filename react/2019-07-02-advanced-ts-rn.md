@@ -73,14 +73,25 @@ Just like the component Props, it varies from class components to function compo
 #### 1). Class Component
 
 ```TypeScript
-
+class DetailScreen extends React.Component<IProps> {
+  static navigationOptions = {
+    title: "Detail"
+  }
+  ...
+}
 ```
 
 #### 2). Function Component
 
 
 ```TypeScript
+const DetailScreen = (props: IProps) => {
+  ...
+}
 
+DetailScreen.navigationOptions = {
+  title: "Detail"
+}
 ```
 
 
