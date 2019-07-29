@@ -36,16 +36,13 @@ interface IProps {
   name: string;
 }
 
-interface IState {
-  offset: number;
-}
-
 const SomeScreen = (props: IProps) => {
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState<number>(0);
   console.log(props.name);
 };
 ```
 
+Of course, if you have multiple state to change, you may want to use `useReducer`. And to define the type you receive, you may want to add a little more detail, like `useReducer<MyReducer>`
 
 ## II. React-Navigation
 As we know , we need to use `props.navigation.navigate(...)`, so how is this react-navigation compatible with TypeScript? I list a few items that you may come accross in your development.
