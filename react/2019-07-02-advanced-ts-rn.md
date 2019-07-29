@@ -48,4 +48,9 @@ const SomeScreen = (props: IProps) => {
 
 
 ## II. React-Navigation
-As we know , we need to use `props.navigation.navigate(...)`, so where does this
+As we know , we need to use `props.navigation.navigate(...)`, so how is this react-navigation compatible with TypeScript? I list a few items that you may come accross in your development.
+
+### 1. Props
+We use `this.props.navigation.navigate("DetailScreen")` to navigate from one screen to another screen. But here is the problem : TypeScript does not know where this `props.navigation` comes form. You will get an error like the picture below:
+
+![](images/2019-07-28 at 22.04.59.png)
