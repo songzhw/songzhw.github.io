@@ -159,22 +159,64 @@ export interface MyState {
 ### 3. reducer
 
 ```TypeScript
-
+export const MyReducer : Reducer<MyState, MyAction> = (
+  state = new MyState(),
+  action: MyAction
+) => {
+  switch(action.type){
+    ...
+  }
+  return state;
+}
 ```
 
 ### 4. store
 
-```TypeScript
 
+#### 1).
+
+```TypeScript
+export interface IAppState {
+  products: MyState,
+  books: AnotherState
+}
+
+const rootReducer = combineReducer<IAppState>({
+  products: MyReducer,
+  books: ANotherReducer
+})
+
+export const store = createStore(rootReducer, undefined, applyMiddleware(...));
+```
+
+#### 2). 
+
+Note that, there is another approach to write `IAppState`, which also works:
+
+```TypeScript
+export type IAppState = ReturnType<typeof RootReducer>
 ```
 
 
 ### 5. async action
 I'm using Redux-Saga, which handles the async action for me. So I did not write a Thunx action, but it should be easy, especially if you are using `async/await` syntax sugar.
 
+```TypeScript
+export const fetches = async (): Promise<IProduct[]> => {
+  await wait(1000);
+  return products;
+}
+```
 
 
+## ?. Hooks
 
+### 1. useState
+
+
+## ?. Test
+
+`work.mockReturnThis()` : why js, not ts?
 
 
 ```TypeScript
