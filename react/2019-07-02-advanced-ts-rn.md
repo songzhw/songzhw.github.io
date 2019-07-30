@@ -69,6 +69,8 @@ p.s. This kind of flexible children view would be nice to have a key. Otherwise 
 
 
 
+### 5. HoC
+
 
 
 ## II. React-Navigation
@@ -120,6 +122,55 @@ DetailScreen.navigationOptions = {
   title: "Detail"
 }
 ```
+
+
+## III. react-redux
+
+React-Redux is a popular library that can help us build a clean project. Hence, learning how to combine React-Redux with TypeScript is something we need to handle as wll. Lucky for us, it is quite simple for different steps.
+
+### 1. actions
+
+```TypeScript
+export interface IAddAction{
+  type: "Add"
+}
+
+export interface IRemoveAction{
+  type: "Remove",
+  paylaod: {
+    id: number
+  }
+}
+
+export type MyAction = IAddAction | IRemoveAction
+```
+
+
+
+### 2. state
+
+```TypeScript
+export interface MyState {
+  readonly products: IProduct | null;
+}
+```
+
+
+### 3. reducer
+
+```TypeScript
+
+```
+
+### 4. store
+
+```TypeScript
+
+```
+
+
+### 5. async action
+I'm using Redux-Saga, which handles the async action for me. So I did not write a Thunx action, but it should be easy, especially if you are using `async/await` syntax sugar.
 
 
 
