@@ -208,16 +208,54 @@ export const fetches = async (): Promise<IProduct[]> => {
 }
 ```
 
+### 6. `AnyAction`
+`AnyAction` is an action type that represents all actions. Let's see how it is defined:
+
+```TypeScript
+export interface AnyAction extends Action {
+  // Allows any extra properties to be defined in an action.
+  [extraProps: string]: any
+}
+```
+
+You may need it in the Redux-Saga, like :
+
+```TypeScript
+export function* handleAddBookmark(action: AnyAction) {
+  ...
+}
+```
+
 
 ## ?. Hooks
 
-### 1. useState
-
+## ?. generator 
+IteratorResult
 
 ## ?. Test
 
 `work.mockReturnThis()` : why js, not ts?
 
+## ?. Basics
+
+### 1. Lazy Init
+When we need to define a constant, and also this constant will be initilized later, what could we do?   (p.s. If you are a Kotlin user, then here we want to make a `lateinit var` effect. )
+
+Here an `as` operator might help you, just like the below code:
+
+```TypeScript
+interface People {
+  id: number,
+  name: string
+}
+
+...
+// const p = {}  // ERROR! `{}` and `People` are not compatilbe
+const p = {} as People
+p.id = 100
+```
+
+By doing this, we told TypeScript to leave it alone. "This is a People type, and you don't need to check it again". After all, after the compilation, the generated JavaScript code has no problem to handle such code at all.
 
 ```TypeScript
 
