@@ -124,9 +124,9 @@ DetailScreen.navigationOptions = {
 ```
 
 
-## III. react-redux
+## III. Redux
 
-React-Redux is a popular library that can help us build a clean project. Hence, learning how to combine React-Redux with TypeScript is something we need to handle as wll. Lucky for us, it is quite simple for different steps.
+Redux is a popular library that can help us build a clean project. Hence, learning how to combine Redux with TypeScript is something we need to handle as wll. Lucky for us, it is quite simple for different steps.
 
 ### 1. actions
 
@@ -239,6 +239,34 @@ interface IAppState {
   // book: IBookState  // this would cause an error, since we got a more extra field : '_persist: {...}'
   book: IBookState & PersistPartial;
 }
+```
+
+### 8. React-Redux
+It's obvious that some props are coming from `mapStateToProps` and `mapDispatchToProps`. But the below snippet is hard to write.
+
+```TypeScript
+function mapStateToProps(state: IAppState){
+  return {
+    id: state.book.id,
+    name: state.book.name,
+    msn: string
+  }
+}
+
+export interface IProps {
+  id: number;
+  name: stirng;
+  msn: string;
+  others: string[]
+}
+```
+
+A more clever way to deal with this requirement is using `ReturnType`. Here is a better solution :
+
+```TypeScript
+type IProps = ReturnType<typeof mapStateToProps> 
+					& ReturnType<typeof mapDispatchToProps>
+					& ViewProps
 ```
 
 
