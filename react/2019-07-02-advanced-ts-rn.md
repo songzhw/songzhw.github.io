@@ -226,6 +226,21 @@ export function* handleAddBookmark(action: AnyAction) {
 }
 ```
 
+### 7. Redux-Persist
+If you are using Redux-Persist, then the `IAppState` would have issues because the extra type added by the Redux-Persist. 
+
+Before we adding the Redux-Persist, the state would be like `{book: {id: 22, name: "Harry" } }`. 
+Now the stae is something like this: `{book: {id: 22, name: "Harray", _persist: {....} } }`.
+
+We have to do this:
+
+```TypeScript
+interface IAppState {
+  // book: IBookState  // this would cause an error, since we got a more extra field : '_persist: {...}'
+  book: IBookState & PersistPartial;
+}
+```
+
 
 ## ?. Hooks
 
