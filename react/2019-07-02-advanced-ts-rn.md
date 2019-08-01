@@ -270,6 +270,21 @@ type IProps = ReturnType<typeof mapStateToProps>
 ```
 
 
+### 9. Middleware
+I saw many books all said this is how to define a middleware: `const middleware = store => next => action => {...}`. But please don't get fooled. The first argument `store` is actually not a Redux Store type. It's a `MiddlewareApi` type. 
+
+THis is the definition of this type:
+`type MiddlewareAPI = {dispatch: Dispatch, getState: ()=> State}`. Yeah, it does seems similar with redux store, but it is not.
+
+Now go back to our issue: how to custom a middleware in TypeScript. The difficulty obvious lies on the types: we don't know the types. Here is a code snippet that can help us.
+
+```TypeScript
+const myMiddleware = (store: MiddlewareAPI) => (next: Dispatch<AnyAction>) => (action: AnyAction) => {...}
+```
+
+Note that we are using generics, otherwise you will get a complaint from TypeScript compiler. 
+
+
 ## ?. Hooks
 
 ## ?. generator 
