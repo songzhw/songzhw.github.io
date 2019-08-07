@@ -249,7 +249,7 @@ export const MyReducer : Reducer<MyState, MyAction> = (
 ### 4. store
 
 
-#### 1).
+#### 1). create store
 
 ```TypeScript
 export interface IAppState {
@@ -265,7 +265,7 @@ const rootReducer = combineReducer<IAppState>({
 export const store = createStore(rootReducer, undefined, applyMiddleware(...));
 ```
 
-#### 2). 
+#### 2). ReturnType
 
 Note that, there is another approach to write `IAppState`, which also works:
 
@@ -367,6 +367,26 @@ const myMiddleware = (store: MiddlewareAPI) => (next: Dispatch<AnyAction>) => (a
 Note that we are using generics, otherwise you will get a complaint from TypeScript compiler. 
 
 
+### 10. Dispatch
+We, of course, need to dispatch actions in our screens. Here is some code snippet that might help you.
+
+```TypeScript
+export interface DispatchProps {
+  dispatch: Dispatch
+}
+
+// or define a Dispatch in the 'mapDispatchToProps'
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
+  return {
+    setTheme: (theme: string) => {
+      const action = createSetThemeAction(theme);
+      dispatch(action);
+    }
+
+  };
+};
+```
+
 
 ## IV. Test
 When it comes to mock some function or field, TypeScript does have some limits about dynamic extension. And dynamic extension sometimes would be very important. 
@@ -394,7 +414,7 @@ A temporary work around would be :
 
 `work.mockReturnThis()` : why js, not ts?
 
-## ?. Basics
+## V. Others
 
 ### 1. Lazy Init
 When we need to define a constant, and also this constant will be initilized later, what could we do?   (p.s. If you are a Kotlin user, then here we want to make a `lateinit var` effect. )
@@ -418,22 +438,23 @@ By doing this, we told TypeScript to leave it alone. "This is a People type, and
 Also, `as` or `any` are super powerful in TypeScript, they will force the code to do what you want to do. But they are potential very damage to your code, `any` everywhere actually just turn your code into JavaScript, which is hard to know the types of function, arguments, and other all things. 
 
 
-### 2. default value for props
+### 2. Generics
+If you define something using generics, you may find out TypeScript yells at you that something is wrong, just like this one:
 
-### 3. 
+![](./images/2019-08-06-001.png)
 
+If you've read the TypeScript handbook, you might find it odd, as the code in the previous picture is absolutely right. Yes, you are right, and the code is right as well.
 
-# react-redux dispatch
-export interface DispatchProps {
-  dispatch: Dispatch
-}
+But, if this code lies in a `tsx` file (, rather than a `ts` file), then TypeScript would have a hard time to understand this generics `<T>`. Aka, since it is a `tsx` file, so TypeScript would assume this `<T>` is a JSX element, but it makes no sense to place a JSX element in the lambda declaration. That's why we got an error at the first place.
 
-https://github.com/songzhw/CrossPlatformPlayground/blob/7575a73d54df93f8247a75d4260bbf9a241d6c0e/ReactNative/rn101/src/biz/switch_skin/Skin2.tsx
+The solution to fix it is to add `<T extends object>` to tell TypeScript, "hey, man, this is a generics, not a JSX element. Please don't mess it up".  
 
-https://github.com/songzhw/CrossPlatformPlayground/blob/860b676222907c9403971210182af361ce38e443/ReactNative/ts100/src/core/CoreProps.ts
-
-
+Here is the correct way: 
 
 ```TypeScript
+// ***.tsx
+const example = <T extends object>(url: T) : number => {
+  return 20;
+};
 
 ```
