@@ -65,13 +65,73 @@ Here is a scenario. Your children view are flexible; it is generated from some d
 p.s. This kind of flexible children view would be nice to have a key. Otherwise you may got a yellow warning.
 
   
-### 4. ref  
+### 4. defaultProps
+```TypeScript
+interface IProps {
+  id: number;
+  text?: string;
+}
+
+const MyView = (props: IProps) => {
+  return (
+    <>
+      <p style={{ margin: "20px", fontSize: "50px" }}>{props.id} -- {props.text}</p>
+    </>
+  );
+};
+
+MyView.defaultProps = {
+  text: "default"
+};
+```
+
+This could make a defaultProps, but you can also make a code like this:
+`MyView.defaultProps = { balabala: 'default'}`, which means there are no type check for (default) props.
+
+About this type check issue, we could [do something else](https://medium.com/@martin_hotell/react-typescript-and-defaultprops-dilemma-ca7f81c661c7), but it would be then long or tedious. So I personally like the previous code.
 
 
 
-### 5. HoC
+### 5. ref 
 
+#### 1). React #1
+```TypeScript
+// React (Approach 1)
+const MyView = () => {
+  let viewRef : HTMLDivElement | null;
+  
+  return (
+    <div ref={v => viewRef = v} />
+  );
+};
+```
 
+#### 2). React #2
+```TypeScript
+// React (Approach 2)
+const MyView = () => {
+  const viewRef = createRef<HTMLDivElement | null>();
+  return (
+    <div ref={viewRef}/>
+  );
+};
+```
+
+#### 3). React Native
+```TypeScript
+const MyView = ()=>{
+  let ref: View|null = null ;
+  let imageRef = createRef<Image>();
+
+  return (
+    <View ref={ref}>
+      <Image ref={imageRef} source={require("../a.png")} />
+    </View>
+  )
+}
+```
+
+### 6. HoC`
 
 ## II. React-Navigation
 As we know , we need to use `props.navigation.navigate(...)`, so how is this react-navigation compatible with TypeScript? I list a few items that you may come accross in your development.
@@ -253,6 +313,12 @@ function mapStateToProps(state: IAppState){
   }
 }
 
+function mapDispatchToProps(dispatch: Dispatch) {
+  return {
+    getProducts: () => dispatch({type: "", payload: ""})
+  };
+}
+
 export interface IProps {
   id: number;
   name: stirng;
@@ -316,6 +382,23 @@ p.id = 100
 By doing this, we told TypeScript to leave it alone. "This is a People type, and you don't need to check it again". After all, after the compilation, the generated JavaScript code has no problem to handle such code at all.
 
 Also, `as` or `any` are super powerful in TypeScript, they will force the code to do what you want to do. But they are potential very damage to your code, `any` everywhere actually just turn your code into JavaScript, which is hard to know the types of function, arguments, and other all things. 
+
+
+### 2. default value for props
+
+### 3. 
+
+
+# react-redux dispatch
+export interface DispatchProps {
+  dispatch: Dispatch
+}
+
+https://github.com/songzhw/CrossPlatformPlayground/blob/7575a73d54df93f8247a75d4260bbf9a241d6c0e/ReactNative/rn101/src/biz/switch_skin/Skin2.tsx
+
+https://github.com/songzhw/CrossPlatformPlayground/blob/860b676222907c9403971210182af361ce38e443/ReactNative/ts100/src/core/CoreProps.ts
+
+
 
 ```TypeScript
 
