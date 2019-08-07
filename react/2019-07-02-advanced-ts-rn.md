@@ -367,12 +367,30 @@ const myMiddleware = (store: MiddlewareAPI) => (next: Dispatch<AnyAction>) => (a
 Note that we are using generics, otherwise you will get a complaint from TypeScript compiler. 
 
 
-## ?. Hooks
 
-## ?. generator 
-IteratorResult
+## IV. Test
+When it comes to mock some function or field, TypeScript does have some limits about dynamic extension. And dynamic extension sometimes would be very important. 
 
-## ?. Test
+The code below is an obvious example. `jest.mock()` just inject some mock methods to the `Worker` file, but TypeScript would never get to know this kinds of injection, and then an error would be generated.
+
+```TypeScript
+import { work } from "../Worker"
+
+jest.mock("../Worker")
+
+test("some...", ()=>{
+  work.mockReturnThis(); // ERROR!!!, as TypeScript does not know this method exist
+  ...
+})
+```
+
+A temporary work around would be :
+
+```TypeScript
+  // @ts-ignore
+  work.mockReturnThis()
+```
+
 
 `work.mockReturnThis()` : why js, not ts?
 
