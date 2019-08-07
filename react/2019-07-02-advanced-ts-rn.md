@@ -131,7 +131,23 @@ const MyView = ()=>{
 }
 ```
 
-### 6. HoC`
+### 6. HoC
+Let's say I need to add a loading component for any component, so, a HoC would be a good choice.
+
+When it comes to TypeScript, then we must need to clarify the types in the HoC. Here is what I got from practice.
+
+```TypeScript
+interface IProps {
+  loading: boolean;
+}
+
+const withLoader = <P extends object>(InputComponent: React.ComponentType<P>): React.FC<P & IProps> => {
+  props.loading ? (... ) : (...)
+  ...
+;
+```
+
+Note that `ComponentType` actually includes function components and class component, as its source code is `type ComponentTYpe<P = {}> = ComponentClass<P> | FunctionComponent<P>;`
 
 ## II. React-Navigation
 As we know , we need to use `props.navigation.navigate(...)`, so how is this react-navigation compatible with TypeScript? I list a few items that you may come accross in your development.
