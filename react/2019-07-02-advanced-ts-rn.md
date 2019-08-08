@@ -710,3 +710,59 @@ props.loading ? (... ) : (...)
 ComponentType的源码其实就已经很清晰了: `type ComponentTYpe<P = {}> = ComponentClass<P> | FunctionComponent<P>;`
 
 
+
+# III. React-Navigation
+React-Navigation是一个React Native的库, 用来跳转. 但平时在js中, 我们在跳转时, 我们是这样用`props.navigation.navigate(...)`. 现在就有问题了, 这个`props.navigation`是哪来的呢? 你要是不声明这个navigation, 那TypeScript就会向你大声叫唤: "我不知道这个navigation哪来的!" 这样的场景其实是有不少的, 所以这一大节专门讲React-Navigation与TypeScript的兼容.
+
+
+## 1. props
+
+
+```TypeScript
+interface Iprops {
+
+count: number;
+
+}
+const MyView = (props: IProps) => {
+
+return (
+
+<Button onPress={()=> props.navigation.navigation("secondPage")} title="go"/>
+) // ERROR
+
+}
+```
+
+
+(image)
+
+
+我们可以加一个navigation的成员到IProps里, 不过要是以后React-Navigation改navigation, 改为nav, 那我们就要每个页面的IProps去修改名字. 所以不如我们使用react-navigation自带的`NavigationScreenProps`. 所以更好的做法应该是:
+
+
+```TypeScript
+interface ISplashScreen {
+
+duration: number;
+
+}
+
+
+type IProps = ISplashScreen & NavigationScreenProps;
+
+
+
+export class SplashScreen extends Component<IProps> {
+
+componentDidMount() {
+setTimeout(() => this.props.navigation.navigate("app"), 2000);
+
+}
+}
+```
+
+
+## 2. override shared navigationOptions
+基本上每个页面都是共享一个状态栏(即在top的一栏, 有页面名字, 有后退键的那一栏. Android中叫ToolBar).
+
