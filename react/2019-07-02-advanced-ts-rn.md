@@ -458,3 +458,255 @@ const example = <T extends object>(url: T) : number => {
 };
 
 ```
+
+
+==============================================================
+[中文版本]
+
+
+有关TypeScript的文章好像在掘金上越来越多了, 我公司的React/React Native项目也在使用TypeScript, 我也因此用了将近一年了, 感受略有一些, 所以今天在这和大家分享, 一起提升. 但因为网上介绍TypeScript, 或是TypeScript如何和React结合的文章已经很多了, 所以我就不多讲一些基础的知识点, 可以侧重于工作中碰到的问题来讲解TypeScript的一些特殊(于java, python, ...)的点, 也可以做为handbook用来查询.
+
+
+# I. 导论
+
+
+## 1. 初接触
+用惯了js的同学, 刚接触ts时, 可能觉得比较烦, 一个小小的点, 也要报错或警报. 你要是用any吧, 那不就和js一样了, 那还用个什么ts啊. 但你要不用any吧, 经常有些司空见惯的地方都会报错, 让人很沮丧. 我们公司在德国还有一个子公司, 德国的团队就是用了多年的js, 很抵制使用ts. 结果让我们的纯ts代码(除了测试), 结果变得又有ts又有js了.
+
+
+我个人本身是做Android, 也做React, ReactNative, 所以以前用惯了java之后, 用js就很累. 特别是看别人的代码时, 经常看到一个方法, 就不知道这个方法参数到底要传什么.
+有些同事比较好, 还加个注释, 但问题注释是容易"腐烂"的. 也就是说当你在修改了代码之后, 有极大概率是只更新代码, 而不更新注释. 注释不像单元测试, 你要是改了源代码, 单元测试可能会fail掉, 但注释不会fail你, 所以你很可能会忘记更新注释.
+
+
+所以我个人的想法是: 仍推荐使用TypeScript. 转TS的初期可能会有些沮丧, 但稍坚持一下, 我个人用了3星期, 就能习惯TS了.
+
+
+## 2. TypeScript是强类型, 但和传统的java/python/ruby/kotlin仍是很多地方不一样
+TypeScript是一门强类型语言, 你传入的类型不一样, TS可是会报错.
+但有两点, 我们是要注意的
+
+
+1). 因为TS编译后仍是个js, 所以TS中的一些特性其实仍是JS中的特性. 比如TS中的class, 在底层仍是JS中的function
+
+
+2). TS对类型的检查更灵活. 我们可以使用 TypeA & TypeB, 也有Partial<TypeC>. 这一点在日常中有很多应用
+
+
+3). TS会分成~.ts, ~.tsx两种文件. 有JSX的话就应该是使用~.tsx文件.
+但区别可不是这么简单哦, 我在后面讲泛型时还会回到这两个文件的区别.
+
+
+## 3. 说明
+初接触TS的一个问题, 就是很多类库不知道某一个参数到底是什么类型. 所以我在本文中也会专门就一些常用类库做一些TypeScript的说明
+
+# II. React, React Native
+
+
+## 1. 类组件
+可以声明Props, State的类型, 这样TypeScript会帮你检查props/state是否类型有误
+
+
+```TypeScript
+interface IProps {
+
+name: string;
+
+}
+
+
+interface IState {
+
+offset: number;
+
+}
+
+
+class SomeScreen extends React.Component<IProps, IState> {
+
+state = { offset: 0 };
+
+
+
+constructor(props: IProps) {
+
+super(props);
+console.log(props.name);
+}
+
+
+}
+```
+
+
+## 2. 函数组件
+函数组件在以前是没有State的, 所以以前的函数组件的类型叫SFC(Stateless Function Component). 但自从有了React Hooks (React>=16.8, RN>=0.59), 函数组件也可以有state. 所以SFC类型就被废弃了, 而函数组件的类型也改为React.FC.
+
+
+```TypeScript
+interface IProps {
+
+name: string;
+
+}
+
+
+const SomeScreen = (props: IProps) => {
+
+const [offset, setOffset] = useState<number>(0);
+
+console.log(props.name);
+};
+```
+
+
+## 3. 根据数据而动态生成的子组件
+你可以声明为`JSX.Element[]`. 例子如下:
+
+
+```TypeScript
+render() {
+const children : JSX.Element[] = this.props.data.map((item, index) => {
+
+return <Image source={{ uri: item.url }} style={styles.item} key={`item${index}`}/>;
+
+});
+
+
+return (
+
+<View style={[this.props.style, styles.container]}>
+{children}
+</View>
+);
+}
+```
+
+
+## 4. defaultProps
+这个其实和js很像, class组件中仍是声明一个`static defaultProps = {一个对象}`. 函数组件就是使用 `MyFC.defaultProps = {一个对象}`
+
+
+
+例子就是:
+
+
+```TypeScript
+interface IProps {
+
+id: number;
+
+text?: string;
+
+}
+
+
+const MyView = (props: IProps) => {
+
+return (
+
+<>
+<p style={{ margin: "20px", fontSize: "50px" }}>{props.id} -- {props.text}</p>
+
+</>
+);
+};
+
+
+MyView.defaultProps = {
+
+text: "default"
+
+};
+```
+但这样的写法有一个问题, 就是你甚至可以声明 `MyView.defaultProps = {balabala: 'whatever'}`. 明明balabala不在IProps中, 但TS仍不报错. [这篇文章](https://medium.com/@martin_hotell/react-typescript-and-defaultprops-dilemma-ca7f81c661c7)就这一问题展开了详细的论述. 不过我觉得太过复杂, 我仍是喜欢用上面的defaultProps.
+
+
+
+## 5. ref
+就类组件, 函数组件有三种不同的方案
+
+
+### 1). React #1
+```TypeScript
+// React (Approach 1)
+const MyView = () => {
+
+let viewRef : HTMLDivElement | null;
+
+return (
+
+<div ref={v => viewRef = v} />
+
+);
+};
+```
+
+
+### 2). React #2
+```TypeScript
+// React (Approach 2)
+const MyView = () => {
+
+const viewRef = createRef<HTMLDivElement | null>();
+
+return (
+
+<div ref={viewRef}/>
+);
+};
+```
+
+
+### 3). React Native
+```TypeScript
+const MyView = ()=>{
+
+let ref: View|null = null ;
+
+let imageRef = createRef<Image>();
+
+
+
+return (
+
+<View ref={ref}>
+<Image ref={imageRef} source={require("../a.png")} />
+
+</View>
+)
+}
+```
+
+
+## 6. HoC
+高阶组件, 名字是叫组件, 但其实它本身就是一个函数. 只不过是一个接受组件为参数, 返回另一个组件的函数而已. 在TS里, 自然要给明类型. 关键是TS中还有props这个泛型, 所以要多花一点心思. 下面就是我写过的一个加loading组件的HoC, 表示加载中就显示小菊花, 加载完就展示作为参数的组件.
+
+
+```TypeScript
+interface IProps {
+
+loading: boolean;
+
+}
+
+
+const withLoader = <P extends object>(InputComponent: React.ComponentType<P>): React.FC<P & IProps> => {
+
+props.loading ? (... ) : (...)
+
+...
+;
+```
+
+
+1) 这里就看到了吧, TS的类型比较灵活, 我们可以使用`P & IProps`. 这个在java中就得再新建个接口, 来包一起了.
+
+
+2). `<P extends object>` 是个什么鬼? 其实它就是个泛型, 我在后面会讲为何不像java一样, 就用个`<P>`, 而要加一个`extends object`.
+
+
+
+3). 组件是可以是类组件, 也可以是函数组件. 所以我们就用了React.ComponentType.
+ComponentType的源码其实就已经很清晰了: `type ComponentTYpe<P = {}> = ComponentClass<P> | FunctionComponent<P>;`
+
+
