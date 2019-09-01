@@ -172,6 +172,10 @@ class MyScreen extends React.Component<IProps, IState> {
 }
 ```
 
+* ViewProps: it makes your props have properperties that a component might has, such as `style`, `children`
+* NavigationScreenProps: this is a props from `react-navigation`. It gies us a `navigation` prop.
+
+
 ## II. React-Navigation
 As we know , we need to use `props.navigation.navigate(...)`, so how is this react-navigation compatible with TypeScript? I list a few items that you may come accross in your development.
 
