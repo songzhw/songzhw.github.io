@@ -149,6 +149,26 @@ const withLoader = <P extends object>(InputComponent: React.ComponentType<P>): R
 
 Note that `ComponentType` actually includes function components and class component, as its source code is `type ComponentTYpe<P = {}> = ComponentClass<P> | FunctionComponent<P>;`
 
+
+### 7. common props
+If you need to add a `style` prop,  a `dispatch` prop, or a `navigation` prop, you may need to know where these props came from. This common scenario bothers many of us. Here is a code snippet that might help you.
+
+```TypeScript
+interface IVieProps {
+  // ... your own props
+}
+
+type IProps = IVieProps &
+  ViewProps & 
+  NavigationScreenProps & 
+  ReturnType<typeof mapStateToProps> & 
+  ReturnType<typeof mapDispatchToProps>
+
+class MyScreen extends React.Component<IProps, IState> {
+  // ....
+}
+```
+
 ## II. React-Navigation
 As we know , we need to use `props.navigation.navigate(...)`, so how is this react-navigation compatible with TypeScript? I list a few items that you may come accross in your development.
 
