@@ -95,6 +95,7 @@ About this type check issue, we could [do something else](https://medium.com/@ma
 ### 5. ref 
 
 #### 1). React #1
+
 ```TypeScript
 // React (Approach 1)
 const MyView = () => {
@@ -107,6 +108,7 @@ const MyView = () => {
 ```
 
 #### 2). React #2
+
 ```TypeScript
 // React (Approach 2)
 const MyView = () => {
@@ -118,6 +120,7 @@ const MyView = () => {
 ```
 
 #### 3). React Native
+
 ```TypeScript
 const MyView = ()=>{
   let ref: View|null = null ;
@@ -478,3 +481,5 @@ const example = <T extends object>(url: T) : number => {
 };
 
 ```
+
+
