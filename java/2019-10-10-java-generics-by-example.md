@@ -188,9 +188,11 @@ The previous code enable us to show CatListScren, and DogListScreen as well. Now
 
 
 
+### 1. Ad
+
 Fair enough. Now let's start working. 
 
-\1. we create another child of Animal:
+1. we create another child of Animal:
 
 ```
 class AdPet extends Animal{... }
@@ -215,3 +217,80 @@ class AdPet extends Animal{... }
 But we get an error: 
 
 ![image-20191009143530398](_image/image-20191009143530398.png)
+
+
+
+
+
+
+\### 2. Why?
+
+Here you must be confused again. Why can't I add a animal child to a `List<Animal>`.
+
+
+
+First of all, this is not a `List<Animal>`,  this is a `List<? extends Animal>`. Yes, they are different!
+
+
+
+Second, please allow me to show the previous array code again (because it is really really important to help us understand generics)
+
+
+
+\```java
+
+Dog dog = new Dog();
+
+
+
+Cat[] cats = new Cat[1];
+
+Animal[] animals = cats;
+
+animals[0] = dog;
+
+\```
+
+
+
+As we said, the previous code is not type-secure, and that's what Java Generics wants to avoid.
+
+
+
+Now back to Java Generics, when you have declared a `List<? extends Animal> animals`, Java actually don't know what this list could add. A cat? A dog?  What if you just copy the array code to add a dog after you PC assign a cat list? 
+
+
+
+\```java
+
+List<? extends Animal> animalList = new ArrayList<Cat>(); // okay!
+
+animalList.add(dog); // error!!!
+
+\```
+
+
+
+Since you can PC-assign in the `List<? extends Animals>`, so the type of `animalList` could be anything at the runtime. It could be a `List<Cat>`, or a `List<Dog>`. Therefore, Java is actually protect your code from yourself by forbiding you adding any values to this `List<? extends Animals>`.
+
+
+
+\### 3. You can read, though
+
+![image-20191009144942724](_image/image-20191009144942724.png)
+
+
+
+From this small demo, we see we can read value from this list, but we can not add any value to it. 
+
+
+
+\### 4. Conclusion
+
+so for a `List<? extends Animals>` object, you:
+
+  \* can PC assign
+
+  \* can not add(value) into this list
+
+  \* can read from this list by using `get(index)` or `for loop`
