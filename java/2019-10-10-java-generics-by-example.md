@@ -180,3 +180,38 @@ Now we could pass `List<Cat>` to the setData() method:
 
 ![image-20191009142550755](_image/image-20191009142550755.png)
 
+
+
+\## III. List<? extends Animal>
+
+The previous code enable us to show CatListScren, and DogListScreen as well. Now the project owner tells us that we finally get someone to sponsor us. In return, we have to show the sponsor's Ad. The sponsor would like to display his cute pet as the first item of the RecyclerView in the CatListScreen, and the DogListScreen. 
+
+
+
+Fair enough. Now let's start working. 
+
+\1. we create another child of Animal:
+
+```
+class AdPet extends Animal{... }
+```
+
+
+
+2. we modify the Adatper.setData() method.
+
+\```java
+
+   public void setData(List<? extends Animal> animals){
+
+​        animals.add(0, new AdPet()); //ERROR!
+
+​        // ....
+
+​    }
+
+\```
+
+But we get an error: 
+
+![image-20191009143530398](_image/image-20191009143530398.png)
