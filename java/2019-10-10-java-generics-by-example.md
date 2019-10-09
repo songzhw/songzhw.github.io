@@ -112,3 +112,71 @@ Let's make the `setData()` method this way, and pass in a `List<Cat>` data, what
 
 
 ![image-20191009140141240](_image/image-20191009140141240.png)
+
+
+Notice Java just complain to us, "I expect a List<Animal>, but you gave me a List<Cat>". 
+
+Wait a minute, a list of cat IS a list of animals, that should be fine. But sorry, Java doesn't think it in the way we human being thinks. 
+
+
+
+Remeber the last array example, these two line makes the code crash at the runtime
+
+
+
+\```java
+
+Cat[] cats = new Cat[1];
+
+Animal[] animals = cats;
+
+\```
+
+
+
+When Java try to add a new feature, called `Generics`, in Java 1.5, Java want to stop making these kind of mistake. So Java generics has a more strict policy about types, yes, more strict than array. 
+
+
+
+the code `Animal[] animals = new Cat[1]` is what might be dangerous in Java(I will call it "parent-child assigment", or "PC assignment" for short later)
+
+
+
+PC assignment is okay for Java arraies, but it's forbidden by Java Generics. That means, `List<Animals> a = new ArrayList<Cat>()` would get an error AT THE COMPILE TIME. 
+
+
+
+p.s. Actually, generics is only existing at the compile time. When it's run at the run time, `List<Animal>` would become `List` instead. This is called `type-erasure`. If this is too much for you, you can just skip it. I still hope to show you the knowledge by examples, not by definitions. 
+
+
+
+\### 3. How to fix it?
+
+Just like our CommonAdapter class, sometimes we do have such requirement, that we would like to pass in `List<ChildA>`, and some other time we would like to pass in `List<ChildB>`. If this is what you want, then you should use wildcard in generics.
+
+
+
+For the CommonAdapter case, we should use `List<? extends Animal>`. This means we could accept `List<AnyChildOfAnimal>`. 
+
+
+
+\```java
+
+// the previous code that would cause issue
+
+public void setData(List<Animal> animals){ }
+
+
+
+// now it's be corrected as: 
+
+public void setData(List<? extends Animal> animals){ }
+
+\```
+
+
+
+Now we could pass `List<Cat>` to the setData() method:
+
+![image-20191009142550755](_image/image-20191009142550755.png)
+
