@@ -332,3 +332,16 @@ After reading all these confusing examples and concepts, you may have a question
 
 We've, actually, cover this in the `II.1` section. But I would like to say it again, with a new example.
 
+![image-20191010090053061](_image/image-20191010090053061.png)
+
+
+
+### 2. The real conclusion
+
+Now you can see: `List<Animal>` does not support PC assignment, but it can write and it can read. In controvery, List + generics with wildcard, may have some limit in the read or write, but it support PC assignment.
+
+
+
+Maybe this flow chart could help you to memorize these.
+
+![image-20191010090430427](_image/image-20191010090430427.png)
