@@ -7,15 +7,13 @@ Let's say we have an app for displaying cute pets. Naturally, we would have list
 
 Before we start, let me give you some context. We have three class, and their hierarchy is like this:
 
-\```
-
-​    Animal
-
-​    /    \
-
-  Cat    Dog
-
-\```
+```
+        Being
+          |
+        Animal
+      /       \
+    Cat       Dog
+```
 
 Now let's begin.
 
@@ -27,7 +25,7 @@ We could have `CatList` and `DogList` classes, or we could have `List<Cat>` and 
 
 
 
-\### 2. array is not a perfect option for us
+### 2.  array is not a perfect option for us
 
 You may say, we could save the pets into an array, like `Cat[]`, `Dog[]`, and `Animal[]`. Yeah, you can, but this is just not the best option for us. Why? Let's have a look at the below code:
 
@@ -73,7 +71,7 @@ Now I must say one extremely important things: `Arry's type insecurity is exactl
 
 
 
-\### 1. List<Animal>
+###1. `List<Animal>`
 
 Still the Pet App. Let's say I have a home page to show all kinds of pets. So I need a `List<Animal>`. Here is the code
 
@@ -95,7 +93,7 @@ This is correct and usual. You may have no interest in it. Fair enough, let's go
 
 
 
-\### 2. Common RecyclerView.Adapter
+###2. Common RecyclerView.Adapter
 
 Inside the Pet App, we have a screen called `Cat List Screen`, to display the cute cats; we also have another screen, `Dog List Screen` to display the cute dogs; The UI of both screen are identical: only show a RecyclerView; the ViewHolder of Recycler is same too. Just the data is different. One is `List<Cat>, and another is `List<Dog>`. 
 
@@ -150,7 +148,7 @@ p.s. Actually, generics is only existing at the compile time. When it's run at t
 
 
 
-\### 3. How to fix it?
+### 3. How to fix it?
 
 Just like our CommonAdapter class, sometimes we do have such requirement, that we would like to pass in `List<ChildA>`, and some other time we would like to pass in `List<ChildB>`. If this is what you want, then you should use wildcard in generics.
 
@@ -182,7 +180,7 @@ Now we could pass `List<Cat>` to the setData() method:
 
 
 
-\## III. List<? extends Animal>
+## III. `List<? extends Animal>`
 
 The previous code enable us to show CatListScren, and DogListScreen as well. Now the project owner tells us that we finally get someone to sponsor us. In return, we have to show the sponsor's Ad. The sponsor would like to display his cute pet as the first item of the RecyclerView in the CatListScreen, and the DogListScreen. 
 
@@ -222,8 +220,7 @@ But we get an error:
 
 
 
-
-\### 2. Why?
+### 2. Why?
 
 Here you must be confused again. Why can't I add a animal child to a `List<Animal>`.
 
@@ -275,7 +272,7 @@ Since you can PC-assign in the `List<? extends Animals>`, so the type of `animal
 
 
 
-\### 3. You can read, though
+### 3. You can read, though
 
 ![image-20191009144942724](_image/image-20191009144942724.png)
 
@@ -285,7 +282,7 @@ From this small demo, we see we can read value from this list, but we can not ad
 
 
 
-\### 4. Conclusion
+### 4. Conclusion
 
 so for a `List<? extends Animals>` object, you:
 
@@ -294,3 +291,44 @@ so for a `List<? extends Animals>` object, you:
   \* can not add(value) into this list
 
   \* can read from this list by using `get(index)` or `for loop`
+
+
+
+## IV. `List<? super Animal>`
+
+### 1. introduction by a example
+
+`List<? super Animal>` is similar with `List<? extends Animal>`; they are like Ying and Yang. A good example to show you how to use `List<? super Animal>` would be :
+
+![image-20191010085152052](_image/image-20191010085152052.png)
+
+That means, `List<? super Animal>`could add elements, but it can not get an element out as a Animal. Yes, it's just the opposite of `List<? extends Animal>`
+
+
+
+### 2. Conclusion
+
+```
+List<? super Animal>
+```
+
+* it could PC assign, like `List<? super Animal> animals = new List<Being>()`
+  * Notice that, the right value is holding a `Being` class, the parent class of the `Animal` class
+
+* it can write (add items to it)
+* it can not read as an Animal -- all it can do is to read an object, and the type can only be an `Object`
+
+
+
+## V. Conclusion
+
+
+
+### 1. What about List<Animal>?
+
+After reading all these confusing examples and concepts, you may have a question about `List<Animal>`. Good question, that means you are thinking as reading this article.
+
+
+
+We've, actually, cover this in the `II.1` section. But I would like to say it again, with a new example.
+
