@@ -345,3 +345,39 @@ Now you can see: `List<Animal>` does not support PC assignment, but it can write
 Maybe this flow chart could help you to memorize these.
 
 ![image-20191010090430427](_image/image-20191010090430427.png)
+
+
+
+### 3. A ultimate example
+
+In the `java.util.Collections` class, we have a copy mehtod, to copy items from source list to the destination list. Here is what it defined:
+
+```java
+public static <T> void copy(List<? super T> dest, List<? extends T> src) {
+    int srcSize = src.size();
+        for(int i = 0; i < srcSize; ++i) {
+            dest.set(i, src.get(i));
+        }       
+    }
+}
+```
+
+
+
+After what I've talked about the wildcard, you now must be able to understand why the first parameter has a `super` (as it has to write), and why the second parameter has a `extends` (as it has to read).  And the both parameter need to support PC assignment, so this perfectly examply the `super/extends` here.
+
+
+
+## VI. Generic Wildcard In Kotlin
+
+In Kotlin, super and extends are renamed to in and out. Other than the name, they are basically identical with super and extends in Java.
+
+
+
+Let's take the `Collections.copy()` as the example again, except this time it's in Kotlin:
+
+```kotlin
+static fun <T> copy(dest: MutableList<in T>, src: List<out T>) {
+  ...
+}
+```
