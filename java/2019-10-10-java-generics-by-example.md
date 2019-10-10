@@ -31,8 +31,7 @@ You may say, we could save the pets into an array, like `Cat[]`, `Dog[]`, and `A
 
 
 
-\```java
-
+```java
 Dog dog = new Dog();
 
 
@@ -42,8 +41,9 @@ Cat[] cats = new Cat[1];
 Animal[] animals = cats;
 
 animals[0] = dog;
+```
 
-\```
+
 
 
 
@@ -77,15 +77,15 @@ Still the Pet App. Let's say I have a home page to show all kinds of pets. So I 
 
 
 
-\```java
-
+```java
 List<Animal> animals = new ArrayList<>();
 
 animals.add(new Cat());
 
 Animal cat = animals.get(0);
+```
 
-\```
+
 
 
 
@@ -112,7 +112,7 @@ Let's make the `setData()` method this way, and pass in a `List<Cat>` data, what
 ![image-20191009140141240](_image/image-20191009140141240.png)
 
 
-Notice Java just complain to us, "I expect a List<Animal>, but you gave me a List<Cat>". 
+Notice Java just complain to us, "I expect a `List<Animal>`, but you gave me a `List<Cat>`". 
 
 Wait a minute, a list of cat IS a list of animals, that should be fine. But sorry, Java doesn't think it in the way we human being thinks. 
 
@@ -122,13 +122,13 @@ Remeber the last array example, these two line makes the code crash at the runti
 
 
 
-\```java
-
+```java
 Cat[] cats = new Cat[1];
 
 Animal[] animals = cats;
+```
 
-\```
+
 
 
 
@@ -158,8 +158,7 @@ For the CommonAdapter case, we should use `List<? extends Animal>`. This means w
 
 
 
-\```java
-
+```java
 // the previous code that would cause issue
 
 public void setData(List<Animal> animals){ }
@@ -169,8 +168,9 @@ public void setData(List<Animal> animals){ }
 // now it's be corrected as: 
 
 public void setData(List<? extends Animal> animals){ }
+```
 
-\```
+
 
 
 
@@ -200,17 +200,16 @@ class AdPet extends Animal{... }
 
 2. we modify the Adatper.setData() method.
 
-\```java
-
+```java
    public void setData(List<? extends Animal> animals){
 
-​        animals.add(0, new AdPet()); //ERROR!
+       animals.add(0, new AdPet()); //ERROR!
 
-​        // ....
+       // ....
+  }
+```
 
-​    }
 
-\```
 
 But we get an error: 
 
@@ -234,8 +233,7 @@ Second, please allow me to show the previous array code again (because it is rea
 
 
 
-\```java
-
+```java
 Dog dog = new Dog();
 
 
@@ -245,8 +243,9 @@ Cat[] cats = new Cat[1];
 Animal[] animals = cats;
 
 animals[0] = dog;
+```
 
-\```
+
 
 
 
@@ -258,13 +257,13 @@ Now back to Java Generics, when you have declared a `List<? extends Animal> anim
 
 
 
-\```java
-
+```java
 List<? extends Animal> animalList = new ArrayList<Cat>(); // okay!
 
 animalList.add(dog); // error!!!
+```
 
-\```
+
 
 
 
