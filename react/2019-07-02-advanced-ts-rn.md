@@ -66,6 +66,7 @@ p.s. This kind of flexible children view would be nice to have a key. Otherwise 
 
   
 ### 4. defaultProps
+
 ```TypeScript
 interface IProps {
   id: number;
@@ -157,11 +158,13 @@ Note that `ComponentType` actually includes function components and class compon
 If you need to add a `style` prop,  a `dispatch` prop, or a `navigation` prop, you may need to know where these props came from. This common scenario bothers many of us. Here is a code snippet that might help you.
 
 ```TypeScript
-interface IVieProps {
+import { ViewProps } from "react-native";
+
+interface IViewProps {
   // ... your own props
 }
 
-type IProps = IVieProps &
+type IProps = IViewProps &
   ViewProps & 
   NavigationScreenProps & 
   ReturnType<typeof mapStateToProps> & 
