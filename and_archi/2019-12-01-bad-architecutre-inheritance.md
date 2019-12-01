@@ -19,7 +19,7 @@ And that was exactly what Airbnb ended up with. Their `Button.jsx` files extreme
 To fix the previous issue, Airbnb re-design their code. This time they had a new idea: inheritance. 
 For any different type of Button, they should have something common. Okay, then we could extract all these common thigns and form them as a parent class: `BaseButton`. Then each type of button could be a child class of `BaseButton`. 
 
-[Architecture v3.0](_image/20191201-001.png)
+![Architecture v3.0](_image/20191201-001.png)
 
 Now the world is so peaceful. All different type of button have their own class and file. You can just call some specific child button, that's it!  But, is it?
 
@@ -73,12 +73,23 @@ ConfirmButton     CancelButton
 
 This seems okay, for now! As time flies by, you definitely will have more and more parent layer. Actually in my last company, their Activity system is already super complex.
 
-[One real example I had before](_image/20191201-002.png)
+![One real example I had before](_image/20191201-002.png)
 
 As you see here, we have sooooo many layers for different type of abstraction. They seems okay. But it really is not a good design because:
-* it is hard to debug. 
+* it is hard to debug. Different values just places in differnt class, it's hard to find where goes wrong exactly.
 * it is hard to refactor. As I mentioned, you have to be careful to change anything in the parent layer, to make sure you don't break other children.
 * it is hard to test. When I just want to test one simple thing in my `PlaceOrderActivity`, I have to mock every possible variable in the parent activities of `PlaceOrderActivity`. Yes, I mean every class. You can imagine the sad smile on my face when I have to mock nearly over 12 class just for a simple test.
 
 
 ## 3. How to make the architecture better?
+Actually, a simple word: `composition over inheritance!`
+
+Instead of making an extra `BaseNetworkActivity`, we could just extract all the network logic to a `HttpEngine` class. So in our Activites, we could simple call `HttpEngine.get(url)`, or `HttpEngine.post(url)`. 
+
+For those UI parent, say `BaseAppBarActivity`, you could have a `AppBarUtil` class which has a `injectAppbar()` method, to intercept the `contentView` of your activity and add one more AppBar at the top for you under hood. Now you can remove another parent layer as well.
+
+For the `BaesRecyclerViewActivity`, I know the RecylerView and its adapter could be a pain in the ass. Fortunete for me, I've written a `OneAdapter` for all the adapter. Now we could easily add a adapter, -- no need to create an adapter class for each new RecyclerView. So we could remove `BaesRecyclerViewActivity` too.
+
+... ...
+
+Now you should be able to follow me. By doing some utils class or abstraction, we could remove most of our unnecessary parent, while we make our BaseActivity as small as possible. This way, our BaseActivity does not like expand from 1KB to 33KB, like Airbnb did before, and also could be easy to expand, debug and test.
