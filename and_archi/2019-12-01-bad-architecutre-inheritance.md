@@ -24,6 +24,61 @@ For any different type of Button, they should have something common. Okay, then 
 Now the world is so peaceful. All different type of button have their own class and file. You can just call some specific child button, that's it!  But, is it?
 
 ## 2. Why this design is bad
+If you are an Android developer, the previous code might bore you. If this is the case, then you can just think of this scenario:
+
+```
+            BaseButton.java
+PurpleButton.java    CircleButton.java    RippleButton.java
+RoundCornerButton.java                    ShrinkButton.java
+...
+```
+How could you react?
+
+### 1. it violate OCP
+The first thing cames to my head is: this seems kind of burdensome in the future. Every time I need a new type (I'm sure you would in the future), I had to write a new class for it. And I have to maintain a list of Button files, in case I can remove some when it's not used anymore.
+
+
+### 2. it is fragile
+Let's say when you are asked to modify one behavior of `PurpleButton`. It might be common for buttons, so you decide to do it in the `BaseButton.java`. After you're done, you might want to re-check every button, to make sure you don't break something.
+
+I know, unit test might help you in these refactoring cases. But unit test is not a silver bullet. For styles, or anything related to UI, unit tests might not cover them at all. 
+
+In short, since this is a `parent-child` architecture, you now have to pay attention to your refactoring. Your change for one class might affect all the other files. It's very fragile
+
+
+### 3. it is hard to expand
+As I mentioned before, I had to write one new class if I had a new type. This is not the only thing you have to handle when it comes to expanding your class. 
+
+Let's say, I had a Button system:
+
+```
+               BaseButton
+           ↗        ↑           ↖
+ConfirmButton  CancelButton   DefaultButton
+```
+
+Now the UX is inspired by some app and decideds to make all the ConfirmButton and CancelButton to have a round corner. 
+
+You see, now this new feature(let's call it as `RoundCorner feature`), but it's not for all children. So I can not add it to the `BaseButton.java`. On the other hand, it's something both ConfirmButton and CancelButton have, so it can't be added to each class, otherwise we would have duplicate code.
+
+A more common way to handle this is to add another layer - another parent for both ConfirmButton and CancelButton.
+
+```
+                    BaseButton
+                     ↗       ↖
+        RoundCornerButton   DefaultButton
+           ↗           ↖          
+ConfirmButton     CancelButton   
+```
+
+This seems okay, for now! As time flies by, you definitely will have more and more parent layer. Actually in my last company, their Activity system is already super complex.
+
+[One real example I had before](_image/20191201-002.png)
+
+As you see here, we have sooooo many layers for different type of abstraction. They seems okay. But it really is not a good design because:
+* it is hard to debug. 
+* it is hard to refactor. As I mentioned, you have to be careful to change anything in the parent layer, to make sure you don't break other children.
+* it is hard to test. When I just want to test one simple thing in my `PlaceOrderActivity`, I have to mock every possible variable in the parent activities of `PlaceOrderActivity`. Yes, I mean every class. You can imagine the sad smile on my face when I have to mock nearly over 12 class just for a simple test.
 
 
 ## 3. How to make the architecture better?
