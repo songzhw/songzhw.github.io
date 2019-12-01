@@ -66,6 +66,7 @@ p.s. This kind of flexible children view would be nice to have a key. Otherwise 
 
   
 ### 4. defaultProps
+
 ```TypeScript
 interface IProps {
   id: number;
@@ -157,11 +158,13 @@ Note that `ComponentType` actually includes function components and class compon
 If you need to add a `style` prop,  a `dispatch` prop, or a `navigation` prop, you may need to know where these props came from. This common scenario bothers many of us. Here is a code snippet that might help you.
 
 ```TypeScript
-interface IVieProps {
+import { ViewProps } from "react-native";
+
+interface IViewProps {
   // ... your own props
 }
 
-type IProps = IVieProps &
+type IProps = IViewProps &
   ViewProps & 
   NavigationScreenProps & 
   ReturnType<typeof mapStateToProps> & 
@@ -253,6 +256,13 @@ export type MyAction = IAddAction | IRemoveAction
 ### 2. state
 
 ```TypeScript
+export interface IProduct {
+  id: string;
+  name: string;
+  category: IProductCategory;
+  sku: Sku;
+}
+
 export interface MyState {
   readonly products: IProduct | null;
 }
@@ -300,8 +310,20 @@ Note that, there is another approach to write `IAppState`, which also works:
 export type IAppState = ReturnType<typeof RootReducer>
 ```
 
+This is specially useful when you have a very complex reducer hierarchy, such as:
+
+```TypeScript
+const rootReducer = combineReducer({
+  oneReducer,
+  combineReducer(
+    twoReducer, 
+    combineReducer(fourReducer, fiveReducer)),
+  
+})
+```
 
 ### 5. async action
+
 I'm using Redux-Saga, which handles the async action for me. So I did not write a Thunx action, but it should be easy, especially if you are using `async/await` syntax sugar.
 
 ```TypeScript
@@ -339,8 +361,11 @@ We have to do this:
 
 ```TypeScript
 interface IAppState {
-  // book: IBookState  // this would cause an error, since we got a more extra field : '_persist: {...}'
+
+  // book: IBookState  // ERROR!!!
+
   book: IBookState & PersistPartial;
+
 }
 ```
 
@@ -439,7 +464,7 @@ A temporary work around would be :
 ```
 
 
-`work.mockReturnThis()` : why js, not ts?
+
 
 ## V. Others
 
@@ -457,6 +482,8 @@ interface People {
 ...
 // const p = {}  // ERROR! `{}` and `People` are not compatilbe
 const p = {} as People
+
+// when time is ripe
 p.id = 100
 ```
 
