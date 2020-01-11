@@ -115,11 +115,75 @@ First of all, this is the only book that I've read talking about writing good un
 
 
 
-The author mentioned 
+The author mentioned three approaches to write unit test: verify the return value, verify the internal state, verify that we've called some 3rd-party libraries.  And we should "Always choose to use interaction testing only as the last option. This is very important. It's perferable to see if you can use the first two types (value or state) of end-result tests of units of works." The reason is that "From a pure maintainability perspective, in my tests using mocks creates more trouble than not using them. "
+
+
+
+I'm particularly interested in this idea, and looking forward to seeing more examples. Unfortunately I didn't see too much details and examples. That's why I am a little disappointed about this book. 
+
+
+
+Also, some concept are confusing and old-school, such as the difference of stub and mock. I personally think there is no need to understand this kind of difference. The more important thing is to understand why we need to isolate the dependency and how to do so. 
+
+
+
+This book also tell us how to isolate dpendencies, how to handle legacy code, .... Overall, this is a good book, but I don't see too much examples of how to avoid the interaction testing in real-life.
+
+
+
+However, I have to say I may make a mistake about underestimate this book. And I planned to review this book again one or two years later. I hope I can get more details when I read it again. -- Or, perhaps, it would have the third edition, which is better.
+
+
+
+### ## Wonderful Books
+
+### 1. 
+
+
+
+
+
+### 2. 
+
+
+
+### 3.
+
+
 
 
 
 ### 4.
+
+
+
+### 5.
+
+
+
+### 6.
+
+
+
+## Other Dev Books
+
+### 1. getting started with SQL
+
+
+
+### 2.  Learn React with TypeScript 3
+
+
+
+###3. React Native Cookbook
+
+
+
+
+
+## Other Books
+
+
 
 
 
@@ -133,31 +197,19 @@ The author mentioned
 
 <!-- 
 好书:
-<getting started with SQL>
 
 <head first html and css>
 <阿里巴巴Android开发规范>
 <effective typescript>
-< Learn React with TypeScript 3>
 <effective js>
 <RxJs>
-<React Native Cookbook>
+
 <React状态管理与同构实战>
 <Manager's Path>
 
 
-一般:
-<思维导图笔记整理术>
-<the art of unit testing>
-<test-driven react>
-<Mastering TypeScript 3>
 
-差评:
-<js算法与数据结构>
-<land the tech job you love>
 
-在读:
-<Programming iOS13>
 
 其它书: 
 <红色经济战> 
