@@ -34,19 +34,6 @@ Rate: ☆
 This book contains resume, applying for a job, interview, after interview... It seems okay. That's my thought. But it turned out that the book is full of cliché. I really did not find anything useful or interesting. Sorry, this book is not good for me.
 
 
-<!-- 
-好书:
-<getting started with SQL>
-<head first html and css>
-<阿里巴巴Android开发规范>
-<effective typescript>
-< Learn React with TypeScript 3>
-<effective js>
-<RxJs>
-<React Native Cookbook>
-<React状态管理与同构实战>
-<Manager's Path>
-
 
 
 
@@ -84,18 +71,79 @@ But one shortcoming of this book is that the way it suggested us is to use paper
 
 
 
-### 2.
+### 2. Test-Driven React
+
+![image-20200110220235297](../imgs/image-20200110220235297.png)
+
+Author: Trevor Burnham
+
+Release Date: June 2019
+
+Rate: ☆☆☆
+
+
+
+TDD is always a good idea, but also an idea that is hard to keep track of. You might find it tedious and give it up sometime in the future. Actually this is what this book did. 
+
+
+
+This book introduced TDD at the first time, and guide us to do a Gallery example. But later the author just drop it, and do the coding first, then finish the unit test. So I guess this book is not showing us why TDD is so good. 
+
+
+
+However, the examples in this book is a good way to teach you React and unit test int React. So I do recommend you to take a look. It's somehow a good book, I guess.
 
 
 
 
 
-### 3.
+### 3. The Art of Unit Testing, 2nd Edition
+
+![image-20200110220645573](../imgs/image-20200110220645573.png)
+
+
+
+Author: Roy Osherove 
+
+Release Date: November 2013
+
+Rate: ☆☆☆
+
+
+
+First of all, this is the only book that I've read talking about writing good unit tests. All the books, videos, blog posts are only talking about how to write unit test. So I am so curious about this book.
+
+
+
+The author mentioned 
 
 
 
 ### 4.
 
+
+
+
+
+
+
+
+
+
+
+<!-- 
+好书:
+<getting started with SQL>
+
+<head first html and css>
+<阿里巴巴Android开发规范>
+<effective typescript>
+< Learn React with TypeScript 3>
+<effective js>
+<RxJs>
+<React Native Cookbook>
+<React状态管理与同构实战>
+<Manager's Path>
 
 
 一般:
