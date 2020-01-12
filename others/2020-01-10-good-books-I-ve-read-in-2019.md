@@ -189,7 +189,7 @@ Strongly recommend this book!
 
 ![image-20200111225905755](../imgs/image-20200111225905755.png)
 
-
+Rate: ★★★★★
 
 A good book to explain the React state management in Chinese. If you are new to React, this book is a good one to introduce you to the React world. Above all, it also introcduce the Flux and Redux. 
 
@@ -207,13 +207,19 @@ In one world, this book is a good book to get started with React, and also a won
 
 
 
-### 4.
+### 4. 阿里巴巴Android开发手册
+
+![image-20200111230508461](../imgs/image-20200111230508461.png)
+
+Rate: ★★★★★
+
+This book list many rules you must/might/could follow in your Android Development. It covers UI, performance, security, readability, and many other things. It is definitely one of the "must-read" book if you are an Androd developer
 
 
 
-### 5.
+### 5. Manager's Path
 
-
+Rate: ★★★★★
 
 ### 6.
 
