@@ -137,19 +137,73 @@ However, I have to say I may make a mistake about underestimate this book. And I
 
 ### ## Wonderful Books
 
-### 1. 
+### 1.  
+
+![image-20200111224640465](../imgs/image-20200111224640465.png)
+
+Author: Elisabeth Robson, Eric Freeman
+
+Rate: ★★★★★
+
+
+
+The "Head-First" series books are alway with high quality. This book is not an exception as well.
+
+
+
+It introduces many new concept by understandable examples. And authors evolved these examples step by step. You would know more and more by learning these examples. 
+
+
+
+If you are new to HTML, especially CSS, this book is the best book to get started.
+
+### 2. Effective TypeScript
+
+![image-20200111225155954](../imgs/image-20200111225155954.png)
+
+Author: Dan Vanderkam
+
+Rate: ★★★★★
+
+
+
+TypeScript is more and more popular within the JavaScript dev world. And I personally like the strong-typed feature in TypeScript, which would help us find out errors before you publish it to market or QA. 
+
+
+
+But TypeScript is complexer than JavaScript. You might get errors once in a while. You just don't know why you have this complaint sometimes. One potential approach to fix them is to use `any` in TypeScript. But `any`menas no check at all. This would result in errors, just like JavaScript
 
 
 
 
 
-### 2. 
+If you are getting troubles with TypeScript, and don't want to use `any`,  then this book come to rescue you. This book is not just explain some confusing concepts, but also tell you which approaches is the better way to write code in TypeScript.
 
 
 
-### 3.
+Strongly recommend this book!
 
 
+
+### 3. React状态管理与同构实战
+
+![image-20200111225905755](../imgs/image-20200111225905755.png)
+
+
+
+A good book to explain the React state management in Chinese. If you are new to React, this book is a good one to introduce you to the React world. Above all, it also introcduce the Flux and Redux. 
+
+
+
+It also dive into the source code of Redux, to help you understand more about Redux store/middleware and React-Redux. With these knowledge, you could be able to understand some Redux libraries, such as Redux-Saga.
+
+
+
+This book shows more than React and Redux. It also tells you how to reuse code, why `setState` is async, how to optimize React apps....
+
+ 
+
+In one world, this book is a good book to get started with React, and also a wonderful book to know more about React apps.
 
 
 
@@ -181,7 +235,6 @@ However, I have to say I may make a mistake about underestimate this book. And I
 
 
 
-## Other Books
 
 
 
@@ -191,29 +244,3 @@ However, I have to say I may make a mistake about underestimate this book. And I
 
 
 
-
-
-
-
-<!-- 
-好书:
-
-<head first html and css>
-<阿里巴巴Android开发规范>
-<effective typescript>
-<effective js>
-<RxJs>
-
-<React状态管理与同构实战>
-<Manager's Path>
-
-
-
-
-
-其它书: 
-<红色经济战> 
-<临高启明>
-做菜的几本书
-是大臣 
--->
