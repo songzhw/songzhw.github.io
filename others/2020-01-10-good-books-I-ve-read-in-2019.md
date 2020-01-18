@@ -217,11 +217,15 @@ This book list many rules you must/might/could follow in your Android Developmen
 
 
 
-### 5. Manager's Path
+### 5. The Manager's Path
+
+![image-20200111230833048](../imgs/image-20200111230833048.png)
 
 Rate: ★★★★★
 
-### 6.
+### 
+
+There are many books about management, and this book is kind of special. The author of this book grow from one developer to CTO, therefore he has many ideas about each level he has been. You will get to see how to mentor juniors,  what a Tech Lead's life was, and how to manage a huge team. 
 
 
 
@@ -238,6 +242,8 @@ Rate: ★★★★★
 ###3. React Native Cookbook
 
 
+
+These books are okay to read. Not too much highlight, but not bad at all. They still are good for you if you want to start with SQL, React, or React Native.
 
 
 
