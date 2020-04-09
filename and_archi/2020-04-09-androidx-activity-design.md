@@ -33,7 +33,56 @@ dependencies {
 
 
 #### v1.2.0-alpha 
+* **ActivityResultRegistry** : still, same as OnBackPrssedDipatcher, this provides an alternative for handle the `startActivityForResult` + `onActivityResult()`.
 
 
+### 3. an example of OnBackPressedDispatcher
 
+Here is a complete example. Simple, isn't it?
 
+```kotlin
+class DemoActivity : AppCompatActivity(R.layout.activity_on_back_demo) {
+    val onBack = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            println("szw activity back")
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        this.onBackPressedDispatcher.addCallback(this, onBack)
+    }
+}
+```
+
+This is simple example, but it is good enough to show our point. 
+Before we go any furthur, let's take a step back. What would we do if we don't have OnBackPressedDispatcher?
+
+### 4. what would do before?
+Let's say we have a requirement, that the user could directly exit our app by tapping the back key twice in a short time. What could we dev do?
+
+Of course, we need to write the logic in the `onBackPressed()`. Here might be an answer to it.
+
+```kotlin
+class HomeActivity : AppCompatActivity(){
+  ...
+  fun onBackPressed(){
+    // listen to the double tap, and exit the app if it is ready.
+  }
+}
+```
+
+Of course, this requirment would apply to every page we had. So it's natural to put it to the `BaseActivity`, so every Activity would reuse its code, just like this:
+
+```kotlin
+class BaseActivity : AppCompatActivity(){
+  ...
+  fun onBackPressed(){
+    // listen to the double tap, and exit the app if it is ready.
+  }
+}
+
+class HomeActivity : BaseActivity(){
+  ...
+}
+```
