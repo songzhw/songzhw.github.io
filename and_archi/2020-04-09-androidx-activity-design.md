@@ -61,10 +61,10 @@ Before we go any furthur, let's take a step back. What would we do if we don't h
 ### 4. what would do before?
 Let's say we have a requirement, that the user could directly exit our app by tapping the back key twice in a short time. What could we dev do?
 
-Of course, we need to write the logic in the `onBackPressed()`. Here might be an answer to it.
+Of course, we need to write the logic in the `onBackPressed()`. We could do it ourselves, but importing a library is one opiton. Let's assume that we import a library, and we use its `DoubleTabToExitActivity` as a base activity of every Activity in our app.
 
 ```kotlin
-class HomeActivity : AppCompatActivity(){
+class HomeActivity : DoubleTapToExitActivity(){
   ...
   fun onBackPressed(){
     // listen to the double tap, and exit the app if it is ready.
@@ -75,7 +75,7 @@ class HomeActivity : AppCompatActivity(){
 Of course, this requirment would apply to every page we had. So it's natural to put it to the `BaseActivity`, so every Activity would reuse its code, just like this:
 
 ```kotlin
-class BaseActivity : AppCompatActivity(){
+class BaseActivity : DoubleTapToExitActivity(){
   ...
   fun onBackPressed(){
     // listen to the double tap, and exit the app if it is ready.
@@ -86,3 +86,13 @@ class HomeActivity : BaseActivity(){
   ...
 }
 ```
+
+Wonderful, it is working, and is working for all of our pages. Exactly what we need. 
+
+However, we actually have a problem. Every page in our app could be exited by swipe to the right. To fulfill that, we import a library called `SwipeToExit`, which requires us to make our every Activity to extend its `SwipeToExitActivity`.
+`class BaseActivity : SwipeToExitActiivty(), DoubleTapToExitActivity()` is wrong, as Kotlin, and Java, does not allow multiple parents for one class. 
+
+Now you see what's the disadvantage of inheritance. Many modern language only allow single one parent for a class, so it's hard for us to get two functionality from two different base activity. We could only choose one. 
+
+You may not see it from the prevous example, but another disadvantage of interitance is complexity. The cruel reality would make us to add many parent class for different granularity of requirement. An example I saw it myself would be:
+![complex inheritance](_image/2020-04-09-complex-parents.png)
