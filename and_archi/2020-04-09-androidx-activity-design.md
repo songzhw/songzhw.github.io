@@ -103,4 +103,12 @@ Yes, this is kind of one of the most important rules in the software development
 
 The disadvantage of inheritance has been listed above. On the other hand, composition will have no such delimna as "only one parent". You can composite any part into your class. If you can, please use composition, instead of inheritance.
 
-And most of all the changes in the androidx.Activity actually just repeat to explain this rule to you again and again.
+And most of all the changes in the androidx.Activity actually just repeat to explain this rule to you again and again:
+* OnBackPressRegistry: now you don't need to override the `onBackPressed()`. That said, you can have a standalone class to implement onBackPress logic, and this class does not have to be a subclass of Activity. Wonderful
+* OnSaveStateCallback: yeah, it is to replace `onSaveInstanceState()`
+* ActivityResultRegistry: oh yeah, aggin, it is to replace `onActivityResult()`.
+  
+Today is April 10th, 2020, and we have three lifecycle replaced by composition component. Acutally I don't doubt at all that we would have more such changes coming in the future, to replace lifecycle methods such as `onRequestPermissionResult()`, `onTouchEvent()`, `onNewIntent()` and so on.  
+
+### 6. Conclusion
+"Composition over Inheritance". One golden rule that you have to keep in mind. It would help you form a  more clean, more slim architecture. 
