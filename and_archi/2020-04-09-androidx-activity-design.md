@@ -98,10 +98,13 @@ You may not see it from the prevous example, but another disadvantage of interit
 ![complex inheritance](_image/2020-04-09-complex-parents.png)
 This kind of code would hard to extend, and hard to test. Also it's very easy to make bugs once you are not pay attention, or don't know your change might affect other parts.
 
+This is not the end. Strike three!
+Activity is hard to unit test, as it has android code, and JUnit don't have the Android environment (Robolectirc maybe a way, but still, it is hard to unit test). 
+
 ### 5. composition over inheritance
 Yes, this is kind of one of the most important rules in the software development world (p.s "Don't repeat yourself" of course should be one of them as well ^_^).
 
-The disadvantage of inheritance has been listed above. On the other hand, composition will have no such delimna as "only one parent". You can composite any part into your class. If you can, please use composition, instead of inheritance.
+The disadvantage of inheritance has been listed above. On the other hand, composition will have no such delimna as "only one parent". And a standalone non-Activity class would easy to test. 
 
 And most of all the changes in the androidx.Activity actually just repeat to explain this rule to you again and again:
 * OnBackPressRegistry: now you don't need to override the `onBackPressed()`. That said, you can have a standalone class to implement onBackPress logic, and this class does not have to be a subclass of Activity. Wonderful
