@@ -96,3 +96,11 @@ Now you see what's the disadvantage of inheritance. Many modern language only al
 
 You may not see it from the prevous example, but another disadvantage of interitance is complexity. The cruel reality would make us to add many parent class for different granularity of requirement. An example I saw it myself would be:
 ![complex inheritance](_image/2020-04-09-complex-parents.png)
+This kind of code would hard to extend, and hard to test. Also it's very easy to make bugs once you are not pay attention, or don't know your change might affect other parts.
+
+### 5. composition over inheritance
+Yes, this is kind of one of the most important rules in the software development world (p.s "Don't repeat yourself" of course should be one of them as well ^_^).
+
+The disadvantage of inheritance has been listed above. On the other hand, composition will have no such delimna as "only one parent". You can composite any part into your class. If you can, please use composition, instead of inheritance.
+
+And most of all the changes in the androidx.Activity actually just repeat to explain this rule to you again and again.
