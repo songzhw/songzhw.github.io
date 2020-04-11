@@ -99,7 +99,7 @@ You may not see it from the prevous example, but another disadvantage of interit
 This kind of code would hard to extend, and hard to test. Also it's very easy to make bugs once you are not pay attention, or don't know your change might affect other parts.
 
 This is not the end. Strike three!
-Activity is hard to unit test, as it has android code, and JUnit don't have the Android environment (Robolectirc maybe a way, but still, it is hard to unit test). 
+Activity is hard to unit test, as it has android code, and JUnit don't have the Android environment (Robolectirc apparent is a way, but according to [http://robolectric.org/androidx_test/](http://robolectric.org/androidx_test/), Robolectirc might not last long). 
 
 ### 5. composition over inheritance
 Yes, this is kind of one of the most important rules in the software development world (p.s "Don't repeat yourself" of course should be one of them as well ^_^).
