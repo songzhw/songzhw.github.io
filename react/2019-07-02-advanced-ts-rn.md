@@ -514,3 +514,30 @@ const example = <T extends object>(url: T) : number => {
 ```
 
 
+### 3. typescript + webpack
+If you are using latest React and `create-react-app`, the webpack config would no longer there. Instead, `react-script` would save you from the complexity of webpack config. 
+
+However, it's not good all the time. Sometimes you do need to add some specific webpack plugin, like zip-webpack-plugin to get a zip file. What should we do now?
+
+If that's your requirement, don't worry, we could still bring webpack back. Here is the steps you might want to follow
+1. remove `react-script` and all the `script` in the package.json
+
+2. add `webpack, webpack-cli, webpack-dev-server, css-loader, style-loader, ts-loader, html-webpack-plugin` to your package.json by npm or yarn
+   
+3. create `webpack.config.js` file in your root folder. And do your configure.
+
+4. remove one line in the `tsconfig.js`
+   ```"noEmit": true,```
+Otherwise, the web-dev-server would have errors
+
+5. add script to package.json
+```json
+"scripts": {
+  "web": "webpack --config webpack.config.js",
+  "dev": "yarn run web && webpack-dev-server --open"
+},
+```
+
+Great, now it's working! You could run `yarn run dev` to have it run, or run `yarn run web` to build the project. 
+
+
