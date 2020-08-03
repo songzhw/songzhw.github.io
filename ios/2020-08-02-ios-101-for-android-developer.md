@@ -64,3 +64,11 @@ Okay, here it come.s Function is the most difficult part to understand in Java d
 In short, function call is a brackets way. The grammar is just like:
 `[object method:arg1 arg2Name:arg2 arg3Name:arg3`. Hahaha, I know it's hard to accept it at once, but read it a couple of times, trust me, you will get used to it. 
 
+More examples are:
+```objective-C
+/* declaration */ + (NSData *)decryptContent:(NSData *)encrypted withKey:(NSData *)key; 
+/* usage */ [crypto decryptContent: encrypted withKey: key];
+
+/* declaration */ - (void)stop;
+/* usage */ [server stop];
+```
