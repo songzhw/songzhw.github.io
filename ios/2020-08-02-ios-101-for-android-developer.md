@@ -15,6 +15,52 @@ However, if you are a React Native developer, you might need to pick up Objectiv
 
 One more thing to say is you may need to know Objective-C if you really want to be an expert on iOS. After all, nearly every Swift API is actually Objective-C API under the hood. That says, you might need to understand Objective-C to solve some difficult issues. And if you want to take advantage of other C library, you still need Objective-C. (Yes, Objective-C could just use C library. Android developer is not that lucky and they need to use JNI)
 
-### 2. 
+Swift actually is very much like Kotlin. So I don't want to waste too much time on it. I would mostly introduce Objective-C ("OC") in  this post.
 
+### 2. types of OC
+Compared with Java and JavaScript, OC's types are a little different:
+
+|        | java         | Objective-C    | JavaScript  |
+|--------|--------------|----------------|-------------|
+| string | String       | NSString       | string      |
+| int    | int; Integer | int; NSInteger | number      |
+| map    | HashMap      | NSDictionary   | Object; Map |
+| byte[] | byte[]       | NSData         | ArrayBuffer |
+
+
+### 3. number
+Since Objective-C is a superset of C, so OC does support types like `unsigned long`, `short`, and `unsigned int` types, which Java is not supporting anymore.
+
+Literal number value would start with `@`, such as `@20`,which indicate this is an OC value, not a C value. Yes, OC and C are quite different from each other, and we would talk about it later.
+
+### 4. String
+String literal value is also start with `@`, to indicate this is not a C string (C string is actually a char[]). One example would be `@"hello world"`.
+
+When you need to insert value into a NSString, just like `"hello $name"` in Kotlin, you could use `%@` as a placeholder.  `%@` indicates this is a placeholder for an OC object. 
+Example:
+
+```Objective-C
+NSString* name = @"szw";
+NSLog(@"hello %@", name);
+```
+
+### 5. object
+Just like its name, Objective-C contains lots of objects. 
+
+When you new an Object, the object you just initialized is actually a point that point to a piece of memory. So unlike our Java approach (`String name = "szw"`), the Object in OC should be defined as a pointer!
+
+```Objective-C
+/* Wrong */   NSString name = @"szw";
+/* Correct */ NSString* name = @"szw";
+```
+
+### 6. function
+Okay, here it come.s Function is the most difficult part to understand in Java developers' eyes. But it actually is not that hard. Just look at them a little more times, you would get used to it. 
+
+| java | `String memo = "memo.txt";  String extension = memo.substring(5); `         |
+|------|-----------------------------------------------------------------------------|
+| OC   | `NSString* memo = @"memo.txt";  NSString* extension = [memo substring: 5];` |
+
+In short, function call is a brackets way. The grammar is just like:
+`[object method:arg1 arg2Name:arg2 arg3Name:arg3`. Hahaha, I know it's hard to accept it at once, but read it a couple of times, trust me, you will get used to it. 
 
