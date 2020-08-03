@@ -54,7 +54,7 @@ When you new an Object, the object you just initialized is actually a point that
 /* Correct */ NSString* name = @"szw";
 ```
 
-### 6. function
+### 6. function call
 Okay, here it come.s Function is the most difficult part to understand in Java developers' eyes. But it actually is not that hard. Just look at them a little more times, you would get used to it. 
 
 | java | `String memo = "memo.txt";  String extension = memo.substring(5); `         |
@@ -67,8 +67,62 @@ In short, function call is a brackets way. The grammar is just like:
 More examples are:
 ```objective-C
 /* declaration */ + (NSData *)decryptContent:(NSData *)encrypted withKey:(NSData *)key; 
-/* usage */ [crypto decryptContent: encrypted withKey: key];
+/* usage */      [obj decryptContent: encrypted withKey: key];
 
 /* declaration */ - (void)stop;
-/* usage */ [server stop];
+/* usage */       [obj stop];
 ```
+### 7. source files
+Unlike a single ".java" or ".kt" to stands for a class, Class in OC would be two files: `.h` and `.m` file. 
+
+* `.h`: It's only a declaration. Normally you would list your public method and variable here. So other class can access them.
+* `.m`: It's the implementation code. Functions here is no longer just declaration, it has to have content in it. 
+
+### 8. class
+As we said before, a class would be split to two files, one .h file and one .m file.
+Here is an example:
+
+```objective-C
+// MyClass.h
+@interface MyClass: NSObject {
+  NSString* name;  //property
+}
+-(void)hello:(NSString*)name; //method
+@end
+```
+1). class declaration is a defined in `@interface`.
+2). unlike java, even your class is to subclass NSObject (like Object in Java), you have to write this superclass down.
+3). method declaration is a little complex:
+  3.1). `-` means this is a instance method; `+` means this is a static method. 
+  3.2). (void) is the return type
+  3.3). name is the argument
+  3.4). so we could call this function by `[obj hello:@"szw"];`
+
+```objective-C
+// MyClass.m
+@implementation MyClass 
+-(void) hello:(NSString*)name{
+  NSLog(@"hello, %@", name);
+}
+@end
+```
+class implementation need to be wrapped inside `@implementation`, and you do whatever you want to do inside the function body.
+
+### 9. category
+
+### 10. protocol
+
+### 11. memory management
+You would be surprised that how annoying the memory mangement in C when you write app in C. This was the same situation you might face in OC. 
+
+```objective-C
+-(NSArray*) getArray {
+  NSArray* ary = [[NSArray alloc]init];
+  return ary;
+}
+```
+Before 2011, the above code is actually quite wrong. Because you just return some local variable from a method. Once the method is done, the method stack would be dismissed. Then this local variable is gone. Then what you got is actually a wild pointer. What you need to do, is to make sure your object would survive long enough, and also make sure you free these memory space when you are done. Imagine what if you have 20,000 objects, this would be a disaster. 
+
+Fourtunately for us, Apple introduce ARC(Auto Reference Counting), which would inject the code to manage reference number for you. In short, ARC is just like Java's GC, so you don't have to worry about the memory anymore.
+
+However, you are not 100% away from memory management. When you try to use some Core Foundation library, which is in C and is not covered by ARC, then you would need to inject your memory management code there. 
