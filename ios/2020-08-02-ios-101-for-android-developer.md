@@ -109,8 +109,49 @@ Here is an example:
 class implementation need to be wrapped inside `@implementation`, and you do whatever you want to do inside the function body.
 
 ### 9. category
+Category is just like Kotlin's extension. So you could add more functionality to a class, yes, even a system class.
+
+Defining a category is very much like defining a class. Just instead of declare its super class, you need to describe the category name by using "()"
+Here is an example to extend NSString so it could have an extra method called "uuid":
+
+```objective-c
+// NSString+Uuid.h
+#import <Foundation/Foundation.h>
+
+@interface NSString (Uuid)
++ (NSString*) uuid;
+@end
+
+// NSString+Uuid.m
+#import "NSString+Uuid.h"
+@implementation NSString (Uuid)
++ (NSString*) uuid {
+  CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
+  CFStringRef stringRef = CFUUIDCreateString(kCFAllocatorDefault, uuidRef);
+  CFRelease(uuidRef);
+ 
+  NSString* uuidString = (NSString*)CFBridgingRelease(stringRef);
+  return uuidString;
+}
+@end
+```
 
 ### 10. protocol
+Protocol is a combination of several functions. Yes, this is a objective-c version of `Interface` in Java. And it does, just like interface, only have `.h` file. No `.m` file for protocol, as the `.m` file is the implementation. And interface has no implementation.
+
+```objective-c
+@protocol ServerPlugin <NSObject>
+  @required -(void) serve: (int) id;
+@end
+
+// if you want to use the protocol, use it as a generics:
+@interface HttpServer: NSObject<ServerPlugin>;
+@end
+```
+
+One more thing that might worth bringing up is, we could assign a object to an interface type in Java. like `IPlugin plugin1 = map.get("key1")`;
+However, in objective-c, Protocol is not a type, it is more like a generics. So if you want to transform another object to some specific protocol, here is what you can do:
+`NSOjbect<PluginProtocol> plugin1 = [dictionary objectForKey:@"key1"];`
 
 ### 11. memory management
 You would be surprised that how annoying the memory mangement in C when you write app in C. This was the same situation you might face in OC. 
