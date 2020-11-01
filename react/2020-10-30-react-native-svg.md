@@ -38,4 +38,20 @@ SVG files are actually text files, whereas bitmap files are binary files. Here i
 We can see it tell the browser or any SVG's user to how to draw a path, from which point to which point. This is what SVG did. 
 
 ## 2.2 React-Native-SVG
+rn-svg is another library that Facebook made to draw shapes. Actually iOS don't support SVG officially, and you have to import 3rd-party library, such as SVGKit, to draw SVG. But rn-svg still do a lot to support most of SVG attributes. 
 
+## 2.3 Draw a circle
+Let's take circle for an example. 
+
+```xml
+<Svg height="100" width="100">
+  <Circle cx="50" cy="50" r="50" fill="pink" />
+</Svg>
+```
+It could draw a cicle whose fill is pink color. 
+
+Svg is not just that. It can draw Rectangle, Triangle, Polygon, Line, even Text and Image. 
+
+Furthuremore, with the super power of Sketch or Adobe Illustrator, we can get complex path, and use them to generate wonderful animations.
+
+## 2.4 Draw react native element in SVG
