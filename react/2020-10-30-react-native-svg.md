@@ -73,3 +73,48 @@ import Svg, {Circle, ForeignObject} from "react-native-svg"
 
 
 # III. SVG in Practice
+I've briefly introduced the simple use of SVG. From now on, we are going to go to the wild world of SVG, and see how we could use it in product.
+
+## 3.1 Circle Avatar
+We could easily draw a circle avatar with Xfermode in Android, or with blendMode in iOS. For those dev who don't know what Xfermode/BlendMode is, they are just to show some part of it after putting two layer together. However, its pretty hard to do so in React Native. 
+
+Fortunately for us, rn-svg could do so. The key part is `<ClipPath>`.
+
+An example would help us to understand it better. Assume that I have such a picture about Batman.
+![](images/batman-orig.png)
+
+Now I draw a circle above it:
+![](images/batman-process.png)
+
+After that, we have two layer, one layer is the circle, and another one is the batman image. Now we use `<ClipPath>` to only show the part that overlaps both layers:
+
+```xml
+import Svg, { Circle, ClipPath, Defs, Image } from "react-native-svg";
+
+  const { size } = props;
+  const radius = size / 2;
+
+    <Svg width={size} height={size} style={props.style}>
+      <Defs>
+        <ClipPath id="clip">
+          <Circle cx={radius} cy={radius} r={radius}/>
+        </ClipPath>
+      </Defs>
+      <Image href={props.href} preserveAspectRatio={scale}
+             width={size} height={size}
+             clipPath="url(#clip)"
+      />
+    </Svg>
+```
+
+1). `<ClipPath>` need to be defined inside `<Defs>`. <br/>
+  The elements inside `<Defs>` would not shown on the screen, unless you apply them to some element outside `<Defs>`, the `<Image>` in the privous code for example.
+
+2). Any rn-svg element could use clipPath by adding a `clipPath` attributes, which value is a string type, and is a `url(#id)` format.
+
+After we apply the clipPath, the result is exactly what we need:
+![](images/batman-circle.png)
+
+### 3.3.* 
+It's not just a circle avatar that you can make with rn-svg. You could make a image with round corner as well. Clippath is the tool you can use to get an element in whichever shape you prefer. 
+
