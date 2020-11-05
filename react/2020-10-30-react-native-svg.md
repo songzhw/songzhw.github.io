@@ -55,3 +55,21 @@ Svg is not just that. It can draw Rectangle, Triangle, Polygon, Line, even Text 
 Furthuremore, with the super power of Sketch or Adobe Illustrator, we can get complex path, and use them to generate wonderful animations.
 
 ## 2.4 Draw react native element in SVG
+In general, the SVG shapes, and only them, must be named inside `<Svg>` element. You can't just directly put a `<FlatList>` inside `<Svg>`. However, if you do need to do so, we still have an approach to help you. This is the `<ForeignObject>` element.
+
+`<ForeignObject>` is a SVG shape, and also it could contain React Native items. Here is an example of how to use it:
+
+```xml
+import {Image} from "react-native"
+import Svg, {Circle, ForeignObject} from "react-native-svg"
+
+<Svg>
+	<Circle cx="50" cy="50" r="50" fill="pink" />
+	<ForeignObject>
+		<Image src={..} source={...}/>
+	</ForeignObject>
+</Svg>
+```
+
+
+# III. SVG in Practice
