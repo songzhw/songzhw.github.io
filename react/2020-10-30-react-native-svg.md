@@ -149,3 +149,70 @@ To draw the linear gradient above, SVG would have such code:
   <Stop stopColor=“red”    offset=“1”  />
 </LinearGradient>
 ```
+
+### 3.2.2 draw a button
+With all the basic knowledge I've shown above, we now could make a button with linear graidnet fill color.
+
+![](images/lg-btn.png)
+
+```xml
+<Svg>
+
+  <Defs>
+    <LinearGradient id="g3" x1={0} y1={0} x2={1} y2={1}>
+      <Stop offset="0" stopColor="#c31432" stopOpacity={0.5}/>
+      <Stop offset="1" stopColor="#240b36" stopOpacity={1}/>
+    </LinearGradient>
+  </Defs>
+
+  <G x={100} y={360}>
+    <Rect x={0} y={0} width={220} height={100}
+          fill="url(#g3)" rx={20} ry={20}/>
+    <Text x={110} y={50} fill="#fff" fontSize={50}
+          alignmentBaseline="bottom" textAnchor="middle">Login</Text>
+  </G>
+</Svg>
+```
+
+Here are something worthy mentioning:
+
+1). LinearGradient also need to be inside Defs, just like ClipPath.
+
+2). Here we have two stops, which means two points in the Sketch. Each stop has its own color and transparancy.
+
+3). Now we use fill attribute to link to the linear gradient. The format of it is also a url format, same as ClipPath.
+
+
+## 3.3 Theme
+We may have different theme, such as light theme, dark theme, or even pink theme. For different themes, we should make icons change color as well. 
+
+![](images/svg-theme.png)
+
+The picture above is just an example of a same page in different theme.
+
+For Svg, it is as simple as change a value of `fill` attribute.
+
+```xml
+import Svg, { Symbol, Defs, Path, ClipPath, Use } from "react-native-svg";
+
+export const Svg101_Icon_ChangeColor = () => {
+  return (
+    <Svg>
+    
+      <Symbol id="lang" viewBox="0 0 24 24">
+        <Path d="M12.87 15.07l-2.54-2… Z”/>  <!-- this is a "文A" icon" -->
+      </Symbol>
+      
+      <Use href="#lang" x={40} y={40} width={180} height={180} fill="black"/>
+      <Use href="#lang" x={220} y={40} width={180} height={180} fill="red"/>
+      <Use href="#lang" x={440} y={40} width={180} height={180} fill="blue"/>
+      
+    </Svg>
+  );
+};
+```
+
+Here, we use a `symbol`, which means it's a reusable class, and three `use`s, which means it try to reuse some resuable resource. 
+With different `fill` value, now we got different icon:
+
+![](images/svg-theme2.png)
