@@ -216,3 +216,6 @@ Here, we use a `symbol`, which means it's a reusable class, and three `use`s, wh
 With different `fill` value, now we got different icon:
 
 ![](images/svg-theme2.png)
+
+
+## 3.4 pattern
