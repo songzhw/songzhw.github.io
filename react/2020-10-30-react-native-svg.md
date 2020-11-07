@@ -80,6 +80,8 @@ We could easily draw a circle avatar with Xfermode in Android, or with blendMode
 
 Fortunately for us, rn-svg could do so. The key part is `<ClipPath>`.
 
+
+### 3.1.1 ClipPath
 An example would help us to understand it better. Assume that I have such a picture about Batman.
 ![](images/batman-orig.png)
 
@@ -113,8 +115,37 @@ import Svg, { Circle, ClipPath, Defs, Image } from "react-native-svg";
 2). Any rn-svg element could use clipPath by adding a `clipPath` attributes, which value is a string type, and is a `url(#id)` format.
 
 After we apply the clipPath, the result is exactly what we need:
-![](images/batman-circle.png)
 
-### 3.3.* 
-It's not just a circle avatar that you can make with rn-svg. You could make a image with round corner as well. Clippath is the tool you can use to get an element in whichever shape you prefer. 
+![](images/batman-cricle.png)
 
+
+
+### 3.1.2
+It's not just a circle avatar that you can make with rn-svg. You could make a image with round corner as well. Or this image:
+![](images/image-shape.png)
+
+## 3.2 Gradient Button
+A button with linear gradient is common in mobile apps. There is a famous library, [react-native-linear-gradient](https://github.com/react-native-linear-gradient/react-native-linear-gradient#readme) to do such a job. Now if you are using rn-svg, then this rn-linear-gradient is not necessary. Rn-svg could draw gradient for you.
+
+### 3.2.1 draw linear graident in Sketch
+Sketch is a software to draw vector image. Many UI design use it for mobile app design. Before we dive into the rn-svg, I would like to show you how to draw linear gradient in Sketch, which will greatly help us udnerstand the linear gradient int SVG.
+
+![](images/lg-sketch1.png)
+
+Here is how we add linear-gradient to text color. Notice that we using three points, each of which has a unique color. The first point is blue, the second is purple, the third one is red. We can arrange the position of three points, then the linear-gradient might be horizontal, vertical, or any other direction.
+
+![](images/lg-sketch2.png)
+
+The start and end point has their coordinate, which is important to us, it will form the direction of gradient.
+
+![](images/lg-sketch3.png)
+
+To draw the linear gradient above, SVG would have such code:
+
+```xml
+<LinearGradient x1=0 y1=0 x2=1 y2=1>
+  <Stop stopColor=“blue”   offset=“0”  />
+  <Stop stopColor=“purple” offset=“0.3”/>
+  <Stop stopColor=“red”    offset=“1”  />
+</LinearGradient>
+```
