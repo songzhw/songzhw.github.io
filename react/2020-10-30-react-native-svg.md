@@ -240,3 +240,7 @@ Let's see an example. We now have a "brick.jpg", which is an image of a small pi
 The brick.jpg is only a size of (width: 20, height:20), so the Pattern's image would repeat over and over inside this rectange.
 
 p.s. yes, `<Pattern>` is also an element that should be defined inside `<Defs>`. 
+
+
+# 4. Conclusion
+React-Native-SVG, along with React-Native-Art, is a great tool that help you draw shapes in the React Native apps as you wish. And rn-svg is also a powerful weapon that enables you to draw many complex shapes or images. Enjoy your journey with rn-svg~
