@@ -219,3 +219,24 @@ With different `fill` value, now we got different icon:
 
 
 ## 3.4 pattern
+When you try to fill a huge rectange, not with color, but with an image. Let's say if the image is far smaller than the rectange, and we would like to repeat the image over and over again inside the rectange, then we could declare the image as a `Pattern`, and fill t he rectange with this pattern. 
+
+![](images/svg-pattern.png)
+
+Let's see an example. We now have a "brick.jpg", which is an image of a small piece of brick wall. Now we need a huge wall. How could we implement it?
+
+```xml
+<Svg>
+  <Defs>
+    <Pattern id="brick">
+      <Image href={requires("brick.jpg")}/>
+    </Pattern>
+  </Defs>
+
+  <Rect x={0} y={0} width={100} height={80} fill="url(#brick)"/>
+</Svg>  
+```
+
+The brick.jpg is only a size of (width: 20, height:20), so the Pattern's image would repeat over and over inside this rectange.
+
+p.s. yes, `<Pattern>` is also an element that should be defined inside `<Defs>`. 
