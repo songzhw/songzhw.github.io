@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="768px" height="1099px" viewBox="0 0 768 1099" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 2</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="A3-Copy" transform="translate(-34.000000, -77.000000)">
+            <g id="Group-2" transform="translate(34.000000, 77.000000)">
+                <text id="Android" font-family="OpenSans-Bold, Open Sans" font-size="28" font-weight="bold" letter-spacing="-0.560000086" fill="#000000">
+                    <tspan x="17.3633206" y="30">Android</tspan>
+                </text>
+                <text id="Flutter" font-family="OpenSans-Bold, Open Sans" font-size="28" font-weight="bold" letter-spacing="-0.560000086" fill="#000000">
+                    <tspan x="317.019571" y="30">Flutter</tspan>
+                </text>
+                <g id="Group" transform="translate(1.000000, 76.000000)">
+                    <rect id="Rectangle" fill="#9C27B0" x="0" y="0" width="222" height="99" rx="6.4"></rect>
+                    <text id="LinearLayout" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#FFFFFF">
+                        <tspan x="26.8600005" y="58">LinearLayout</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-3" transform="translate(58.000000, 197.000000)">
+                    <rect id="Rectangle" fill="#77038A" x="9" y="0" width="156" height="99" rx="6.4"></rect>
+                    <text id="Weight" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#FFFFFF">
+                        <tspan x="41.2659378" y="59">Weight</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy" transform="translate(1.000000, 325.000000)">
+                    <rect id="Rectangle" fill="#9C27B0" x="0" y="0" width="222" height="99" rx="6.4"></rect>
+                    <text id="RelativeLayout-(to-p" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#FFFFFF">
+                        <tspan x="15.2793756" y="41">RelativeLayout</tspan>
+                        <tspan x="39.103438" y="76">(to parent)</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-2" transform="translate(1.000000, 457.000000)">
+                    <rect id="Rectangle" fill="#9C27B0" x="0" y="0" width="222" height="99" rx="6.4"></rect>
+                    <text id="RelativeLayout-(to-s" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#FFFFFF">
+                        <tspan x="15.2793756" y="41">RelativeLayout</tspan>
+                        <tspan x="41.1881255" y="76">(to sibling)</tspan>
+                    </text>
+                </g>
+                <g id="Group" transform="translate(287.000000, 76.000000)">
+                    <rect id="Rectangle" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="Row,-Column" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="154.227188" y="58"> Row, Column</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-7" transform="translate(287.000000, 457.000000)">
+                    <rect id="Rectangle" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="(no-solution-here)" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="125.938438" y="58">(no solution here)</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-5" transform="translate(287.000000, 325.000000)">
+                    <rect id="Rectangle" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="Stack,-Positioned" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="126.321251" y="58"> Stack, Positioned</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-4" transform="translate(394.000000, 192.000000)">
+                    <rect id="Rectangle" fill="#96D19E" x="0" y="0" width="374" height="99" rx="6.4"></rect>
+                    <text id="Expanded(flex=*)" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="74.1284382" y="58">Expanded(flex=*)</tspan>
+                    </text>
+                </g>
+                <text id="Web" font-family="OpenSans-Bold, Open Sans" font-size="28" font-weight="bold" letter-spacing="-0.560000086" fill="#000000">
+                    <tspan x="28.4542579" y="684">Web</tspan>
+                </text>
+                <rect id="Rectangle" fill="#9C27B0" x="1" y="725" width="222" height="99" rx="6.4"></rect>
+                <rect id="Rectangle-Copy" fill="#9C27B0" x="2" y="857" width="222" height="99" rx="6.4"></rect>
+                <text id="position:-absolute" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#FFFFFF">
+                    <tspan x="57.8793754" y="768">position: </tspan>
+                    <tspan x="57.7087503" y="803">absolute</tspan>
+                </text>
+                <text id="position:-relative" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#FFFFFF">
+                    <tspan x="58.8793754" y="900">position: </tspan>
+                    <tspan x="66.3650003" y="935">relative</tspan>
+                </text>
+                <g id="Group" transform="translate(277.000000, 725.000000)">
+                    <rect id="Rectangle" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="Positioned" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="173.7375" y="58">Positioned</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-6" transform="translate(273.000000, 989.000000)">
+                    <rect id="Rectangle" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="Flex,-Row,-Column" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="124.838126" y="58">Flex, Row, Column</tspan>
+                    </text>
+                </g>
+                <g id="Group" transform="translate(277.000000, 857.000000)">
+                    <rect id="Rectangle" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="Align" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="208.485938" y="58">Align</tspan>
+                    </text>
+                    <text id="(Flex-is-the-parent" font-family="Osaka" font-size="14" font-weight="normal" letter-spacing="-0.280000043" fill="#030303">
+                        <tspan x="138.751563" y="218">(Flex is the parent of the latters)</tspan>
+                    </text>
+                </g>
+                <g id="Group" transform="translate(0.000000, 989.000000)">
+                    <rect id="Rectangle" fill="#9C27B0" x="0" y="0" width="222" height="99" rx="6.4"></rect>
+                    <text id="FlexBox" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#FFFFFF">
+                        <tspan x="61.6084378" y="58">FlexBox</tspan>
+                    </text>
+                </g>
+                <text id="(only-one-child)" font-family="Osaka" font-size="14" font-weight="normal" letter-spacing="-0.280000043" fill="#030303">
+                    <tspan x="467.950938" y="943">(only one child)</tspan>
+                </text>
+                <text id="(try-combine-row-and" font-family="Osaka" font-size="14" font-weight="normal" letter-spacing="-0.280000043" fill="#030303">
+                    <tspan x="386.676251" y="543">(try combine row and column multiple times)</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>
