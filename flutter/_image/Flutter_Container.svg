@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1516px" height="950px" viewBox="0 0 1516 950" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 2</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="A3-Copy-2" transform="translate(-28.000000, -53.000000)">
+            <g id="Group-2" transform="translate(28.000000, 53.000000)">
+                <text id="Flutter" font-family="OpenSans-Bold, Open Sans" font-size="28" font-weight="bold" letter-spacing="-0.560000086" fill="#000000">
+                    <tspan x="19.0195706" y="30">Flutter</tspan>
+                </text>
+                <rect id="Rectangle-Copy-2" fill="#9C27B0" x="0" y="469" width="222" height="99" rx="6.4"></rect>
+                <text id="Container" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#FFFFFF">
+                    <tspan x="50.9340629" y="531">Container</tspan>
+                </text>
+                <g id="Group" transform="translate(234.000000, 127.000000)">
+                    <rect id="Rectangle-Copy-2" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="padding,-margin" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="137.895313" y="58">padding, margin</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy" transform="translate(234.000000, 256.000000)">
+                    <rect id="Rectangle-Copy-2" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="width,-height" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="156.694688" y="58">width, height</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-4" transform="translate(234.000000, 679.000000)">
+                    <rect id="Rectangle-Copy-2" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="width,-height" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="156.694688" y="58">width, height</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-8" transform="translate(893.000000, 424.000000)">
+                    <rect id="Rectangle-Copy-2" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="width,-height" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="156.694688" y="58">width, height</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-10" transform="translate(893.000000, 543.000000)">
+                    <rect id="Rectangle-Copy-2" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="width,-height" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="156.694688" y="58">width, height</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-5" transform="translate(234.000000, 671.000000)">
+                    <rect id="Rectangle-Copy-2" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="decoratoin" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="171.440625" y="58">decoratoin</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-14" transform="translate(234.000000, 808.000000)">
+                    <rect id="Rectangle-Copy-2" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="alignment" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="177.121563" y="58">alignment</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-9" transform="translate(893.000000, 424.000000)">
+                    <rect id="Rectangle-Copy-2" fill="#EF6C00" x="0" y="0" width="565" height="99" rx="6.4"></rect>
+                    <text id="color,-image,-gradie" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#FFFFFF">
+                        <tspan x="143.636563" y="58">color, image, gradient</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-11" transform="translate(893.000000, 543.000000)">
+                    <rect id="Rectangle-Copy-2" fill="#EF6C00" x="0" y="0" width="566" height="99" rx="6.4"></rect>
+                    <text id="border,-borderRadius" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#FFFFFF">
+                        <tspan x="60.5850014" y="59">border, borderRadius, boxShadows</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-12" transform="translate(892.000000, 662.000000)">
+                    <rect id="Rectangle-Copy-2" fill="#EF6C00" x="0" y="0" width="566" height="99" rx="6.4"></rect>
+                    <text id="shape" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#FFFFFF">
+                        <tspan x="245.415625" y="58">shape</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-13" transform="translate(892.000000, 781.000000)">
+                    <rect id="Rectangle-Copy-2" fill="#EF6C00" x="0" y="0" width="566" height="99" rx="6.4"></rect>
+                    <text id="backgorundBlendMode" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#FFFFFF">
+                        <tspan x="137.390313" y="58">backgorundBlendMode</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-3" transform="translate(234.000000, 542.000000)">
+                    <rect id="Rectangle-Copy-2" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="color" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="208.595313" y="58">color</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-6" transform="translate(234.000000, 523.000000)">
+                    <rect id="Rectangle-Copy-2" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="color" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="208.595313" y="58">color</tspan>
+                    </text>
+                </g>
+                <text id="(minWidth,-maxWidht," font-family="Osaka" font-size="14" font-weight="normal" letter-spacing="-0.280000043" fill="#030303">
+                    <tspan x="324.17297" y="488">(minWidth, maxWidht, minHeight, maxHeight)</tspan>
+                </text>
+                <text id="(minWidth,-maxWidht,-Copy" font-family="Osaka" font-size="14" font-weight="normal" letter-spacing="-0.280000043" fill="#030303">
+                    <tspan x="324.17297" y="469">(minWidth, maxWidht, minHeight, maxHeight)</tspan>
+                </text>
+                <g id="Group-Copy-2" transform="translate(234.000000, 404.000000)">
+                    <rect id="Rectangle-Copy-2" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="constraints" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="168.11125" y="58">constraints</tspan>
+                    </text>
+                </g>
+                <g id="Group-Copy-7" transform="translate(234.000000, 385.000000)">
+                    <rect id="Rectangle-Copy-2" fill="#C7EDCC" x="0" y="0" width="481" height="99" rx="6.4"></rect>
+                    <text id="constraints" font-family="Osaka" font-size="28" font-weight="normal" letter-spacing="-0.560000086" fill="#030303">
+                        <tspan x="168.11125" y="58">constraints</tspan>
+                    </text>
+                </g>
+                <text id="(minWidth,-maxWidht," font-family="Osaka" font-size="14" font-weight="normal" letter-spacing="-0.280000043" fill="#030303">
+                    <tspan x="324.17297" y="483">(minWidth, maxWidht, minHeight, maxHeight)</tspan>
+                </text>
+                <text id="(not-compatible-with" font-family="Osaka" font-size="14" font-weight="normal" letter-spacing="-0.280000043" fill="#030303">
+                    <tspan x="360.260001" y="622">(not compatible with `decoration`)</tspan>
+                </text>
+                <text id="(Fill)" font-family="OpenSans-Bold, Open Sans" font-size="28" font-weight="bold" letter-spacing="-0.560000086" fill="#000000">
+                    <tspan x="892.690742" y="454">(Fill)</tspan>
+                </text>
+                <path id="Line-4" d="M779,709 L818,728.5 L779,748 L779,732 L722,732 L722,725 L779,725 L779,709 Z" fill="#030303" fill-rule="nonzero"></path>
+                <rect id="Rectangle" stroke="#000000" stroke-width="4" x="820" y="357" width="694" height="591"></rect>
+            </g>
+        </g>
+    </g>
+</svg>
