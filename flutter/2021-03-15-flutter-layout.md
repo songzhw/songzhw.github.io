@@ -3,3 +3,6 @@
 
 # Layout - decorating itself
 ![Flutter Container](_image/Flutter_Container.svg)
+
+# Layout - other layouts (not common ones)
+![Flutter Layout](_image/flutter_other_layouts.svg)
