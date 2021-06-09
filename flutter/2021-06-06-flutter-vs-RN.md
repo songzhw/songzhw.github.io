@@ -59,5 +59,11 @@ First of all, I have to say I do prefer Flutter. But this kind of preference is 
 
   Points: Flutter(5.5) -- React Native(2.5)
 
+## 8. Upgrade  
+  Every time React Native bump its own version, it's kind of a scary future in front of me. I do have different odd issue I had for this kind of upgrade. For example, Flipper's `atomic_notify_one<unsigned long>' is unavailable` error, or many other odd errors.
+
+  For Flutter, the upgrade is simple, a `flutter upgrade` is done, you don't need to worry about your project might encounter many weird errors, and will have no idea how to fix it.
+
+  Points: Flutter(6.5) -- React Native (2.5)
 ## Conclusion
   To be short, Flutter is more easy to use, more stable to develop, and more bright in the future, in my humble opinion. Hope this post help you a little bit if you are concerned which tech stack to choose.  
