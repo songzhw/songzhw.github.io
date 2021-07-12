@@ -65,5 +65,6 @@ First of all, I have to say I do prefer Flutter. But this kind of preference is 
   For Flutter, the upgrade is simple, a `flutter upgrade` is done, you don't need to worry about your project might encounter many weird errors, and will have no idea how to fix it.
 
   Points: Flutter(6.5) -- React Native (2.5)
+  
 ## Conclusion
   To be short, Flutter is more easy to use, more stable to develop, and more bright in the future, in my humble opinion. Hope this post help you a little bit if you are concerned which tech stack to choose.  
