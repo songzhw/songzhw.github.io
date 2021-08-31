@@ -11,4 +11,4 @@ This is actually one of a series posts which mostly focus on several critical is
 ## Long list performance
 
 
-## Call tranditional view
+## Call native view
