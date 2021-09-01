@@ -66,5 +66,26 @@ Wonderful, this means the Jetpack Compose's diff algorithm is much clever than R
 
 ## II. Long list performance
 
+### 2.1 Issues on React Native
+React Native's latest view for List is the `FlatList`. It's powerful as it's easy to use, extend (such as the refresh header, the bottomView, load more pages, ...). However, it has a serious performance blackhole. 
+
+#### 1). item layout
+To get a better performance, you need to calculate every item's height and offset from the top. I never saw such a case that dev have to calculate the size of ListView item in any platform. Not ListView/RecyclerView, not UITableView, not the ListView in Flutter, ... 
+
+I personally think React Native is wasting every dev's time to ask dev to calculate the position for each item. 
+
+#### 2). initialNumberToRender
+To get a better performance, you can point how many items you want to render when you open the page. 
+
+Same comments here, no other platform has asked dev to do so. It's the React Native's responsibility to show just enough items where they are just enough to display in one screen. 
+
+#### 3). Long list
+React Native is doing terribly in this area. If you have 100 items in the list, RN will load all of them in the memory. I, acutally, has such a memory issue in my company's app. The list we had is using pagination, and the JS render frame rate is just dropping to 0ps, and the memory is just keeping growing when we load more and more pages. It's really a pain for the dev to handle it for you list. 
+
+
+
+### 2.2 What about Jetpack Compose?
+I'm happy to say Jetpack Compose has no issue in the list as well. From the name, `LazyColumn` already tells us that the loading is lazy. And also it will reuse the item that out of the screen. So the performance is good.
+
 
 ## III. Call tranditional view
