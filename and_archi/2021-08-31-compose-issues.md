@@ -28,7 +28,41 @@ Every time the prop A changes, it will refresh the Parent component/View, which 
 But it's really unnecessary, as `Child` only depends on prop B. The parent ask child to re-render based on a irrelevant prop(A), that's kind of awful. 
 
 ### 1.2 What about Jetpack Compose?
+The same structure, this time we will implement it in Jetpack Compose
 
+```kotlin
+@Composable
+fun ReRenderChild() {
+    println("szw child re-render")
+    Text("child")
+}
+
+@Composable
+fun ReRenderPage() {
+    println("szw parent re-render")
+
+    val input = remember { mutableStateOf("") }
+
+    Column {
+        TextField(
+            value = input.value,
+            onValueChange = { input.value = it },
+            label = { Text("name") },
+        )
+
+        ReRenderChild()
+    }
+}
+```
+
+Every time I input a character in the TextField, the parent will re-render. It's understandable, as the UI need to refresh itself. To my surprise, the ReRenderChild's log does not show. 
+
+Here is the log after I open the page, and then input "szw" (three characters):
+
+![image](../imgs/20210831-jcp-parent-child-rerender.png)
+
+This log has told us that if parent re-renders due to some irrelevant props changes, some children will not re-render along with it. 
+Wonderful, this means the Jetpack Compose's diff algorithm is much clever than React Native. I really like it. No more tons of performance pitfalls ahead of me. I started to like Jetpack Compose since then.
 
 ## II. Long list performance
 
