@@ -48,6 +48,11 @@ Same comments here, no other platform has asked dev to do so. It's the React Nat
 #### 3). Long list
 React Native is doing terribly in this area. If you have 100 items in the list, RN will load all of them in the memory. I, acutally, has such a memory issue in my company's app. The list we had is using pagination, and the JS render frame rate is just dropping to 0ps, and the memory is just keeping growing when we load more and more pages. It's really a pain for the dev to handle it for you list. 
 
+This is the performance of when I open the screen:
+![image](../imgs/20210831-rn-list1.png)
+
+This is what I got when I load several more pages:
+![image](../imgs/20210831-rn-list2.png)
 
 
 ### 2.2 What about Flutter?
