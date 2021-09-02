@@ -93,4 +93,11 @@ This is what I got when I load several more pages:
 I'm happy to say Jetpack Compose has no issue in the list as well. From the name, `LazyColumn` already tells us that the loading is lazy. And also it will reuse the item that out of the screen. So the performance is good.
 
 
-## III. Call tranditional view
+## III. Development Efficience
+Unfortunately, Jetpack Compose has several limit:
+
+1). Compose is not cross-platform, and it's only for Android platform
+
+2). You have to run again to see what happens, whereas ReactNative and Flutter could load immediately after you save the file. For example, Compose would take 30 seconds or even longer to see a change, but ReactNative/Fluuter would just takes less than 1 second.
+
+3). If you are using Compose version of `ConstrantLayout`, you would be in a misery that it takes you too much longer to get what you want. You don't have a preview like you did before in the xml editor. And Compose takes dozens of seconds to see a small change. This is especially a great pain if your app is huge, and you app takes minutes to build and run. 

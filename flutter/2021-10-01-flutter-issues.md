@@ -61,4 +61,10 @@ Lucky for us, Flutter has no such issue. `ListView.builder()` will only generate
 
 
 
-## III. Call tranditional view
+## III. Development Efficience
+
+1). Flutter is cross-platform. Comparing to React and React Native, Flutter supports Web, Windows easily. 
+
+2). Flutter only have one set of code, Dart. And it's enough for every code. 
+
+3). Flutter also have some mechanism like watchman in React. So every little change would refresh in your emulator or device by just a single "cmd + S" (save command).
