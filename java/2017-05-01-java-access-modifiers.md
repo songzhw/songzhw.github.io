@@ -2,11 +2,15 @@
 
 Today I want to create a subclass of "AppCompatDelegateImplV14". But I found out the definition of this class is :
 ```java
+package android.support.v7.app;
+
 class AppCompatDelegateImplV14 extends AppCompatDelegateImplV14 { ...}
 ```
 
-And I failed to try to do this:
+And I failed to try to extend it:
 ```java
+package ca.six.someapp;
+
 public class MyAppComplatDelegateImpl extends AppCompatDelegateImplV14 {...}
 ```
 
