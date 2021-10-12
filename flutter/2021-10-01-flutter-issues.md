@@ -26,9 +26,7 @@ Every time the prop A changes, it will refresh the Parent component/View, which 
 But it's really unnecessary, as `Child` only depends on prop B. The parent ask child to re-render based on a irrelevant prop(A), that's kind of awful. 
 
 ### 1.2 What about Flutter?
-
-
-## II. Long list performance
+Sorry to say that Flutter also have this unnecessary re-render issue, just like React.
 
 ## II. Long list performance
 
