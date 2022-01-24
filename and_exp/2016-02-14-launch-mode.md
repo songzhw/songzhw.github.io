@@ -206,3 +206,8 @@ Task 1  | Task 2
   A  | B
 
 `B->B`, the result would be only one B in the task 2. And the B's `onNewIntent` will get called. 
+
+
+### 3. A(default) --> B(singleInstance)
+Note that even A and B have the same affinity, but now they will stay in two different tasks. 
+These two tasks would have a different taskID, but their task affinity would be the same 
