@@ -199,5 +199,10 @@ Task 1  | Task 2
  :-------------------------:|:-------------------------:
  A  | C <br/> B
 
+### 2. A(default) --> B(singleInstance) --> B(singleInstance)
 
+Task 1  | Task 2
+ :-------------------------:|:-------------------------:
+  A  | B
 
+`B->B`, the result would be only one B in the task 2. And the B's `onNewIntent` will get called. 
