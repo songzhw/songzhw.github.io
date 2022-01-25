@@ -213,6 +213,12 @@ Note that even A and B have the same affinity, but now they will stay in two dif
 These two tasks would have a different taskID, but their task affinity would be the same 
 
 
+### 4. Note
+1. if your `SingleTask` Activity has the default affinity, no matter you add the `NEW_TASK` flag or not, this activity would still lie in the main stack.
+
+2. If you `SingleTask` Activity has its own affinity, then no matter you add the `NEW_TASK` flag or not, this activity would still lie in a different stack from the main stack.
+  -> this applies to `SingleInstance` as well.
+
 # SingleInstancePerTask
 Since Api 31 (Android 12), a new launch mode `SingleInstancePerTask` was coined. Let me show you two examples, and you will get to know it.
 
@@ -275,3 +281,4 @@ Now the tasks are:
  * `SingleTask` can be and not be a root of one task, but `SingleInstancePerTask` must be the root
 
  * `SingleTask` also can have one instance among multiple tasks, but in conjuction with the `FLAG_ACTIVITY_MULTIPLE_TASK`, `SingleInstancePerTask` would make your activity appear in multiple tasks
+
