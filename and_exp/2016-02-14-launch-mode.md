@@ -211,3 +211,29 @@ Task 1  | Task 2
 ### 3. A(default) --> B(singleInstance)
 Note that even A and B have the same affinity, but now they will stay in two different tasks. 
 These two tasks would have a different taskID, but their task affinity would be the same 
+
+
+# SingleInstancePerTask
+Since Api 31 (Android 12), a new launch mode `SingleInstancePerTask` was coined. Let me show you two examples, and you will get to know it.
+
+## Background
+* MainActivity (no affinity, no launchMode)
+* A (affinity = ca.six.t2, no launchMode)
+* B (affinity = ca.six.t2, launchMode = SingleInstancePerTask)
+* C (affinity = ca.six.t3, launchMode = SingleInstancePerTask)
+
+## Experiment 1
+`Main -> A -> B`
+
+If B's launchMode is `singleTask`, then B will find out there already is a task it needs (ca.six.t2), so the tasks would be:
+
+Task 1  | Task 2
+ :-------------------------:|:-------------------------:
+Main |  B <br/> A 
+
+
+But now B's luanch mode is `singleInstancePerTask`, which would **make your activity as a root of a task**, so B would never stay with the same task with A since A is already the root of task2.
+
+Task 1  | Task 2 | Task3
+ :----:|:----:|:----:
+ Main | A  | B
