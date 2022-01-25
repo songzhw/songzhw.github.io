@@ -219,6 +219,8 @@ These two tasks would have a different taskID, but their task affinity would be 
 2. If you `SingleTask` Activity has its own affinity, then no matter you add the `NEW_TASK` flag or not, this activity would still lie in a different stack from the main stack.
   -> this applies to `SingleInstance` as well.
 
+3. Affinity matters in the `SingleTask` Activity. But it does not matter in the `SingleInstance` Activity. You would have a separate stack any way for a `SingleInstance` Activity.	
+
 # SingleInstancePerTask
 Since Api 31 (Android 12), a new launch mode `SingleInstancePerTask` was coined. Let me show you two examples, and you will get to know it.
 
