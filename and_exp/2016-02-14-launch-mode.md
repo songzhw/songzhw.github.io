@@ -237,3 +237,4 @@ But now B's luanch mode is `singleInstancePerTask`, which would **make your acti
 Task 1  | Task 2 | Task3
  :----:|:----:|:----:
  Main | A  | B
+ 
