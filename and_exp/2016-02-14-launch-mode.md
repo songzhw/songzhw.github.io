@@ -237,4 +237,41 @@ But now B's luanch mode is `singleInstancePerTask`, which would **make your acti
 Task 1  | Task 2 | Task3
  :----:|:----:|:----:
  Main | A  | B
+
+## Experiment 2
+`Main -> A -> B -> C -> B`
+
+ The tasks would be:
+ Task 1  | Task 2 | Task3 | Task4
+ :----:|:----:|:----:|:----:
+ Main | A  | B | C
+
+ And the second B actually is not created, in fact. It just called B's `onNewIntent()` method as this new launchMode will keep a single instance per task
+
+ You may ask, but two B does not result in two task, what happened?
+
+## Experiment 3
+`Main -> A -> B -> C --FLAG_MULTIPLE_TASK--> B`
+
+We this time just add one more line of code:
+
+```kotlin
+            val intent = Intent(this, B::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+            startActivity(intent)
+```
+
+Now the tasks are:
+
+ Task 1  | Task 2 | Task3 | Task4 | Task 5
+ :----:|:----:|:----:|:----:|:----:
+ Main | A  | B | C | B
+
+ ## Conclusion
+
+ * `SingleInstance`'s task can only have one Activity instance
+   * but `SingleInstancePerTask` is different, the task can have many activities, just need to make sure the `SingleInstancePerTask` activity is the root activity of this task
  
+ * `SingleTask` can be and not be a root of one task, but `SingleInstancePerTask` must be the root
+
+ * `SingleTask` also can have one instance among multiple tasks, but in conjuction with the `FLAG_ACTIVITY_MULTIPLE_TASK`, `SingleInstancePerTask` would make your activity appear in multiple tasks
