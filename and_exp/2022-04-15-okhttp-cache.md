@@ -19,6 +19,41 @@ With just a simple line of `.cache(cache)`, OkHttp can handle the `cache-control
 How wonderful it is, but is it real?  
 Sadly, no. It has some pitfalls to watch out. 
 
+### How OkHttp cache the response?
+OkHttp would save the response, along with its headers, to the file system you pointed. Normally you would have two files: 
+* `<ID>.0` file to save the headers info
+* `<ID>.1` file to save the response body
+
+![309602a408ca9883be2df837da8f21be.png](_image/309602a408ca9883be2df837da8f21be.png)
+
+
+I will show one example here:
+```
+// <ID>.0 file
+
+http://192.168.2.246:8899/data
+GET
+0
+HTTP/1.1   200 OK
+8
+Content-Type: application/json; charset=utf-8
+Content-Length: 22
+Connection: keep-alive
+Keep-Alive: timeout=5
+X-Powered-By: Express
+Date: Wed, 06 Apr 2022   20:26:21 GMT
+OkHttp-Sent-Millis: 1649276782112
+OkHttp-Received-Millis: 1649276782130
+```
+
+
+```
+// <ID>.1 file
+{"id":23,"name":"szw"}
+```
+
+If you only saw a `journey` file in your cache folder, no `.0` adn `.1` files, then it means OkHttp does not cache the response for you. I had this issue as well, and we will discuss more details in the `pitfall2` section.
+
 
 ## Pitfall 1: The value of `if-modified-since`
 If your backend sent out the `last-modified` header, then OkHttp would save this value, and put it as the value of the next Request's `if-modified-since` header.
