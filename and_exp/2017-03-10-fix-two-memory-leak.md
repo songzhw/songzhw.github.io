@@ -21,7 +21,7 @@ public class FloatingDemo03 extends Activity{
 
 Here is the leak report:
 
-![](./_image/2017-03-09-20-25-41.jpg)
+![Image not found: ./_image/2017-03-09-20-25-41.jpg ](./_image/2017-03-09-20-25-41.jpg "" "Image not found: ./_image/2017-03-09-20-25-41.jpg ")
 
 
 This leak is very easy to spot. `self` is a static field. A static field has a long lifecycle that is as long as the whole application. So even you want to finish this FloatingDemo03, Android could not GC it since this Activity object still have strong reference.
