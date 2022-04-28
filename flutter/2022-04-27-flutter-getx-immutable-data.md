@@ -72,6 +72,10 @@ class FoodItem {
 class CartViewModel {
     RxList<FoodItem> cart = <FoodItem> [].obs;
     
+    void add(food) {
+        final item = find(food);
+        item.quantity++;
+    }
 }
 ```
 
@@ -81,6 +85,27 @@ class CartViewModel {
 
 
 ## 4. Solution to fix the issue
+Since our ViewModel class is hosting a `RxList`, which means it should have notified widgets about the item change. 
+Combined step 2 and step 3 together, then I realized that the RxList would notify listener only when it has new items. If you just modify the existing items, the RxList has no changes. 
 
+Now I can understand why. The RxList just a container of a bunch of memory address. If the address is not changed, just the content of the memory address (or, you can call it "pointer" in C language), Getx does not know there is a chagne undergoing. 
+
+
+It dawned on me that this is exactly why React Redux would ask us to use `immutable data`. Oh, the Getx, just like React Redux, is a notifier system, and it should have the immutable data as well. 
+
+Finally the solution is just so obvious: `to use immutable data`. Here is what I did, and I succeed refrsehing the page with this solution.
+```dart
+// instead of use `item.quantity++`, we now change to use this function:
+  void changeCount(FoodItem item, int change) { // change can be 1, or -1
+    final index = cart.indexOf(item); // save the oreder of items
+    cart.remove(item);
+    final newItem = FoodItem(food: item.food, quantity: (item.quantity + change));
+    cart.insert(index, newItem); // add(item), insert(index, item)
+  }    
+```
 
 ## 5. Conclusion
+1. Apparently the experience of React Redux helped me out of this trouble
+So it would be nice to know different tech stack. It might help you sometimes
+
+2. The Getx should save `immutable data` as a `Rx<**>` value, especially for the object type.
