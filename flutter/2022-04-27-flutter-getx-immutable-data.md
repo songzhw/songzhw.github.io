@@ -62,6 +62,23 @@ By doing so, every time we click a button,
 
 ## 3. Got an issue with Getx
 
+However, I found out I find an issue with Getx. I am making a shopping Cart class, and natually it has such model classes as below:
+```dart
+class FoodItem {
+    final Food food;
+    int quantity;
+}
+
+class CartViewModel {
+    RxList<FoodItem> cart = <FoodItem> [].obs;
+    
+}
+```
+
+* step 1.  Every time I click a beef (to add it to the cart) for the first time, the cart would show "beef: 1". That's correct.
+* step 2.  But if I continue clicking the beef three times, and the cart should have refreshed. The cart always shows "beef: 1". Natually it should show "beef: 4".
+* step 3.  Now I click another food, let's say apple, for the first time, then the cart shows correctly: "beef: 4, apple: 1"
+
 
 ## 4. Solution to fix the issue
 
