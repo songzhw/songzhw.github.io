@@ -119,6 +119,13 @@ First, add a new library
 pod `Alamofire`
 ```
 
+Second, we need to get the document path, so we could upload files from it: 
+
+```swift
+let doc = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+print("szw doc path = \(doc)")
+```
+
 Then use Alamofire's `AF.upload()` method:
 
 ```swift
@@ -165,6 +172,15 @@ Also to save file locally, and to read file locally as well, I need the `path_pr
 dependencies:
   path_provider: 2.0.5
   dio: ^4.0.4
+```
+
+Then we need to know the file path, and get a MultipartFile object: 
+
+```dart 
+    Directory directory = await getApplicationDocumentsDirectory();
+      final imageName = "product1.png";
+      final imagePath = "${directory.path}/${imageName}";
+      final file = await MultipartFile.fromFile(imagePath, filename: imageName);
 ```
 
 Then, again, use the Multipart to upload files. 
