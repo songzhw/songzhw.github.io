@@ -110,5 +110,108 @@ interface UploadPhotoApi {
 
 ## iOS
 
+`NSURLSession` is kind of clumsy to handle the uploading. So I used a different approach.
+
+First, add a new library
+
+```yaml
+# Podfile
+pod `Alamofire`
+```
+
+Then use Alamofire's `AF.upload()` method:
+
+```swift
+        let queue = DispatchQueue.global(qos: .utility)
+        let url = "http://192.168.2.246:8899/wallpapers"
+        
+        var params = Dictionary<String, Any>()
+        params["uniqueID"] = "abc12-iOS"
+        
+        let doc = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        print("szw doc path = \(doc)")
+        
+        let bodyFunc = {  (multipartFormData: MultipartFormData) in
+            // add text parameters
+            for (paramKey, paramValue) in params {
+                if let valueString = paramValue as? String {
+                    let data = valueString.data(using: .utf8)
+                    multipartFormData.append(data!, withName: paramKey)
+                }
+            }
+            
+            // add several files
+            for index in 1...3 {
+                let imageName = "carousel0\(index).jpeg"
+                let imagePath = "\(doc)/\(imageName)"
+                let fileUrl = URL.init(fileURLWithPath: imagePath)
+                multipartFormData.append(fileUrl, withName: imageName, fileName: imageName, mimeType: "image/jpg")
+            }
+
+        }
+        
+        AF.upload(multipartFormData: bodyFunc, to: url, method: .post)
+            .responseString(queue: queue) { (stringResponse) in
+                print("szw resp = \(stringResponse)")
+            } //=> szw resp = success("upload 3 files done")
+```
 
 ## Flutter
+Same thing for Flutter, you can use either `http` library or `dio` library. Both libraries support the Multipart approach to upload a file. I am using the latter.
+Also to save file locally, and to read file locally as well, I need the `path_provider` library as well.
+
+```yaml
+# pubspec.yaml
+dependencies:
+  path_provider: 2.0.5
+  dio: ^4.0.4
+```
+
+Then, again, use the Multipart to upload files. 
+
+```dart
+
+  Future<FormData> getFormData() async {
+    Directory directory = await getApplicationDocumentsDirectory();
+
+
+    final data = FormData();
+
+    data.fields.add(MapEntry("uniqueID", "abc-flutter"));
+
+    final ary = <MapEntry<String, MultipartFile>>[];
+    for(int i = 1; i < 4; i++) {
+      final imageName = "product$i.png";
+      final imagePath = "${directory.path}/${imageName}";
+      final file = await MultipartFile.fromFile(imagePath, filename: imageName);
+      final entry = MapEntry("files", file);
+      ary.add(entry);
+    }
+    data.files.addAll(ary);
+
+    // 1. 添加一个文件时用
+    // data.files.add(MapEntry("file", file));
+    // 2. 添加多个文件就要用:
+    // data.files.addAll([MapEntry("files", ~), MapEntry("files, ~)]); //key由file成了files
+
+    return data;
+  }
+
+  Future<void> upload() async {
+    const url = "http://192.168.2.246:8899/wallpapers";
+    final data = await getFormData();
+    final dio = Dio();
+    final response = await dio.post(url, data: data);
+    print(response.data);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: appbar("UploadFilesPage"),
+      body: Column(children: [
+        TextButton(onPressed: upload, child: Text("upload_images")),
+      ]),
+    );
+  }
+```
