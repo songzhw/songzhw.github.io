@@ -42,3 +42,61 @@ Stream<T> myOptionalMap<T>(Stream<T> source, [T Function(T)? map]) async* {
 }
 ```
 
+Another example: 
+```dart
+main() async {
+  var stream = Stream<int>.periodic(const Duration(seconds: 1), (value) => value).take(3);
+  await for (final element in stream) {
+    print(element);
+  } //=> 0,1,2
+}  
+```
+p.s. To use `await` inside, the main function need to be marked as `async`, otherwise there is no waiting when iterating over the stream.
+
+## StreamController
+`StreamController` is actually trying to help us create and control streams. It helps us to generate data without the `yield` by using `add(T)`, also it can close the stream by using `close()` and `isClosed`. 
+
+
+```dart
+final controller = StreamController<int>();
+controller.add(23);
+controller.add(11);
+if (!controller.isClosed) {
+  controller.close();
+}
+
+var stream = controller.stream;
+stream.listen((int value) {
+  print('$value'); //=> 23, 11
+});
+```
+
+## Broadcast
+By default, Stream can only have one listener/observer/downstream. If you have more than one listener, then your app will crash due to `Bad state: Stream has already been listened to` error. 
+
+```dart
+  final ctrl = StreamController();
+  ctrl.add(20);
+  ctrl.add(13);
+
+  ctrl.stream.listen((event) => print('Event: $event'),);
+
+  // 这里会crash, 报错: Bad state: Stream has already been listened to.
+  ctrl.stream.listen((event) => print('second listener: $event')
+```
+
+If you do have the need to multiple listener, then you have to use `asBroadcastStream()` function to convert a default stream to a broadcast stream.
+```dart
+main() {
+  final ctrl = StreamController();
+  ctrl.add(20);
+  ctrl.add(13);
+
+  final bc = ctrl.stream.asBroadcastStream();
+  bc.listen((event) => print('A: $event'),); //=> A20, A13
+
+  // no crash anymore
+  bc.listen((event) => print('B: $event'));  //=> B20, B13
+} 
+
+```
