@@ -8,5 +8,23 @@ Rx world has two famous concept:
 
 This article is mostly about how to create stream, or how to create Observable for us. 
 
-## create Observable with several existing data
+## cheat sheet
+| RxJS                 | RxJava             | RxDart                                           |
+|----------------------|--------------------|--------------------------------------------------|
+| of(1,2,3)            | same as RxJS       | Stream.fromIterable([1,2,3])                     |
+| range(start, count)  | same as RxJS       | Rx.range(start, end)                             |
+| repeat(count)        | same as RxJS       | Rx.repeat( index=> Stream.value(index*2), count) |
+| repeatWhen(ob2)      | same as RxJS       | x                                                |
+| -----                | -----              | -----                                            |
+| timer(time)          | same as RxJS       | Rx.timer(value, duration)                        |
+| interval(time)       | same as RxJS       | Stream.periodic(duration, index => index)        |
+| -----                | -----              | -----                                            |
+| fromPromise(promise) | fromFuture(f)      | fromFuture(f)                                    |
+| fromEvent(ev)        | RxBinding lib      | x                                                |
+| -----                | -----              | -----                                            |
+| Subject              | Processor, Subject | Subject                                          |
+| AsyncSubject         | AsyncSubject       | x                                                |
+| PublishSubject       | PublishSubject     | PublishSubject                                   |
+| BehaviorSubject      | BehaviorSubject    | BehaviorSubject                                  |
+| ReplaySubject        | ReplaySubject      | ReplaySubject                                    |
 
