@@ -35,3 +35,56 @@ class SomePage extends StatelessWidget {
 ```
 
 ## Issue 2. how to dispose subscription?
+Streams like `Stream.periodic()` would send infinite data, and wouldn't stop it even we exit the page that start this periodic work. If you are familiar with RxJava or RxJS, then what we need is to add a CompositeSubscription to handle the RxDart's subscription, and release it when the page is destroyed. 
+
+## Issue 2.2 no `onDestroy` method in a StatelessWidget
+Unfortunately, when we use Getx, we prefer StatelessWidget.
+And StatelessWidget has no `dispose` method or `onDestroy` method for us to dispose the subscriptions. 
+
+The solution for it is to use Getx's GetxController, which has a `onInit` and `onClose` lifecycle callback. 
+
+```dart
+// 1. Base GetxController
+class BaseRxCtrl extends Getx.GetxController {
+  final disposables = CompositeSubscription();
+
+  @override
+  void onClose() {
+    disposables.dispose();
+    super.onClose();
+  }
+
+}
+
+// 2. Extension method : to clear subscripton more easier
+extension ClearRx on StreamSubscription {
+  void clearBy(CompositeSubscription mgr) {
+    mgr.add(this);
+  }
+}
+
+
+// 3. Stateless Widget
+class SomePage extends StatelessWidget {
+  final ctrl = Getx.Get.put(MergeController());
+  ...
+
+    OutlinedButton(
+      onPressed: () { ctrl.work(); },
+      child: const Text("work")
+    ),
+
+}  
+
+// 4. GetxController for one specific page
+class MergeController extends BaseRxCtrl {
+  void work(){
+    Rx.concat([stream1, stream2]) 
+        .listen(print)
+        .clearBy(disposables);
+  }
+
+}
+```
+
+```
