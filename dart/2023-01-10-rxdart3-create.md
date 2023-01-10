@@ -20,11 +20,12 @@ This article is mostly about how to create stream, or how to create Observable f
 | interval(time)       | same as RxJS       | Stream.periodic(duration, index => index)        |
 | -----                | -----              | -----                                            |
 | fromPromise(promise) | fromFuture(f)      | fromFuture(f)                                    |
+| x                    | fromCallable()     | fromCallable()                                   |
 | fromEvent(ev)        | RxBinding lib      | x                                                |
 | -----                | -----              | -----                                            |
 | Subject              | Processor, Subject | Subject                                          |
 | AsyncSubject         | AsyncSubject       | x                                                |
-| PublishSubject       | PublishSubject     | PublishSubject                                   |
+| Subject              | PublishSubject     | PublishSubject                                   |
 | BehaviorSubject      | BehaviorSubject    | BehaviorSubject                                  |
 | ReplaySubject        | ReplaySubject      | ReplaySubject                                    |
 
