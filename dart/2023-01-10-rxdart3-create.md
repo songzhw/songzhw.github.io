@@ -11,6 +11,7 @@ This article is mostly about how to create stream, or how to create Observable f
 ## cheat sheet
 | RxJS                 | RxJava             | RxDart                                           |
 |----------------------|--------------------|--------------------------------------------------|
+|    x                 |        x           | StreamControler.stream                           |
 | of(1,2,3)            | same as RxJS       | Stream.fromIterable([1,2,3])                     |
 | range(start, count)  | same as RxJS       | Rx.range(start, end)                             |
 | repeat(count)        | same as RxJS       | Rx.repeat( index=> Stream.value(index*2), count) |
