@@ -96,3 +96,19 @@ Rx.merge([
 
 
 # high-order observable
+Unfortunately, `rxdart: ^0.27.7` still has not support the high-order observable very well. High-order observable means the observables that emit not the data T, but emit the Observable<T>. 
+
+And all the `concatAll`, `mergeAll`, `zipAll`, `combineAll`, `switchAll`, `exhaust` operators that exist in RxJS, are all missing in the RxDart.  Hope the RxDart team will bring them into the RxDart world in the future. 
+
+The only high-order operator I can introduce is `switchLatest`.
+```dart
+    Rx.switchLatest(
+      Stream.fromIterable(<Stream<String>>[
+        Rx.timer('A', const Duration(seconds: 2)),
+        Rx.timer('B', const Duration(seconds: 1)),
+        Stream.value('C'),
+      ]),
+    ).listen(print).clearBy(disposables); //=> C
+```    
+
+Note that the switchLatest's data is no longer string, but the `Stream<String>`. And it will only emit most-recently-emitted data, which is C in the previous example. 
