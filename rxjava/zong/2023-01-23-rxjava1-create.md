@@ -159,3 +159,73 @@ ob = Observable.generate(
         var ob = Observable.just(2, 3)  //=> 2, 3
         var ob = Observable.range(2, 3) //=> 2, 3, 4
 ```
+
+
+## 1.3 特别的流
+
+即: empty, error, never三个static方法, 也能产生流. 不过这些流有一点区别: 
+
+
+```kotlin
+var ob = Observable.empty<Int>() //=> 不会发onNext(), 直接onComplete
+var ob = Observable.error(IOException("temp error")) //=> 直接onError
+var ob = Observable.never() //不发onNext, 也不发onComplete, 也不发onError
+```
+
+
+## 1.4 from系
+
+Observable还有一系列以from为前缀的static方法, 用来把其它的方法转化为Observable. 
+
+* 从 ()->Unit 方法转化为流: `fromAction`, `fromRunnable`
+* 从 ()->T 方法转化为流: `fromCallable`, `fromSupplier`
+* 把数据结构转化为流: 
+
+  * 数组: `fromArray`
+  * Iterable: `fromIterable`, 它适用于Iterable的子类, 即List, Set, Range.
+
+* 从Single, Maybe, Completable转化为流: `fromSingle`, `fromMaybe`, `fromCompletable`
+
+* 把Publisher及它的Processor转化为流: `fromPublisher`
+* 一些java8中使用的, 但Kotlin中使用的少的: `fromOptinal`, `fromFuture`, `fromStream`
+
+
+```kotlin
+fun getCache1() = 100
+fun getCache2() = "hello"
+fun getCache3() = 300
+
+// 参数是: () -> unit   (所以不会走onNext, 只会走complete)
+var ob = Observable.fromAction<Int>{ this.getCache1()}
+ob = Observable.fromRunnable { this.getCache3() }
+
+// 参数是: () -> T
+ob = Observable.fromCallable { this.getCache1() } //=> 100, completed
+ob = Observable.fromSupplier { this.getCache3() } //=> 300, completed
+
+// 从数据结构中转化
+val ary = arrayOf(9, 5, 3)
+ob = Observable.fromArray(*ary) //=> 9, 5, 3
+var list = listOf(4, 1)
+ob = Observable.fromIterable(list) //=> 4, 1,
+ob = Observable.fromIterable(3..5) //=> 3, 4, 5
+
+// 从特别流中转化
+val single_ = Single.just(3)
+ob = Observable.fromSingle(single_) //=> 3
+ob = Observable.fromSingle{ singleObserver ->
+    singleObserver.onSuccess(12)
+} //=> 12
+
+ob = Observable.fromCompletable {
+    it.onComplete()
+} //=> 只有complete
+
+// Maybe就是要么发一个数据(Single), 要么没数据只有终结(Completable)
+ob = Observable.fromMaybe{ maybeObserver -> 
+    maybeObserver.onComplete()
+} //=> 只有complete
+
+```
+
+
