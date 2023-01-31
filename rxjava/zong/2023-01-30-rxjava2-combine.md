@@ -315,3 +315,17 @@ Observable.combineLatest( userApi.getUser(), accountApi.getAccount) // Okay
 
 ### withLatestFrom, combineLatest的区别
 若是上面的例子是用combineLatest, 那当我们只是去调节paint color这个slider, 也会去绘制, 这就有点奇怪了. 应该是有鼠标动作了才开始画画啊
+
+
+## 7. race
+即多个上游都同时开始工作, 哪个上游先提供了数据, 那下游就认准了这个上游, 一直只接受这个上游的数据.
+RxJS中, 这个操作符是叫`race`. 而在RxJava中, 这个操作符叫 `amb`, 即"ambiguous(模棱两可的)"的缩写. 
+
+```kotlin
+  // 这个例子表示ob2胜出了, 会一直输出ob2的数据
+  val ob1 = Observable.interval(2, TimeUnit.SECONDS).map{x -> "A$x"}
+  val ob2 = Observable.interval(1, TimeUnit.SECONDS).map{x -> "B$x"}
+  Observable.ambArray(ob1, ob2)
+      .subscribe { datum -> println("szw $datum") }
+      .clearBy(disposables) //=> B0, B1, B2, B3, B4, ....
+```
