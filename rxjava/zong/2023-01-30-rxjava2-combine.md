@@ -287,3 +287,31 @@ Observable.combineLatest( userApi.getUser(), accountApi.getAccount) // Okay
 ```
 
 ## 6. 节奏$.withLatestFrom(数据$)
+这里的上游有2个, 一个是节奏, 一个是数据. 它们也会把上游数据组合一下再给下游. 但何时发就要看`节奏$`这个流何时发出数据了. 
+
+举个例子, 我们有一个在线手绘的网站. 我们还有一个设置画笔颜色, 画笔宽度的Slider (Android里叫Seekbar). 
+明显我们调节Slider时, 只是在设置数据, 并不需要画画
+但是当我们鼠标开始绘画时, 就要去读取画笔的信息. 
+若下游就是收到数据后进行绘制, 鼠标流提供坐标, 两个Slider的流提供画笔的信息. 那明显是鼠标动了, 才会发数据给下游(即要求下游绘制). 这种场景就适合withLatestFrom
+
+```kotlin
+  val mouseMove_ = Observable.interval(1, TimeUnit.SECONDS).take(3).map { x -> "坐标$x" }
+  val color_ = Observable.interval(100, TimeUnit.MILLISECONDS).take(100).map { x -> "color$x" }
+  val width_ = Observable.interval(150, TimeUnit.MILLISECONDS).take(100).map { x -> "width$x" }
+  mouseMove_.withLatestFrom(
+      color_,
+      width_
+  ) { pos, color, width -> "($pos, $color, $width)" }
+      .subscribe { datum -> println("szw paint $datum") }
+      .clearBy(disposables)
+  //=> 日志如下. 这样子就能看出 `节奏$`.withLatestFrom(`数据$`) 的意思所在了
+  /*
+  2023-01-26 23:27:22.966: szw clicked
+  2023-01-26 23:27:23.968: szw paint (坐标0, color9, width5)
+  2023-01-26 23:27:24.969: szw paint (坐标1, color19, width12)
+  2023-01-26 23:27:25.972: szw paint (坐标2, color29, width18)
+    */
+```
+
+### withLatestFrom, combineLatest的区别
+若是上面的例子是用combineLatest, 那当我们只是去调节paint color这个slider, 也会去绘制, 这就有点奇怪了. 应该是有鼠标动作了才开始画画啊
