@@ -120,6 +120,32 @@ p.s. 经过实践, 发现第二参bufferSize没什么用. 它设置什么值(只
 
 备注: 后面要讲的flatMap也可以有maxCurrency这个参数哦!
 
+
+### 实例
+如点击某一按钮, 与拖动按钮都要启动一个事件(比如说startAnimation), 那就可以用: 
+
+```kotlin
+Observable.merge(clickStream, touchStream)
+  .subscribe { startAnimation() }
+```
+
+又比如说用户在进行一个步骤很多的过程, 为了方便用户有事退出, 我们要每30秒记录下用户进行到哪一步了. 这样下次用户再重新打开这个过程, 我们就会直接进行到上一次保存的地方. 
+同时, 只要用户每进一步, 即我们自己记录的progress有变化, 我们也记录下用户进行到哪一步了.
+即两个流的下游都是一样的操作, 这时我们就可以: 
+
+```kotlin
+val progressStream = Progress.stream()
+val every30Sec = Flowable.interval(30, TimeUnit.SECONDS)
+    .map { time -> Progress.getProgresss()}
+
+Flowable.merge(progressStream, every30Sec)
+  .subscribe { saveProgress(it) }
+
+fun saveProgress(progress: Progress) { ... }  
+```
+
+备注: 这个例子2, 其实有一个细节点. 那就是progressStream是一个Flowable<Progress>, 但是every30Sec是一个Flowable<Long>.  而我们的merge是要求上游都是同样的Flowable<T>, 即数据都是T. 若有一个上游的数据类型不一样, 那就会报错, 编译不了了. 所以我们才在上面使用了map, 来让interval产生的Long类型转化为Progress类型. 
+
 ## 3. flatMap
 flatMap这个名字其实有点让人误解. 但是回顾下RxJS的历史, 能帮我们更加了解它. 
 在RxJS v4版本的阶段, merge流后, 每个数据再map成一个新的流, 这种操作就是叫`mergeMap`
@@ -184,3 +210,80 @@ szw click, 0, 1, szw click, 2, szw click, 3
 
 备注: rxswift中, switchMap没有, 但其实就是 flatMapLatest()
 rxswift中, exhaustMap也没有, 但其实就是 flatMapFirst()
+
+
+### flatMap的应用场景 
+比如打开某一页时, 这个页面要请求2个后台接口才能开始渲染. 但这两个后台接口有依赖关系, 第一个接口要得到userId, 第二个接口使用这个userId去得到userInfo. 这时就适合使用flatMap, 即拿到userId后, 去转化为另一个流, 就可以使用到flatMap
+
+```kotlin
+userApi.getUserId() 
+  .map {resp1 -> resp1.userId}
+  .flatMap {userId -> userApi.getUserInfo(userId)}
+  .map {resp2 -> resp2.jsonToUser()}
+  .subscribe { userInfo-> renderPage(userInfo)}
+```
+
+## 4. zip
+上面的`concat`, `merge`都有一个共同特点, 就是它们的上游的数据都会流到下游去. 比如上游1发出A与B, 而上游2发出C. 那下游一共就会收到三个数据, 被调用三次, 分别是收到A, B, C
+
+那要是所有上游的数据都只提供一部分数据, 最后要组合后给下游 (即下游只收到一次数据). 应用场景就是多线程下载某一文件, 我们分成10份, 每份下载文件的1/10, 每部分都是独立的流. 当然每一个流下载完了自己的部分, 并不能直接给用户. 而应该是要等到所有10份全下载完了, 组装起来才给用户用. 是的, 用户并没有收到10次数据, 只是收到一个组装后的完整数据. 这种情形下, 使用`zip`才是合适的. 
+
+例子: 
+
+```kotlin
+  // zip的任一上游complete时, zip自己就也complete了. 所以结果只看到2对!
+  val ob1 = Observable.interval(100, TimeUnit.MILLISECONDS).take(2).map { x -> "A$x" }
+  val ob2 = Observable.just(3, 9, 13, 15)
+  ob1.zipWith(ob2) { d1, d2 -> "($d1, $d2)" }
+      .subscribe { datum -> println("szw $datum") }
+      .clearBy(disposables) //=> (A0, 3), (A1, 9)
+```
+备注: 从这个事例中也能看到, 只要任一个上游完结了, zip也会完结. 
+
+### zip的上游是同时工作的吗? 
+仍是上面10个小组同时下载同一文件的例子. 那要是每个部分都耗时30秒, 那下游收到数据是30秒之后, 还是300秒(30 * 10)之后呢? 
+: 先给出答案哦, 是30秒. 这样好, 用户就不用等待这么久了. --> 要是300秒, 那其实是concat的耗时啦, 因为concat要等上一个上游完成, 才能开始下一个.  zip则是所有上游都同时里德. 
+
+```kotlin
+  println("szw start the zip")
+  val ob1 = Observable.timer(3, TimeUnit.SECONDS)
+  val ob2 = Observable.just("hi").delay(2, TimeUnit.SECONDS)
+  
+  // 问题是, 耗时了5秒, 还是耗时了3秒?
+  Observable.zip(ob1, ob2) { d1, d2 -> "($d1, $d2)" }
+      .subscribe { datum -> println("szw $datum") }
+      .clearBy(disposables)
+  //=> 2023-01-25 16:34:11.429: szw start the zip
+  //=> 2023-01-25 16:34:14.460 : szw (0, hi)
+  // : 答案是3秒. 所以zip的上游是同时进行的. 这就对于一些进入页面要取多个后台数据的endpoint是有好处的, 更快能拿到结果
+        
+```
+
+## 5. combineLatest
+典型的适用combineLatest的场景就是: 气象站.  
+假设我们有一个气象站, 它会发出(风力, 温度, 风向)的组合数据给天气预报栏目组. 注意, 只要风力, 温度, 风向这三个(上游)有一个数据变化了, 就要发给天气预报组最新的(风力, 温度, 风向)数据.  --> 这种场景就是: 任一上游有变化了, 就要把所有上游的数据给组合起来, 并发给下游
+
+```kotlin
+  val ob1 = Observable.interval(5, TimeUnit.MILLISECONDS).take(3).map { x -> "风力$x" }
+  val ob2 = Observable.interval(7, TimeUnit.MILLISECONDS).take(2).map { x -> "$x°C" }
+  Observable.combineLatest(ob1, ob2) { w, t -> "($w, $t)" }
+      .subscribe(
+          { datum -> println("szw $datum") },
+          { err -> println("szw err = $err") },
+          { println("complete") }
+      ).clearBy(disposables)
+  //=> (风力0, 0°C), (风力1, 0°C), (风力1, 1°C), (风力2, 1°C), complete
+       
+```     
+
+### 请求2个后台接口的场景 
+若你进入一个页面, 要请求2个后台接口, 然后把这两个response给组合下给用户. 即所有上游都只会发一次数据. 这时你使用 zip, 或是使用 combineLatest, 都是可以的. 这二者的特点就是都会把所有上游的数据给组合起来再发给下游. 
+
+```kotlin
+Observable.zip( userApi.getUser(), accountApi.getAccount) // Okay
+
+Observable.combineLatest( userApi.getUser(), accountApi.getAccount) // Okay
+
+```
+
+## 6. 节奏$.withLatestFrom(数据$)
