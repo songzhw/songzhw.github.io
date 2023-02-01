@@ -329,3 +329,72 @@ RxJS中, 这个操作符是叫`race`. 而在RxJava中, 这个操作符叫 `amb`,
       .subscribe { datum -> println("szw $datum") }
       .clearBy(disposables) //=> B0, B1, B2, B3, B4, ....
 ```
+
+## 8. switchMap
+这是说若持续有流过来, 但上一个流还没做完, 又来了新流. 这时switchMap就会取消掉这个正在做的流, 马上执行新流. 是的, "喜新厌旧"就是switchMap.
+
+使用场景就是常见的点击按钮就去做一个耗时的操作(如去数据库读取, 或是去后台接口读取数据). 但有时用户手误, 或是心急, 一下子点了好几次按钮, 这里要不做下处理, 那就会是执行多次流的请求. 这明显是多余的. 
+```kotlin
+btnRequestBackend.clicks // RxBinding
+  .flatMap { userApi.getUser() }
+  .map { resp -> resp.body?.string()}
+  .subscribe{ user -> renderPage(user) }
+```
+
+要是在这种场景下,我们用switchMap来处理, 那就会是点击多次也没用, 只要还在执行上一个流, 来了新流, 那新流就会生效, 正在执行的旧流就会停止. 这就保证了不会有多次请求.
+```kotlin
+btnRequestBackend.clicks // RxBinding
+  .flatMap { userApi.getUser() }
+  .map { resp -> resp.body?.string()}
+  .subscribe{ user -> renderPage(user) }
+```
+
+另一个更加说明switchMap工作情况的例子: 
+```kotlin
+  var index1 = 0
+  btnSwitch.clicks()
+      .doOnNext { index1++ }
+      .switchMap { _ ->  Observable.interval(2, TimeUnit.SECONDS).map{y -> "(第${index1}次点击, 数据=$y)"}.take(4)}
+      .subscribe { datum -> println("szw $datum") }
+      .clearBy(disposables)
+  //=> 点击一次 (第1次点击, 数据0), (第1次点击, 数据1), (第1次点击, 数据2)
+  //=> 再点一下 (第2次点击, 数据0), (第1次点击, 数据1)
+  //=> 再点一下 (第3次点击, 数据0), (第3次点击, 数据1), ...
+```
+
+## 9. exhaustMap
+RxJS中有`exhaustMap`. 仍以上面的多次点击一按钮为例, switchMap是总是只会执行最新的流. 而exhaust的处理方式正好相反:  *只要前一个流没完成, 新来的流就会被取消掉* . 典型的"干一行, 爱一行", 不贪心多余的. 
+
+可惜不过RxJava中没有这个操作符. 好在我们也可以轻松得利用已有操作符达到这个效果. 其实就是做成一个Flowable, 然后把backpressure strategy设定为DROP, 即上一个没做完, 新来的就会被丢弃. 
+同时为了说同时只能执行一个, 我们还得使用`flatMap(maxConcurrency=1, fn)`这个带maxCoucurreny参数的flatmap:
+```kotlin
+  var index4 = 0
+  btnExhaust.clicks()
+      .doOnNext { index4++ }
+      .toFlowable(BackpressureStrategy.DROP)
+      .flatMap(
+          { _ ->  Flowable.interval(2, TimeUnit.SECONDS).map{ y -> "(第${index4}次点击, 数据=$y)"}.take(4)},
+          1)
+      .subscribe { datum -> println("szw $datum") }
+      .clearBy(disposables) //=> 效果和concatMap一样
+  //=> 点击1次btn, (第1次点击, 数据=0), (第1次点击, 数据=1)
+  //=> 这时再点7下button, (第8次点击, 数据=2), (第8次点击, 数据=3) --> 数据没从0开始, 所以还是第一个ob在执行
+  //=> 现在流停了.  我们再点击button, 这时数据又开始产生了, (第9次点击, 数据=0), (第9次点击, 数据=1), (第9次点击, 数据=2), (第9次点击, 数据=3)
+```
+
+
+## 10. exhaustMap与concatMap
+备注: exhaustMap与concatMap.  concatMap是前一个流还没完成, 新来的流不会被取消, 而是缓存起来, 后面再执行而已.
+
+```kotlin
+  var index2 = 0
+  btnConcat6.clicks()
+      .doOnNext { index2++ }
+      .concatMap { _ ->  Observable.interval(2, TimeUnit.SECONDS).map{y -> "(第${index2}次点击, 数据=$y)"}.take(4)}
+      .subscribe { datum -> println("szw $datum") }
+      .clearBy(disposables)
+  //=> 新的点击来了, 也会等上一个完了, 再执行新的点击ob
+  //=> 点击btn, (第1次点击, 数据=0), (第1次点击, 数据=1), (第1次点击, 数据=2)
+  //=> 再点击btn, (第2次点击, 数据=3), (第2次点击, 数据=0), (第2次点击, 数据=1), (第2次点击, 数据=2), (第2次点击, 数据=3)
+
+```
