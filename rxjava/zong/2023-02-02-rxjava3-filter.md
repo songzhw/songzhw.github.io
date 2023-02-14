@@ -37,3 +37,32 @@
 
 ## take一族
 
+主要是分为take多个元素, 或是take某一时间段内的所有元素. 这些都较简单, 就不详细解释了, 看下面的代码就已经很明白了
+
+```kotlin
+// take(n), takeLast(n)
+    Observable.just(3, 1, 6, 5, 8).take(3)//=> 3, 1, 6
+    Observable.just(3, 1, 6, 5, 8).takeLast(3)//=> 6, 5, 8
+
+// take(time, timeUnit), talkeLast(time, timeUnit)
+    Observable.interval(80, TimeUnit.MILLISECONDS)
+        .take(200, TimeUnit.MILLISECONDS)
+        .subscribe { datum -> println("szw got $datum") } //=> 0,1 (80ms, 160ms)
+
+    Observable.interval(80, TimeUnit.MILLISECONDS)
+        .take(10)
+        .takeLast(200, TimeUnit.MILLISECONDS)
+        .subscribe { datum -> println("szw got $datum") } //=> 7, 8, 9 (640ms, 720ms, 800ms)              
+
+// take没这签名, 但takeLast有, 即: takeLast(count, time, timeUnit)
+// 这时就是若窗口中出M个, 而第一参为count, 那最终就是取 `min(M, count)`个最后的元素
+    Observable.interval(80, TimeUnit.MILLISECONDS)
+        .take(10)
+        .takeLast(2, 200, TimeUnit.MILLISECONDS) //若没第一参, 那就是产出7,8,9一共三个元素
+        .subscribe { datum -> println("szw got $datum") } //=> 8, 9
+
+
+```
+
+注意1: takeLast(count, time, unit)是有的. 但没有take(count, time, unit)这个方法哦!
+
