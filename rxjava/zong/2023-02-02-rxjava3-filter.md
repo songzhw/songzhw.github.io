@@ -66,3 +66,36 @@
 
 注意1: takeLast(count, time, unit)是有的. 但没有take(count, time, unit)这个方法哦!
 
+
+## 其它的一些过滤
+也都是比较简单的操作符, 就只看例子就明白了
+
+### distinct一系
+`distinct`是在整个流中去除
+`distinctUntilChanged`则只是去除连续的重复数据而已.
+
+```kotlin
+    Observable.just(1, 2, 3, 3, 2, 4, 1)
+        .distinct()//=> 1, 2, 3, 4
+
+    Observable.just(1, 2, 3, 3, 2, 4, 1)
+        .distinctUntilChanged()//=> 1,2,3,2,4,1 (只剔除连续的重复数据)          
+                
+```
+
+## 其它的一些过滤符
+
+```kotlin
+ // ignoreElements不关心数据, 只关心完成或出错
+    Observable.just(1, 2, 3, 3, 2, 4, 1)
+        .ignoreElements() //返回一个Completable
+
+
+    Observable.just(1, 4, 7)
+        .elementAt(2) //返回个Maybe. 参数Index是从0开始计算的.
+        .subscribe { println("szw(34) $it") } //=> 7
+
+    Observable.just(1, 4, 7)
+        .elementAt(3, -1) //返回个Single. index是从0开始计算的. 第二参是defaultItem
+        .subscribe { v -> println("szw(35) $v") } //=> -1                
+```
