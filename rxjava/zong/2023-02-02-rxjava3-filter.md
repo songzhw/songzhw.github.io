@@ -83,7 +83,7 @@
                 
 ```
 
-## 其它的一些过滤符
+### 其它的一些过滤符
 
 ```kotlin
  // ignoreElements不关心数据, 只关心完成或出错
@@ -99,3 +99,21 @@
         .elementAt(3, -1) //返回个Single. index是从0开始计算的. 第二参是defaultItem
         .subscribe { v -> println("szw(35) $v") } //=> -1                
 ```
+
+
+--------
+
+# 有损背压
+
+## 背压 (BackPressure)
+
+## throttle
+
+
+## debounce
+
+
+## sample
+
+
+## windows
