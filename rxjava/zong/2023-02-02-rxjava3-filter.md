@@ -152,9 +152,87 @@ ob1.debounce{_ -> Observable.timer(2, TimeUnit.SECONDS)}; // 效果等同于 deb
 ```
 
 ## sample
+上面的debounce是傲娇地说"你不'骚扰'我了, 我才接收数据. 默认我都是全拒收的"
+而sample的策略则是更公平.
+
+### sample(time, timeUnit)
+如`sample(2, TimeUnit.SECONDS)`就是说每2s取一次当前的数据. 中间的间隙里收到数据全给丢弃了, 不要了. 
+
+### sample(ob2)
+这个效果和debounce(ob2)一样, 即ob2发出了数据, 才去取最近的last data. 
+
+```kotlin
+// 就是sample(ob2), 只有当ob2发出数据了才去取最近的last data
+btn32.text = "sample(ob2)"
+btn33.text = "上一按钮的ob2"
+
+btn32.setOnClickListener {
+    Observable.interval(1, TimeUnit.SECONDS)
+        .doOnNext { println("szw next($it)") }
+        .take(30)
+        .sample(btn33.clicks())
+        .prints(disposables, "3A") //btn33一按, 就取一次数据
+}
+```
+
+#### sample的使用案例
+如我们在看书, 每10秒要记录一下用户读到哪了. 这样下次用户再打开我们app, 我们总能回到他上次大致读到了的位置
+这时就可以用: `sample(10s)`
+
 
 
 ## throttle
+throttle的概念在RxJS中比较简单. 但在RxJava一下子变复杂了, 因为RxJava区分出了多种操作符.
+
+### throttleLast
+我们先来看下这个操作符的源码哦: 
+```java
+public final Observable<T> throttleLast(long intervalDuration, @NonNull TimeUnit unit) {
+    return sample(intervalDuration, unit);
+}
+```
+
+现在明白了, 其实这个操作符就是上面学过的`sample(time, timeUnit)`, 即每隔一段时间取个数据. 
+
+### throttleLatest
+throttleLatest基本上是和throttleLast一样的. 只有一个不同点, 那就是: throttlelatest一定会发出第一个数据. **这之后,** 才会开始每隔一段时间取一次
+即: `throttleLatest = 发出第一个数据 + 之后走throttleLast`
+
+### throttleFirst
+这是最难理解的操作符了. 它也是类似于"每隔N秒取一下数据"的思路. 但细节上有点不一样. 
+像`throttleLast`, 它的"每隔N秒取一次数据", 它的前N秒与后N秒(我们可以描述为两个窗口哦)是紧紧相邻的. 中间没有空隙的. 后一个窗口是紧接着上一个窗口的结束. 如每隔2秒取次数据, 那会在第2,4,6,8, ...秒取数据
+
+但是`throttleFirst`的前后两个窗口是基本不相信的.  这里后一个窗口不再紧接上一个窗口的结束. 而是: `后一个窗口开始于下面一个数据发出了`. 
+
+### 团例
+晕了, 没事, 来个例子就完全了解了. 
+
+![图示](./img/image-20230213123408-bx589jo.png)
+
+细节讲解: 
+1). 第一个数据不是一开始就发出来的, 而是延误了100ms才发出第一个数据`0`
+
+2). 在100ms, 200ms, 250ms, 350ms, 500ms, ... 中发出了数据 (即上面表格中第二行有数字的就表示这个时间点发出了数据.) 
+第一行是时间, 单位是ms; 第二行是发出了什么数据; 
+
+3). 第三四五行就是三个操作符的示例了, 它们分别是`throttleFirst(250ms)`, `throttleLast(250ms)`, `throttleLatest(250ms)`.  这三行中的数字, 就是最后的输出. 
+注意, 我用彩色标出了一个个地的框. 每一个颜色的框就是个不同的时间窗口. 
+
+#### 分析结果
+![图示](./img/image-20230213123408-bx589jo.png)
+
+1). `throttleFirst`: 前后两个窗口是不相邻的. 前一个窗口结束了(如[100, 350ms]这个橙色窗口), 这之后的第一个数据(4)发出来了, 那新的时间窗口才开始(黄色)
+最后输出: `0, 4, 7, 11`
+
+2). `throttleLast`: 前后两个窗口是紧紧相邻的
+最后输出: `2, 4, 6, 10, 11`
+
+3). `throttleLatest`: 一定会先发出第一个数据. 第一个数据算一个窗口.  之后再按throttleLast来运行. 
+最后输出: `0, 3, 4, 8, 11`
+
+#### throtttle的使用案例
+我们也可以使用sample(1s), 或throttleLast(1s)去处理短时间内多次点击同一按钮的问题. 这样的策略即是说每1秒才接收一次点击. 你多点击了也没用. 
+
 
 
 
