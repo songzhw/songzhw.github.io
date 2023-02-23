@@ -103,17 +103,59 @@
 
 --------
 
-# 有损背压
+# 背压 (BackPressure)
+上游在短时间内发出大量数据, 多到下游接收不了了. 这个现象就叫背压.  那处理背压的策略主要有两种:
+1). 缓存起来: 若太多了下游接收不了了, 这时策略之一就是缓存起来. 这样等什么时候数据不多时, 我再从缓存中取出来, 保证我下游总能正常地处理  -- 当然, 若一直不停地发, 缓存空间不够了, 那还会造成问题的. 
 
-## 背压 (BackPressure)
+2). 丢弃: 相当于下游搞了一个阀门, 只接收有限的数据. 多余的数据就给丢弃.  这种有所丢失的策略就叫有损背压. 这也是我们这一部分的重点 
 
-## throttle
-
+## 有损背压
+有损背压有throttle, debounce, sample方式. 每种方式的不同仅在于"什么时候开阀门"而已. 下面我们一一来讲解.
 
 ## debounce
 
+### debounce(time, timeUnit)
+若我们有一个按钮, 点击后去请求后台或取数据库数据(总之就是耗时的操作). 我们自然不然用户短时间内多次点击它. 这时我们可以用: 
+`debounce(1, TimeUnit.SECOND)`.
+这样的话, 你怎么点击按钮都不会触发那耗时操作的. 
+只有, 只有当你停止点击按钮后, 一秒后就会触发这个耗时操作.
+
+所以, `doubnece(1s)`其实就是说: `你总发来数据, 我都不处理的; 但是你一旦停了发数据达1s之久, 那我就处理了`. 
+
+
+### debounce(ob2)
+这时的参数是另一个Observable (ob2). 
+
+#### 例子1: 当我点击了另一个按钮, 才触发操作
+```kotlin
+// 点击btn23多次也没用, 就是走不到subscribe这里去
+// 直到你点击了btn24, 马上就走到了subscribe里了
+// 所以debounce(debounceIndicator)就是说参数indicator发出数据了, 这时就不drop了开始接收.
+var num23 = 1
+btn23.text = "debounce indicator2"
+btn24.text = "tirgger prev button's debounce!"
+btn23.clicks()
+    .doOnNext { println("szw clicks") }
+    .map { ++num23 }
+    .debounce { intNumber ->
+        btn24.clicks()
+    }
+    .subscribe { println("szw consume clicking $it") }
+```        
+
+#### 例子2
+所以对于 `ob1.debounce(2s)`, 我们可以用这个重载函数达到一样的效果, 即
+
+```kotlin
+ob1.debounce{_ -> Observable.timer(2, TimeUnit.SECONDS)}; // 效果等同于 debounce(2, TimeUnit.SECONDS);
+
+```
 
 ## sample
 
 
-## windows
+## throttle
+
+
+
+
