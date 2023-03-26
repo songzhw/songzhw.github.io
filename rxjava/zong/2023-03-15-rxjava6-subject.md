@@ -194,3 +194,86 @@ publish在RxJS, RxJava中都有的. 在RxJava中, publish其实就类似于`mult
                 .subscribe { stream2_.prints(disposables, "1I") } //=> 2
 ```
 
+## share
+RxJava中share的源码是: 
+```java
+public final Observable<T> share() {
+    return publish().refCount();
+}
+```
+
+## publish与share
+publish与share两个全是RxJava中的多播操作符  (RxJS中还多一个multicast)
+区别在于: 
+* publish: 等于 multicast(new Subject)
+* share: 等于 multicast(()=> new Subject()).refCount()
+
+
+```kotlin
+           val cold_ = Observable.interval(100, TimeUnit.MILLISECONDS).take(3)
+            val stream2_: Observable<Long> = cold_.share()
+
+            stream2_.prints(disposables, "1K") //=> 0, 1, 2
+            Observable.timer(250, TimeUnit.MILLISECONDS)
+                .subscribe { stream2_.prints(disposables, "1L") } //=> 2
+
+            // 上游完了. 结果不久后又来了新下游. ==> 那SubjectFactory会新生成一个Subject, 即一个新hot ob
+            Observable.timer(350, TimeUnit.MILLISECONDS)
+                .subscribe { stream2_.prints(disposables, "1M") } //=> 0, 1, 2 (惊讶吧!!)
+            Observable.timer(500, TimeUnit.MILLISECONDS)
+                .subscribe { stream2_.prints(disposables, "1N") } //=> 1, 2
+
+```
+
+而publish则是: 
+```kotlin
+            val cold_ = Observable.interval(100, TimeUnit.MILLISECONDS).take(3)
+            val stream2_: ConnectableObservable<Long> = cold_.publish()
+            stream2_.connect()
+
+            stream2_.prints(disposables, "1X") //=> 0, 1, 2
+            Observable.timer(250, TimeUnit.MILLISECONDS)
+                .subscribe { stream2_.prints(disposables, "1Y") } //=> 2
+            Observable.timer(350, TimeUnit.MILLISECONDS)
+                .subscribe { stream2_.prints(disposables, "1P") } //=> 无数据
+            Observable.timer(500, TimeUnit.MILLISECONDS)
+                .subscribe { stream2_.prints(disposables, "1Q") } //=> 无数据
+```
+
+# 解决上面的重复网络请求的问题
+出问题的代码如下, 主要原因就是它是冷流, 即单播, 所以2个下游就相应产生了2个上游, 故请求了两次
+```kotlin
+source = retrofit.create(UserService::class.java)
+    .getUsers()
+    .schedules()
+
+btnRequestUser.setOnClickListener {
+    source
+        .subscribe { resp -> /*刷新列表*/ }
+        .clearBy(disposables)
+    source
+        .subscribe { resp -> /*更新"共有N条数据"的TextView*/ }
+        .clearBy(disposables)        
+}
+```
+
+解决办法, 改为多播, 这样多个下游也能用一个上游来应对.
+
+```kotlin
+source = retrofit.create(UserService::class.java)
+    .getUsers()
+    .schedules()
+    .share() //使用publish()再connect()也是行的
+
+btnRequestUser.setOnClickListener {
+    source
+        .subscribe { resp -> /*刷新列表*/ }
+        .clearBy(disposables)
+    source
+        .subscribe { resp -> /*更新"共有N条数据"的TextView*/ }
+        .clearBy(disposables)        
+}
+```
+
+结果如下: 
+![image](img/image-20230322094804-601vtwl.png)
