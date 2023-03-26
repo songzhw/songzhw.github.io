@@ -277,3 +277,81 @@ btnRequestUser.setOnClickListener {
 
 结果如下: 
 ![image](img/image-20230322094804-601vtwl.png)
+
+# Subject
+Subject是hot ob, 是多播, 而且它即是Observable, 又是Observer(这种特性就特别适合做中间人)
+
+在RxJS中, Subjet类并不是抽象类, 它起到了PublishSubject中的作用. 但在RxJava中, Subject是一个抽象类, 并不直接使用, 我们一般是使用它的子类:
+
+* `PublishSubject`: 就是最基本的Subject用例
+* `BehaviorSubject` : 能缓存上一个数据
+* `ReplaySubject` : 能缓存多个数据 (若是选择缓存所有数据, 那这就成了一个cold ob的样子)
+* `AsyncSubject`: 上游发来一堆数据, 但下游仅能收到最后一个数据
+  * 这个用得相当少. 备注: RxJS中也没有AsyncSubject.
+
+创建方法: 
+```kotlin
+val subject =  PublishSubject.create<Boolean>()
+
+val subject =  BehaviorSubject.create<Boolean>() //即使用null做为缓存值
+val subject =  BehaviorSubject.createDefault(false)
+
+val subject = ReplaySubject.create() //使用了默认size, 即缓存16个数据
+val subject = ReplaySubject.createWithSize<Boolean>(3)
+val subject = ReplaySubject.createWithTime<Boolean>(1, TimeUnit.DAYS, Schedulers.io())
+```
+
+## 一个使用BehaviorSubject的例子
+上面说过PublishSubject用得最多了.  而ReplaySubject与AsyncSubject用得不多.
+而BehaviorSubject用得也不少. 来举个例子哦. 
+
+
+### 问题本身 
+```kotlin
+// SplashViewModel
+user.autoLogin(activity)
+    .subscribe({isShowingAd ->
+        ... // liveData通知有结果了
+    }, {error -> navigationResult.onError(error) })
+    .clearedBy(disposables)
+
+// SplashActivity
+vm.navigationResult.observe(
+    {succ -> 跳home page },
+    {err -> 不跳哪里. 本页开始做动画 }
+)
+```
+
+但上面的代码出现了问题, 即auto login失败时, 应该是Activity做动画. 但是却没有做动画, 也没有跳到home页. 这是怎么了? 
+: 原因就在于`user.autoLogin()`函数里, 它是这样写的: 
+```kotlin
+class GuestUser()  {
+    override fun autoLogin(activity: Activity): Subject<Unit> {
+        return PublishSubject.create<Unit>()
+        val subject =  PublishSubject.create<Unit>()
+        subject.onError(Exception("guest user can't automatically login"))
+        return subject
+    }
+}
+```
+
+那注意, publishSubject是个hot ob, 也就是说在ViewModel中: 
+```kotlin
+user.autoLogin(activity)
+    .subscribe(..)
+```
+是先发出了数据或错误  (`subject.onError()`), 之后才subscribe. 所以下游就收不到任何数据与错误.
+
+### 解决之道 
+其实也不麻烦, 就是改用`BehaviorSubject`嘛. 因为BehaviorSubject会缓存一个数据, 所以正好应对了我们的场景. 
+```kotlin
+class GuestUser()  {
+    override fun autoLogin(activity: Activity): Subject<Unit> {
+        return PublishSubject.create<Unit>()
+        val subject =  BehaviorSubject.create<Unit>()
+        subject.onError(Exception("guest user can't automatically login"))
+        return subject
+    }
+}
+```
+
