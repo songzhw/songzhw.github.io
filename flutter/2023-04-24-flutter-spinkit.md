@@ -206,3 +206,23 @@ Then you are free to use any point as your pivot, such as you want to rotate wit
 }  
 ```
 
+## 3D rotation in Flutter
+Android could use `android.graphics.Camera` to caculate the 3d transform and get a matrix at last. Flutter does not need such a class, because Flutter already got a `Matrix4` class for calculation. 
+
+One thing need to note is that the transform of matrix4 is still around the left-top corner. So if we need to rotate around one shape's center (aka. the pivot is the center), we still need to do the translate before and after the rotation, just like the previous extension methods shows. 
+
+The code below will show how to do a rotateX change: 
+```dart
+   final matrix = Matrix4.identity()
+      ..setEntry(3, 2, 0.001)
+      ..translate(halfWidth, halfHeight) 
+      ..rotateX(rx * pi / 180.0) //rotateX是上下flip,  rotateY是左右flip
+      ..translate(-halfWidth, -halfHeight); 
+    canvas.transform(matrix.storage);
+
+    // final rectToPaint = Rect.fromCircle(center: center, radius: 50);
+    // canvas.drawRect(rectToPaint, brush);
+    canvas.drawCircle(center,50, brush);
+```
+
+The reason why I list this is because the articles you can see on the Internet is mostly about the `Tranfrom widget + Matrix4`. There is no much description about how to combine Matrix4 to canvas, let alone the pivot change of 3D transformation. 
