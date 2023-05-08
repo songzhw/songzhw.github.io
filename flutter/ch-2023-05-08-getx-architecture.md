@@ -12,7 +12,7 @@
 [Getx](https://pub.dev/packages/get)是一个很强大的库, 好像也是pub.dev上like数最多的一个库.
 
 
-![image](_image_/image-20230508162836-f7gjl3v.png)
+![image](_image/image-20230508162836-f7gjl3v.png)
 
 既然有这么多人Like它, 那我就也来分享一下我的使用经验吧.
 
@@ -259,7 +259,7 @@ class DiPage3 extends StatelessWidget {
 
 题外话: 因为这个setState的原因, 相对于React, 我其实更喜欢[Solid JS](https://www.solidjs.com/), 这个SolidJS会知道你要刷新哪个组件, 而去精确刷新某一组件, 而不是刷新整个页面, 但效率自然更快了
 
-![image](_image_/image-20230508171249-4524wif.png)
+![image](_image/image-20230508171249-4524wif.png)
 
 ### 4.2 Getx对性能的提升
 
