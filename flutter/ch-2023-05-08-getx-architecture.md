@@ -242,6 +242,38 @@ class DiPage3 extends StatelessWidget {
     final service = repo.service;
 ```
 
+
+## 3.4 坑3: put(Clazz())多次是什么结果
+若是我们调用  `Get.put(MyController())` 三次, 之后再`final ctrl = Get.find()`, 那这个ctrl是最新的ctrl(即后put的覆盖了前面的值), 还是最老的ctrl(即后put的被忽略了) ?
+
+通过查看源码, 发现put时, 其实是放到了Map<String, dynamic>的变量池里了. 
+而这个map的key就相当于 `obj.class + tag`. 
+同时注意, 若key一样, 那就自动忽略, 不走map.put(key, value). 
+
+所以上面的问题的答案, 就是: find出来的是最早放入的ctrl.  后续put的值会被忽略. 
+
+## 3.5 坑4: 共享controller
+你只要前面Get.put(ctrl)后, 在其它页面中都可以用Get.find()来得到ctrl变量. 
+而且这个ctrl变量是类似于单例的, 即多个页面使用的ctrl是同一个对象. 这就类似Android中多个Fragment共用一个ViewModel
+
+备注: Java中打印对象会有内存地址打印出来, 这样我们就知道是不是同一个对象
+而Dart中不会公开内存地址, 要想知道是不是同一个对象, 就得用`obj.hashcode`.  只要hashcode一样, 那就是同一个对象
+
+不过实践经验告诉我, 多个页面的GetxController还是不要共享的好. 因为页1与页2共用了同一个ctrl时, 这样就相当于页2依赖了页1中的一些状态, 也就有了隐藏的依赖关系. 这是很容易出问题的. 
+
+这时要是想不共享, 那就得用tag
+
+```dart
+final ctrlOfPage1 = Get.put(MyController(), tag: "home")
+final ctrlOfPage2 = Get.put(MyController(), tag: "detail")
+
+//取出值
+MyController ctrlOfPage1 = Get.find(tag: "home")
+MyController ctrlOfPage1 = Get.find(tag: "home")
+
+print("ctr1 = ${ctrolOfPage1.hashcode}, ctrl2 = ${ctrlOfPage2.hashcode}") //可以看出两个hashcode不一样, 即表示这是两个对象. 
+```
+
 ## 四. state管理
 
 好了, 这个是我喜欢Getx的一点.  不过在先说之前, 先得说我最讨厌React Native的一点
@@ -315,9 +347,33 @@ class ControllerAndPage3 extends StatelessWidget {
     final ctrl = Get.put(MyResearchCtrl());  
 
 
+
 class ControllerAndPage2 extends StatelessWidget {
   @override Widget build(BuildContext context) {
     final ctrl = Get.find<MyResearchCtrl>();  
+    
+    return Column(
+        children: [
+            Obx( () => Text(ctrl.color.toString)),
+            TextButton( onPressed: () {
+                ctrl.setColor(Colors.orange);
+            }, child),
+        ]
+    )
+```    
+
+## 4.5 生命周期
+上面讲过Getx多是使用StatelessWidget. 但麻烦就来了, 即StatelessWidget没有生命周期方法 
+
+而StatefulWidget是有生命周期方法的, 其实是它的State有啦.  它的`initState`与`dispose`方法就是生命周期的开始与结束), 那碰到这种要在页面打开时注册某一东西, 然后在页面退出时注销掉什么(以免内存泄露)时, 要怎么办? 
+
+: 不用担心, GetxController就有生命周期, 这样就能代替StatefulWidget的生命周期. 
+
+‍```dart
+class MyCtrl extends GetxController{
+  @override void onInit() {...}
+  @override void onClose() { ...}
+}
 ```
 
 ### 4.5 生命周期
