@@ -374,24 +374,12 @@ class MyCtrl extends GetxController{
   @override void onInit() {...}
   @override void onClose() { ...}
 }
+
 ```
 
-### 4.5 生命周期
 
-上面讲过Getx多是使用StatelessWidget. 但麻烦就来了, 即StatelessWidget没有生命周期方法
 
-而StatefulWidget是有生命周期方法的, 其实是它的State有啦.  它的`initState`与`dispose`方法就是生命周期的开始与结束), 那碰到这种要在页面打开时注册某一东西, 然后在页面退出时注销掉什么(以免内存泄露)时, 要怎么办?
-
-: 不用担心, GetxController就有生命周期, 这样就能代替StatefulWidget的生命周期.
-
-‍```dart 
-class MyCtrl extends GetxController{
-  @override void onInit() {...}
-  @override void onClose() { ...} 
-} ‍
-```
-
-## 结语
+# 结语
 
 Getx提供了
 
