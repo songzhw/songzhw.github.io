@@ -384,7 +384,12 @@ class MyCtrl extends GetxController{
 
 : 不用担心, GetxController就有生命周期, 这样就能代替StatefulWidget的生命周期.
 
-‍`dart class MyCtrl extends GetxController{   @override void onInit() {...}   @override void onClose() { ...} } ‍`
+‍```dart 
+class MyCtrl extends GetxController{
+  @override void onInit() {...}
+  @override void onClose() { ...} 
+} ‍
+```
 
 ## 结语
 
