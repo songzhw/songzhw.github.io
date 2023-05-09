@@ -372,6 +372,36 @@ class ControllerAndPage2 extends StatelessWidget {
 ‍![image](_image/img_ctrl.png)
 
 
+
+## 4.6 题外话: 动画
+上面讲了Getx基本上使用StatelessWidget就够了. 但有一种场景, 就是做动画. 我们做动画是需要ticker的, 而一般用的ticker都是和State相匹配的Ticker. 
+
+```dart
+class _MyState extends State<MynPage> with TickerProviderStateMixin {
+
+```
+
+
+这时我仅用StatelessWidget也能做动画吗? 
+
+: 答案是: 可以的, 只不过要借助GetxController的帮忙. 
+
+
+Getx为了让我们在StatelessWidget上也做动画, 提供了一个ticker, 叫`GetSingleTickerProviderStateMixin`. 它是要求在GetxController上使用的, 所以我们一般可以这样: 
+
+```dart
+class MyAnimationPresenter extends GetxController with GetSingleTickerProviderStateMixin {
+  final int durationInMs;
+  late AnimationController animCtrl;
+
+  MyAnimationPresenter({required this.durationInMs}) {
+    animCtrl = AnimationController(vsync: this, duration: Duration(milliseconds: durationInMs));
+  }
+
+```
+
+
+
 # 结语
 
 Getx提供了
