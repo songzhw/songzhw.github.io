@@ -369,12 +369,7 @@ class ControllerAndPage2 extends StatelessWidget {
 
 : 不用担心, GetxController就有生命周期, 这样就能代替StatefulWidget的生命周期. 
 
-‍`
-class MyCtrl extends GetxController{
-  @override void onInit() {...}
-  @override void onClose() { ...}
-}
-`
+‍![image](_image/img_ctrl.png)
 
 
 # 结语
