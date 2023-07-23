@@ -65,6 +65,10 @@ If you are curious why you set `android:elevation = 32dp` and there is no shadow
 ## pitfall 2: the bg can't be a svg bg
 The reason why we say 'in general' is it's not 100% working all the time. It has a precondition, that your bg is a color, a png, or a `<shape>` bg. The only thing that does not work is a SVG bg. If your bg is a `<vector>` then you wouldn't have a shadow as well.
 
+
+## pitfall 3: Do I need more extra space for shadow?
+No, you don't have to. Android will take care of shadow. That's to say, if your view is 100dp width and 100dp height, and your shadow are like 50x50, you don't have to make your view as 150x150.  100x100 is enough for us. 
+
 # More to come
 
 ## custom shadow shape
