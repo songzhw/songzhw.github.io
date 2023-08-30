@@ -115,3 +115,92 @@ Yes, they are both using the method `calculateDtToFit()`. And when we want to ad
 
 Here is the result after I call `rv.smoothScrollWithOffsetTo(7)`. Now you can see the item 7 is not blocked by the top buttons row.
 ![](./_image/img_20230829_002.png)
+
+# Use case 3: make the target item in the center of RV
+You may want to SS to a target item and make it in the center of RV. For example, you made a WheelSelectionView based on RV, and the selected item should be in the center and highlighted.
+![](./_image/img_20230829_003.png)
+
+We've explained that you can override the `calculateDtToFit() ` method if you want to customized the final position. So that's what we can do: 
+
+```kotlin
+    private fun RecyclerView.smoothScrollInCenterTo(pos: Int) {
+        val scroller = object : LinearSmoothScroller(context) {
+            override fun calculateDtToFit(viewStart: Int, viewEnd: Int, boxStart: Int, boxEnd: Int, snapPreference: Int): Int {
+                return (boxStart + (boxEnd - boxStart) / 2) - (viewStart + (viewEnd - viewStart) / 2)
+            }
+        }
+        scroller.targetPosition = pos
+        layoutManager?.startSmoothScroll(scroller)
+    }
+
+```
+
+# Use case 4: adjust the SS speed
+LSS does have two method that seem to be related to the scrolling time. 
+```kotlin
+override fun calculateTimeForScrolling(dx: Int): Int 
+
+override fun calculateTimeForDeceleration(dx: Int): Int 
+
+```
+
+But you can't customized the scroll speed by overriding any of these two methods. Because one is complex, and another one is only for the phase 2(deceleration phase).
+
+The only way you can successfully adjust the SS speed is to override LSS's `calcuateSppedPerPixel()`.  The return value of this method is bigger, then it takes more time to scroll over one pixel. So If you want to have a higher speed, then the return value should be smaller.
+
+The source code of LSS is : 
+```java
+protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
+    return 25f / displayMetrics.densityDpi;
+} 
+
+```
+
+And we can speed up the SS by doing so:
+```kotlin
+    private fun RecyclerView.fastSmoothScrollTo(pos: Int) {
+        val scroller = object : LinearSmoothScroller(this.context) {
+            override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics): Float {
+                // return 25f / displayMetrics.densityDpi;
+                return 6f / displayMetrics.densityDpi 
+            }
+        }
+        scroller.targetPosition = pos
+        this.layoutManager?.startSmoothScroll(scroller)
+    }
+
+```
+
+
+# use case 5: make a constant SS time
+
+If the target item is far away from the current item, then it would take much more time to SS to there. To get a better user experience, you can make the SS time constant, not matter you want to SS from item 0 to item 5, or SS from item 0 to item 50. 
+
+As we said, the only way to adjust the speed is the `calculateSpeedPerPixel()`. So we have to adjust the speed dynamically based on how much we should scroll. 
+
+
+```kotlin
+    private fun RecyclerView.smoothScrollEquallyTo(pos: Int, speedFactor: Int = 5) {
+        val scroller = object : LinearSmoothScroller(context) {
+            override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics): Float {
+                //  return 25f / displayMetrics.densityDpi;
+                val layoutMgr = this.layoutManager
+                if(layoutMgr !is LinearLayoutManager) return super.calculateSpeedPerPixel(displayMetrics)
+                val first = layoutMgr.findFirstVisibleItemPosition()
+                val diff = abs(pos - first) 
+                val speed = 25f / diff * speedFactor
+                val ret = speed / displayMetrics.densityDpi
+                return ret
+            }
+        }
+
+        scroller.targetPosition = pos
+        layoutManager?.startSmoothScroll(scroller)
+    }
+
+```
+
+The `speedFactor` argument can be any value you pointed. It exist so the speed can be flexible and changeable as you like. 
+
+# Conclusion
+This article is mostly about how to do SS to RV, and an explanation of LinearSmoothScroll. We overrided many methods of LSS to get different user experiences.
