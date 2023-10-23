@@ -49,3 +49,77 @@ For us, to read values of an annotation, we just need to use `mirror.metadata` :
 ```
 
 # 3. Dynamic proxy
+
+In Java, we have `Proxy.newProxyInstance()` and `InvocationHandler` to generate a dynamic proxy. But Dart has a different mechanism.
+
+Let's step back a little bit, to take a look how Ruby implement the dynamic proxy. Ruby has a `missing_method` method for each class, so if you don't have one method, and this `missing_method` will get called, where you can inject your own proxy in. 
+```ruby
+class User 
+    def method_missing(name, *args) 
+        ....
+    end
+```
+
+Dart has a similar mechanism with Ruby, the only difference is the method name is called `noSuchMethod` in Dart.  Here is one example: 
+```dart
+class Face {
+  @override
+  dynamic noSuchMethod(Invocation invocation) {
+    print('called: $invocation');
+    return 23;
+  }
+}
+
+main() {
+    dynamic obj = Face();
+    final result = obj.foo(); // there is no such `foo` method in the Face class !!!
+    print("result = $result"); //=> result = 23
+}
+```
+
+# 4. to make a retrofit
+With the knowledge of previous bullet points, we now can make our own Retrofit. 
+
+First, we define some annotation and some endpoint interface/class for us: 
+```dart
+// 定义一个annotation类
+class Get {
+  final String url;
+  const Get(this.url);
+}
+
+class UserService {
+  @Get('https://www.somesite.com/api/Gut')
+  String getUser();
+
+  @override
+  dynamic noSuchMethod(Invocation ivc) {
+      ... // here is the key point, which will be implemented later
+  }
+}
+
+
+void main() {
+  UserService http = UserService();
+  final resp = http.getUser();
+  print('resp = $resp');
+}
+
+```
+
+And the key point is we call the Dio to send http request when we got some `getUser` call. Yes, since the `getUser` method is not implemented yet, so the `noSuchMethod` will get called when we call `http.getUser()` as well.
+```dart
+  @override
+  dynamic noSuchMethod(Invocation ivc) {
+    final objMirror = reflect(this);
+    // `ivc.memberName` is the method name, which is a Symbok object 
+    final methodMirror = objMirror.type.instanceMembers[ivc.memberName]!; 
+    // find out the `Get` annotation
+    final annoMirror = methodMirror.metadata.firstWhere( (meta) meta is Get ); 
+    String url = annoMirror.reflectee.url;
+    
+    Future resp = dio.get(url);
+    return resp; // 返回dio得到的response
+  }
+
+```
