@@ -119,7 +119,64 @@ And the key point is we call the Dio to send http request when we got some `getU
     String url = annoMirror.reflectee.url;
     
     Future resp = dio.get(url);
-    return resp; // 返回dio得到的response
+    return resp; 
   }
 
 ```
+
+# 5. make the retrofit more better
+In this section, we need to implement the query parameter. So we added a new `Query` class for annotation: 
+```dart
+```dart
+// a new annotation class
+class Query {
+  final String argName;
+  const Query(this.argName);
+}
+
+class UserService {
+  @Get('https://www.somesite.com/api/Gut')
+  String getUser(@Query("userId") int id);
+
+  @override
+  dynamic noSuchMethod(Invocation ivc) {
+      ... // ✩ ✩ ✩
+  }
+}
+
+```
+
+This time , we need to use `MethodMirror.parameters` property, that is a `List<ParameterMirror>`, and use each ParameterMirror's metadata will help us find the value of `Query`.
+
+```dart
+  @override
+  dynamic noSuchMethod(Invocation ivc) {
+    final objMirror = reflect(this);
+    // `ivc.memberName` is the method name, which is a Symbok object 
+    final methodMirror = objMirror.type.instanceMembers[ivc.memberName]!; 
+    // find out the `Get` annotation
+    final annoMirror = methodMirror.metadata.firstWhere( (meta) meta is Get ); 
+    String url = annoMirror.reflectee.url;
+
+    // find out the parameter name and value
+    final args = ivc.positionalArguments;
+    if (args.length > 0) {
+      url += "?";
+      methodMirror.parameters.forEach2((param, index) {
+        final paramName = param.metadata[0].reflectee.argName;
+        url += "$paramName=${args[index]}&";
+      });
+      url = url.substring(0, url.length - 2); //remove the last "&"
+    }
+    
+    Future resp = dio.get(url);  
+    return resp; /
+  }
+}
+
+```
+
+# 6. Conclusion
+By using Annotation and dynamic proxy, we implement our version of Retrofit in Dart.
+
+Unfortunately, Flutter has banned the `dart:mirror` package, which means we can not use this approach directly in Flutter. I guess that's why the [retrofit-flutter](https://pub.dev/packages/retrofit) library uses the code-genration, instead of metadata. 
