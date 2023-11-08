@@ -32,7 +32,8 @@ cold ob是单播, 一对一关系 ;  hot ob是多播, 一个上游可以有多�
 * 单播(unicast) : 一个上游就只有一个下游, 这就是单播. 
   * 所有除了`Subject`的流, 基本上都是单播 (都是cold Observable) 
 
-上面讲了, 除了`Subject`的流, 基本上都是冷流. 那`Observable.interval(1s)`也是冷流, 也是单播, 是吗? 
+上面讲了, 除了`Subject`的流, 基本上都是冷流. **那`Observable.interval(1s)`也是冷流, 也是单播, 是吗?** 
+
 : 是的, 没错, 是冷流, 是单播
 
 这样说来, 那就不对了, 我明明可以对`* Observable.interval(1s)`进行多个下游注册, 如这样: 
@@ -41,7 +42,9 @@ cold ob是单播, 一对一关系 ;  hot ob是多播, 一个上游可以有多�
     src_.subscribe { count -> println("szw(A) : $count") } //=> 0,1,2,3,4
     src_.filter { it % 2 == 1L }.subscribe { count -> println("szw(B) : $count") } //=> 1, 3
 ```
-上面的代码, 即不会编译出错, 也能运行正常并得到结果. 这样一个`src_`, 明明是单播, 怎么它就能有两个下游呢? 
+
+上面的代码, 即不会编译出错, 也能运行正常并得到结果. 这样一个`src_`, **明明是单播, 怎么它就能有两个下游呢?**
+
 : 好问题. 这其实就是大多数人对RxJava中"单播与多播"最大的疑惑了. 
 我先说结论哦, 你可以这样理解, `每当你subscribe一次, 冷Observable都会copy一次上游. 这样两次subscribe, 本质上仍是两个上游. 本质上仍是一对一的单播`. 
 
@@ -65,7 +68,7 @@ source = retrofit.create(UserService::class.java)
 
 btnRequestUser.setOnClickListener {
     source
-        .subscribe { resp -> /*刷新列表*/ }
+        .subscribe { resp -> /*刷新RecyclerView列表*/ }
         .clearBy(disposables)
     source
         .subscribe { resp -> /*更新"共有N条数据"的TextView*/ }
