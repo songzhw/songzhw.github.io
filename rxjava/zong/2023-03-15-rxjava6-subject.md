@@ -208,10 +208,13 @@ publish在RxJS, RxJava中都有的. 在RxJava中, publish其实就类似于`mult
                 .subscribe { stream2_.prints(disposables, "1I") } //=> 2
 ```
 
-看起来: 
-* cold$.publish().connect()
+看起来connect与refCount()好像也不差不差的,
+* cold$.publish().connect() 
 * cold$.publish().refCount()
-好像也不差不差, 但其实**refCount = connect() + 无下游时自动注销**
+
+但其实还是明显的: 
+1). **refCount = connect() + 无下游时自动注销**
+2). **refCount()的返回值仍是Observable<T>,  但是connect()返回的是Disposable !!!**
 
 
 
@@ -312,6 +315,24 @@ btnRequestUser.setOnClickListener {
 
 结果如下: 
 ![image](img/image-20230322094804-601vtwl.png)
+
+## 多说一句
+其实既然上面解决多余网络请求的做法是因为把单播变多播, 那说明publish也应该有用啊. 是吧, 我来试一下: 
+```kotlin
+// ViewModel
+    val api3 = api.getThisMonth()
+        .schedules()
+        .publish()
+
+// Activity
+    btnNext.setOnClickListener {
+        vm.api3.connect() //connect返回的是Disposable类型, 并不是Observable. 这跟publish().refCount()不一样
+        vm.api3.subscribe { days -> println("sszw sub3A $days") }.clearBy(disposables)
+        vm.api3.subscribe { days -> println("sszw sub3B $days") }.clearBy(disposables)
+    }        
+```
+不错, 运行下试下, 点击btnNext, 果然是只发出一次网络请求. 所以虽然看名字并不是"share(分享)", 但publish因为能变多播的原因, 也是能解决这个问题的. 
+
 
 # Subject
 Subject是hot ob, 是多播, 而且它即是Observable, 又是Observer(这种特性就特别适合做中间人)
