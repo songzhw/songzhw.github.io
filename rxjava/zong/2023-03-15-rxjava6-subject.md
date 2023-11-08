@@ -91,8 +91,10 @@ btnRequestUser.setOnClickListener {
 而讲解多播, 因为网上资料比较少, 我不得不借鉴RxJS中的多播概念来讲解. 其实RxJS, RxJava中的多播概念是一模一样的, 但RxJS的因为有multicast这个操作符而变得更容易理解多播的多个操作符. 只不过RxJava中没有`multicast`这个操作符, 所以很多讲解就麻烦了. 这也是为何我要借鉴RxJS来讲解整个多播概念的原因
 
 ## Subject的初步介绍
-`Subject`在Rx世界中, 就是一个hot Observable, 也可以理解就是多播. 
-Subject即是Observable, 又是Observer. 
+1). `Subject`在Rx世界中, 就是一个hot Observable, 也可以理解就是多播. 
+
+2). Subject即是Observable, 又是Observer. 
+
 理解了这2点就行了, 更多的细节后面讲
 
 ## [RxJS] multicast(new Subject())
@@ -108,7 +110,9 @@ const hot$ = cold$.multicast( new Subject() ); //返回了一个ConnectableObser
 
 ### ConnectableObservable
 注意, multicast返回的Observable, 并不是普通的Observable, 而是`ConnectableObservable`类型(它是一个`Observable`的子类). 
+
 这个类型的流, 得先调用`connect()`, 上游才会发出数据. `connect()`就像是一个水龙头, 它不开, 就不会有数据流出来. 
+
 相关的例子, 在后面讲到`publish`时再讲哦. 
 
 
@@ -116,9 +120,13 @@ const hot$ = cold$.multicast( new Subject() ); //返回了一个ConnectableObser
 
 前面的`multicast(new Subject())`, 若在上游结束后, subject自己也会结束.  这之后要是再来新的下游, 也收不到任何数据, 因为上游与中间人(subject)都已经complete了.  -- hot ob嘛, 可以理解. 
 
-但有时有些场景, 是想说, 若subject没有complete, 就按上面的`multicast(new Subject())`来工作.
-要是subject已经complete了, 还来了新的下游, 那就又开始重复`multicast(new Subject())`的工作, 
-这时就要使用 `multicast( SubjectFactory)`, 它会判断中间人是否已经完结, 若已经完结就会利用subjectFacotyry生成一个新的Subject实例.  所以这种写法, 多是写成Lambda的写法, 即: `multicast( ()=> new Subject )`
+但有时有些场景, 需求就是: 
+
+1).若subject没有complete, 就按上面的`multicast(new Subject())`来工作.
+
+2). 要是subject已经complete了, 还来了新的下游, 那就又开始重复`multicast(new Subject())`的工作
+
+: 这时就要使用 `multicast( SubjectFactory)`, 它会判断中间人是否已经完结, 若已经完结就会利用subjectFacotyry生成一个新的Subject实例.  所以这种写法, 多是写成Lambda的写法, 即: `multicast( ()=> new Subject )`
 
 
 
@@ -131,12 +139,13 @@ publish在RxJS, RxJava中都有的. 在RxJava中, publish其实就类似于`mult
 ```kotlin
         btn12.text = "(x) publish"
         btn12.setOnClickListener {
-            val cold_ = Observable.interval(100, TimeUnit.MILLISECONDS).take(3)
-            val stream2_ = cold_.publish()
-            stream2_.prints(disposables, "1C")
+            val cold_ = Observable.interval(100, TimeUnit.MILLISECONDS).take(3) //=> 0, 1, 2
+            val stream2_ = cold_.publish() // 返回ConnectableObservable
+            stream2_.prints(disposables, "1C") //第一个subscriber
             Observable.timer(250, TimeUnit.MILLISECONDS)
-                .subscribe { stream2_.prints(disposables, "1D") }
-        } //=> 点击了毫无反应, 这是因为ConnectableObservable, 得调用connect()才能开始工作
+                .subscribe { stream2_.prints(disposables, "1D") } //第二个subscriber
+        }
+//=> 点击了btn12毫无反应, 这是因为ConnectableObservable, 得调用connect()才能开始工作
 ```
 这里没有数据的原因, 就是因为没有调用connect()
 
@@ -153,7 +162,7 @@ publish在RxJS, RxJava中都有的. 在RxJava中, publish其实就类似于`mult
 
         } //=> 下游C收到了0,1,2数据;  下游D只收到2的数据.
 ```
-这个也可以理解, multicast的返回值是个hot ob嘛, 那自然, 就是像电台广播一样, 来得晚就只能从中间开始接听了. 这就为什么下游D只收到数据2的原因了
+这个也可以理解, multicast的返回值是个hot ob嘛. 发数据是100ms, 200ms, 300ms, 而第二个接收者是250ms才来, 那自然, 就是像电台广播一样, 来得晚就只能从中间开始接听了. 这就为什么下游D只收到数据2的原因了
 
 ### 例子3
 ```kotlin
@@ -185,9 +194,11 @@ publish在RxJS, RxJava中都有的. 在RxJava中, publish其实就类似于`mult
 
 
 ## publish -- refCount (不连接也能直接发出数据)
-几乎在所有的场景中, 我们还是希望, 若没有了下游了, 那中间人subject就从上游中注销掉吧, 免得占用资源. 这时就要用`ConnectableObservable # refCount()`, 它会记录有多少个下游, 并当没有下游了时去注销掉中间人subject. 
+在绝大多数场景中, 我们还是希望, 若没有了下游了, 那中间人subject就从上游中注销掉吧, 免得占用资源. 这时就要用`ConnectableObservable # refCount()`, 它会记录有多少个下游, 并当没有下游了时就会去自动注销掉中间人subject. 
 
-值得说的是, 调用了refCount, 就会自动connect的. 
+备注: 请注意, **refCount不是Observable的方法, 是ConnectableObservable的方法**
+
+值得说的是, 调用了refCount, 就会自动connect的. 即之后不需要我们手动调用connect方法就能直接发送数据了. 
 ```kotlin
             val cold_ = Observable.interval(100, TimeUnit.MILLISECONDS).take(3)
             val stream2_: Observable<Long> = cold_.publish().refCount()
@@ -197,6 +208,13 @@ publish在RxJS, RxJava中都有的. 在RxJava中, publish其实就类似于`mult
                 .subscribe { stream2_.prints(disposables, "1I") } //=> 2
 ```
 
+看起来: 
+* cold$.publish().connect()
+* cold$.publish().refCount()
+好像也不差不差, 但其实**refCount = connect() + 无下游时自动注销**
+
+
+
 ## share
 RxJava中share的源码是: 
 ```java
@@ -204,6 +222,9 @@ public final Observable<T> share() {
     return publish().refCount();
 }
 ```
+这下是不是就很明显了, 这肯定就是上面的copy. 
+但其实, share还要更小小复杂一点点, 见下面. 
+
 
 ## publish与share
 publish与share两个全是RxJava中的多播操作符  (RxJS中还多一个multicast)
@@ -243,6 +264,15 @@ publish与share两个全是RxJava中的多播操作符  (RxJS中还多一个mult
                 .subscribe { stream2_.prints(disposables, "1Q") } //=> 无数据
 ```
 
+再回来看: 二者区别在于 
+* publish: 等于 multicast(new Subject)
+* share: 等于 multicast(()=> new Subject()).refCount()
+
+所以share是没有下游就注销了. 之后再来接收者就会从头开始. 
+
+publish是没有下游就complete了, 之后再来接收者也是啥都收不到. (因为已经complete了嘛)
+
+
 # 解决上面的重复网络请求的问题
 出问题的代码如下, 主要原因就是它是冷流, 即单播, 所以2个下游就相应产生了2个上游, 故请求了两次
 ```kotlin
@@ -252,7 +282,7 @@ source = retrofit.create(UserService::class.java)
 
 btnRequestUser.setOnClickListener {
     source
-        .subscribe { resp -> /*刷新列表*/ }
+        .subscribe { resp -> /*刷新RecyclerView列表*/ }
         .clearBy(disposables)
     source
         .subscribe { resp -> /*更新"共有N条数据"的TextView*/ }
@@ -260,17 +290,19 @@ btnRequestUser.setOnClickListener {
 }
 ```
 
-解决办法, 改为多播, 这样多个下游也能用一个上游来应对.
+解决办法, 改为多播, 这样多个下游也能用一个上游来应对. 
+
+这的上游就是`api.getUsers()`, 那只有一个上游, 自然就只会发出一次网络请求了. 
 
 ```kotlin
 source = retrofit.create(UserService::class.java)
     .getUsers()
     .schedules()
-    .share() //使用publish()再connect()也是行的
+    .share() //使用publish().connect()也是行的
 
 btnRequestUser.setOnClickListener {
     source
-        .subscribe { resp -> /*刷新列表*/ }
+        .subscribe { resp -> /*刷新RecyclerView列表*/ }
         .clearBy(disposables)
     source
         .subscribe { resp -> /*更新"共有N条数据"的TextView*/ }
@@ -357,4 +389,10 @@ class GuestUser()  {
     }
 }
 ```
+
+### 备注
+对于一个`Subject<Bool>`来说, 下面两个的效果是一样: 
+* `val ob = PublishSubject.create().startWithItem(true)`
+* `val ob = BehaviorSujbect.createWithDefault(true)`
+
 
