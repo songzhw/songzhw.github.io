@@ -79,6 +79,8 @@ RxJava1中的Subject, 现在也因为背压的关系, 也分成了`= Subject(无
 | BehaviorProcessor | BehaviorSubject |
 | ReplayProcessor   | ReplaySubject   |
 
+跟Subject相比, Processor的功能是一样的, 只是多一个背压的功能而已. 
+
 # 备注
 RxJS, RxDart, RxSwift中都是没有Flowable这个概念的, 都是一个Observable概念的. 
 
@@ -89,9 +91,31 @@ fun Flowable.align() = ....
 ```
 造成了大量重复代码. 
 
-
 # 背压的操作符
+前面讲过, RxJS, RxSwift这些都是一套代码, 一个observable管全部, 不用再分成obserable与flowable. 那这些RxXX是如何处理背压的, 它们的处理方式也同样适用于RxJava吗? 
 
+: 答案, 是的, Rx世界中一些公用的操作符, 也可以用来处理背压.  举个例子, 当有大量数据时, 你可以每1秒取一次数据, 让下游慢慢消化这个数据, 这样就不会有背压了. 这些操作符通行于RxJava, RxJS, RxDart, ..., 而且也能用于上游数据很多时. 下面就来一个个地看
 
+## 有损背压的几个操作符
+有损背压有throttle, debounce, sample方式.
+这几种都在[rxjava 03: filter](https://github.com/songzhw/songzhw.github.io/blob/master/rxjava/zong/2023-02-02-rxjava3-filter.md)这一文章中有过介绍了. 这里就不赘述了.
+
+这种方式全是有损的, 即有过多数据过来时, 我就只隔着一个时间段再去取. 这中间时间里发出的数据就扔了, 即"有损"的. 
+
+## 无损背压的几个操作符
+想要无损, 那就要把所有数据都缓存起来. 
+
+我们可以用
+* `buffer(count)` 来缓存多少个数据
+* 也可以把observable转为`flowable`, 并指明buffer策略
+```kotlin
+  Observable.interval(1, TimeUnit.MICROSECONDS)
+      .buffer(1000)
+
+  Observable.interval(1, TimeUnit.MICROSECONDS)
+      .toFlowable(BackpressureStrategy.BUFFER)
+```
 
 # 总结
+背压(backpressure)是一种上游数据过多, 超出下游处理能力的情况. 这种情况下, 我们多用Flowable或Processor来做为流.  原因是它们自带了BackpressureStrategy, 方便我们指明要如何处理上游数据过多的情况. 
+
