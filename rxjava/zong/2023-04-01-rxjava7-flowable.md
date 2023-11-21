@@ -38,7 +38,7 @@ val upstream : Flowable<String> = Flowable.create({ FlowableEmitter<String> emit
 看到了吧, Flowable的创建会自带背压策略的.  这里的策略可选值有以下几种: 
 ```kotlin
 public enum BackpressureStrategy {
-    //不指定背压策略
+    //不指定背压策略 (那背压时就扔出MissingBackpressureException哦)
     MISSING,
     //出现背压就抛出异常
     ERROR,
@@ -46,13 +46,49 @@ public enum BackpressureStrategy {
     BUFFER,
     //如果缓存池满了就丢弃掉之后发出的事件
     DROP,
-    //在DROP的基础上，强制将最后一条数据加入到缓存池中
+    //在DROP的基础上，强制将最后一条数据(最latest的一条数据)加入到缓存池中
     LATEST
 }
+```
 
+## Observable转Flowable
+这个RxJava自己就支持了, 它的做法是: 
+```kotlin
+val aFlowable = aObservable.toFlowable(BackpressureStrategy.xxx)
+```
+
+
+## Flowable的实际使用
+因为加了背压处理了, 所以很多三方库都倾向于使用Flowable, 而不是用Observable.
+比如说我们的androidx-liveData库中, 就有一个extension方法, 叫`toLiveData()`, 把RxJava的一个流转成LiveData.
+
+但要注意, 这个ext方法是Flowable的, 即:
+```kotlin
+fun Flowable.toLiveData() {...}
+
+// 但没有 fun Observable.toLiveData() {....} 的方法哦!
 ```
 
 # Processor
+RxJava1中的Subject, 现在也因为背压的关系, 也分成了`= Subject(无背压) + Processor(有背压)`.
+
+所以我们现在有这几种类: 
+| 有背压            | 无背压          |
+|-------------------|-----------------|
+| PublishProcessor  | PublishSubject  |
+| BehaviorProcessor | BehaviorSubject |
+| ReplayProcessor   | ReplaySubject   |
+
+# 备注
+RxJS, RxDart, RxSwift中都是没有Flowable这个概念的, 都是一个Observable概念的. 
+
+我个人其实更喜欢这种, 就是一套代码, 现在RxJava2+中因为Observable与Flowable分立, 结果我们有时候要处理两种情况, 如: 
+```kotlin
+fun Obserable.align() = ...
+fun Flowable.align() = ....
+```
+造成了大量重复代码. 
+
 
 # 背压的操作符
 
