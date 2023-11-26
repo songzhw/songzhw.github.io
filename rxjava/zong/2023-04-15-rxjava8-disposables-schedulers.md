@@ -87,6 +87,24 @@ disposables.add(dis)
 当然, 它并不是万能的. 比如说, 我们有一个点赞按钮. 点击它就是点赞, 再点就是取消点赞. 这些都是要和后面通信点赞结果的. 这时就不适用使用SerialDisposable.
 
 
+## 实例
+现在我们有一个按钮, 点击就请求一个后台接口. 
+```kotlin
+    btn.setOnClickListener {
+        val d = api.getUserList(5)
+            .schedules()
+            .subscribe { resp -> println("szww resp = $resp") }
+        sd.set(d)
+    }
+```
+但现在是弱网状态, 请求要过好几秒才返回. 我等得不耐烦了, 就多点了几下, 结果就是: 
+![image](img/image-20231125232355-9v9upql.png)
+
+是的, 前面的请求都没有结果了, 只有最后一次才有结果, 这是因为SerialDisposable会自动dispose掉前一个(若还在的话), 所以只有最后一次有结果了. 
+
+备注: 要屏蔽短时间内的多次请求, 使用debounce()也是另一种方法啦. 
+
+
 # 三. 有用的extension方法
 当然, 我们在自己使用中, 下面的代码就太累了
 ```kotlin
