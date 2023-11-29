@@ -438,3 +438,143 @@ class GuestUser()  {
 
 上面的这两点原因都是很重要的知识点, 也是容易出错的知识点. 所以一定要注意. 
 
+
+## Subject出错的一个例子
+
+### 问题表象
+问题表象: 我发现我们在首页请求了一个数据. 但每次从其它页面回到首页时 (如按back), 都会再次触发这个数据请求. 就像是我们在onResume里写了要请求了. 但问题就在于, 没有啊,我们根本没有在onResume中请求. 代码如下: 
+```kotlin
+//HomeViewModel
+val request = Flowable.combineLatest(manualPullToRefresh.listen(), RxNetwork.listen())
+    .switchMap {api.getUser()} //手动刷新或是网络恢复了, 都自动触发api请求
+    .toLiveData() // toLiveData是androidx的扩展
+
+// RxNetwork
+val publishSubject = PublishSubject.create<Bool>()
+fun listen() {
+    return publishSubject.startWith(Phone.isOnline())
+}
+
+// HomeActivity
+this.vm.request.observe(this) { response -> 
+    // render the page
+}
+```
+
+
+现在想解决的就是: 不要每次回到首页, 都去发网络请求. 这样能节省一些资源与性能
+
+### 分析原因
+其实这是个很复杂的原因. 它涉及到了多个方面
+
+
+#### 原因1
+第一. 那就是`Flowable.toLiveData()`这个扩展方法. 它来自于androidx包, 源码如下: 
+
+```kotlin
+package androidx.lifecycle
+
+public inline fun <T> Publisher<T>.toLiveData(): LiveData<T> =
+    LiveDataReactiveStreams.fromPublisher(this)
+```
+
+然后分解下这个LiveDataReactiveStreams, 其实就是一个中间类来做为LiveData与RxJava流的middle man而已.  精简后的代码如下: 
+```java
+    private static class PublisherLiveData<T> extends LiveData<T> {
+        private final Publisher<T> mPublisher;
+        final AtomicReference<LiveDataSubscriber> mSubscriber;
+
+        @Override
+        protected void onActive() {
+            super.onActive();
+            LiveDataSubscriber s = new LiveDataSubscriber();
+            mSubscriber.set(s);
+            mPublisher.subscribe(s);
+        }
+
+        @Override
+        protected void onInactive() {
+            super.onInactive();
+            LiveDataSubscriber s = mSubscriber.getAndSet(null);
+            if (s != null) {
+                s.cancelSubscription();
+            }
+        }
+```
+
+也就是说
+* 当active时, 如页面进入了onStart后, 就给rxjava流添加个下游
+* 而inactive时, 如页面开始进入了onStop后, 就把rxjava的订阅给注销掉.
+
+现在问题就开始变得清晰了, 即`为何回到页面就开始请求`的这个`回到页面`的部分就有解答了, 来自于LiveData的active与inactive时.
+
+#### 原因2
+然后当回到页面, 即触发了onActive后, 为何会发出请求呢? <br/>
+: 我们的pull to refresh肯定没有触发, 但RxNetwork应该也不会触发新数据才对啊.
+因为我们RxNetwork自己内部是一个PublishSubject, 又不是BehaviorSubject(自带缓存为1)与ReplaySubject(自带N个缓存), 怎么这有个新下游就马上发出数据了呢? 
+
+这个问题困扰了我很久, 直到我一层层地查找, 才发现原来是
+```kotlin
+// RxNetwork
+val publishSubject = PublishSubject.create<Bool>()
+fun listen() {
+    return publishSubject.startWith(Phone.isOnline())
+}
+```
+
+每次我们有新下游注册时, 这虽然是PublishSubject, 但它马上来了一个`startWith(value)`啊!
+难怪我有了新下游, 就马上有数据. 这其实并不是说它是个cold observable, 只是有了一个startWith, 就会在订阅开始时发出这个数据而已. 
+
+#### 解决方案一
+既然明白了原因, 那解决办法就有了, 而且是多个解决方法. 
+
+第一个方案就是: 使用SingleLiveData
+```kotlin
+public class SingleLiveEvent<T> extends MutableLiveData<T> {
+    private final AtomicBoolean mPending = new AtomicBoolean(false);
+    @Override
+    public void observe(@NonNull LifecycleOwner owner, @NonNull final Observer<? super T> observer) {
+        super.observe(owner, new Observer<T>() {
+            @Override
+            public void onChanged(@Nullable T t) {
+                if (mPending.compareAndSet(true, false)) {
+                    observer.onChanged(t);
+                }
+            }
+        });
+    }
+
+    @MainThread
+    public void setValue(@Nullable T t) {
+        mPending.set(true);
+        super.setValue(t);
+    }
+
+    /**
+     * Used for cases where T is Void, to make calls cleaner.
+     */
+    @MainThread
+    public void call() {
+        setValue(null);
+    }
+}
+```
+
+即不再使用`toLiveData`这个扩展, 而是使用这个SingleLiveEvent来监听rxjava的流. 有数据就让`singleLiveEvent.post(data)`
+
+
+#### 解决方案二
+直接使用rxjava的流
+
+```kotlin
+// HomeViewModel
+val request = Flowable.combineLatest(manualPullToRefresh.listen(), RxNetwork.listen())
+    .switchMap {api.getUser()} 
+    // .toLiveData() // !! 不再使用toLiveData了 !
+
+// HomeActivity
+this.vm.request.subscribe{ response -> 
+    // render the page
+}
+    .clearBy(disposables) // !! 注意, 这个订阅在最终被清除的 !!
+```
