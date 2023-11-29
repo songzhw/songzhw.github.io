@@ -415,5 +415,26 @@ class GuestUser()  {
 对于一个`Subject<Bool>`来说, 下面两个的效果是一样: 
 * `val ob = PublishSubject.create().startWithItem(true)`
 * `val ob = BehaviorSujbect.createWithDefault(true)`
+这两个代码都有点 `ReplaySubject(cacheSize = 1)`的意思了, 这里缓存的就是true这个值. 
 
+## BehaviorSubject的一个重要误区 
+当我有一个`BehaviorSubject bs = BehaviorSubject.createDefault(0)`在1s, 2s, 3s时发出数据1,2,3<br/>
+那我们马上就注册的下游, 肯定能收到0,1,2,3的数据. 这个不成问题
+
+现在当我们在第2.5秒时又注册了第二个下游. 这个新的下游会收到什么数据呢?
+* 是0,  3?  (原因: BehaviorSubject是热流.  而0是默认数据, 2.5秒后会发出3. )
+* 还是 3? (原因: 默认数据的时机已过, 而BehaviorSubject是热的, 所以只会收到2.5秒之后的3)
+
+答案是上面两个都错了.  正确答案是: `2, 3` !!
+
+主要原因有二: 
+
+1). BehaviorSubject是热流, 而default value只在最开始发出, 并不会每个后来的订阅者都收到的. 过了时机就收不到这个默认值了.
+
+2). BehaviorSubject在发送数据时, 其实是类似于`ReplaySubject(cacheSize = 1)`的效果, 即它会有上一个数据被缓存起来.
+
+所以上面的结果是2.5秒来了一个新下游时, 它先在2.5秒就收到缓存的数据: 2<br/>
+然后在第3秒就自然地收到数据: 3
+
+上面的这两点原因都是很重要的知识点, 也是容易出错的知识点. 所以一定要注意. 
 
