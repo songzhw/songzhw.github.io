@@ -357,12 +357,12 @@ val subject = ReplaySubject.createWithSize<Boolean>(3)
 val subject = ReplaySubject.createWithTime<Boolean>(1, TimeUnit.DAYS, Schedulers.io())
 ```
 
-## 一个使用BehaviorSubject的例子
+# 一个使用BehaviorSubject的例子
 上面说过PublishSubject用得最多了.  而ReplaySubject与AsyncSubject用得不多.
 而BehaviorSubject用得也不少. 来举个例子哦. 
 
 
-### 问题本身 
+## 问题本身 
 ```kotlin
 // SplashViewModel
 user.autoLogin(activity)
@@ -398,7 +398,7 @@ user.autoLogin(activity)
 ```
 是先发出了数据或错误  (`subject.onError()`), 之后才subscribe. 所以下游就收不到任何数据与错误.
 
-### 解决之道 
+## 解决之道 
 其实也不麻烦, 就是改用`BehaviorSubject`嘛. 因为BehaviorSubject会缓存一个数据, 所以正好应对了我们的场景. 
 ```kotlin
 class GuestUser()  {
@@ -411,13 +411,13 @@ class GuestUser()  {
 }
 ```
 
-### 备注
+## 备注
 对于一个`Subject<Bool>`来说, 下面两个的效果是一样: 
 * `val ob = PublishSubject.create().startWithItem(true)`
 * `val ob = BehaviorSujbect.createWithDefault(true)`
 这两个代码都有点 `ReplaySubject(cacheSize = 1)`的意思了, 这里缓存的就是true这个值. 
 
-## BehaviorSubject的一个重要误区 
+# BehaviorSubject的一个重要误区 
 当我有一个`BehaviorSubject bs = BehaviorSubject.createDefault(0)`在1s, 2s, 3s时发出数据1,2,3<br/>
 那我们马上就注册的下游, 肯定能收到0,1,2,3的数据. 这个不成问题
 
@@ -439,9 +439,9 @@ class GuestUser()  {
 上面的这两点原因都是很重要的知识点, 也是容易出错的知识点. 所以一定要注意. 
 
 
-## Subject出错的一个例子
+# Subject出错的一个例子
 
-### 问题表象
+## 问题表象
 问题表象: 我发现我们在首页请求了一个数据. 但每次从其它页面回到首页时 (如按back), 都会再次触发这个数据请求. 就像是我们在onResume里写了要请求了. 但问题就在于, 没有啊,我们根本没有在onResume中请求. 代码如下: 
 ```kotlin
 //HomeViewModel
@@ -464,11 +464,11 @@ this.vm.request.observe(this) { response ->
 
 现在想解决的就是: 不要每次回到首页, 都去发网络请求. 这样能节省一些资源与性能
 
-### 分析原因
+###分析原因
 其实这是个很复杂的原因. 它涉及到了多个方面
 
 
-#### 原因1
+## 原因1
 第一. 那就是`Flowable.toLiveData()`这个扩展方法. 它来自于androidx包, 源码如下: 
 
 ```kotlin
@@ -508,7 +508,7 @@ public inline fun <T> Publisher<T>.toLiveData(): LiveData<T> =
 
 现在问题就开始变得清晰了, 即`为何回到页面就开始请求`的这个`回到页面`的部分就有解答了, 来自于LiveData的active与inactive时.
 
-#### 原因2
+## 原因2
 然后当回到页面, 即触发了onActive后, 为何会发出请求呢? <br/>
 : 我们的pull to refresh肯定没有触发, 但RxNetwork应该也不会触发新数据才对啊.
 因为我们RxNetwork自己内部是一个PublishSubject, 又不是BehaviorSubject(自带缓存为1)与ReplaySubject(自带N个缓存), 怎么这有个新下游就马上发出数据了呢? 
@@ -525,7 +525,7 @@ fun listen() {
 每次我们有新下游注册时, 这虽然是PublishSubject, 但它马上来了一个`startWith(value)`啊!
 难怪我有了新下游, 就马上有数据. 这其实并不是说它是个cold observable, 只是有了一个startWith, 就会在订阅开始时发出这个数据而已. 
 
-#### 解决方案一
+## 解决方案一
 既然明白了原因, 那解决办法就有了, 而且是多个解决方法. 
 
 第一个方案就是: 使用SingleLiveData
@@ -563,7 +563,7 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
 即不再使用`toLiveData`这个扩展, 而是使用这个SingleLiveEvent来监听rxjava的流. 有数据就让`singleLiveEvent.post(data)`
 
 
-#### 解决方案二
+## 解决方案二
 直接使用rxjava的流
 
 ```kotlin
