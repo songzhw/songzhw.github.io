@@ -503,14 +503,12 @@ fun <T> Observable<T>.schedules(): Observable<T> =
 fun <T> Flowable<T>.schedules(): Flowable<T> =
         this.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-```kotlin
+```
 
 
 ## stateful data
 
 LiveData will have the “re-commit” issue, and also has no state, so we suggest to use RxJava’s stream, instead of LiveData in the code.
-
-
 
 by state , we mean the onLoading, onComplete, onError  . Let’s say
 
@@ -564,7 +562,7 @@ We have CompositeDisposable disposables in the BaseActivity, BaseFragment and Ba
   vm.fetchData(batchId,categoryId)
       .subscribe { data -> this.render(data) }
       .clearedBy(disposables)
-```kotlin
+```
 
 
 
