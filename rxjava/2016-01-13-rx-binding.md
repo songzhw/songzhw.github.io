@@ -18,17 +18,72 @@ Since there is no official doc to introduce all the extension methods of RxBindi
 
 # extensions on View
 ```kotlin
+fun view.attachEvents() //Observable<T>: T is the event of view attaching, detaching
+fun view.attaches() //Observable<Unit>
+fun view.detaches() //Observable<Unit>
 
+fun View.clicks() // Observable<Unit>
+fun View.longClicks()  // Observable<Unit> 
+
+fun View.focusChanges() // Observable<bool>
+
+// :     view.viewTreeObserver .addOnDrawListener(listener)
+fun View.draws() // Observable<Unit>
+// :     view.viewTreeObserver .addOnGlobalLayoutListener(listener)
+fun View.globalLayouts() // Observable<Unit>.  
+
+
+// : view.setOnScrollChangeListener(listener)
+fun View.scrollChangeEvents() // T has the data of : oldScrollX/Y, newScrollX/Y
 ```
 
 # extensions on menu
 ```kotlin
+// menuItem
+fun menuItem.actionViewEvents()  // T is the event of menu collapsing or expanding
+fun menuItem.clicks()  //Observable<Unit>
 
+//: view.setOnDismissListener(listener)
+fun PopupMenu.dismisses() // Observable<Unit>
+//: view.setOnMenuItemClickListener(listener)
+fun PopupMenu.itemClicks() // Observable<MenuItem>
+
+//: view.setOnMenuItemClickListener(listener)
+fun Toolbar.itemClicks()  // Observable<MenuItem> 
+//: view.setNavigationOnClickListener(listener)
+fun Toolbar.navigationClicks()  // Observable<Unit>
+```
+
+# extension on inputing views
+```kotlin
+// 实为: view.onItemClickListener = listener
+fun AutoCompleteTextView.itemClickEvents()
+
+
+// the 4 ext below are all based on:  view.addTextChangedListener(listener)
+// T has the value of : String text, int start, int count, in after
+fun TextView.beforeTextChangeEvents()
+fun TextView.textChangeEvents() 
+fun TextView.afterTextChangeEvents()
+fun TextView.textChanges() // Observable<String>
+
+//: view.setOnEditorActionListener(listener). 
+//  action is the button at the bottom-right corner of IME, could be flexible, such as Send, Share, Return, Next, ...
+fun TextView.editorActionEvents()  // T is actionId, such as: IME_ACTION_DONE, IME_ACTION_SEND, IME_ACTION_NEXT....
 ```
 
 # extensions on interactiv views
 ```kotlin
+//: view.setOnCheckedChangeListener(listener)
+// CompoundButton's children: CheckBox, RadioButton, Chip, Switch, ToggleButton, ...
+fun CompoundButton.checkedChanges() // Obserable<Bool>
+//: view.setOnCheckedChangeListener {radioGroup, checkedId -> ... }
+fun RadioGroup.checkedChanges() // Observable<Int>, Int is the checkedId
 
+
+//the two ext below are both based on: view.setOnSeekBarChangeListener(listener)
+fun SeekBar.changeEvents() // T includes: int progress, bool isFromUser
+fun SeekBar.userChanges() // T includes: int progress
 ```
 
 # extensions in the independent packages
