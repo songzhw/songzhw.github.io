@@ -34,6 +34,15 @@ class SomePage extends StatelessWidget {
 }  
 ```
 
+## Issue 1B. Another approach
+If you don't want to write `RxDart.Rx`, you can use the strict import, such as : 
+```dart
+import 'package:get/get.dart' show Get, Inst, Obx, StringExtension;
+import 'package:rxdart/rxdart.dart' show Rx;
+```
+
+Then it's okay to use `Obx(() => ... )` and `Rx.combineLatest2(...)` at the same file. 
+
 ## Issue 2. how to dispose subscription?
 Streams like `Stream.periodic()` would send infinite data, and wouldn't stop it even we exit the page that start this periodic work. If you are familiar with RxJava or RxJS, then what we need is to add a CompositeSubscription to handle the RxDart's subscription, and release it when the page is destroyed. 
 
@@ -69,22 +78,69 @@ class SomePage extends StatelessWidget {
   final ctrl = Getx.Get.put(MergeController());
   ...
 
-    OutlinedButton(
-      onPressed: () { ctrl.work(); },
-      child: const Text("work")
-    ),
+  OutlinedButton(
+    onPressed: () { ctrl.work(); },
+    child: Obx( ()=> Text(ctrl.resp$.value)),
+  ),
 
 }  
 
 // 4. GetxController for one specific page
 class MergeController extends BaseRxCtrl {
+  final resp$ = "".obs; // This is like the LiveData in the
   void work(){
     Rx.concat([stream1, stream2]) 
-        .listen(print)
+        .listen((datum) => resp$.value = datum)
         .clearBy(disposables);
   }
 
 }
 ```
+
+### complete code
+```dart
+import 'package:flutter/material.dart';
+import 'package:get/get.dart' show Get, Inst, Obx, StringExtension;
+import 'package:rxdart/rxdart.dart' show Rx;
+import 'package:rxdart_demo/BaseRxCtrl.dart';
+import 'package:rxdart_demo/Constants.dart';
+import 'package:rxdart_demo/ext/RxDartExt.dart';
+
+import '../CommonWidgets.dart';
+
+class ApisDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final ctrl = Get.put(ApisCtrl());
+    ctrl.fetchData();
+
+    return Scaffold(
+      appBar: appbar("ApisDemo"),
+      body: Center(child: Obx(() => Text(ctrl.resp$.value, style: TextStyle(fontSize: 30)))),
+    );
+  }
+}
+
+class ApisCtrl extends BaseRxCtrl {
+  final resp$ = "xxx".obs;
+
+  Future<String> f1() async {
+    await Future<void>.delayed(oneSec);
+    return 'Value1';
+  }
+
+  Future<String> f2() async {
+    await Future<void>.delayed(twoSec);
+    return 'Value2';
+  }
+
+  void fetchData() => Rx.combineLatest2(
+        Rx.fromCallable(f1),
+        Rx.fromCallable(f2),
+        (v1, v2) => resp$.value = "v1 = $v1, v2 = $v2",
+      )
+      .listen((event) => event)
+      .clearBy(disposables);
+}
 
 ```
