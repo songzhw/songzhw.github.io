@@ -149,6 +149,26 @@ ForkJoin will send out the result array, just like zip. But forkJoin will only s
         .clearBy(disposables); //=> starts (50s), ends [A3, B4] (55s)
 ```
 
+# pairwise
+This will keep record of the previous data, and combine it with the current data, to make a pair. 
+
+```dart
+    Stream.periodic(oneSec, (idx) => idx)
+        .take(4)
+        .pairwise()
+        .listen(print)
+        .clearBy(disposables);
+    //=> [0, 1], [1, 2], [2, 3]
+```
+
+This operator is useful when you have to calculate touch events. You will need the previous touchEvent data to calculate the offerX or offerY.
+
+```dart
+touch$.pairwise()
+  .map( (e1, e2) => e2.x - e1.x)
+  .listen(dx => ....)
+```
+
 
 # high-order observables
 Unfortunately, `rxdart: ^0.27.7` still has not support the high-order observable very well. High-order observable means the observables that emit not the data T, but emit the Observable<T>. 
