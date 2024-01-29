@@ -165,6 +165,53 @@ Here are the two famous extension libraries for Glide and Coil when you need mor
     this.imageLoader.enqueue(req3)
 ```
 
+## 8. loading background
+They both need to custom a target to show the background, instead of the image source. 
+
+```kotlin
+
+// Glide
+class BgViewTarget<T: View>(val myView: T) : CustomViewTarget490<T, Drawable>(myView), Transition.ViewAdapter {
+    init {
+        useTagId(R.id.my_glide_custom_view_bg_target_tag) //we need to create such an ID in the res/values.xml file
+    }
+    override fun onLoadFailed(errorDrawable: Drawable?) {
+        myView.background = null
+    }
+
+    override fun onResourceCleared(placeholder: Drawable?) {
+        myView.background = null
+    }
+
+    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+        if(transition != null && transition.transition(resource, this)) {
+            transition.transition(resource, this)
+        } else {
+            myView.background = resource
+        }
+    }
+
+    // = = = = = = = = = = = = ViewAdapter = = = = = = = = = = = =
+    override fun getCurrentDrawable(): Drawable? = myView.background
+
+    override fun setDrawable(drawable: Drawable?) {
+        myView.background = drawable
+    }
+}
+```
+
+And Coil is easier than Glide, you don't have to create such a custom class. You can just use : 
+```kotlin
+// Coil
+val req = ImageRequest.Builder(this).data(img5)
+    .target(
+        onSuccess = { resultDrawable -> ivM1.background = resultDrawable },
+        onError = { errorDrawable -> println("szww fail4") }
+    )
+    .build()
+this.imageLoader.enqueue(req)
+```
+
 # Conclusion
 Coil太年轻了; 和RV结合是否好? ;  v3.0还在alpha(用2.x是不是过老);   文档少而不如Glide详细 
 但支持SVG, 配置不用annotation;  
