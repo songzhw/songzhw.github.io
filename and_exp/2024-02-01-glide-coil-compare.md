@@ -92,30 +92,77 @@ implementation ("com.github.bumptech.glide:recyclerview-integration:4.14.2") {
 
 ```kolitn
 // Glide
+      // from anim resource ID
+      Glide.with(this).load(img1)
+          .transition(GenericTransitionOptions.with(R.anim.scale_in))
+          .into(ivSmall1)
 
+      // from Animator
+      val anim2 = ViewPropertyTransition.Animator { view ->
+          val fade = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f)
+          fade.duration = 2000
+          fade.start()
+      }
+      Glide.with(this).load(img2)
+          .transition(GenericTransitionOptions.with(anim2))
+          .into(ivSmall2)
 
 //Coil
+    // I found out that it's kind of hard to custom transition for Coil after I reading the CorssfadeTransition class of Coil.
 
 ```
  
 ## 6. transform
+Both Glide and Coil support the RoundedCorner and Circle shape of image. 
+To custom your own transform, they require same effort to make a custom transform, such as blur. 
 
 ```kolitn
 // Glide
-
+            Glide.with(this).load(img4)
+                .transform(CircleCrop())
+                .into(ivSmall2)
 
 //Coil
-
+           ivSmall1.load(img2) {
+                transformations(CircleCropTransformation())
+            }
 ```
 
-## 7. loading background
+Here are the two famous extension libraries for Glide and Coil when you need more transformation: 
+* [glide-transformations](https://github.com/wasabeef/glide-transformations)
+* [coil-transformations](https://github.com/Commit451/coil-transformations)
+
+## 7. listen
 
 ```kolitn
 // Glide
+    Glide.with(this)
+      .load(img1)
+      .listener(object : RequestListener<Drawable>{
+          override fun onLoadFailed(....): Boolean {
+              return false // return false to make Glide to load the error resource
+          }
+          override fun onResourceReady(...): Boolean {
+              return false //return false to make Glide to load the image
+          }
+      })
+      .into(ivSmall3)
 
+// Coil -- approach 1
+    ivSmall1.load(img2) {
+        listener(onError = { req, _ -> println("szww coil1 error") },
+            onSuccess = { req, result -> println("szww coil1 succ") },
+            onCancel = {}, onStart = {})
+    }
 
-//Coil
-
+// Coil -- appraoch 2
+    val req3 = ImageRequest.Builder(this).data(img2)
+        .target(
+            onSuccess = { resultDrawable -> ivSmall3.setImageDrawable(resultDrawable) },
+            onError = { errorDrawable -> println("szww fail3") }
+        )
+        .build()
+    this.imageLoader.enqueue(req3)
 ```
 
 # Conclusion
@@ -131,6 +178,7 @@ In conclusion. Pros of Coil are:
 Cons of Coil are: 
 * Coil v3.0 is in its alpha. If I switch to Coil now, I may have to upgrade from 2.x to v3.x again. This is a trouble I don't want to go through.
 * Coil has less doc and some details are not explained as well as Glide. Such as the crossfade. Both Glide and Coil can't show crossfade if the image is in the memory. But Glide made it clear in its doc, and Coil does not. 
+* It's kind of hard to make a custom transition for Coil.
 
 
 Since we are using Glide already, and I found out Glide is quite good as Coil. So our project prefers Glide for now.
