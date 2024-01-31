@@ -201,6 +201,7 @@ class BgViewTarget<T: View>(val myView: T) : CustomViewTarget490<T, Drawable>(my
 ```
 
 And Coil is easier than Glide, you don't have to create such a custom class. You can just use : 
+
 ```kotlin
 // Coil
 val req = ImageRequest.Builder(this).data(img5)
@@ -211,6 +212,26 @@ val req = ImageRequest.Builder(this).data(img5)
     .build()
 this.imageLoader.enqueue(req)
 ```
+
+## 9. ignore target size
+Glide and Coil are both using target's size to shrink the image. This way, they both are friendly to the image memory usage. 
+
+Of course, this kind of "optimazation" is actually bring down the image quality, so it's likely that your images look like fuzzy. 
+
+If we want to tell Glide and Coil to use the original image, we could use : 
+
+```kotlin
+// Glide
+    Glide.with(this).load(url)
+        .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+        .into(ivSmall1)
+
+// Coil
+    ivSmall2.load(url) {
+        size(Size.ORIGINAL)
+    }
+```
+
 
 # Conclusion
 Coil太年轻了; 和RV结合是否好? ;  v3.0还在alpha(用2.x是不是过老);   文档少而不如Glide详细 
