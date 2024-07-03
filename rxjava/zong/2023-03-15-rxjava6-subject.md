@@ -347,17 +347,17 @@ Observable.timer(500, TimeUnit.MILLISECONDS)
 对比一下, 要是上面代码改share为`publish().connect()`, 那结果则是: 
 
 ```kotlin
-            val cold_ = Observable.interval(100, TimeUnit.MILLISECONDS).take(3)
-            val stream2_: ConnectableObservable<Long> = cold_.publish()
-            stream2_.connect()
+    val cold_ = Observable.interval(100, TimeUnit.MILLISECONDS).take(3)
+    val stream2_: ConnectableObservable<Long> = cold_.publish()
+    stream2_.connect()
 
-            stream2_.prints(disposables, "1X") //=> 0, 1, 2
-            Observable.timer(250, TimeUnit.MILLISECONDS)
-                .subscribe { stream2_.prints(disposables, "1Y") } //=> 2
-            Observable.timer(350, TimeUnit.MILLISECONDS)
-                .subscribe { stream2_.prints(disposables, "1P") } //=> 无数据
-            Observable.timer(500, TimeUnit.MILLISECONDS)
-                .subscribe { stream2_.prints(disposables, "1Q") } //=> 无数据
+    stream2_.prints(disposables, "1X") //=> 0, 1, 2
+    Observable.timer(250, TimeUnit.MILLISECONDS)
+        .subscribe { stream2_.prints(disposables, "1Y") } //=> 2
+    Observable.timer(350, TimeUnit.MILLISECONDS)
+        .subscribe { stream2_.prints(disposables, "1P") } //=> 无数据
+    Observable.timer(500, TimeUnit.MILLISECONDS)
+        .subscribe { stream2_.prints(disposables, "1Q") } //=> 无数据
 ```
 
 再回来看: 二者区别在于 
@@ -410,7 +410,7 @@ btnRequestUser.setOnClickListener {
 ![image](img/image-20230322094804-601vtwl.png)
 
 ## 多说一句
-其实既然上面解决多余网络请求的做法是因为把单播变多播, 那说明publish也应该有用啊. 是吧, 我来试一下: 
+其实既然上面解决多余网络请求的做法是因为把单播变多播, 那说明publish+connect也应该有用啊. 是吧, 我来试一下: 
 ```kotlin
 // ViewModel
     val api3 = api.getThisMonth()
@@ -427,7 +427,7 @@ btnRequestUser.setOnClickListener {
 不错, 运行下试下, 点击btnNext, 果然是只发出一次网络请求. 所以虽然看名字并不是"share(分享)", 但publish因为能变多播的原因, 也是能解决这个问题的. 
 
 
-# Subject
+# 五. Subject
 Subject是hot ob, 是多播, 而且它即是Observable, 又是Observer(这种特性就特别适合做中间人)
 
 在RxJS中, Subjet类并不是抽象类, 它起到了PublishSubject中的作用. 但在RxJava中, Subject是一个抽象类, 并不直接使用, 我们一般是使用它的子类:
@@ -450,8 +450,9 @@ val subject = ReplaySubject.createWithSize<Boolean>(3)
 val subject = ReplaySubject.createWithTime<Boolean>(1, TimeUnit.DAYS, Schedulers.io())
 ```
 
-# 一个使用BehaviorSubject的例子
+# 六. 一个使用BehaviorSubject的例子
 上面说过PublishSubject用得最多了.  而ReplaySubject与AsyncSubject用得不多.
+
 而BehaviorSubject用得也不少. 来举个例子哦. 
 
 
@@ -472,7 +473,9 @@ vm.navigationResult.observe(
 ```
 
 但上面的代码出现了问题, 即auto login失败时, 应该是Activity做动画. 但是却没有做动画, 也没有跳到home页. 这是怎么了? 
+
 : 原因就在于`user.autoLogin()`函数里, 它是这样写的: 
+
 ```kotlin
 class GuestUser()  {
     override fun autoLogin(activity: Activity): Subject<Unit> {
@@ -485,14 +488,17 @@ class GuestUser()  {
 ```
 
 那注意, publishSubject是个hot ob, 也就是说在ViewModel中: 
+
 ```kotlin
 user.autoLogin(activity)
     .subscribe(..)
 ```
+
 是先发出了数据或错误  (`subject.onError()`), 之后才subscribe. 所以下游就收不到任何数据与错误.
 
 ## 解决之道 
 其实也不麻烦, 就是改用`BehaviorSubject`嘛. 因为BehaviorSubject会缓存一个数据, 所以正好应对了我们的场景. 
+
 ```kotlin
 class GuestUser()  {
     override fun autoLogin(activity: Activity): Subject<Unit> {
@@ -508,17 +514,20 @@ class GuestUser()  {
 对于一个`Subject<Bool>`来说, 下面两个的效果是一样: 
 * `val ob = PublishSubject.create().startWithItem(true)`
 * `val ob = BehaviorSujbect.createWithDefault(true)`
+
 这两个代码都有点 `ReplaySubject(cacheSize = 1)`的意思了, 这里缓存的就是true这个值. 
 
-# BehaviorSubject的一个重要误区 
-当我有一个`BehaviorSubject bs = BehaviorSubject.createDefault(0)`在1s, 2s, 3s时发出数据1,2,3<br/>
-那我们马上就注册的下游, 肯定能收到0,1,2,3的数据. 这个不成问题
+# 七. BehaviorSubject的一个重要误区 
+当我有一个`BehaviorSubject bs = BehaviorSubject.createDefault(0)`, 这个behaviorSubject自己会在1s, 2s, 3s时发出数据1,2,3<br/>
+那我们马上就注册一个下游, 肯定能收到0,1,2,3的数据. 这个不成问题
 
 现在当我们在第2.5秒时又注册了第二个下游. 这个新的下游会收到什么数据呢?
-* 是0,  3?  (原因: BehaviorSubject是热流.  而0是默认数据, 2.5秒后会发出3. )
-* 还是 3? (原因: 默认数据的时机已过, 而BehaviorSubject是热的, 所以只会收到2.5秒之后的3)
+* 是0,  3?  (理由是: BehaviorSubject是热流.  而0是默认数据, 2.5秒后会发出3. )
+* 还是 3? (理由是: 默认数据的时机已过, 而BehaviorSubject是热的, 所以只会收到2.5秒之后的3)
 
-答案是上面两个都错了.  正确答案是: `2, 3` !!
+其实就是问**"多下游时, 晚来的下游在注册时是否也能收到Behavior的默认数据?"**
+
+现在揭晓答案. 答案其实是是上面两个都错了.  正确答案是: `2, 3` !!
 
 主要原因有二: 
 
@@ -529,10 +538,23 @@ class GuestUser()  {
 所以上面的结果是2.5秒来了一个新下游时, 它先在2.5秒就收到缓存的数据: 2<br/>
 然后在第3秒就自然地收到数据: 3
 
-上面的这两点原因都是很重要的知识点, 也是容易出错的知识点. 所以一定要注意. 
+上面的这两点原因都是很重要的知识点, 也是容易出错的知识点. 出错就出在你不知道它会**一直**带个缓存, 所以你在使用时可能就会对收到的数据为何多了一个而感到困惑.
 
+现在讲明白了, 请注意这个重要的误区. 
 
-# Subject出错的一个例子
+## 小细节1
+仍是上面的例子, 上面的默认值0是何时被发送的?
+: 答案, 是注册了第一个下游时, 马上就发送了出去
+
+## 小细节2
+仍是上面的例子, 要是多了一个三号下游, 时间要晚很多, 结果会如何?  也就是说: 
+* BehaviourSubject注册了下游就发送0, 然后就每隔1秒依次发送个1, 2, 3
+* 现在5秒后才注册个下游, 这个下游会收到数据吗? 
+
+答案是: 不会收到任何数据. Subject是个hot Observable, 即已经complete的流了, 你再注册个下游也不会有新数据了.
+你可以想像成一个水池, 放光了水, 再用水桶来接水也接不到了. 
+
+# 八. 日常使用中出错的一个例子
 
 ## 问题表象
 问题表象: 我发现我们在首页请求了一个数据. 但每次从其它页面回到首页时 (如按back), 都会再次触发这个数据请求. 就像是我们在onResume里写了要请求了. 但问题就在于, 没有啊,我们根本没有在onResume中请求. 代码如下: 
