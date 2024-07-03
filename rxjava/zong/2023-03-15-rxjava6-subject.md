@@ -554,6 +554,46 @@ class GuestUser()  {
 答案是: 不会收到任何数据. Subject是个hot Observable, 即已经complete的流了, 你再注册个下游也不会有新数据了.
 你可以想像成一个水池, 放光了水, 再用水桶来接水也接不到了. 
 
+## 若只用create方法呢, 是不是就不会有缓存
+* 即不用 `BehaviorSujbect.createWithDefault(t)`
+* 改用 `BehaviorSujbect.create<T>()`
+
+那是不是BehaviorSujbect就不会有缓存了? (毕竟现在没有了default值)
+
+: 答案, 没有default值只是说**被缓存的值为空**, 但并不代表BehaviorSujbect不缓存了. 
+
+BehaviorSujbect的行为说白了应该是
+* 若被缓存值为空, 就不发送
+* 若发出了值, 就总会缓存一个.
+
+
+这样一来, 下面代码的输出就容易理解了:
+
+```kotlin
+println("szww click btn") //=> 11:23:19.310  I  szww click btn
+
+val bs = BehaviorSubject.create<Long>()
+Observable.interval(1, TimeUnit.SECONDS).map{it+1}.take(3)
+    .subscribe(bs) //这样第1,2,3秒时分别发送出1,2,3的数据
+
+bs.prints(disposables, "下游AE") //=> 1, 2, 3
+
+Observable.timer(2500, TimeUnit.MILLISECONDS)
+    .subscribe { bs.prints(disposables, "   下游BE   ") }
+    .clearBy(disposables) //=> 2, 3
+    // 注意这个数据2是在"11:23:21.814"时间点收到的, 距离开始时间"11:23:19.310"正好隔了2.5秒
+    // 而数据3是"11:23:22.313"时间点收到的, 距离开始时间正好隔了3秒
+
+Observable.timer(5000, TimeUnit.MILLISECONDS)
+    .subscribe { bs.prints(disposables, "   ***下游CE***   ") }
+    .clearBy(disposables) //=> 无任何数据
+
+```
+
+这个例子就正好验证了下面2点: 
+* 若被缓存值为空, 就不发送
+* 若发出了值, 就总会缓存一个.
+
 # 八. 日常使用中出错的一个例子
 
 ## 问题表象
