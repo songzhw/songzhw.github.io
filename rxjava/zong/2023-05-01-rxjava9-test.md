@@ -1,7 +1,7 @@
-# 集成测试
+# 一. 集成测试
 如果我们进行一个集成测试, 那我们不用特意为RxJava做什么额外操作. 因为集成测试是测试整个app, 所以rxjava这些属于细节, 并不影响我们的集成测试
 
-# 单元测试
+# 二. 单元测试
 单元测试是直接运行在JVM上的, 而且是"直肠子"(即不考虑异步的). 偏偏RxJava自己就是个异步高手, 所以我们得为这个而做一点额外工作, 才能对有RxJava的ViewModel等类进行测试. 
 
 ## step 1A. 使用TestScheduler
@@ -67,7 +67,7 @@ class SomeViewModelTest {
 }
 ```
 
-# 题外话 Schedulers.trampoline()的另一使用场景 
+# 三. 题外话 Schedulers.trampoline()的另一使用场景 
 网上有人说过, 他们接入的某SDK的并发不行, 结果同时多人操作时, 结果很混乱 
 
 于是他的做法就是利用Schedulers.trampoline().  这个Schedulers.trampoline()自己内部维护了一个先进先出(FIFO)的队列, 这样整个结果就很正常了
@@ -79,7 +79,7 @@ sdk.doSomething()
   .clearBy(disposables)
 ```
 
-# 题外话: 其它Scheduler
+# 四. 题外话: 其它Scheduler
 
 下面就是几种不同的scheduler
 ```kotlin
@@ -103,3 +103,7 @@ sdk.doSomething()
 val pool = Executors.newFixedThreadPool(10)
 val myScheduler = Schedulers.from(pool)
 ```
+
+
+---
+
