@@ -65,6 +65,11 @@ fun Disposable.clearBy(disposableQueue: SerialDisposable) {
 class BaseActivity: AppCompatActivity() {
     protected val disposables = new CompositeDisposable();
 
+    @Override fun onStop() {
+        disposables.clear();
+        super.onStop();
+    }
+
     @Override fun onDestroy() {
         disposables.dispose();
         super.onDestroy();

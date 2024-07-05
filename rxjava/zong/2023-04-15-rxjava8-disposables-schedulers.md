@@ -29,29 +29,12 @@ class BaseActivity : Activity() {
 
 问题在于, 调用了`disposables.dispose()`之后, 再调用`disposables.add(...)`就不会成功了. 因为一个CompositeDisposables只能dispose一次. 
 
-这时我们要用的其实是`disposables.clear()`方法. 这个方法就是清除disposables们, 但不设置isDisposed标记. 来看简化后的源码: 
-```kotlin
-class CompositeDisposables {
-  var isDisposed = false
-  var set = Set<Disposable>()
 
-  fun add(dis) {
-    if(isDisposed) return
-    set.add(dis)
-  }
 
-  fun dispose() {
-    if(isDisposed) return
-    set.forEach {it.dispose()}
-    isDisposed = true
-  }
+这时我们要用的其实是`disposables.clear()`方法. 这个方法就是清除disposables们, 但不设置isDisposed标记. 来源码: 
 
-  fun clear() {
-    if(isDisposed) return
-    set.forEach {it.dispose()}
-  }
-}
-```
+![两个方法的差异](img/disposable_clear_dipsose.png)
+
 看这源码就知道为何clear更适合了
 
 ### Fragment的写法
@@ -59,12 +42,21 @@ class CompositeDisposables {
 class BaseFragment : Fragment() {
   protected val disposables = CompositeDisposables()
 
+  override fun onStop() {
+        disposables.clear();
+        super.onStop();
+  }
+
   override fun onDestroyView() {
     disposables.clear()  //<=  不要用dispose()方法
     super.onDestroyView()    
   }  
 }
 ```
+
+BaseActivity的onDestory用了`disposables.dispose()`, 这是因为这个Activity已经被清理了, 所以不会有被再利用的可能了. 
+
+但BaseFragment不同. 我们的每一个Fragment在被replace时都会调用onDestoryView方法, 而且按back可能再回到这个Fragment. 所以不能直接用`dispose()`方法, 不然按back回来后这个disposables就无法再利用了. 
 
 # 二. 串行场景下, 使用SerialDisposables
 
@@ -152,3 +144,26 @@ class SomeActivity : BaseActivity() {
 ```
 
 是不是看起来更清爽了. 而且程序员不用写这么多重复代码, 心情也更好了. 
+
+# 四. [案例] 延时Dialog引发的crash
+
+## 引发的crash
+我在一次工作中发现了一次crash, 简单来说就是:
+* 在Fragment1中, 我要在20秒后显示一个BottomSheetDialogFragment
+* 但当我马上从Fragment1跳到了Activity2去后, 在Activity2页里就发生了crash: 
+
+![c](img/crash-fragment.png)
+
+## 思考
+看一下这个crash说明就知道是在fragment已经不活跃了, 但仍然想去更新Fragment的UI, 所以报错了. 这个可以理解, Fragment的工作原理就是这样嘛. 
+
+但我不能理解的是, 我明明有清除disposable啊: 
+
+```kotlin
+```
+
+## 原因
+
+
+## 解决
+
