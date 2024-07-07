@@ -43,8 +43,8 @@ class BaseFragment : Fragment() {
   protected val disposables = CompositeDisposables()
 
   override fun onStop() {
-        disposables.clear();
-        super.onStop();
+    disposables.clear();
+    super.onStop();
   }
 
   override fun onDestroyView() {
@@ -160,10 +160,75 @@ class SomeActivity : BaseActivity() {
 但我不能理解的是, 我明明有清除disposable啊: 
 
 ```kotlin
+class BaseFragment : Fragment() {
+  protected val disposables = CompositeDisposables()
+
+  override fun onDestroyView() {
+    disposables.clear()  //<=  不要用dispose()方法
+    super.onDestroyView()    
+  }  
+}
 ```
 
+于是我去做个实验
+* 要是Fragment1跳Activity2, 会有上面的crash
+* 但若是Fragment1跳Fragment3, 不会有crash !!!
+
+再接着研究, 发现这两种不同的场景, 触发的生命周期方法也不一样
+* Fragment1跳Fragment2时, Fragment1所触发的生命周期方法是: `onPause -> onStop -> onDestoryView`
+  * 这里走了onDestroyView, 所以disposables被注销掉了, 自然就不会在20秒之后再显示dialog了, 所以就不crash
+* Fragment1跳Activity3时, Fragment1所触发的生命周期方法是: `onPause -> onStop -> onSaveInstanceState`
+  * 这里没走onDestoryView, 所以disposable们没有被清, 所以20秒后仍会想显示dialog, 所以就crash了. 
+
+
 ## 原因
+其实多说一解码器, 那就是: 
+* 若Activity1跳Activity2, 那Activity1所触发的生命周期方法也是: `onPause -> onStop -> onSaveInstanceState`
 
+现在明显就是页面不在了, 就不要注册了. 这其实和LiveData类似了. 所以解法就有了: 
+> : 即给onStop加一个`disposables.clear()`即可. 
 
-## 解决
+```kotlin
+class BaseFragment : Fragment() {
+  protected val disposables = CompositeDisposables()
 
+  override fun onDestroyView() {
+    disposables.clear()  //<=  不要用dispose()方法
+    super.onDestroyView()    
+  }  
+
+  // 新加这一个方法
+  override fun onStop() {
+    disposables.clear()  //<=  不要用dispose()方法
+    super.onStop()    
+  }  
+}
+```
+
+## 注意1
+注意, CompositeDisposable之类的方法, 有两个方法都可以用来清除注册
+* `clear()`: 只是清理多个disposable, 能被多次调用
+* `dispose()`: 清理多个disposable, 但只能用一次.
+
+对于Fragment的实例来说, 我们肯定不想创建多个CompositeDisposable实例, 所以使用`clear()`在很多时候就很有用了.  
+
+-> 若使用dispose方法, 那这个CompositeDisposable实例就无法再使用了. 因为dispose方法不能调用两次 <br/>
+所以为了不想创建多个CompositeDisposable实例, 这时就可以用`clear()`方法
+
+## 注意2
+在debug时, 可能我们想知道何时rxjava流走到哪了, 这时就可以用以下几种方式来帮助我们: 
+
+```kotlin
+api.getUser()
+  .doOnSubscribe {/* 下游注册了就会调用这. 相当于是冷流的开始了 */}
+  .doOnCancel { /* 在disposable.dispose()时, 这个doOnCancel就会被调用到 */ }
+  .doOnNext { item -> /* 每个数据都会走一次这里 */ }
+  .doOnError {err -> /* 出错了走这里. 注意, 并不会catch住error, 只是一个监听而已 */ }
+  .doOnFinally { /* 无论是complete还是error都会走一次这里. */ }
+  . ... ....
+```
+
+本小节是讲Disposable的, 它的dispose方法被调用时, 就会触发 `doOnCancel`哦!
+
+备注: RxJava2+后, 原来RxJava1时代的`doOnUnsubscribe`就改名成了`doOnCancel`.<br/>
+原因嘛, 自然是rxjava 2+后, subscription细分成了: Subscription与Disposable两种了. 所以原名字就太偏了. 
