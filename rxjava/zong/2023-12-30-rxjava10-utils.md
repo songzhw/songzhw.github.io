@@ -178,3 +178,19 @@ fun <T> Observable<T>.publishReplay(): Observable<T> {
     return bridge
 }
 ```
+
+# 五. debug时打日志
+
+在debug时, 可能我们想知道何时rxjava流走到哪了, 这时就可以用以下几种方式来帮助我们: 
+
+```kotlin
+api.getUser()
+  .doOnSubscribe {/* 下游注册了就会调用这. 相当于是冷流的开始了 */}
+  .doOnCancel { /* 在disposable.dispose()时, 这个doOnCancel就会被调用到 */ }
+  .doOnNext { item -> /* 每个数据都会走一次这里 */ }
+  .doOnError {err -> /* 出错了走这里. 注意, 并不会catch住error, 只是一个监听而已 */ }
+  .doOnFinally { /* 无论是complete还是error都会走一次这里. */ }
+  . ... ....
+```
+
+备注: 对于Single这样类, 自然没有doOnNext, 但可以用`doOnSuccess`来代替的
