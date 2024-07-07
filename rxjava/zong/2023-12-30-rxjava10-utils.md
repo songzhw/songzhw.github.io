@@ -194,3 +194,85 @@ api.getUser()
 ```
 
 备注: 对于Single这样类, 自然没有doOnNext, 但可以用`doOnSuccess`来代替的
+
+# 六. 如何把带callback的旧代码转成RxJava流? 
+比如说我们有一个两个方法, 它们是依次调用的, 而且都是老式的callback方式: 
+
+```kotlin
+api.getUser(object: Callback {
+    override fun onSucc(user: User) { 
+        api.postSetting(user.id, settings, object: Callback {
+            override fun onSucc(result: String) { ... }
+            override fun onFaile(error: Exception) { ... }
+        })
+    }
+    override fun onFaile(error: Exception) { ... }
+}
+```
+
+现在我们有一个新需求, 在拿到user信息并post此用户的设置到后台后, 若postSetting成功, 那我们就要通知一个第三方此事件, 你可以理解为埋点. 老式的做法肯定又是嵌套了, 也就是人们常说的callback地狱了. 
+
+```kotlin
+api.getUser(object: Callback {
+    override fun onSucc(user: User) { 
+        api.postSetting(user.id, settings, object: Callback {
+            override fun onSucc(result: String) { 
+                api.notifyXX(settings, object: Callback {
+                    override fun onSucc(result: String) { ... }
+                    override fun onFaile(error: Exception) { ... }
+                })
+            }
+            override fun onFaile(error: Exception) { ... }
+        })
+    }
+    override fun onFaile(error: Exception) { ... }
+}
+```
+
+我们的代码仓库要是很老, 这样的callback回调式异步代码肯定不少见. 这时我们可以在需求时把它们转为RxJava流. 转化的方法如下, 我仅以api.getUser为例哦
+
+```kotlin
+// 老方法
+fun getUser(callback) {.....}
+
+// 新加一个getUser$方法, `$`后缀代表一个Stream. (当然Kotlin中,`$`不能做为名字. 这里仅为了更易理解)
+fun getUser$() : Single<User>{
+    return Single.create<User> { emitter -> 
+        this.getUser(object: Callback{
+            override fun onSucc(user: User) { 
+                emitter.onSuccess(result)
+             }
+            override fun onFaile(error: Exception) {
+                emitter.onError(error)
+             }
+        })
+    }
+}
+```
+
+
+这样一来, 当我们想要依次执行三个api时, 就再也不用callback hell了, 可以直接用: 
+
+```kotlin
+// 新式做法
+api.getUser$()
+    .flatMap {user -> api.postSetting$(user.id)}
+    .flatMap {setting -> api.notifyXX$(settings)}
+```
+
+这个代码是不是要比callback hell要好看得多, 也不容易看错了. 
+
+
+## 小技巧
+若是第三个技巧, 又要用到user数据, 又要用到setting数据, 那要怎么办?
+
+: 好办, 在第二个流里加一个map, 把user数据也带上就行了, 即: 
+
+```kotlin
+// 新式做法
+api.getUser$()
+    .flatMap {user -> api.postSetting$(user.id)
+                         .map {setting -> Pair(user, setting)}}
+    .flatMap {pair -> api.notifyXX$(pair.first.userId, pair.second)}
+```
+
