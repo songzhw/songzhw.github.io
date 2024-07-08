@@ -224,7 +224,7 @@ api.getUser()
   .doOnCancel { /* 在disposable.dispose()时, 这个doOnCancel就会被调用到 */ }
   .doOnNext { item -> /* 每个数据都会走一次这里 */ }
   .doOnError {err -> /* 出错了走这里. 注意, 并不会catch住error, 只是一个监听而已 */ }
-  .doOnFinally { /* 无论是complete还是error都会走一次这里. */ }
+  .doFinally { /* 无论是complete, error, 还是cancel都会走一次这里. */ }
   . ... ....
 ```
 

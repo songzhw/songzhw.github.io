@@ -189,7 +189,7 @@ api.getUser()
   .doOnCancel { /* 在disposable.dispose()时, 这个doOnCancel就会被调用到 */ }
   .doOnNext { item -> /* 每个数据都会走一次这里 */ }
   .doOnError {err -> /* 出错了走这里. 注意, 并不会catch住error, 只是一个监听而已 */ }
-  .doOnFinally { /* 无论是complete还是error都会走一次这里. */ }
+  .doFinally { /* 无论是complete, error, 还是cancel都会走一次这里. */ }
   . ... ....
 ```
 
@@ -200,7 +200,27 @@ api.getUser()
 
 备注: 对于Single这样类, 自然没有doOnNext, 但可以用`doOnSuccess`来代替的
 
-# 六. 如何把带callback的旧代码转成RxJava流? 
+# 六. 生命周期
+简单的doOnNext (Single则是doOnSuccess), doOnError, doOnComplete就不讲了. 讲一点特别的: 
+
+* **doOnSubscribe**: 在下游注册时被调用. 可以想像成"rxjava流的工作的开始"
+* **doOnRequest**: 几乎等同于doOnSusbscribe. 二者也几乎是同时被调用的. 主要用于backpressure的debug, 其它情况很少用. => 这个只有Flowable有. 像Observable, Single等都没这个方法
+
+* **doOnCancel**(Flowable中), ​**doOnDispose**(Single中叫这名): 这是在disposable.dipose()时被调用的. 一般是长时间执行工作的流才有. 普通的流发完数据就完了, 根本没留时间给我们dispose, 也就不会调用这两个方法
+
+* **doOnTerminate**, ​**doAfterTerminate**: 这两个方法是保证无论error还是complte, 都会走到这两个方法. 区别在于一个是在terminate之前, 另一个是在terminate之后.
+  * 以single成功的场景为例, 日志就是: doOnSubscribe -> doOnSuccess -> doOnTerminate -> 下游subscribe中收到数据 -> doAfterTerminated
+  * 注意, 若下游没有catch error, 那出错时就只有doOnTerminate被调用. 因为app已经crash了, doAfterTerminated就没机会被调用app就已经结束了
+  * 注意, disposable被cancel时, 不会走到这两个方法来!
+
+* **doFinally** : 它的时机是类似于doAfterTerminate, 即在下游收到最后一个数据, 或下游收到error后被调用.
+  * 注意名字不是叫doOnFially.
+  * 同样在下游没有catch住error时, 也只有doOnTerminate被调用. 因为app已经crash了, 所以doAfterTerminate与doFinally全不会被调用到.
+  * 另外一个显著特点就是, 当disposable.dispose时, 会调用doOnCancel, 也会调用doFinally. 但不会调用doOnTerminate与doAfterTerminate.
+
+
+
+# 七. 如何把带callback的旧代码转成RxJava流? 
 比如说我们有一个两个方法, 它们是依次调用的, 而且都是老式的callback方式: 
 
 ```kotlin
