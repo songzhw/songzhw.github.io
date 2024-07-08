@@ -193,6 +193,11 @@ api.getUser()
   . ... ....
 ```
 
+注意: 当所有数据发送完了会走onComplete; 而当有错误时会走onError. <br/>
+但有时有些操作, 要求无论是complte还是error, 都要执行. 如让"正在加载中..."的view给消失掉, 这时怎么弄呢?  <br/>
+: 这时就可以利用`doOnFinally`. 这个监听方法无论是ocmplete还是error都会走一次的
+
+
 备注: 对于Single这样类, 自然没有doOnNext, 但可以用`doOnSuccess`来代替的
 
 # 六. 如何把带callback的旧代码转成RxJava流? 
