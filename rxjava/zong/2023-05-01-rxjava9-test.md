@@ -79,31 +79,4 @@ sdk.doSomething()
   .clearBy(disposables)
 ```
 
-# 四. 题外话: 其它Scheduler
-
-下面就是几种不同的scheduler
-```kotlin
-  Scheduler.io()
-  Scheduler.computation()
-  Scheduler.trampoline()
-  Scheduler.newThread()
-  Scheduler.single()
-  Scheduler.from(executor)
-  AndroidSchedulers.mainThread()
-```
-
-其中
-* computation()是根据CPU数目来限定线程池大小. 所以线程池注定不大, 不适用于忙碌的IO操作, 一般用于一些计算任务
-* io()有一个线程池 (内部的线程数很大), 适用于一些网络请求, 数据库访问, 文件操作等IO工作
-* trampoline()是在当前线程上以一个FIFO的队列来接/取任务
-* mainThread()则是Android上的主线程, 一般用来刷新UI的
-* from(executor)则是当你已经有自定义的ExecutorService时, 把它做为参数传入, 如:
-
-```kotlin
-val pool = Executors.newFixedThreadPool(10)
-val myScheduler = Schedulers.from(pool)
-```
-
-
----
 
