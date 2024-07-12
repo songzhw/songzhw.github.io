@@ -20,6 +20,24 @@ var ob: Observable<Int> = Observable.create<Int> { observableEmitter ->
 ```
 
 
+#### 案例
+把传统的callback式, 改为RxJava流: 
+
+```kotlin
+val stream = Flowable.create<Int> ({emitter -> 
+    api.getUser(object: Callback() {
+        override fun onSucc(resp) { 
+            emitter.onNext(resp) 
+            emitter.onComplete()
+        }
+        override fun onFaile(err) { 
+            emitter.onError(err) 
+        }
+    })
+}, BackpressureStrategy.LATEST)
+```
+
+
 ### 2. generate
 
 generate()的方法, 主要有3个不同的形式: 

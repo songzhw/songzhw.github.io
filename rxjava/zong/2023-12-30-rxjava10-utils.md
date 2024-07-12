@@ -247,12 +247,10 @@ fun <T: Any> Flowable<T>.aligns(onLoading: ()->Unit, onLoaded: ()->Unit) : Flowa
 ```
 
 
-
-
 ### 注意, doFinally与doXxxxTerminate方法的区别
 当disposable.dispose时, 会调用doOnCancel, 也会调用doFinally. 但不会调用doOnTerminate与doAfterTerminate.
 
-所以doFinally管得更多
+所以doFinally管得更多.
 
 
 # 七. 如何把带callback的旧代码转成RxJava流? 
