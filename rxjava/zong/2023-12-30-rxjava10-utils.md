@@ -188,14 +188,18 @@ api.getUser()
   .doOnSubscribe {/* 下游注册了就会调用这. 相当于是冷流的开始了 */}
   .doOnCancel { /* 在disposable.dispose()时, 这个doOnCancel就会被调用到 */ }
   .doOnNext { item -> /* 每个数据都会走一次这里 */ }
+  .doOnComplete { /* 在整个流完工了, 所有数据都发送完了都没错误的话, 这时就会调用这个方法*/ }
   .doOnError {err -> /* 出错了走这里. 注意, 并不会catch住error, 只是一个监听而已 */ }
+  .doOnTerminate { /* 无论出错还是完结, 都调用这个方法*/ }
   .doFinally { /* 无论是complete, error, 还是cancel都会走一次这里. */ }
+  .doAfterTerminate {/*无论出错还是完结, 都调用这个方法*/}
   . ... ....
 ```
 
 注意: 当所有数据发送完了会走onComplete; 而当有错误时会走onError. <br/>
 但有时有些操作, 要求无论是complte还是error, 都要执行. 如让"正在加载中..."的view给消失掉, 这时怎么弄呢?  <br/>
-: 这时就可以利用`doOnFinally`. 这个监听方法无论是ocmplete还是error都会走一次的
+: 这时就可以利用`doFinally`. 这个监听方法无论是ocmplete还是error都会走一次的
+
 
 
 备注: 对于Single这样类, 自然没有doOnNext, 但可以用`doOnSuccess`来代替的
