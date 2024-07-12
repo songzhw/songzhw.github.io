@@ -223,6 +223,37 @@ api.getUser()
   * 另外一个显著特点就是, 当disposable.dispose时, 会调用doOnCancel, 也会调用doFinally. 但不会调用doOnTerminate与doAfterTerminate.
 
 
+## 重点
+对于无论是成功完结还是失败, 都会调用 doOnTerminate, doFinally, doAftgerTerminate, 就是一个很有用的场景.
+
+案例
+`api.getUser().align(::startShimmer, ::stopShimmer)`是用于加载前开始shimmer动画, 当完成或失败后都关闭shimmer动画.
+
+其源码是: 
+
+```kotlin
+fun <T: Any> Flowable<T>.aligns(onLoading: ()->Unit, onLoaded: ()->Unit) : Flowable<T> =
+    this.doOnSubscribe { _ -> onLoading() }
+        .doOnComplete { onLoaded() }
+        .doOnError { err -> onLoaded() }
+```
+
+现在, 我们可以改为下面的代码, 更全面: 
+
+```kotlin
+fun <T: Any> Flowable<T>.aligns(onLoading: ()->Unit, onLoaded: ()->Unit) : Flowable<T> =
+    this.doOnSubscribe { _ -> onLoading() }
+        .doFinally { onLoaded() }
+```
+
+
+
+
+### 注意, doFinally与doXxxxTerminate方法的区别
+当disposable.dispose时, 会调用doOnCancel, 也会调用doFinally. 但不会调用doOnTerminate与doAfterTerminate.
+
+所以doFinally管得更多
+
 
 # 七. 如何把带callback的旧代码转成RxJava流? 
 比如说我们有一个两个方法, 它们是依次调用的, 而且都是老式的callback方式: 
