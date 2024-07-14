@@ -101,7 +101,6 @@ launcher2 = registerForActivityResult(RequestMultiplePermissions()) {map: Map<St
     }
 }
 
-// 点击就申请权限
 vb.btn.text = "One-stop Service"
 vb.btn.setOnClickListener {
     launcher2.launch(arrayOf(
@@ -203,28 +202,4 @@ fun Activity.openNotificationOsSetting() {
     } catch (ex: Exception) {        
     }
 }
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   singlePermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-
 ```
