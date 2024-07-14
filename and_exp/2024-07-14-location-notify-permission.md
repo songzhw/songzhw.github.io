@@ -155,3 +155,76 @@ fun Context.isPermissionGranted(permission: String): Boolean =
 
 ```
 
+# VI. Notification Permissions
+* Android 12- has no `post_notification` permission
+
+* Android 13+ coined the `post_notification` permission
+
+## query
+```Kotlin
+  val notifyMgr = this.getSystemService<NotificationManager>()
+  val isNotifyEnabled = notifyMgr?.areNotificationsEnabled() ?: false
+```
+
+This code would tell us that if the user has grant us the notification permission.
+
+
+## request
+Different OS has different appraoch to request the notification permission: 
+
+```Kotlin
+    // Android 13+, we just request the permission through launcher
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        singlePermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+    }
+    // Android 12-, we have to open OS setting to let user grant it manually
+    else {
+        this.openNotificationOsSetting()
+    }
+```
+
+
+p.s. the `openNotificationOsSetting()` method is below: 
+```kotlin
+fun Activity.openNotificationOsSetting() {
+    try {
+        val aIntent = Intent()
+        aIntent.action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
+
+        // >=API 26
+        aIntent.putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+        aIntent.putExtra(Settings.EXTRA_CHANNEL_ID, applicationInfo.uid)
+
+        // <= API 25, >=API 21
+        aIntent.putExtra("app_package", packageName)
+        aIntent.putExtra("app_uid", applicationInfo.uid)
+
+        startActivity(aIntent)
+    } catch (ex: Exception) {        
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   singlePermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+
+```
