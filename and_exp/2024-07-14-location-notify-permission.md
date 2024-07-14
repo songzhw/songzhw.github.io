@@ -71,3 +71,87 @@ fun Context.isBackgroundLocationGranted() : Boolean{
 
 
 # IV. Request Location Permission
+
+
+## When we haven't request before
+
+![](./_image/loc-perm02.png)
+![](./_image/loc-perm03.png)
+
+The so-called `request 3 permission` means `we request fine+coarse+bg permissions` at the same time.
+
+
+## When we have part of permission, and go request more
+![](./_image/loc-perm04.png)
+
+
+## waht if you really want to request all 3 permission on Android 11+ with one click?
+Actually this is doable too, just a little more complex.
+
+The solution is we request bg after we got the regular location permissins. Here is the code: 
+
+```kotlin
+private lateinit var launcher2 : ActivityResultLauncher<Array<String>>
+
+launcher2 = registerForActivityResult(RequestMultiplePermissions()) {map: Map<String, Boolean> ->
+    val isForegroundLocations = map.keys == setOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,)
+    val isForegroundLocationsGranted = map.values.contains(true) 
+    if(isForegroundLocations && isForegroundLocationsGranted) {
+        launcher2.launch(arrayOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION))
+    }
+}
+
+// 点击就申请权限
+vb.btn.text = "One-stop Service"
+vb.btn.setOnClickListener {
+    launcher2.launch(arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+    ))
+}
+```
+
+# V. Summary of location permissions
+Now we know all the different behaviour in different OS version, we can now get a code to handle this complex issue for us.
+```kotlin
+fun getLocationPermissions(): Array<String> {
+    // Android 11+ (R+), background_location can't be request  
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        return arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION)
+    }
+    // Android 10(Q), background_location permission can be request
+    else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+        return arrayOf(ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION, ACCESS_BACKGROUND_LOCATION)
+    }
+    // Android 9-, no background_location permission
+    else {
+        return arrayOf(ACCESS_FINE_LOCATION)
+    }
+}
+```
+
+and we then can request: 
+```kotlin
+    val isBackgroundLocationGranted = isPermissionGranted(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+    val isCoarseLocationGranted = isPermissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION)
+    val isFineLocationGranted = isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)
+
+
+    if(isFineLocationGranted && !isBackgroundLocationGranted) {
+        context.openOsSetting()
+    } else {
+        launcher.launch(getLocationPermissions())
+    }
+
+
+fun Context.openOsSetting() {
+    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+    intent.data = Uri.fromParts("package", packageName, null)
+    startActivity(intent)
+}
+
+fun Context.isPermissionGranted(permission: String): Boolean =
+    ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+
+```
+
